@@ -8,10 +8,10 @@ export default function Locations() {
         <div className="mb-2 md:mb-4 flex flex-col md:flex-row md:items-end justify-between gap-2 shrink-0">
           <div className="max-w-2xl">
             <h2 className="text-[10px] font-bold text-brand-primary tracking-[0.15em] uppercase mb-1">
-              Our Network
+              Reach Us At
             </h2>
             <h1 className="font-display text-2xl md:text-3xl font-extrabold tracking-tight text-[#1b1c19] mb-1.5 leading-tight">
-              Signature Branches
+              Our Branches
             </h1>
             <p className="text-[#5a5a55] text-xs md:text-sm leading-relaxed">
               Explore our carefully selected locations. Each branch maintains our 40-year legacy of purity with modern service standards.
@@ -21,18 +21,18 @@ export default function Locations() {
 
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 flex-1 min-h-0 grid-rows-4 md:grid-rows-2">
-          
+
           {/* Tall Left Card: Main Hub */}
           <div className="md:col-span-1 md:row-span-2 bg-surface-lowest rounded-[16px] p-3 md:p-4 relative overflow-hidden shadow-[0_32px_64px_-12px_rgba(27,28,25,0.04)] hover:shadow-[0_32px_64px_-12px_rgba(27,28,25,0.08)] transition-all duration-500 group flex flex-col justify-between border-none">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3327.571792585707!2d80.6719655!3d16.490150700000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35fae0b3d8ee27%3A0x4392c5d586a3c4!2sSai%20Baba%20Sweets%20%26%20Cool%20Drinks!5e1!3m2!1sen!2sin!4v1774768302550!5m2!1sen!2sin" 
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3327.571792585707!2d80.6719655!3d16.490150700000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35fae0b3d8ee27%3A0x4392c5d586a3c4!2sSai%20Baba%20Sweets%20%26%20Cool%20Drinks!5e1!3m2!1sen!2sin!4v1774768302550!5m2!1sen!2sin"
               className="absolute inset-0 w-full h-full scale-[1.25] origin-center transition-all duration-700 pointer-events-none border-0"
-              allowFullScreen 
-              loading="lazy" 
+              allowFullScreen
+              loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20 z-0"></div>
-            
+
             <div className="relative z-10 flex justify-between items-start">
               <div className="flex flex-col gap-1.5">
                 <span className="text-[9px] font-bold px-2.5 py-1 rounded-full bg-white/20 text-white backdrop-blur-md tracking-wide uppercase w-[fit-content]">
@@ -45,7 +45,7 @@ export default function Locations() {
               <div className="text-right bg-black/30 backdrop-blur-md px-2 py-1 rounded-lg">
                 <div className="text-[8px] font-bold text-white/70 uppercase tracking-widest mb-0.5">Rating</div>
                 <div className="flex items-center gap-1 text-white font-bold text-xs">
-                  <Star className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" /> 4.3/5 
+                  <Star className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" /> 4.3/5
                 </div>
               </div>
             </div>
@@ -76,11 +76,11 @@ export default function Locations() {
 
           {/* Wide Top Right Card: One Town Heritage */}
           <div className="md:col-span-2 md:row-span-1 bg-surface-lowest rounded-[16px] p-3 md:p-4 relative overflow-hidden shadow-[0_32px_64px_-12px_rgba(27,28,25,0.04)] hover:shadow-[0_32px_64px_-12px_rgba(27,28,25,0.08)] transition-all duration-500 group flex items-center border-none">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3326.657732298816!2d80.6186414!3d16.5161099!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35eff0933758b9%3A0x33458c9f5635d033!2sSai%20Baba%20Sweets!5e1!3m2!1sen!2sin!4v1774768466601!5m2!1sen!2sin" 
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3326.657732298816!2d80.6186414!3d16.5161099!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35eff0933758b9%3A0x33458c9f5635d033!2sSai%20Baba%20Sweets!5e1!3m2!1sen!2sin!4v1774768466601!5m2!1sen!2sin"
               className="absolute inset-0 w-full h-full scale-[1.25] origin-center transition-all duration-700 pointer-events-none border-0"
-              allowFullScreen 
-              loading="lazy" 
+              allowFullScreen
+              loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
             <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/20 z-0"></div>
@@ -117,11 +117,11 @@ export default function Locations() {
 
           {/* Square Card: Moghalraj Puram */}
           <div className="md:col-span-1 md:row-span-1 bg-surface-lowest rounded-[16px] p-3 md:p-4 relative overflow-hidden shadow-[0_32px_64px_-12px_rgba(27,28,25,0.04)] hover:shadow-[0_32px_64px_-12px_rgba(27,28,25,0.08)] transition-all duration-500 group flex flex-col justify-between border-none">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3327.290400305498!2d80.64531319999999!3d16.506510100000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35fb163061d285%3A0x13742cd6c4080b29!2sSri%20sai%20baba%20ghee%20sweets%20and%20home%20foods!5e1!3m2!1sen!2sin!4v1774768387226!5m2!1sen!2sin" 
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3327.290400305498!2d80.64531319999999!3d16.506510100000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35fb163061d285%3A0x13742cd6c4080b29!2sSri%20sai%20baba%20ghee%20sweets%20and%20home%20foods!5e1!3m2!1sen!2sin!4v1774768387226!5m2!1sen!2sin"
               className="absolute inset-0 w-full h-full scale-[1.25] origin-center transition-all duration-700 pointer-events-none border-0"
-              allowFullScreen 
-              loading="lazy" 
+              allowFullScreen
+              loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20 z-0"></div>
@@ -150,11 +150,11 @@ export default function Locations() {
 
           {/* Square Card: 100 Feet Road */}
           <div className="md:col-span-1 md:row-span-1 bg-surface-lowest rounded-[16px] p-3 md:p-4 relative overflow-hidden shadow-[0_32px_64px_-12px_rgba(27,28,25,0.04)] hover:shadow-[0_32px_64px_-12px_rgba(27,28,25,0.08)] transition-all duration-500 group flex flex-col justify-between border-none">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3327.4660237704513!2d80.66530189999999!3d16.4950275!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35fb0023e9a597%3A0x884964522976f9d4!2sSri%20Sai%20Baba%20Sweets%20%26%20Bakery!5e1!3m2!1sen!2sin!4v1774768428801!5m2!1sen!2sin" 
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3327.4660237704513!2d80.66530189999999!3d16.4950275!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35fb0023e9a597%3A0x884964522976f9d4!2sSri%20Sai%20Baba%20Sweets%20%26%20Bakery!5e1!3m2!1sen!2sin!4v1774768428801!5m2!1sen!2sin"
               className="absolute inset-0 w-full h-full scale-[1.25] origin-center transition-all duration-700 pointer-events-none border-0"
-              allowFullScreen 
-              loading="lazy" 
+              allowFullScreen
+              loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20 z-0"></div>
