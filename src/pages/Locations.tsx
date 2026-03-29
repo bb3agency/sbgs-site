@@ -2,7 +2,7 @@ import { ArrowRight, MapPin, Star } from 'lucide-react';
 
 export default function Locations() {
   return (
-    <div className="h-screen overflow-hidden bg-surface text-[#1b1c19] p-2 md:p-4 font-sans selection:bg-brand-container selection:text-white flex flex-col">
+    <div className="min-h-screen bg-surface text-[#1b1c19] p-2 md:p-4 font-sans selection:bg-brand-container selection:text-white flex flex-col">
       <main className="max-w-7xl mx-auto w-full h-full flex flex-col">
         {/* Header Section */}
         <div className="mb-2 md:mb-4 flex flex-col md:flex-row md:items-end justify-between gap-2 shrink-0">
