@@ -108,7 +108,7 @@ export default function Locations() {
                     <div className="text-[9px] md:text-[10px] font-semibold text-green-400">Available</div>
                   </div>
                 </div>
-                <a href="https://maps.app.goo.gl/5Y65Nq9uX5P5q8kS6" target="_blank" rel="noopener noreferrer" className="w-[fit-content] md:w-auto px-3 py-1.5 md:px-4 md:py-2 bg-white text-black rounded-full font-bold text-[10px] md:text-xs hover:bg-gray-200 transition-all shadow-lg flex items-center justify-center gap-1.5 group/btn">
+                <a href="https://maps.app.goo.gl/2nTHBQuNu7bi2NJc9" target="_blank" rel="noopener noreferrer" className="w-[fit-content] md:w-auto px-3 py-1.5 md:px-4 md:py-2 bg-white text-black rounded-full font-bold text-[10px] md:text-xs hover:bg-gray-200 transition-all shadow-lg flex items-center justify-center gap-1.5 group/btn">
                   Locate <ArrowRight className="w-3 h-3 md:w-3.5 md:h-3.5 group-hover/btn:translate-x-1 transition-transform" />
                 </a>
               </div>
@@ -174,7 +174,7 @@ export default function Locations() {
                 <div className="flex items-center gap-1 text-white font-bold text-[10px] md:text-xs bg-black/30 backdrop-blur-md px-2 py-1 rounded-lg">
                   <Star className="w-2.5 h-2.5 md:w-3 md:h-3 text-yellow-400 fill-yellow-400" /> 4.4/5
                 </div>
-                <a href="https://maps.app.goo.gl/mP7G6E7i1L3Xg2c66" target="_blank" rel="noopener noreferrer" className="px-2.5 py-1 md:px-3 md:py-1.5 bg-white text-black rounded-full font-bold text-[9px] md:text-[10px] hover:bg-gray-200 transition-all shadow-md flex items-center gap-1 group/btn">
+                <a href="https://maps.app.goo.gl/61WBodMWZqtzWs5fA" target="_blank" rel="noopener noreferrer" className="px-2.5 py-1 md:px-3 md:py-1.5 bg-white text-black rounded-full font-bold text-[9px] md:text-[10px] hover:bg-gray-200 transition-all shadow-md flex items-center gap-1 group/btn">
                   Locate <ArrowRight className="w-2.5 h-2.5 md:w-3 md:h-3 group-hover/btn:translate-x-1 transition-transform" />
                 </a>
               </div>
