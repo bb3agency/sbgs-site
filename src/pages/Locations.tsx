@@ -66,7 +66,7 @@ export default function Locations() {
                   </div>
                 </div>
                 <div className="flex justify-start">
-                  <a href="https://maps.app.goo.gl/6FmrmUrZRHK8QvaaA" target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 md:px-4 md:py-2 bg-white text-black rounded-full font-bold text-[10px] md:text-xs hover:bg-gray-200 transition-all shadow-lg flex items-center gap-1.5 group/btn">
+                  <a href="https://www.google.com/maps/place/Sai+Baba+Sweets+%26+Cool+Drinks,+Old+Check+Post+Center/data=!4m2!3m1!1s0x3a35fae0b3d8ee27:0x4392c5d586a3c4" target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 md:px-4 md:py-2 bg-white text-black rounded-full font-bold text-[10px] md:text-xs hover:bg-gray-200 transition-all shadow-lg flex items-center gap-1.5 group/btn">
                     Locate <ArrowRight className="w-3 h-3 md:w-3.5 md:h-3.5 group-hover/btn:translate-x-1 transition-transform" />
                   </a>
                 </div>
@@ -108,7 +108,7 @@ export default function Locations() {
                     <div className="text-[9px] md:text-[10px] font-semibold text-green-400">Available</div>
                   </div>
                 </div>
-                <a href="https://maps.app.goo.gl/2nTHBQuNu7bi2NJc9" target="_blank" rel="noopener noreferrer" className="w-[fit-content] md:w-auto px-3 py-1.5 md:px-4 md:py-2 bg-white text-black rounded-full font-bold text-[10px] md:text-xs hover:bg-gray-200 transition-all shadow-lg flex items-center justify-center gap-1.5 group/btn">
+                <a href="https://www.google.com/maps/place/Sri+Sai+Baba+ghee+Sweets+and+home+food/data=!4m2!3m1!1s0x3a35eff83caf1a51:0x4c5897db5ec9191b" target="_blank" rel="noopener noreferrer" className="w-[fit-content] md:w-auto px-3 py-1.5 md:px-4 md:py-2 bg-white text-black rounded-full font-bold text-[10px] md:text-xs hover:bg-gray-200 transition-all shadow-lg flex items-center justify-center gap-1.5 group/btn">
                   Locate <ArrowRight className="w-3 h-3 md:w-3.5 md:h-3.5 group-hover/btn:translate-x-1 transition-transform" />
                 </a>
               </div>
@@ -141,7 +141,7 @@ export default function Locations() {
                 <div className="flex items-center gap-1 text-white font-bold text-[10px] md:text-xs bg-black/30 backdrop-blur-md px-2 py-1 rounded-lg">
                   <Star className="w-2.5 h-2.5 md:w-3 md:h-3 text-yellow-400 fill-yellow-400" /> 4.5/5
                 </div>
-                <a href="https://maps.app.goo.gl/A6L9mYbbLsku4mQW7" target="_blank" rel="noopener noreferrer" className="px-2.5 py-1 md:px-3 md:py-1.5 bg-white text-black rounded-full font-bold text-[9px] md:text-[10px] hover:bg-gray-200 transition-all shadow-md flex items-center gap-1 group/btn">
+                <a href="https://www.google.com/maps/place/Sri+sai+baba+ghee+sweets+and+home+foods/data=!4m2!3m1!1s0x3a35fb163061d285:0x13742cd6c4080b29" target="_blank" rel="noopener noreferrer" className="px-2.5 py-1 md:px-3 md:py-1.5 bg-white text-black rounded-full font-bold text-[9px] md:text-[10px] hover:bg-gray-200 transition-all shadow-md flex items-center gap-1 group/btn">
                   Locate <ArrowRight className="w-2.5 h-2.5 md:w-3 md:h-3 group-hover/btn:translate-x-1 transition-transform" />
                 </a>
               </div>
@@ -174,7 +174,7 @@ export default function Locations() {
                 <div className="flex items-center gap-1 text-white font-bold text-[10px] md:text-xs bg-black/30 backdrop-blur-md px-2 py-1 rounded-lg">
                   <Star className="w-2.5 h-2.5 md:w-3 md:h-3 text-yellow-400 fill-yellow-400" /> 4.4/5
                 </div>
-                <a href="https://maps.app.goo.gl/61WBodMWZqtzWs5fA" target="_blank" rel="noopener noreferrer" className="px-2.5 py-1 md:px-3 md:py-1.5 bg-white text-black rounded-full font-bold text-[9px] md:text-[10px] hover:bg-gray-200 transition-all shadow-md flex items-center gap-1 group/btn">
+                <a href="https://www.google.com/maps/place/Sri+sai+baba+Ghee+sweets+and+home+foods/data=!4m2!3m1!1s0x3a35fad96c55b64f:0xc8892b7800bca8f8" target="_blank" rel="noopener noreferrer" className="px-2.5 py-1 md:px-3 md:py-1.5 bg-white text-black rounded-full font-bold text-[9px] md:text-[10px] hover:bg-gray-200 transition-all shadow-md flex items-center gap-1 group/btn">
                   Locate <ArrowRight className="w-2.5 h-2.5 md:w-3 md:h-3 group-hover/btn:translate-x-1 transition-transform" />
                 </a>
               </div>
