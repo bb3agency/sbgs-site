@@ -35,9 +35,6 @@ export default function Locations() {
 
             <div className="relative z-10 flex justify-between items-start">
               <div className="flex flex-col gap-1.5">
-                <span className="text-[9px] font-bold px-2.5 py-1 rounded-full bg-white/20 text-white backdrop-blur-md tracking-wide uppercase w-[fit-content]">
-                  Main Hub
-                </span>
                 <span className="text-[9px] font-bold px-2.5 py-1 rounded-full bg-green-500/20 text-green-300 backdrop-blur-md tracking-wide uppercase flex items-center gap-1 w-[fit-content]">
                   <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span> Open Now
                 </span>
@@ -87,9 +84,6 @@ export default function Locations() {
             <div className="relative z-10 w-full flex flex-col md:flex-row justify-between gap-3 md:gap-4 items-start md:items-center">
               <div className="max-w-md">
                 <div className="flex items-center gap-2 mb-1.5">
-                  <span className="text-[8px] md:text-[9px] font-bold px-2 py-0.5 md:px-2.5 md:py-1 rounded-full bg-white/20 text-white backdrop-blur-md tracking-wide uppercase">
-                    Heritage Site
-                  </span>
                   <span className="text-[9px] md:text-[10px] font-semibold text-white/80 bg-black/30 backdrop-blur-md px-2 py-0.5 rounded-full">Est. 1984</span>
                 </div>
                 <h3 className="font-display text-base md:text-lg font-bold text-white mb-1 tracking-tight drop-shadow-md">One Town, Samarang Chowk</h3>
@@ -125,11 +119,6 @@ export default function Locations() {
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20 z-0"></div>
-            <div className="relative z-10 flex justify-between items-center">
-              <span className="text-[8px] md:text-[9px] font-bold px-2 py-0.5 md:px-2.5 md:py-1 rounded-full bg-white/20 text-white backdrop-blur-md tracking-wide uppercase">
-                Featured
-              </span>
-            </div>
             <div className="relative z-10 mt-auto">
               <h3 className="font-display text-sm md:text-base font-bold text-white mb-0.5 tracking-tight drop-shadow-md">Jammichettu Center</h3>
               <p className="text-white/80 text-[9px] md:text-[10px] mb-1.5 drop-shadow-md">Moghalraj Puram</p>
