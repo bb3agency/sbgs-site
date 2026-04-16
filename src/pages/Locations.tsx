@@ -83,9 +83,6 @@ export default function Locations() {
             <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/20 z-0"></div>
             <div className="relative z-10 w-full flex flex-col md:flex-row justify-between gap-3 md:gap-4 items-start md:items-center">
               <div className="max-w-md">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <span className="text-[9px] md:text-[10px] font-semibold text-white/80 bg-black/30 backdrop-blur-md px-2 py-0.5 rounded-full">Est. 1984</span>
-                </div>
                 <h3 className="font-display text-base md:text-lg font-bold text-white mb-1 tracking-tight drop-shadow-md">One Town, Samarang Chowk</h3>
                 <p className="text-white/80 text-[10px] md:text-xs leading-relaxed drop-shadow-md">
                   Our flagship heritage location. Experience the original recipes served in a space that honors our four-decade journey.
