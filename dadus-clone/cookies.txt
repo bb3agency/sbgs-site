@@ -1,0 +1,11 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+dadus.co.in	TRUE	/	FALSE	1999999999	_shopify_analytics	:AZ69bQYKAAEAvoJn4SD8YUnpT-qL3dL0aqc2Zt4l9xyG09OC-3O5SP17XMQQuNqqbEUP5kp0Tbhf8WHRnT23vF8Mts2okiPa6ozaVy22kMRSZ8jd7Mi5mZQE0mYs1D83l7L3D3KSJ3zl2YoB:
+dadus.co.in	TRUE	/	FALSE	1999999999	_shopify_marketing	:AZ69bQYLAAEAEusEez3PBI6re2zyFnmc7g9fhyN6yigCbS2Ijukhg0_iFa0DYBhUZTNM4j9sjIv8Et_T-MZYWzkzrgHFHmQChT3jT5Pgq6DJXK7BJqafxe27FsOvqljNs1UU:
+dadus.co.in	TRUE	/	FALSE	1999999999	_shopify_essential	:AZ69bQX4AAEAl1lr3Yv5Lo5zBI2zP36sv_Uy_t3R2tNnJZrlt7UBNQIrel6HODMA34SlxlqtRTXORkl2kPA5OM4kGbok2lbqW-CQ2qQ5JZ0CdwMOxoMQ43Diz53PKVfENI_Qx4H6cYEriBHTjHYpMk13zwf8-iAmRnLXF2uljG2QGfOYVBRX2poOltOGREyAMYMSbCn4EO8Ky1lyN7d3kfZaNp66gUH3GrTGH1Zd6io56qGb4U-gvMu-UZn6trZrzXgxycDK7Q1aYRr6Eqm2iNw6DNjEz6fErwe6ViS_i3qkUQ2yeLkvXw6wHlkhAbWe0gtK1Od183g7bLXbC_Edu1BYy5NBIIiv2J442pydtgGOFkyzzuL4uYoa_4pvDTsQ_piFkslZ2Qo62Kjz4F5KKwGUZirf6-jN7lx_Lb20mIgX:
+dadus.co.in	TRUE	/	FALSE	1999999999	Priority	High
+dadus.co.in	TRUE	/	FALSE	1999999999	localization	IN
+dadus.co.in	TRUE	/	FALSE	1999999999	_shopify_y	46a3409a-1328-4b8b-adac-4409fe2b5937
+dadus.co.in	TRUE	/	FALSE	1999999999	_shopify_s	154d4800-dfee-44ce-a98c-a8276a0bceda
+dadus.co.in	TRUE	/	FALSE	1999999999	SameSite	Lax
+

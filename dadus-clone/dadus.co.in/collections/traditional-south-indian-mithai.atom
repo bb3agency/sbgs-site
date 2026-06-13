@@ -1,0 +1,799 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en" xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:s="http://jadedpixel.com/-/spec/shopify">
+  <id>https://dadus.co.in/collections/all.atom</id>
+  <link rel="alternate" type="text/html" href="https://dadus.co.in/collections/all"/>
+  <link rel="self" type="application/atom+xml" href="https://dadus.co.in/collections/traditional-south-indian-mithai.atom"/>
+  <title>DADUS</title>
+  <updated>2026-06-10T21:46:23+05:30</updated>
+  <author>
+    <name>DADUS</name>
+  </author>
+  <entry>
+    <id>https://dadus.co.in/products/8346746945816</id>
+    <published>2026-06-10T21:46:23+05:30</published>
+    <updated>2026-06-10T21:46:23+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/gavvalu"/>
+    <title>Gavvalu</title>
+    <s:type>South Indian Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/products/GAVVALU250GMS.png?v=1771677135"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>South Indian Mithai<br>
+        <strong>Price: </strong>
+            275.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-15</s:tag>
+    <s:tag>South Indian Mithai</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346746945816</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">275.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346246709528</id>
+    <published>2026-06-10T21:29:59+05:30</published>
+    <updated>2026-06-10T21:29:59+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/badusha"/>
+    <title>Badusha</title>
+    <s:type>South Indian Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/2_dbe9e01c-eb51-465e-b57d-a92717374230.png?v=1742311287"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>South Indian Mithai<br>
+        <strong>Price: </strong>
+            290.00 - 1160.00
+            <a href="https://dadus.co.in/products/badusha">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-10</s:tag>
+    <s:tag>South Indian Mithai</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346246709528</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">290.00</s:price>
+      <s:sku/>
+      <s:grams>400</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346246709528</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">580.00</s:price>
+      <s:sku/>
+      <s:grams>400</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346246709528</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">1160.00</s:price>
+      <s:sku/>
+      <s:grams>400</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346507673880</id>
+    <published>2026-06-03T21:57:19+05:30</published>
+    <updated>2026-06-03T21:57:19+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/suryakala"/>
+    <title>Suryakala</title>
+    <s:type>Ghee Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Suryakala.png?v=1771597034"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Ghee Mithai<br>
+        <strong>Price: </strong>
+            320.00 - 1280.00
+            <a href="https://dadus.co.in/products/suryakala">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p>Round shaped deep fried dumplings with sweet filling</p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>ghee mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-10</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346507673880</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">320.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346507673880</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">640.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346507673880</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">1280.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/9051682570520</id>
+    <published>2026-03-11T17:53:30+05:30</published>
+    <updated>2026-03-11T17:53:30+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/crispy-mysore-pak"/>
+    <title>Crispy Mysore Pak</title>
+    <s:type></s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Crispy_Mysore_pak_2.jpg?v=1779261185"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong><br>
+        <strong>Price: </strong>
+            315.00 - 1260.00
+            <a href="https://dadus.co.in/products/crispy-mysore-pak">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>shelf_life-30</s:tag>
+    <s:tag>South Indian Mithai</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/9051682570520</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">315.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/9051682570520</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">630.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/9051682570520</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">1260.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/9051656061208</id>
+    <published>2026-03-11T17:52:11+05:30</published>
+    <updated>2026-03-11T17:52:11+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/balaji-laddu"/>
+    <title>Balaji Laddu</title>
+    <s:type></s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Besan_Laddu_2_808c9d23-3ffa-46d0-b823-b1cdd42a418d.jpg?v=1779357392"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong><br>
+        <strong>Price: </strong>
+            315.00 - 1260.00
+            <a href="https://dadus.co.in/products/balaji-laddu">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>shelf_life-7</s:tag>
+    <s:tag>South Indian Mithai</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/9051656061208</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">315.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/9051656061208</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">630.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/9051656061208</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">1260.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/9051712028952</id>
+    <published>2026-03-11T17:51:49+05:30</published>
+    <updated>2026-03-11T17:51:49+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/milk-mysore-pak"/>
+    <title>Milk Mysore Pak</title>
+    <s:type></s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/MilkMysorepak_2.jpg?v=1779262194"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong><br>
+        <strong>Price: </strong>
+            315.00 - 1260.00
+            <a href="https://dadus.co.in/products/milk-mysore-pak">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>shelf_life-7</s:tag>
+    <s:tag>South Indian Mithai</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/9051712028952</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">315.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/9051712028952</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">630.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/9051712028952</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">1260.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8178433163544</id>
+    <published>2026-03-11T17:50:04+05:30</published>
+    <updated>2026-03-11T17:50:04+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/kaju-pakam"/>
+    <title>Bellam Kaju Pakam</title>
+    <s:type>South Indian Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/BellamKajuPakam_5.jpg?v=1779261802"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>South Indian Mithai<br>
+        <strong>Price: </strong>
+            1380.00 - 2760.00
+            <a href="https://dadus.co.in/products/kaju-pakam">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><div class="pro-des-title pro-info-box">
+<h2>A delicate and rich treat</h2>
+<p><br></p>
+<p><span style="font-weight: 400;">Dadu’s Kaju Pakam is another traditional delicacy made to perfection, with authentic bellam/jaggery/gud preparation and the highest quality whole cashews. </span></p>
+<p>Online Kaju Pakam orders are fulfilled by our trusted and reputed logistics partners with complete safety precautions and delivered straight to your doorstep. Dadu's Kaju Pakam 1 kg price, Dadu's Kaju Pakam 500 gm price and Dadu's Kaju Pakam 250 gm price is the same as that of any of our retail outlets with no extra charges.<br></p>
+<p>Kaju Pakam can be bought online in an easy way via our website. Just add to cart, checkout, and get the delivery to enjoy this most sought after sweet.<br></p>
+</div>
+<div class="pro-description-box pro-info-box">
+<ul>
+<li>
+<b>Shelf Life</b>
+<p>30 days from packaging</p>
+</li>
+<li>
+<b>Ingredients</b>
+<p><span>Cashew, Jaggery. </span></p>
+</li>
+<li>
+<b>Storage Instructions</b>
+<p>Store in a cool and dry place</p>
+</li>
+</ul>
+</div></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:tag>South Indian Mithai</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8178433163544</id>
+      <title>500 g</title>
+      <s:price currency="INR">1380.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8178433163544</id>
+      <title>1 kg</title>
+      <s:price currency="INR">2760.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8340947534104</id>
+    <published>2026-03-11T17:48:47+05:30</published>
+    <updated>2026-03-11T17:48:47+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/ariselu"/>
+    <title>Bellam Ariselu</title>
+    <s:type>South Indian Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/BellamAriselu.jpg?v=1779261731"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>South Indian Mithai<br>
+        <strong>Price: </strong>
+            325.00 - 1300.00
+            <a href="https://dadus.co.in/products/ariselu">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-10</s:tag>
+    <s:tag>South Indian Mithai</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340947534104</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">325.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340947534104</id>
+      <title>500 gms</title>
+      <s:price currency="INR">650.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340947534104</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">1300.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8349045784856</id>
+    <published>2025-10-21T19:03:53+05:30</published>
+    <updated>2025-10-21T19:03:53+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/tapeshwaram-kaja"/>
+    <title>Tapeswaram Kaja</title>
+    <s:type>South Indian Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Tapeswaram_Kaja_2d0075b4-a256-4a0c-8c40-b3ea7729db9c.jpg?v=1778062768"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>South Indian Mithai<br>
+        <strong>Price: </strong>
+            380.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-7</s:tag>
+    <s:tag>South Indian Mithai</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8349045784856</id>
+      <title>300 Gms</title>
+      <s:price currency="INR">380.00</s:price>
+      <s:sku/>
+      <s:grams>300</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8348279439640</id>
+    <published>2025-10-21T19:03:49+05:30</published>
+    <updated>2025-10-21T19:03:49+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/south-indian-sweet-box-580g"/>
+    <title>South Indian Sweet Box 580 Gms</title>
+    <s:type>South Indian Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Southindianbox.jpg?v=1770632930"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>South Indian Mithai<br>
+        <strong>Price: </strong>
+            800.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-10</s:tag>
+    <s:tag>South Indian Mithai</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348279439640</id>
+      <title>Default Title</title>
+      <s:price currency="INR">800.00</s:price>
+      <s:sku/>
+      <s:grams>600</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8348183134488</id>
+    <published>2025-10-21T19:03:43+05:30</published>
+    <updated>2025-10-21T19:03:43+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/annamayya-laddu"/>
+    <title>Annamayya Laddu</title>
+    <s:type>South Indian Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/AnnamyyaLaddu.jpg?v=1770626008"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>South Indian Mithai<br>
+        <strong>Price: </strong>
+            315.00 - 630.00
+            <a href="https://dadus.co.in/products/annamayya-laddu">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-10</s:tag>
+    <s:tag>South Indian Mithai</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348183134488</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">315.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348183134488</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">630.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8345865158936</id>
+    <published>2025-10-21T19:03:19+05:30</published>
+    <updated>2025-10-21T19:03:19+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/gud-putharekulu"/>
+    <title>Bellam Putharekulu</title>
+    <s:type>South Indian Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Bellam_Putharekulu_0cfc8212-acb8-40e3-85ef-5656bae606ec.jpg?v=1778062813"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>South Indian Mithai<br>
+        <strong>Price: </strong>
+            390.00 - 780.00
+            <a href="https://dadus.co.in/products/gud-putharekulu">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:tag>South Indian Mithai</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8345865158936</id>
+      <title>6 Pcs</title>
+      <s:price currency="INR">390.00</s:price>
+      <s:sku/>
+      <s:grams>60</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8345865158936</id>
+      <title>12 Pcs</title>
+      <s:price currency="INR">780.00</s:price>
+      <s:sku/>
+      <s:grams>120</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8341382594840</id>
+    <published>2025-10-21T19:03:19+05:30</published>
+    <updated>2025-10-21T19:03:19+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/sugar-putharekulu"/>
+    <title>Sugar Putharekulu</title>
+    <s:type>South Indian Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Sugar_Putharekulu.png?v=1779365928"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>South Indian Mithai<br>
+        <strong>Price: </strong>
+            348.00 - 969.00
+            <a href="https://dadus.co.in/products/sugar-putharekulu">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p><span>South India's authentic delicacy prepared with rice paper</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:tag>South Indian Mithai</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341382594840</id>
+      <title>6 Pcs</title>
+      <s:price currency="INR">348.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341382594840</id>
+      <title>12 Pcs</title>
+      <s:price currency="INR">969.00</s:price>
+      <s:sku/>
+      <s:grams>100</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8341380792600</id>
+    <published>2025-10-21T19:03:18+05:30</published>
+    <updated>2025-10-21T19:03:18+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/sunnunda-laddu"/>
+    <title>Bellam Sunnundalu</title>
+    <s:type>South Indian Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/SunnundaluLaddu_fa03795c-f6e9-4591-b3ed-344ca88dda8a.jpg?v=1770633137"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>South Indian Mithai<br>
+        <strong>Price: </strong>
+            635.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p>Andhra special laddus made with urad dal.</p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-10</s:tag>
+    <s:tag>South Indian Mithai</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341380792600</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">635.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8341380071704</id>
+    <published>2025-10-21T19:03:18+05:30</published>
+    <updated>2025-10-21T19:03:18+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/ragi-laddu"/>
+    <title>Ragi Laddu</title>
+    <s:type>South Indian Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Ragi_Laddu.jpg?v=1770632475"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>South Indian Mithai<br>
+        <strong>Price: </strong>
+            305.00 - 610.00
+            <a href="https://dadus.co.in/products/ragi-laddu">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:tag>South Indian Mithai</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341380071704</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">305.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341380071704</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">610.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8340950810904</id>
+    <published>2025-10-21T19:03:07+05:30</published>
+    <updated>2025-10-21T19:03:07+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/dryfruit-putharekulu"/>
+    <title>Dryfruit Putharekulu</title>
+    <s:type>South Indian Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Dryfruit_Putharekulu.jpg?v=1771344967"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>South Indian Mithai<br>
+        <strong>Price: </strong>
+            486.00 - 972.00
+            <a href="https://dadus.co.in/products/dryfruit-putharekulu">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><h2 dir="ltr"><span style="color: rgb(137, 6, 12);">With Love From Andhra</span></h2>
+<p dir="ltr"><span>Experience the unique and exquisite taste of Dadu’s Dry fruit Pootharekulu, a beloved sweet from Andhra Pradesh. </span></p>
+<p dir="ltr"><span>Each piece is wrapped in a wafer-thin rice starch layer that resembles paper, stuffed generously with sugar, dry fruits, and nuts. This traditional treat, known for its delicate texture and rich filling, is perfect for festivals, religious occasions, and weddings. </span></p>
+<p dir="ltr"><span>Celebrate the timeless charm of Dadu's Putharekulu, a sweet that brings joy to every moment.</span></p>
+<p dir="ltr"><span>At Dadu's, we ensure that you can shop your favourite sweets online with ease.</span></p>
+<p dir="ltr"><span>Dadu's Dry Fruit Pootharekulu is delivered to your home with utmost care by our reliable logistics partners.</span></p>
+<p dir="ltr"><span>For international shipping inquiries, contact our support. Our clients within Hyderabad, India can get instant delivery using </span><span style="color: rgb(137, 6, 12);"><a style="color: rgb(137, 6, 12);" href="https://www.swiggy.com/menu/2085?source=sharing">Swiggy</a></span><span> or </span><span style="color: rgb(137, 6, 12);"><a style="color: rgb(137, 6, 12);" href="https://zomato.onelink.me/xqzv/h1s29802">Zomato</a></span></p>
+<p dir="ltr"><span>For a free tasting and a true gourmet experience, visit Dadu’s near you</span><span><b id="docs-internal-guid-95ef6018-7fff-efa3-032f-df36eb0083c3"></b></span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:tag>South Indian Mithai</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340950810904</id>
+      <title>6 Pcs</title>
+      <s:price currency="INR">486.00</s:price>
+      <s:sku/>
+      <s:grams>60</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340950810904</id>
+      <title>12 Pcs</title>
+      <s:price currency="INR">972.00</s:price>
+      <s:sku/>
+      <s:grams>120</s:grams>
+    </s:variant>
+  </entry>
+</feed>

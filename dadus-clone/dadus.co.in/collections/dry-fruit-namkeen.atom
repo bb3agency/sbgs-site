@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en" xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:s="http://jadedpixel.com/-/spec/shopify">
+  <id>https://dadus.co.in/collections/all.atom</id>
+  <link rel="alternate" type="text/html" href="https://dadus.co.in/collections/all"/>
+  <link rel="self" type="application/atom+xml" href="https://dadus.co.in/collections/dry-fruit-namkeen.atom"/>
+  <title>DADUS</title>
+  <updated>2025-10-21T19:03:55+05:30</updated>
+  <author>
+    <name>DADUS</name>
+  </author>
+  <entry>
+    <id>https://dadus.co.in/products/8351105614104</id>
+    <published>2025-10-21T19:03:55+05:30</published>
+    <updated>2025-10-21T19:03:55+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/besan-kaju"/>
+    <title>Besan Kaju</title>
+    <s:type>Dry Fruit Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/89.png?v=1742311148"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>Dry Fruit Namkeen<br>
+        <strong>Price: </strong>
+            820.00 - 3280.00
+            <a href="https://dadus.co.in/products/besan-kaju">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Dry Fruit Namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8351105614104</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">820.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8351105614104</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1640.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8351105614104</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">3280.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8348276785432</id>
+    <published>2025-10-21T19:03:49+05:30</published>
+    <updated>2025-10-21T19:03:49+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/roasted-kaju"/>
+    <title>Roasted Kaju</title>
+    <s:type>Dry Fruit Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/62.png?v=1742311188"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>Dry Fruit Namkeen<br>
+        <strong>Price: </strong>
+            790.00 - 3160.00
+            <a href="https://dadus.co.in/products/roasted-kaju">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Dry Fruit Namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348276785432</id>
+      <title>250 GMS</title>
+      <s:price currency="INR">790.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348276785432</id>
+      <title>500 GMS</title>
+      <s:price currency="INR">1580.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348276785432</id>
+      <title>1 KG</title>
+      <s:price currency="INR">3160.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8348272820504</id>
+    <published>2025-10-21T19:03:48+05:30</published>
+    <updated>2025-10-21T19:03:48+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/roasted-badam"/>
+    <title>Roasted badam</title>
+    <s:type>Dry Fruit Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/65.png?v=1742311189"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>Dry Fruit Namkeen<br>
+        <strong>Price: </strong>
+            670.00 - 2680.00
+            <a href="https://dadus.co.in/products/roasted-badam">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Dry Fruit Namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348272820504</id>
+      <title>250 GMS</title>
+      <s:price currency="INR">670.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348272820504</id>
+      <title>500 GMS</title>
+      <s:price currency="INR">1340.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348272820504</id>
+      <title>1 KG</title>
+      <s:price currency="INR">2680.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346682556696</id>
+    <published>2025-10-21T19:03:37+05:30</published>
+    <updated>2025-10-21T19:03:37+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/masala-kaju"/>
+    <title>Masala Kaju</title>
+    <s:type>Dry Fruit Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/MasalaKaju.jpg?v=1778675967"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>Dry Fruit Namkeen<br>
+        <strong>Price: </strong>
+            790.00 - 3160.00
+            <a href="https://dadus.co.in/products/masala-kaju">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p>About Masala Kaju - Spicy kaju Snack<br>Masala Kaju is a crunchy and flavourful snack made with premium cashews coated in a blend of spices. Known for its bold taste and crisp texture, it is a perfect choice for those who enjoy spicy snacks. Each cashew is carefully seasoned to deliver a balanced mix of heat and flavour. It is ideal for tea time, gatherings, or a quick bite during the day. The rich taste of cashews combined with spices makes it a popular favourite. Whether served to guests or enjoyed on its own, Masala Kaju delivers a satisfying, tasty experience.</p>
+<p>Crafted with Traditional Technique<br>At Dadus, Masala Kaju is prepared using quality cashews and carefully blended spices to ensure consistent taste and crunch.</p>
+<p>Masala Kaju is available in:<br>250 grams – ₹782,<br> 500 grams – ₹1565,<br> 1 kg – 3130</p>
+<p>Taste and Texture Profile<br>Masala Kaju has a crunchy texture with a spicy and savoury flavour.<br></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Dry Fruit Namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346682556696</id>
+      <title>250 GMS</title>
+      <s:price currency="INR">790.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346682556696</id>
+      <title>500 GMS</title>
+      <s:price currency="INR">1580.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346682556696</id>
+      <title>1 KG</title>
+      <s:price currency="INR">3160.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346677805336</id>
+    <published>2025-10-21T19:03:37+05:30</published>
+    <updated>2025-10-21T19:03:37+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/new-dryfruit-mixture"/>
+    <title>Only Dryfruit Mixture</title>
+    <s:type>Dry Fruit Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/DryfruitMixture.jpg?v=1778675927"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>Dry Fruit Namkeen<br>
+        <strong>Price: </strong>
+            785.00 - 3130.00
+            <a href="https://dadus.co.in/products/new-dryfruit-mixture">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Dry Fruit Namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346677805336</id>
+      <title>250 GMS</title>
+      <s:price currency="INR">785.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346677805336</id>
+      <title>500 GMS</title>
+      <s:price currency="INR">1565.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346677805336</id>
+      <title>1 KG</title>
+      <s:price currency="INR">3130.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+</feed>

@@ -1,0 +1,1031 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en" xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:s="http://jadedpixel.com/-/spec/shopify">
+  <id>https://dadus.co.in/collections/all.atom</id>
+  <link rel="alternate" type="text/html" href="https://dadus.co.in/collections/all"/>
+  <link rel="self" type="application/atom+xml" href="https://dadus.co.in/collections/authentic-south-indian-namkeen.atom"/>
+  <title>DADUS</title>
+  <updated>2026-04-07T16:06:57+05:30</updated>
+  <author>
+    <name>DADUS</name>
+  </author>
+  <entry>
+    <id>https://dadus.co.in/products/8411503132952</id>
+    <published>2026-04-07T16:06:57+05:30</published>
+    <updated>2026-04-07T16:06:57+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/raw-banana-pepper-chips"/>
+    <title>Banana Pepper Chips</title>
+    <s:type>South Indian Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Banana_Pepper_Chips.png?v=1778242529"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>South Indian Namkeen<br>
+        <strong>Price: </strong>
+            340.00 - 1360.00
+            <a href="https://dadus.co.in/products/raw-banana-pepper-chips">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>All namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:tag>South Indian Namkeen</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8411503132952</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">340.00</s:price>
+      <s:sku/>
+      <s:grams>300</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8411503132952</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">680.00</s:price>
+      <s:sku/>
+      <s:grams>600</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8411503132952</id>
+      <title>1 KG</title>
+      <s:price currency="INR">1360.00</s:price>
+      <s:sku/>
+      <s:grams>1100</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/9051973124376</id>
+    <published>2026-03-11T11:45:55+05:30</published>
+    <updated>2026-03-11T11:45:55+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/janthikalu"/>
+    <title>Janthikalu</title>
+    <s:type></s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Janthikalu.png?v=1778242537"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong><br>
+        <strong>Price: </strong>
+            290.00 - 1160.00
+            <a href="https://dadus.co.in/products/janthikalu">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>All namkeen</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:tag>South Indian Namkeen</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/9051973124376</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">290.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/9051973124376</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">580.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/9051973124376</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">1160.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8411208122648</id>
+    <published>2026-03-11T11:42:47+05:30</published>
+    <updated>2026-03-11T11:42:47+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/sabudhana-chekkalu"/>
+    <title>Sabudana Chekkalu</title>
+    <s:type>South Indian Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/SabudanaChekkalu.jpg?v=1779710349"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>South Indian Namkeen<br>
+        <strong>Price: </strong>
+            230.00 - 1150.00
+            <a href="https://dadus.co.in/products/sabudhana-chekkalu">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:tag>South Indian Namkeen</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8411208122648</id>
+      <title>200 Gms</title>
+      <s:price currency="INR">230.00</s:price>
+      <s:sku/>
+      <s:grams>200</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8411208122648</id>
+      <title>400 Gms</title>
+      <s:price currency="INR">460.00</s:price>
+      <s:sku/>
+      <s:grams>400</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8411208122648</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">1150.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8167442809112</id>
+    <published>2026-03-11T11:33:01+05:30</published>
+    <updated>2026-03-11T11:33:01+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/pappu-chakkalu"/>
+    <title>Pappu Chekkalu</title>
+    <s:type>South Indian Namkeen</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/PappuChekkalu_6d3c8e43-da37-462b-9fb4-b07700007d25.jpg?v=1779713487"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>South Indian Namkeen<br>
+        <strong>Price: </strong>
+            230.00 - 1150.00
+            <a href="https://dadus.co.in/products/pappu-chakkalu">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p>South Indian namkeen, made with rice flour. Perfect evening snack!<br></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>All namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>namkeens</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:tag>South Indian Namkeen</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8167442809112</id>
+      <title>200 Gms</title>
+      <s:price currency="INR">230.00</s:price>
+      <s:sku/>
+      <s:grams>200</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8167442809112</id>
+      <title>400 Gms</title>
+      <s:price currency="INR">460.00</s:price>
+      <s:sku/>
+      <s:grams>400</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8167442809112</id>
+      <title>1 kg</title>
+      <s:price currency="INR">1150.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346672169240</id>
+    <published>2025-11-15T18:28:13+05:30</published>
+    <updated>2025-11-15T18:28:13+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/namak-para"/>
+    <title>Namak Para</title>
+    <s:type>All Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/NamakPara.jpg?v=1779707160"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>All Namkeen<br>
+        <strong>Price: </strong>
+            290.00 - 1160.00
+            <a href="https://dadus.co.in/products/namak-para">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>All namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346672169240</id>
+      <title>250 GMS</title>
+      <s:price currency="INR">290.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346672169240</id>
+      <title>500 GMS</title>
+      <s:price currency="INR">580.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346672169240</id>
+      <title>1 KG</title>
+      <s:price currency="INR">1160.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8348288385304</id>
+    <published>2025-11-15T18:28:10+05:30</published>
+    <updated>2025-11-15T18:28:10+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/mullu-murukul"/>
+    <title>Mullu Murukul</title>
+    <s:type>South Indian Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Mullu_Murukul.png?v=1778242359"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>South Indian Namkeen<br>
+        <strong>Price: </strong>
+            258.75 - 1035.00
+            <a href="https://dadus.co.in/products/mullu-murukul">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p><span data-mce-fragment="1">South Indian namkeen, made with rice flour. Perfect evening snack!</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>All namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:tag>South Indian Namkeen</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348288385304</id>
+      <title>250 GMS</title>
+      <s:price currency="INR">258.75</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348288385304</id>
+      <title>500 GMS</title>
+      <s:price currency="INR">517.50</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348288385304</id>
+      <title>1 KG</title>
+      <s:price currency="INR">1035.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8411125678360</id>
+    <published>2025-11-14T18:17:37+05:30</published>
+    <updated>2025-11-14T18:17:37+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/ellu-murukul"/>
+    <title>Ellu Murukul</title>
+    <s:type>All Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Ellu_Murukul.png?v=1778242444"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>All Namkeen<br>
+        <strong>Price: </strong>
+            290.00 - 1160.00
+            <a href="https://dadus.co.in/products/ellu-murukul">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>All namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8411125678360</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">290.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8411125678360</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">580.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8411125678360</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">1160.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8411180695832</id>
+    <published>2025-11-14T18:17:29+05:30</published>
+    <updated>2025-11-14T18:17:29+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/ribbon-pakoda"/>
+    <title>Ragi Ribbon Pakodi</title>
+    <s:type>All Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Ragi_Ribbon_Pakodi.png?v=1778242477"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>All Namkeen<br>
+        <strong>Price: </strong>
+            288.00 - 1152.00
+            <a href="https://dadus.co.in/products/ribbon-pakoda">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>All namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8411180695832</id>
+      <title>200 Gms</title>
+      <s:price currency="INR">288.00</s:price>
+      <s:sku/>
+      <s:grams>200</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8411180695832</id>
+      <title>400 Gms</title>
+      <s:price currency="INR">576.00</s:price>
+      <s:sku/>
+      <s:grams>400</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8411180695832</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">1152.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8411278573848</id>
+    <published>2025-11-14T18:17:23+05:30</published>
+    <updated>2025-11-14T18:17:23+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/atukul-mixture"/>
+    <title>Atukulu Mixture</title>
+    <s:type>South Indian Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Atukulu_Mixture.png?v=1778242520"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>South Indian Namkeen<br>
+        <strong>Price: </strong>
+            290.00 - 1160.00
+            <a href="https://dadus.co.in/products/atukul-mixture">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:tag>South Indian Namkeen</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8411278573848</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">290.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8411278573848</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">580.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8411278573848</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">1160.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8411921809688</id>
+    <published>2025-11-14T18:17:13+05:30</published>
+    <updated>2025-11-14T18:17:13+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/masala-peanuts"/>
+    <title>Masala Peanuts</title>
+    <s:type>All Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/27_6205b6de-14a9-4715-a464-fcc0e88bcce2.png?v=1742311131"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>All Namkeen<br>
+        <strong>Price: </strong>
+            288.00 - 1152.00
+            <a href="https://dadus.co.in/products/masala-peanuts">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>All namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8411921809688</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">288.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8411921809688</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">576.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8411921809688</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">1152.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8402902712600</id>
+    <published>2025-10-21T19:03:56+05:30</published>
+    <updated>2025-10-21T19:03:56+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/yellow-chikodi"/>
+    <title>Yellow Chikodi</title>
+    <s:type>South Indian Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Yellow_Chikodi.png?v=1778241718"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>South Indian Namkeen<br>
+        <strong>Price: </strong>
+            288.00 - 1152.00
+            <a href="https://dadus.co.in/products/yellow-chikodi">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>All namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:tag>South Indian Namkeen</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8402902712600</id>
+      <title>250 GMS</title>
+      <s:price currency="INR">288.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8402902712600</id>
+      <title>500 GMS</title>
+      <s:price currency="INR">576.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8402902712600</id>
+      <title>1KG</title>
+      <s:price currency="INR">1152.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8351082381592</id>
+    <published>2025-10-21T19:03:55+05:30</published>
+    <updated>2025-10-21T19:03:55+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/chabina-mixture"/>
+    <title>Chabina Mixture</title>
+    <s:type>All Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Chabina_Mixture.png?v=1778242548"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>All Namkeen<br>
+        <strong>Price: </strong>
+            305.00 - 1220.00
+            <a href="https://dadus.co.in/products/chabina-mixture">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>All namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8351082381592</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">305.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8351082381592</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">610.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8351082381592</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">1220.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8348257190168</id>
+    <published>2025-10-21T19:03:45+05:30</published>
+    <updated>2025-10-21T19:03:45+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/kaju-pakodi"/>
+    <title>Kaju Pakodi</title>
+    <s:type>All Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Kaju_Pakodi.png?v=1778242289"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>All Namkeen<br>
+        <strong>Price: </strong>
+            450.00 - 1800.00
+            <a href="https://dadus.co.in/products/kaju-pakodi">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>All namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348257190168</id>
+      <title>200 GMS</title>
+      <s:price currency="INR">450.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348257190168</id>
+      <title>400 GMS</title>
+      <s:price currency="INR">900.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348257190168</id>
+      <title>1 KG</title>
+      <s:price currency="INR">1800.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346685669656</id>
+    <published>2025-10-21T19:03:38+05:30</published>
+    <updated>2025-10-21T19:03:38+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/red-chikodi"/>
+    <title>Red Chikodi</title>
+    <s:type>South Indian Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Red_Chikodi.png?v=1778242325"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>South Indian Namkeen<br>
+        <strong>Price: </strong>
+            288.00 - 1152.00
+            <a href="https://dadus.co.in/products/red-chikodi">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>All namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:tag>South Indian Namkeen</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346685669656</id>
+      <title>250 GMS</title>
+      <s:price currency="INR">288.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346685669656</id>
+      <title>500 GMS</title>
+      <s:price currency="INR">576.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346685669656</id>
+      <title>1 KG</title>
+      <s:price currency="INR">1152.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346673414424</id>
+    <published>2025-10-21T19:03:36+05:30</published>
+    <updated>2025-10-21T19:03:36+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/masala-para"/>
+    <title>Masala Para</title>
+    <s:type>All Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/MasalaPara.jpg?v=1779706982"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>All Namkeen<br>
+        <strong>Price: </strong>
+            345.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>All namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346673414424</id>
+      <title>300 GSM</title>
+      <s:price currency="INR">345.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8167443464472</id>
+    <published>2025-10-21T19:02:59+05:30</published>
+    <updated>2025-10-21T19:02:59+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/khara-boondi"/>
+    <title>Khara Boondi</title>
+    <s:type>South Indian Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Khara_Boondi.png?v=1778242432"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>South Indian Namkeen<br>
+        <strong>Price: </strong>
+            290.00 - 1160.00
+            <a href="https://dadus.co.in/products/khara-boondi">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:tag>South Indian Namkeen</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8167443464472</id>
+      <title>250 g</title>
+      <s:price currency="INR">290.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8167443464472</id>
+      <title>500 g</title>
+      <s:price currency="INR">580.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8167443464472</id>
+      <title>1 kg</title>
+      <s:price currency="INR">1160.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8412028666136</id>
+    <published>2025-10-21T08:25:56+05:30</published>
+    <updated>2025-10-21T08:25:56+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/red-sakinalu"/>
+    <title>Red Sakinalu</title>
+    <s:type>South Indian Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/RedSakinalu.jpg?v=1779710209"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>South Indian Namkeen<br>
+        <strong>Price: </strong>
+            230.00 - 1150.00
+            <a href="https://dadus.co.in/products/red-sakinalu">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>All namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:tag>South Indian Namkeen</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8412028666136</id>
+      <title>200 Gms</title>
+      <s:price currency="INR">230.00</s:price>
+      <s:sku/>
+      <s:grams>200</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8412028666136</id>
+      <title>400 Gms</title>
+      <s:price currency="INR">460.00</s:price>
+      <s:sku/>
+      <s:grams>400</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8412028666136</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">1150.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8412070117656</id>
+    <published>2025-10-21T08:25:42+05:30</published>
+    <updated>2025-10-21T08:25:42+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/white-sakinalu"/>
+    <title>White Sakinalu</title>
+    <s:type>South Indian Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/WhiteSakinalu.jpg?v=1779711834"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>South Indian Namkeen<br>
+        <strong>Price: </strong>
+            230.00 - 1150.00
+            <a href="https://dadus.co.in/products/white-sakinalu">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>All namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:tag>South Indian Namkeen</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8412070117656</id>
+      <title>200 Gms</title>
+      <s:price currency="INR">230.00</s:price>
+      <s:sku/>
+      <s:grams>200</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8412070117656</id>
+      <title>400 Gms</title>
+      <s:price currency="INR">460.00</s:price>
+      <s:sku/>
+      <s:grams>400</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8412070117656</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">1150.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/9818319454488</id>
+    <published>2025-10-21T08:20:41+05:30</published>
+    <updated>2025-10-21T08:20:41+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/kaju-mixture"/>
+    <title>Kaju Mixture</title>
+    <s:type>South Indian Namkeen</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Kaju_Mixture_1.jpg?v=1779167284"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>South Indian Namkeen<br>
+        <strong>Price: </strong>
+            299.00 - 1196.00
+            <a href="https://dadus.co.in/products/kaju-mixture">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>All namkeen</s:tag>
+    <s:tag>Namkeen and Snacks</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:tag>South Indian Namkeen</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/9818319454488</id>
+      <title>250 GMS</title>
+      <s:price currency="INR">299.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/9818319454488</id>
+      <title>500 GMS</title>
+      <s:price currency="INR">598.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/9818319454488</id>
+      <title>1 KG</title>
+      <s:price currency="INR">1196.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+</feed>

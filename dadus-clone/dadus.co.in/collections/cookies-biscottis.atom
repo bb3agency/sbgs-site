@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en" xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:s="http://jadedpixel.com/-/spec/shopify">
+  <id>https://dadus.co.in/collections/all.atom</id>
+  <link rel="alternate" type="text/html" href="https://dadus.co.in/collections/all"/>
+  <link rel="self" type="application/atom+xml" href="https://dadus.co.in/collections/cookies-biscottis.atom"/>
+  <title>DADUS</title>
+  <updated>2026-05-25T16:19:21+05:30</updated>
+  <author>
+    <name>DADUS</name>
+  </author>
+  <entry>
+    <id>https://dadus.co.in/products/10283746918680</id>
+    <published>2026-05-25T16:19:21+05:30</published>
+    <updated>2026-05-25T16:19:21+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/fruit-cake-rusk"/>
+    <title>Fruit Cake Rusk</title>
+    <s:type>Cookies</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/FruitCakeRusk.jpg?v=1779706071"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>Cookies<br>
+        <strong>Price: </strong>
+            250.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p>test</p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>cookies</s:tag>
+    <s:tag>cookies &amp; Biscotti</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/10283746918680</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">250.00</s:price>
+      <s:sku/>
+      <s:grams>350</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/10283740725528</id>
+    <published>2026-05-25T15:56:18+05:30</published>
+    <updated>2026-05-25T15:56:18+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/bon-bon-cookies"/>
+    <title>Bon Bon Cookies</title>
+    <s:type>Cookies</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/BonBonCookies.jpg?v=1779704655"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>Cookies<br>
+        <strong>Price: </strong>
+            275.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>cookies</s:tag>
+    <s:tag>cookies &amp; Biscotti</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/10283740725528</id>
+      <title>300 Gms</title>
+      <s:price currency="INR">275.00</s:price>
+      <s:sku/>
+      <s:grams>350</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/10224318873880</id>
+    <published>2026-04-04T13:44:45+05:30</published>
+    <updated>2026-04-04T13:44:45+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/oats-cranberry-cookies"/>
+    <title>Oats Cranberry Cookies</title>
+    <s:type></s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Oats_Cranberry_Cookies_acd5bf89-cb88-4c3c-b092-c4a8b02bdf9f.jpg?v=1778498132"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong><br>
+        <strong>Price: </strong>
+            210.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bakery and Confections</s:tag>
+    <s:tag>cookies</s:tag>
+    <s:tag>cookies &amp; Biscotti</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/10224318873880</id>
+      <title>Default Title</title>
+      <s:price currency="INR">210.00</s:price>
+      <s:sku/>
+      <s:grams>150</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/10224318415128</id>
+    <published>2026-04-04T13:37:18+05:30</published>
+    <updated>2026-04-04T13:37:18+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/poppy-ajwain-cookies"/>
+    <title>Poppy Ajwain Cookies</title>
+    <s:type>Cookies</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Poppy_Ajwain_Cookies_bf3b5f1a-2a4c-4ce7-bcd4-a485d86f0ad1.jpg?v=1778495941"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>Cookies<br>
+        <strong>Price: </strong>
+            210.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bakery and Confections</s:tag>
+    <s:tag>cookies</s:tag>
+    <s:tag>cookies &amp; Biscotti</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/10224318415128</id>
+      <title>Default Title</title>
+      <s:price currency="INR">210.00</s:price>
+      <s:sku/>
+      <s:grams>150</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/10223544041752</id>
+    <published>2026-04-03T19:55:26+05:30</published>
+    <updated>2026-04-03T19:55:26+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/pistachio-cranberry-biscotti"/>
+    <title>Pistachio Cranberry Biscotti</title>
+    <s:type></s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Pistachio_Cranberry_Biscotti_s.png?v=1775285823"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong><br>
+        <strong>Price: </strong>
+            370.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bakery and Confections</s:tag>
+    <s:tag>cookies</s:tag>
+    <s:tag>cookies &amp; Biscotti</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/10223544041752</id>
+      <title>Default Title</title>
+      <s:price currency="INR">370.00</s:price>
+      <s:sku/>
+      <s:grams>200</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/10223533031704</id>
+    <published>2026-04-03T19:34:00+05:30</published>
+    <updated>2026-04-03T19:34:00+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/honey-oats-cookies"/>
+    <title>Honey Oats Cookies</title>
+    <s:type></s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Honey_Oats_Cookies.png?v=1779689992"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong><br>
+        <strong>Price: </strong>
+            210.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">Wholesome honey oats cookies crafted with premium ingredients and traditional baking methods. Each bite delivers the perfect balance of natural sweetness from pure honey and the nutty richness of rolled oats. Perfect for tea time, gifting, or everyday indulgence. Carefully packaged to maintain freshness and ideal for those seeking a guilt-free treat without compromising on taste. A delightful addition to your snack collection or as a thoughtful gift for loved ones.</td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bakery and Confections</s:tag>
+    <s:tag>cookies</s:tag>
+    <s:tag>cookies &amp; Biscotti</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/10223533031704</id>
+      <title>Default Title</title>
+      <s:price currency="INR">210.00</s:price>
+      <s:sku/>
+      <s:grams>150</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/10223532114200</id>
+    <published>2026-04-03T19:27:38+05:30</published>
+    <updated>2026-04-03T19:27:38+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/coffee-biscotti"/>
+    <title>Coffee Biscotti</title>
+    <s:type></s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/CoffeeBiscotti.jpg?v=1775224638"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong><br>
+        <strong>Price: </strong>
+            370.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bakery and Confections</s:tag>
+    <s:tag>cookies</s:tag>
+    <s:tag>cookies &amp; Biscotti</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/10223532114200</id>
+      <title>Default Title</title>
+      <s:price currency="INR">370.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/10223528739096</id>
+    <published>2026-04-03T19:13:00+05:30</published>
+    <updated>2026-04-03T19:13:00+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/almond-hazelnut-biscotti"/>
+    <title>Almond Hazelnut Biscotti</title>
+    <s:type>Cookies</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/AlmondHazelnutBiscotti_s.jpg?v=1775223752"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>Cookies<br>
+        <strong>Price: </strong>
+            345.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bakery and Confections</s:tag>
+    <s:tag>cookies</s:tag>
+    <s:tag>cookies &amp; Biscotti</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/10223528739096</id>
+      <title>Default Title</title>
+      <s:price currency="INR">345.00</s:price>
+      <s:sku/>
+      <s:grams>200</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/10128107766040</id>
+    <published>2026-03-06T15:23:56+05:30</published>
+    <updated>2026-03-06T15:23:56+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/classic-nankhatai"/>
+    <title>Classic Nankhatai</title>
+    <s:type></s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Classic_Nankhatai_1.jpg?v=1778501293"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong><br>
+        <strong>Price: </strong>
+            290.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bakery and Confections</s:tag>
+    <s:tag>cookies</s:tag>
+    <s:tag>cookies &amp; Biscotti</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/10128107766040</id>
+      <title>Default Title</title>
+      <s:price currency="INR">290.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346486898968</id>
+    <published>2025-11-15T18:30:41+05:30</published>
+    <updated>2025-11-15T18:30:41+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/salted-kaju-cookies"/>
+    <title>Salted Kaju Cookies</title>
+    <s:type>Cookies</s:type>
+    <s:vendor>D’PanCo (Baked Snacks and Confectionery)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/SaltedKajuCookies.jpg?v=1779710427"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>D’PanCo (Baked Snacks and Confectionery)<br>
+        <strong>Type: </strong>Cookies<br>
+        <strong>Price: </strong>
+            310.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bakery and Confections</s:tag>
+    <s:tag>cookies</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346486898968</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">310.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346450231576</id>
+    <published>2025-10-25T13:36:24+05:30</published>
+    <updated>2025-10-25T13:36:24+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/salted-jeera-cookies"/>
+    <title>Salted Jeera Cookies</title>
+    <s:type>Cookies</s:type>
+    <s:vendor>D’PanCo (Baked Snacks and Confectionery)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/SaltedJeeraCookies.jpg?v=1779710356"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>D’PanCo (Baked Snacks and Confectionery)<br>
+        <strong>Type: </strong>Cookies<br>
+        <strong>Price: </strong>
+            230.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bakery and Confections</s:tag>
+    <s:tag>cookies</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346450231576</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">230.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8338758730008</id>
+    <published>2025-10-25T13:36:20+05:30</published>
+    <updated>2025-10-25T13:36:20+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/ajwain-cookies"/>
+    <title>Ajwain Cookies</title>
+    <s:type>Cookies</s:type>
+    <s:vendor>D’PanCo (Baked Snacks and Confectionery)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/AjwainCookies.jpg?v=1779704011"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>D’PanCo (Baked Snacks and Confectionery)<br>
+        <strong>Type: </strong>Cookies<br>
+        <strong>Price: </strong>
+            230.00 - 460.00
+            <a href="https://dadus.co.in/products/ajwain-cookies">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bakery and Confections</s:tag>
+    <s:tag>cookies</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8338758730008</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">230.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8338758730008</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">460.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346445185304</id>
+    <published>2025-10-25T13:36:15+05:30</published>
+    <updated>2025-10-25T13:36:15+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/coconut-cookies"/>
+    <title>Coconut Cookies</title>
+    <s:type>Cookies</s:type>
+    <s:vendor>D’PanCo (Baked Snacks and Confectionery)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/CC_1671638326.png?v=1742311274"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>D’PanCo (Baked Snacks and Confectionery)<br>
+        <strong>Type: </strong>Cookies<br>
+        <strong>Price: </strong>
+            230.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bakery and Confections</s:tag>
+    <s:tag>bestseller</s:tag>
+    <s:tag>cookies</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346445185304</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">230.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346441122072</id>
+    <published>2025-10-25T13:36:10+05:30</published>
+    <updated>2025-10-25T13:36:10+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/fruit-jam-cookies"/>
+    <title>Fruit Jam Cookies</title>
+    <s:type>Cookies</s:type>
+    <s:vendor>D’PanCo (Baked Snacks and Confectionery)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/FruitJamCookies.jpg?v=1779706505"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>D’PanCo (Baked Snacks and Confectionery)<br>
+        <strong>Type: </strong>Cookies<br>
+        <strong>Price: </strong>
+            275.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bakery and Confections</s:tag>
+    <s:tag>cookies</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346441122072</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">275.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346430308632</id>
+    <published>2025-10-25T13:35:58+05:30</published>
+    <updated>2025-10-25T13:35:58+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/french-heart"/>
+    <title>French Heart</title>
+    <s:type>Cookies</s:type>
+    <s:vendor>D’PanCo (Baked Snacks and Confectionery)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/FrenchHearts.jpg?v=1779705986"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>D’PanCo (Baked Snacks and Confectionery)<br>
+        <strong>Type: </strong>Cookies<br>
+        <strong>Price: </strong>
+            230.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bakery and Confections</s:tag>
+    <s:tag>bestseller</s:tag>
+    <s:tag>cookies</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346430308632</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">230.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+  </entry>
+</feed>

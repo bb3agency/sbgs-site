@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en" xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:s="http://jadedpixel.com/-/spec/shopify">
+  <id>https://dadus.co.in/collections/all.atom</id>
+  <link rel="alternate" type="text/html" href="https://dadus.co.in/collections/all"/>
+  <link rel="self" type="application/atom+xml" href="https://dadus.co.in/collections/bites.atom"/>
+  <title>DADUS</title>
+  <updated>2026-02-21T18:11:04+05:30</updated>
+  <author>
+    <name>DADUS</name>
+  </author>
+  <entry>
+    <id>https://dadus.co.in/products/8348936208664</id>
+    <published>2026-02-21T18:11:04+05:30</published>
+    <updated>2026-02-21T18:11:04+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/assorted-bites-box-200-gms"/>
+    <title>Assorted Bites Box 200 GMS</title>
+    <s:type>Bites and Chikkis</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Assortedbites8.png?v=1771677618"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Bites and Chikkis<br>
+        <strong>Price: </strong>
+            670.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><h3 data-section-id="8k91vr" data-start="964" data-end="993">Assorted Bites Box (200g)</h3>
+<p data-start="995" data-end="1204">Discover Dadu’s Assorted Bites Box (200g), a compact selection of bite-sized sweets designed for convenience and variety. This bites box is ideal for those looking for a smaller portion with multiple flavours.</p>
+<hr data-start="1206" data-end="1209">
+<h3 data-section-id="1ae3ilh" data-start="1211" data-end="1247">Crafted with Variety and Quality</h3>
+<ul data-start="1249" data-end="1465">
+<li data-section-id="1v8h7tr" data-start="1249" data-end="1297">Includes a selection of assorted sweet bites</li>
+<li data-section-id="1rjq7dn" data-start="1298" data-end="1337">Made using high-quality ingredients</li>
+<li data-section-id="rc3hg9" data-start="1338" data-end="1381">Balanced flavours with consistent taste</li>
+<li data-section-id="1as8s6o" data-start="1382" data-end="1420">Bite-sized pieces for easy serving</li>
+<li data-section-id="bjyg8l" data-start="1421" data-end="1465">Packed in a premium box for presentation</li>
+</ul>
+<p data-start="1467" data-end="1556">Each piece is carefully prepared to deliver a satisfying and consistent sweet experience.</p>
+<hr data-start="1558" data-end="1561">
+<h3 data-section-id="1s8r6d0" data-start="1563" data-end="1601">Ideal for Gifting and Personal Use</h3>
+<p data-start="1603" data-end="1780">This assorted bites box is suitable for small gifting, return gifts, and personal indulgence. Its 200g size makes it a practical option for quick gifting and everyday occasions.</p>
+<p data-start="1782" data-end="1894">If you are looking to buy a bites box online, this pack offers both quality and convenience in a compact format.</p>
+<hr data-start="1896" data-end="1899">
+<h3 data-section-id="163aqvf" data-start="1901" data-end="1943">Freshly Packed with Pan India Delivery</h3>
+<p data-start="1945" data-end="2121">Order assorted bites box 200g online from Dadu’s and enjoy reliable delivery across India. Each box is securely packed to maintain freshness, taste, and quality during transit.</p>
+<p data-start="2123" data-end="2202">Customers in Hyderabad can also opt for faster delivery through local partners.</p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bites and Chikkis</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-45</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348936208664</id>
+      <title>Default Title</title>
+      <s:price currency="INR">670.00</s:price>
+      <s:sku/>
+      <s:grams>200</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8340892713240</id>
+    <published>2025-11-15T18:37:40+05:30</published>
+    <updated>2025-11-15T18:37:40+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/chocolate-bites"/>
+    <title>Chocolate Bites</title>
+    <s:type>Bites and Chikkis</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Chocolate_bites_1.jpg?v=1770649474"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Bites and Chikkis<br>
+        <strong>Price: </strong>
+            725.00 - 2900.00
+            <a href="https://dadus.co.in/products/chocolate-bites">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bites and Chikkis</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-45</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340892713240</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">725.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340892713240</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1450.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340892713240</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">2900.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8348924674328</id>
+    <published>2025-10-21T19:03:52+05:30</published>
+    <updated>2025-10-21T19:03:52+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/assorted-bites-box-300g"/>
+    <title>Assorted Bites Box 300G</title>
+    <s:type>Bites and Chikkis</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Untitleddesign_74_64bd32aa-16c9-415e-95df-19fbbbeca9ba.png?v=1742311170"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Bites and Chikkis<br>
+        <strong>Price: </strong>
+            945.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><h3 data-section-id="8i6dty" data-start="1066" data-end="1095">Assorted Bites Box (300g)</h3>
+<p data-start="1097" data-end="1305">Discover Dadu’s Assorted Bites Box (300g), a curated selection of bite-sized sweets designed for convenience and variety. This bites box is ideal for those who enjoy trying multiple flavours in a single pack.</p>
+<hr data-start="1307" data-end="1310">
+<h3 data-section-id="1ae3ilh" data-start="1312" data-end="1348">Crafted with Variety and Quality</h3>
+<ul data-start="1350" data-end="1578">
+<li data-section-id="1v8h7tr" data-start="1350" data-end="1398">Includes a selection of assorted sweet bites</li>
+<li data-section-id="1rjq7dn" data-start="1399" data-end="1438">Made using high-quality ingredients</li>
+<li data-section-id="rc3hg9" data-start="1439" data-end="1482">Balanced flavours with consistent taste</li>
+<li data-section-id="uir94j" data-start="1483" data-end="1533">Bite-sized pieces for easy serving and sharing</li>
+<li data-section-id="bjyg8l" data-start="1534" data-end="1578">Packed in a premium box for presentation</li>
+</ul>
+<p data-start="1580" data-end="1665">Each piece is carefully prepared to deliver a refined and enjoyable sweet experience.</p>
+<hr data-start="1667" data-end="1670">
+<h3 data-section-id="105ppyg" data-start="1672" data-end="1716">Ideal for Gifting and Everyday Occasions</h3>
+<p data-start="1718" data-end="1911">This assorted bites box is suitable for gifting, small celebrations, and everyday indulgence. Its compact 300g format makes it a practical option for personal use as well as thoughtful gifting.</p>
+<p data-start="1913" data-end="2013">If you are looking to buy a 300g sweet box online, this product offers both variety and convenience.</p>
+<hr data-start="2015" data-end="2018">
+<h3 data-section-id="163aqvf" data-start="2020" data-end="2062">Freshly Packed with Pan India Delivery</h3>
+<p data-start="2064" data-end="2240">Order assorted bites box 300g online from Dadu’s and enjoy reliable delivery across India. Each box is securely packed to maintain freshness, taste, and quality during transit.</p>
+<p data-start="2242" data-end="2321">Customers in Hyderabad can also opt for faster delivery through local partners.</p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bites and Chikkis</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-45</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348924674328</id>
+      <title>Default Title</title>
+      <s:price currency="INR">945.00</s:price>
+      <s:sku/>
+      <s:grams>300</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8348920283416</id>
+    <published>2025-10-21T19:03:51+05:30</published>
+    <updated>2025-10-21T19:03:51+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/assorted-bites-box-450g"/>
+    <title>Assorted Bites 450 gms</title>
+    <s:type>Bites and Chikkis</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/bites8_2.png?v=1771687695"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Bites and Chikkis<br>
+        <strong>Price: </strong>
+            1380.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><div data-mce-fragment="1"><strong data-mce-fragment="1">Dadu's Signature Creation!</strong></div>
+<div data-mce-fragment="1"><strong data-mce-fragment="1">Many different flavours of nutty bites, carefully packed in a beautiful box.</strong></div>
+<div data-mce-fragment="1"><strong data-mce-fragment="1">The perfect gift for any occasion.</strong></div></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bites and Chikkis</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-45</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348920283416</id>
+      <title>Default Title</title>
+      <s:price currency="INR">1380.00</s:price>
+      <s:sku/>
+      <s:grams>450</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8341025521944</id>
+    <published>2025-10-21T19:03:09+05:30</published>
+    <updated>2025-10-21T19:03:09+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/rose-bites"/>
+    <title>Rose Bites</title>
+    <s:type>Bites and Chikkis</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Rosebites.jpg?v=1771678072"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Bites and Chikkis<br>
+        <strong>Price: </strong>
+            725.00 - 2900.00
+            <a href="https://dadus.co.in/products/rose-bites">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bites and Chikkis</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-45</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341025521944</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">725.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341025521944</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1450.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341025521944</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">2900.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8341022834968</id>
+    <published>2025-10-21T19:03:09+05:30</published>
+    <updated>2025-10-21T19:03:09+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/premium-almond-bites"/>
+    <title>Premium Almond Bites</title>
+    <s:type>Bites and Chikkis</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/PremiumBadambites.png?v=1771678320"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Bites and Chikkis<br>
+        <strong>Price: </strong>
+            820.00 - 3280.00
+            <a href="https://dadus.co.in/products/premium-almond-bites">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bites and Chikkis</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-45</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341022834968</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">820.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341022834968</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1640.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341022834968</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">3280.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8340902510872</id>
+    <published>2025-10-21T19:03:06+05:30</published>
+    <updated>2025-10-21T19:03:06+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/orange-bites"/>
+    <title>Orange Bites</title>
+    <s:type>Bites and Chikkis</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/OrangeBites.jpg?v=1771678153"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Bites and Chikkis<br>
+        <strong>Price: </strong>
+            725.00 - 2900.00
+            <a href="https://dadus.co.in/products/orange-bites">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bites and Chikkis</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-45</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340902510872</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">725.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340902510872</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1450.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340902510872</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">2900.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8340896743704</id>
+    <published>2025-10-21T19:03:06+05:30</published>
+    <updated>2025-10-21T19:03:06+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/mewa-bites"/>
+    <title>Mewa Bites</title>
+    <s:type>Bites and Chikkis</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/36_6bf848a4-a435-4f32-9c20-c6b9fea29ca7.png?v=1771688881"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Bites and Chikkis<br>
+        <strong>Price: </strong>
+            725.00 - 2900.00
+            <a href="https://dadus.co.in/products/mewa-bites">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><div class="pro-des-title pro-info-box" data-mce-fragment="1">
+<h2 dir="ltr"><span style="color: rgb(137, 6, 12);">Truly Scrumptious</span></h2>
+<p data-mce-fragment="1"><span style="font-weight: 400;">Enjoy the divine taste of Mewa Bite from the pioneers themselves. The premium sweet keeps the Indian taste alive with its exotic preparation. The Mewa bites are cube shaped mithai filled with the crunchiness of dry fruits and nuts in every bite you take. <br><br>This delicacy has a shelf life of 45 days with international standard packing.</span></p>
+<p dir="ltr"><span>Each bite is filled with the delightful crunch of almonds, pistachios, cashews, and enhanced with the richness of pure ghee and white chocolate. </span></p>
+<p dir="ltr"><span>Packaged to international standards, these delicacies have a shelf life of 45 days, ensuring freshness in every bite.</span></p>
+<p dir="ltr"><span>At Dadu's, we ensure that you can shop our premium sweets online with ease.</span></p>
+<p dir="ltr"><span>Our Mewa Bites are delivered to your home with utmost care by our reliable logistics partners.</span></p>
+<p dir="ltr"><span>For international shipping inquiries, contact our support. Our clients within Hyderabad, India can get instant delivery using </span><span style="color: rgb(137, 6, 12);"><a href="https://www.swiggy.com/menu/2085?source=sharing" style="color: rgb(137, 6, 12);">Swiggy</a></span><span> or </span><span style="color: rgb(137, 6, 12);"><a href="https://zomato.onelink.me/xqzv/h1s29802" style="color: rgb(137, 6, 12);">Zomato</a></span></p>
+<p dir="ltr"><span>For a free tasting and a true gourmet experience, visit Dadu’s near you</span></p>
+</div>
+<div class="pro-description-box pro-info-box" data-mce-fragment="1">
+<ul data-mce-fragment="1">
+<li data-mce-fragment="1">
+<b data-mce-fragment="1">Shelf Life</b>
+<p data-mce-fragment="1"><span data-mce-fragment="1">45 </span>days from packaging</p>
+</li>
+<li data-mce-fragment="1">
+<b data-mce-fragment="1">Ingredients</b>
+<p data-mce-fragment="1"><span>Almond, Pistachio, Cashew, Sugar, Ghee, White Chocolate</span></p>
+</li>
+<li data-mce-fragment="1">
+<b data-mce-fragment="1">Storage Instructions</b>
+<p data-mce-fragment="1">Store in a cool and dry place</p>
+</li>
+</ul>
+</div></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bites and Chikkis</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-45</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340896743704</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">725.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340896743704</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1450.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340896743704</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">2900.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8340895432984</id>
+    <published>2025-10-21T19:03:05+05:30</published>
+    <updated>2025-10-21T19:03:05+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/mango-bites"/>
+    <title>Mango Bites</title>
+    <s:type>Bites and Chikkis</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/bites8_7.png?v=1771688676"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Bites and Chikkis<br>
+        <strong>Price: </strong>
+            725.00 - 2900.00
+            <a href="https://dadus.co.in/products/mango-bites">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bites and Chikkis</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>sh</s:tag>
+    <s:tag>shelf_life-45</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340895432984</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">725.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340895432984</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1450.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340895432984</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">2900.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+</feed>

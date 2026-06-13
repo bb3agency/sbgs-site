@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en" xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:s="http://jadedpixel.com/-/spec/shopify">
+  <id>https://dadus.co.in/collections/all.atom</id>
+  <link rel="alternate" type="text/html" href="https://dadus.co.in/collections/all"/>
+  <link rel="self" type="application/atom+xml" href="https://dadus.co.in/collections/baklava-1.atom"/>
+  <title>DADUS</title>
+  <updated>2026-06-12T21:16:35+05:30</updated>
+  <author>
+    <name>DADUS</name>
+  </author>
+  <entry>
+    <id>https://dadus.co.in/products/8346549485848</id>
+    <published>2026-06-12T21:16:35+05:30</published>
+    <updated>2026-06-12T21:16:35+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/pistachio-boukaz"/>
+    <title>Pistachio Boukaj</title>
+    <s:type>Baklava</s:type>
+    <s:vendor>D’Turq (Authentic Turkish Delicacies)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/21_0a065984-f69d-479e-966a-056a88f41f10.png?v=1742311251"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>D’Turq (Authentic Turkish Delicacies)<br>
+        <strong>Type: </strong>Baklava<br>
+        <strong>Price: </strong>
+            1010.00 - 4040.00
+            <a href="https://dadus.co.in/products/pistachio-boukaz">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Baklava</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:tag>Turkish Delights</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346549485848</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">1010.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346549485848</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">2020.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346549485848</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">4040.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8345875874072</id>
+    <published>2026-06-09T14:10:17+05:30</published>
+    <updated>2026-06-09T14:10:17+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/almond-tart-baklava"/>
+    <title>Almond Tart Baklava</title>
+    <s:type>Baklava</s:type>
+    <s:vendor>D’Turq (Authentic Turkish Delicacies)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/14_33a110f6-743f-4eae-9b86-03956027e87c.png?v=1742311300"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>D’Turq (Authentic Turkish Delicacies)<br>
+        <strong>Type: </strong>Baklava<br>
+        <strong>Price: </strong>
+            635.00 - 2541.00
+            <a href="https://dadus.co.in/products/almond-tart-baklava">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Baklava</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:tag>Turkish Delights</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8345875874072</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">635.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8345875874072</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1270.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8345875874072</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">2541.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8349080682776</id>
+    <published>2025-11-15T18:33:32+05:30</published>
+    <updated>2025-11-15T18:33:32+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/mix-baklava-box16-pcs"/>
+    <title>Assorted Baklavas (16 Pcs)</title>
+    <s:type>Assorted Baklava Boxes</s:type>
+    <s:vendor>D’Turq (Authentic Turkish Delicacies)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/16Pcs_f9a4d984-9483-4c5f-b228-e1a18985f0b4.png?v=1742311157"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>D’Turq (Authentic Turkish Delicacies)<br>
+        <strong>Type: </strong>Assorted Baklava Boxes<br>
+        <strong>Price: </strong>
+            1155.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p><strong>Turkish Delights made with layers of filo pastry, pure honey and the top quality dry fruits. Our expert chefs trained by Middle-Eastern masters prepare this rich Arabic delicacy on traditional Egyptian machines. Get the authentic taste every bite!</strong><br data-mce-fragment="1"></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Assorted Baklava Boxes</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:tag>Turkish Delights</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8349080682776</id>
+      <title>Default Title</title>
+      <s:price currency="INR">1155.00</s:price>
+      <s:sku/>
+      <s:grams>400</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8345872138520</id>
+    <published>2025-11-15T18:28:17+05:30</published>
+    <updated>2025-11-15T18:28:17+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/mix-baklava-box25pcs"/>
+    <title>Assorted Baklavas (25pcs)</title>
+    <s:type>Assorted Baklava Boxes</s:type>
+    <s:vendor>D’Turq (Authentic Turkish Delicacies)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/25Pcs_d338ac0e-9e74-4e62-9748-cf20272496b9.png?v=1742311301"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>D’Turq (Authentic Turkish Delicacies)<br>
+        <strong>Type: </strong>Assorted Baklava Boxes<br>
+        <strong>Price: </strong>
+            1830.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p><strong data-mce-fragment="1">Turkish Delights made with layers of filo pastry, pure honey and the top quality dry fruits. Our expert chefs trained by Middle-Eastern masters prepare this rich Arabic delicacy on traditional Egyptian machines. Get the authentic taste every bite!</strong></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Assorted Baklava Boxes</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:tag>Turkish Delights</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8345872138520</id>
+      <title>Default Title</title>
+      <s:price currency="INR">1830.00</s:price>
+      <s:sku/>
+      <s:grams>625</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8570179223832</id>
+    <published>2025-11-14T18:12:43+05:30</published>
+    <updated>2025-11-14T18:12:43+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/mix-baklava-box9pcs"/>
+    <title>Assorted Baklavas (9pcs)</title>
+    <s:type>Assorted Baklava Boxes</s:type>
+    <s:vendor>D’Turq (Authentic Turkish Delicacies)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/9Pcs.png?v=1742311121"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>D’Turq (Authentic Turkish Delicacies)<br>
+        <strong>Type: </strong>Assorted Baklava Boxes<br>
+        <strong>Price: </strong>
+            740.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><h2 dir="ltr"><span style="color: rgb(137, 6, 12);">Turkish Delight for Indian Taste Buds</span></h2>
+<p dir="ltr"><span>Discover the rich and unique flavours of Dadu’s Assorted Baklava, a dessert that brings the authentic taste of the Middle East to India. </span></p>
+<p dir="ltr"><span></span><span>Made with delicate filo pastry sheets, filled with a luxurious mix of chopped nuts and dry fruits, and sweetened with pure honey, this dessert is crafted by Dadu's expert chefs trained by Middle-Eastern masters. </span><span><br></span><span><br></span><span>Prepared on traditional Egyptian machines, each bite offers a taste of authentic Arabic delicacy that is sure to delight and surprise. <meta charset="UTF-8">Watch our craftsmanship in action <span style="color: rgb(137, 6, 12);"><a style="color: rgb(137, 6, 12);" href="https://www.instagram.com/reel/CfJk2s3JOcY/?igsh=MWdtbHVxZHAydjUwcQ==" title="Watch Our Baklava Making Process on Instagram" target="_blank">here</a></span>.</span></p>
+<p dir="ltr"><span>At Dadu's, we ensure that you can shop our premium sweets online with ease.</span></p>
+<p dir="ltr"><span>Dadu's Baklava is delivered to your home with utmost care by our reliable logistics partners.</span></p>
+<p dir="ltr"><span>For international shipping inquiries, contact our support. Our clients within Hyderabad, India can get instant delivery using </span><span style="color: rgb(137, 6, 12);"><a style="color: rgb(137, 6, 12);" href="https://www.swiggy.com/menu/2085?source=sharing">Swiggy</a></span><span> or </span><span style="color: rgb(137, 6, 12);"><a style="color: rgb(137, 6, 12);" href="https://zomato.onelink.me/xqzv/h1s29802">Zomato</a></span></p>
+<p dir="ltr"><span>For a free tasting and a true gourmet experience, visit Dadu’s near you</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Assorted Baklava Boxes</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:tag>Turkish Delights</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8570179223832</id>
+      <title>Default Title</title>
+      <s:price currency="INR">740.00</s:price>
+      <s:sku/>
+      <s:grams>225</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8349077438744</id>
+    <published>2025-10-21T19:03:53+05:30</published>
+    <updated>2025-10-21T19:03:53+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/baklava-tin-gift-pack-450g"/>
+    <title>Baklava Tin Box 450g</title>
+    <s:type>Assorted Baklava Boxes</s:type>
+    <s:vendor>D’Turq (Authentic Turkish Delicacies)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Untitleddesign_1_269f76eb-e97d-490e-a76a-21a15002dc1f.png?v=1742311158"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>D’Turq (Authentic Turkish Delicacies)<br>
+        <strong>Type: </strong>Assorted Baklava Boxes<br>
+        <strong>Price: </strong>
+            1437.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p><strong data-mce-fragment="1">Turkish Delights made with layers of filo pastry, pure honey and the top quality dry fruits. Our expert chefs trained by Middle-Eastern masters prepare this rich Arabic delicacy on traditional Egyptian machines. Get the authentic taste every bite!</strong></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Assorted Baklava Boxes</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:tag>Turkish Delights</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8349077438744</id>
+      <title>Default Title</title>
+      <s:price currency="INR">1437.00</s:price>
+      <s:sku/>
+      <s:grams>450</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8339101155608</id>
+    <published>2025-10-21T19:03:05+05:30</published>
+    <updated>2025-10-21T19:03:05+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/mix-baklava-box12pcs"/>
+    <title>Assorted Baklavas (12pcs)</title>
+    <s:type>Assorted Baklava Boxes</s:type>
+    <s:vendor>D’Turq (Authentic Turkish Delicacies)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/12Pcs_f5efef4b-a8de-4a3b-86d0-20058a46e8d5.png?v=1742311342"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>D’Turq (Authentic Turkish Delicacies)<br>
+        <strong>Type: </strong>Assorted Baklava Boxes<br>
+        <strong>Price: </strong>
+            903.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><h2 dir="ltr"><span style="color: rgb(137, 6, 12);">Turkish Delight for Indian Taste Buds</span></h2>
+<p dir="ltr"><span>Discover the rich and unique flavours of Dadu’s Assorted Baklava, a dessert that brings the authentic taste of the Middle East to India. </span></p>
+<p dir="ltr"><span></span><span>Made with delicate filo pastry sheets, filled with a luxurious mix of chopped nuts and dry fruits, and sweetened with pure honey, this dessert is crafted by Dadu's expert chefs trained by Middle-Eastern masters. </span><span><br></span><span><br></span><span>Prepared on traditional Egyptian machines, each bite offers a taste of authentic Arabic delicacy that is sure to delight and surprise. <meta charset="UTF-8">Watch our craftsmanship in action <span style="color: rgb(137, 6, 12);"><a style="color: rgb(137, 6, 12);" href="https://www.instagram.com/reel/CfJk2s3JOcY/?igsh=MWdtbHVxZHAydjUwcQ==" title="Watch Our Baklava Making Process on Instagram" target="_blank">here</a></span>.</span></p>
+<p dir="ltr"><span>At Dadu's, we ensure that you can shop our premium sweets online with ease.</span></p>
+<p dir="ltr"><span>Dadu's Baklava is delivered to your home with utmost care by our reliable logistics partners.</span></p>
+<p dir="ltr"><span>For international shipping inquiries, contact our support. Our clients within Hyderabad, India can get instant delivery using </span><span style="color: rgb(137, 6, 12);"><a style="color: rgb(137, 6, 12);" href="https://www.swiggy.com/menu/2085?source=sharing">Swiggy</a></span><span> or </span><span style="color: rgb(137, 6, 12);"><a style="color: rgb(137, 6, 12);" href="https://zomato.onelink.me/xqzv/h1s29802">Zomato</a></span></p>
+<p dir="ltr"><span>For a free tasting and a true gourmet experience, visit Dadu’s near you</span><strong><b id="docs-internal-guid-4bb02b6e-7fff-d047-aaad-187c8b34f2c5"></b></strong></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Assorted Baklava Boxes</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:tag>Turkish Delights</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8339101155608</id>
+      <title>Default Title</title>
+      <s:price currency="INR">903.00</s:price>
+      <s:sku/>
+      <s:grams>300</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8167438614808</id>
+    <published>2025-10-21T19:02:59+05:30</published>
+    <updated>2025-10-21T19:02:59+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/mix-tart-baklava"/>
+    <title>Mix Tart Baklava</title>
+    <s:type>Baklava</s:type>
+    <s:vendor>D’Turq (Authentic Turkish Delicacies)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/products/mix_tart_baklava.png?v=1742311361"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>D’Turq (Authentic Turkish Delicacies)<br>
+        <strong>Type: </strong>Baklava<br>
+        <strong>Price: </strong>
+            750.00 - 3000.00
+            <a href="https://dadus.co.in/products/mix-tart-baklava">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Baklava</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:tag>Turkish Delights</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8167438614808</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">750.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8167438614808</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1500.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8167438614808</id>
+      <title>1 kg</title>
+      <s:price currency="INR">3000.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8167436910872</id>
+    <published>2025-10-21T19:02:58+05:30</published>
+    <updated>2025-10-21T19:02:58+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/cashew-square-baklava"/>
+    <title>Cashew Square Baklava</title>
+    <s:type>Baklava</s:type>
+    <s:vendor>D’Turq (Authentic Turkish Delicacies)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/products/cashew_square_baklava.png?v=1742311362"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>D’Turq (Authentic Turkish Delicacies)<br>
+        <strong>Type: </strong>Baklava<br>
+        <strong>Price: </strong>
+            635.00 - 2540.00
+            <a href="https://dadus.co.in/products/cashew-square-baklava">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Baklava</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:tag>Turkish Delights</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8167436910872</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">635.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8167436910872</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1270.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8167436910872</id>
+      <title>1 kg</title>
+      <s:price currency="INR">2540.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+</feed>

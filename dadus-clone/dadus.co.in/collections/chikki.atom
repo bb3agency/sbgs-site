@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en" xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:s="http://jadedpixel.com/-/spec/shopify">
+  <id>https://dadus.co.in/collections/all.atom</id>
+  <link rel="alternate" type="text/html" href="https://dadus.co.in/collections/all"/>
+  <link rel="self" type="application/atom+xml" href="https://dadus.co.in/collections/chikki.atom"/>
+  <title>DADUS</title>
+  <updated>2026-06-10T21:18:59+05:30</updated>
+  <author>
+    <name>DADUS</name>
+  </author>
+  <entry>
+    <id>https://dadus.co.in/products/8349031170328</id>
+    <published>2026-06-10T21:18:59+05:30</published>
+    <updated>2026-06-10T21:18:59+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/assorted-chikki-box-360-gms"/>
+    <title>Assorted Chikki Box 360 GMS</title>
+    <s:type>Bites and Chikkis</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Untitleddesign_76_c74fb58f-5cfc-4735-8301-972617385c06.png?v=1742311168"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Bites and Chikkis<br>
+        <strong>Price: </strong>
+            1040.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bites and Chikkis</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-45</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8349031170328</id>
+      <title>Default Title</title>
+      <s:price currency="INR">1040.00</s:price>
+      <s:sku/>
+      <s:grams>360</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8341168029976</id>
+    <published>2025-10-21T19:03:13+05:30</published>
+    <updated>2025-10-21T19:03:13+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/pista-chikki"/>
+    <title>Pista Chikki</title>
+    <s:type>Bites and Chikkis</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/PistaChikki-01.png?v=1742311321"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Bites and Chikkis<br>
+        <strong>Price: </strong>
+            1210.00 - 4840.00
+            <a href="https://dadus.co.in/products/pista-chikki">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bites and Chikkis</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-45</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341168029976</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">1210.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341168029976</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">2420.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341168029976</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">4840.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8341156921624</id>
+    <published>2025-10-21T19:03:12+05:30</published>
+    <updated>2025-10-21T19:03:12+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/rose-chikki"/>
+    <title>Rose Chikki</title>
+    <s:type>Bites and Chikkis</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/RoseChikki.png?v=1742311322"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Bites and Chikkis<br>
+        <strong>Price: </strong>
+            705.00 - 2820.00
+            <a href="https://dadus.co.in/products/rose-chikki">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bites and Chikkis</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-45</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341156921624</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">705.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341156921624</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1410.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341156921624</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">2820.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8340992885016</id>
+    <published>2025-10-21T19:03:08+05:30</published>
+    <updated>2025-10-21T19:03:08+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/magaj-chikki"/>
+    <title>Magaj Chikki</title>
+    <s:type>Bites and Chikkis</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/MagajChikki-01.png?v=1742311330"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Bites and Chikkis<br>
+        <strong>Price: </strong>
+            705.00 - 2820.00
+            <a href="https://dadus.co.in/products/magaj-chikki">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bites and Chikkis</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-45</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340992885016</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">705.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340992885016</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1410.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340992885016</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">2820.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8340986691864</id>
+    <published>2025-10-21T19:03:08+05:30</published>
+    <updated>2025-10-21T19:03:08+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/kaju-chikki"/>
+    <title>Kaju Chikki</title>
+    <s:type>Bites and Chikkis</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/KajuChikki-0.png?v=1742311332"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Bites and Chikkis<br>
+        <strong>Price: </strong>
+            520.00 - 2080.00
+            <a href="https://dadus.co.in/products/kaju-chikki">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bites and Chikkis</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-45</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340986691864</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">520.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340986691864</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1040.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8340986691864</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">2080.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8756542636312</id>
+    <published>2025-10-21T08:23:45+05:30</published>
+    <updated>2025-10-21T08:23:45+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/assorted-chikki-box-180-gms"/>
+    <title>Assorted Chikki Box 180 GMS</title>
+    <s:type>Bites and Chikkis</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Untitleddesign_77_616e21c3-20e0-4666-ae3b-6c1cbc58aab1.png?v=1742310955"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Bites and Chikkis<br>
+        <strong>Price: </strong>
+            600.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bites and Chikkis</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-45</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8756542636312</id>
+      <title>Default Title</title>
+      <s:price currency="INR">600.00</s:price>
+      <s:sku/>
+      <s:grams>180</s:grams>
+    </s:variant>
+  </entry>
+</feed>

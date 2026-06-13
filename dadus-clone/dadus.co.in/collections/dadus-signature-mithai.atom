@@ -1,0 +1,807 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en" xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:s="http://jadedpixel.com/-/spec/shopify">
+  <id>https://dadus.co.in/collections/all.atom</id>
+  <link rel="alternate" type="text/html" href="https://dadus.co.in/collections/all"/>
+  <link rel="self" type="application/atom+xml" href="https://dadus.co.in/collections/dadus-signature-mithai.atom"/>
+  <title>DADUS</title>
+  <updated>2026-01-28T13:15:00+05:30</updated>
+  <author>
+    <name>DADUS</name>
+  </author>
+  <entry>
+    <id>https://dadus.co.in/products/8346512163096</id>
+    <published>2026-01-28T13:15:00+05:30</published>
+    <updated>2026-01-28T13:15:00+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/mini-katli-mix"/>
+    <title>Mini Katli Mix</title>
+    <s:type>Dry Fruits Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Rectangle480_3103bea3-7711-46e0-9bbe-c06d957ca3a7.jpg?v=1755607668"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Dry Fruits Mithai<br>
+        <strong>Price: </strong>
+            1400.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Dry Fruits Mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-10</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346512163096</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1400.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346579501336</id>
+    <published>2026-01-27T18:38:43+05:30</published>
+    <updated>2026-01-27T18:38:43+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/anjeer-dryfruit-roll"/>
+    <title>Anjeer Dryfruit Roll</title>
+    <s:type>Dry Fruits Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Anjeer_Roll.jpg?v=1770625926"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Dry Fruits Mithai<br>
+        <strong>Price: </strong>
+            880.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Dry Fruits Mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-10</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346579501336</id>
+      <title>300 Gms</title>
+      <s:price currency="INR">880.00</s:price>
+      <s:sku/>
+      <s:grams>300</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8345923158296</id>
+    <published>2026-01-27T18:38:19+05:30</published>
+    <updated>2026-01-27T18:38:19+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/kaju-butterscotch-roll"/>
+    <title>Kaju Butterscotch Roll</title>
+    <s:type>Dry Fruits Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/KajuButterscotchRoll1.jpg?v=1771344413"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Dry Fruits Mithai<br>
+        <strong>Price: </strong>
+            735.00 - 2940.00
+            <a href="https://dadus.co.in/products/kaju-butterscotch-roll">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Dry Fruits Mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-10</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8345923158296</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">735.00</s:price>
+      <s:sku/>
+      <s:grams>300</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8345923158296</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1470.00</s:price>
+      <s:sku/>
+      <s:grams>300</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8345923158296</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">2940.00</s:price>
+      <s:sku/>
+      <s:grams>300</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8167445594392</id>
+    <published>2025-11-09T17:39:25+05:30</published>
+    <updated>2025-11-09T17:39:25+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/assorted-sweets"/>
+    <title>Assorted Sweets</title>
+    <s:type>Ghee Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Assorted_sweet_Box.jpg?v=1770626125"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Ghee Mithai<br>
+        <strong>Price: </strong>
+            600.00 - 1200.00
+            <a href="https://dadus.co.in/products/assorted-sweets">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Assorted Sweets</s:tag>
+    <s:tag>Assorted Sweets Boxes</s:tag>
+    <s:tag>assortments</s:tag>
+    <s:tag>ghee mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-5</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8167445594392</id>
+      <title>500 g</title>
+      <s:price currency="INR">600.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8167445594392</id>
+      <title>1 kg</title>
+      <s:price currency="INR">1200.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8349109485848</id>
+    <published>2025-10-21T19:03:54+05:30</published>
+    <updated>2025-10-21T19:03:54+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/assorted-putharekulu"/>
+    <title>Assorted Putharekulu</title>
+    <s:type>South Indian Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Assorted_Putharekulu.jpg?v=1770626070"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>South Indian Mithai<br>
+        <strong>Price: </strong>
+            405.00 - 810.00
+            <a href="https://dadus.co.in/products/assorted-putharekulu">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:tag>South Indian Mithai</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8349109485848</id>
+      <title>6 Pcs</title>
+      <s:price currency="INR">405.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8349109485848</id>
+      <title>12 Pcs</title>
+      <s:price currency="INR">810.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8348207939864</id>
+    <published>2025-10-21T19:03:44+05:30</published>
+    <updated>2025-10-21T19:03:44+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/badam-katli"/>
+    <title>Badam Katli</title>
+    <s:type>Dry Fruits Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Badam_Katli.jpg?v=1770626654"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Dry Fruits Mithai<br>
+        <strong>Price: </strong>
+            720.00 - 2880.00
+            <a href="https://dadus.co.in/products/badam-katli">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Dry Fruits Mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-10</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348207939864</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">720.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348207939864</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1440.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348207939864</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">2880.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346530808088</id>
+    <published>2025-10-21T19:03:33+05:30</published>
+    <updated>2025-10-21T19:03:33+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/anjeer-delight"/>
+    <title>Anjeer Dryfruit Delight</title>
+    <s:type>Dry Fruits Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Anjeer_Delight.jpg?v=1770624845"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Dry Fruits Mithai<br>
+        <strong>Price: </strong>
+            750.00 - 1500.00
+            <a href="https://dadus.co.in/products/anjeer-delight">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Dry Fruits Mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-10</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346530808088</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">750.00</s:price>
+      <s:sku/>
+      <s:grams>225</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346530808088</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1500.00</s:price>
+      <s:sku/>
+      <s:grams>450</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346228523288</id>
+    <published>2025-10-21T19:03:24+05:30</published>
+    <updated>2025-10-21T19:03:24+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/kaju-pista-roll"/>
+    <title>Kaju Pista Roll</title>
+    <s:type>Dry Fruits Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Kaju_Pista_Roll.jpg?v=1770631712"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Dry Fruits Mithai<br>
+        <strong>Price: </strong>
+            500.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><h2><span style="color: rgb(137, 6, 12);"> A Must Try Dessert</span></h2>
+<p dir="ltr"><span>This exquisite treat features a soft cashew layer enveloping a rich pistachio filling. </span></p>
+<p dir="ltr"><span>Its delicate sweetness and soft texture makes it an irresistible indulgence for any moment you wish to treat yourself.</span></p>
+<p dir="ltr"><span>Dadu's Kaju Pista Roll is delivered to your home with utmost care by our reliable logistics partners.</span></p>
+<p dir="ltr"><span>For international shipping inquiries, contact our support. Our clients within Hyderabad, India can get instant delivery using </span><span style="color: rgb(137, 6, 12);"><a style="color: rgb(137, 6, 12);" href="https://www.swiggy.com/menu/2085?source=sharing">Swiggy</a></span><span> or </span><span style="color: rgb(137, 6, 12);"><a style="color: rgb(137, 6, 12);" href="https://zomato.onelink.me/xqzv/h1s29802">Zomato</a></span></p>
+<p dir="ltr"><span>For a free tasting and a true gourmet experience, visit Dadu’s near you</span></p>
+<!----></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Dry Fruits Mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-10</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346228523288</id>
+      <title>160 Gms</title>
+      <s:price currency="INR">500.00</s:price>
+      <s:sku/>
+      <s:grams>300</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8345869222168</id>
+    <published>2025-10-21T19:03:20+05:30</published>
+    <updated>2025-10-21T19:03:20+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/badam-halwa"/>
+    <title>Badam Kesar Halwa</title>
+    <s:type>Dry Fruits Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Badam_Kesar_Halwa.jpg?v=1770626808"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Dry Fruits Mithai<br>
+        <strong>Price: </strong>
+            750.00 - 3000.00
+            <a href="https://dadus.co.in/products/badam-halwa">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Dry Fruits Mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-7</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8345869222168</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">750.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8345869222168</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1500.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8345869222168</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">3000.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8341195653400</id>
+    <published>2025-10-21T19:03:14+05:30</published>
+    <updated>2025-10-21T19:03:14+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/kaju-baked-gujia"/>
+    <title>Kaju Baked Gujiya</title>
+    <s:type>Dry Fruits Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Kaju_Baked_Gujia.jpg?v=1770631054"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Dry Fruits Mithai<br>
+        <strong>Price: </strong>
+            735.00 - 2940.00
+            <a href="https://dadus.co.in/products/kaju-baked-gujia">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Dry Fruits Mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341195653400</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">735.00</s:price>
+      <s:sku/>
+      <s:grams>400</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341195653400</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1470.00</s:price>
+      <s:sku/>
+      <s:grams>400</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341195653400</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">2940.00</s:price>
+      <s:sku/>
+      <s:grams>400</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8339068223768</id>
+    <published>2025-10-21T19:03:04+05:30</published>
+    <updated>2025-10-21T19:03:04+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/ghee-mysorepak"/>
+    <title>Ghee Mysore pak</title>
+    <s:type>Ghee Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Ghee_Mysore_Pak.jpg?v=1770630841"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Ghee Mithai<br>
+        <strong>Price: </strong>
+            325.00 - 650.00
+            <a href="https://dadus.co.in/products/ghee-mysorepak">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><h2><span style="color: rgb(137, 6, 12);">A South Indian Classic</span></h2>
+<p dir="ltr"><span>Savor the unforgettable taste of Dadu’s Ghee Mysore Pak, a traditional sweet from the city of Mysore. </span></p>
+<p dir="ltr"><span>Crafted with pure ghee (clarified butter), sugar, gram flour, and a hint of cardamom, this treat boasts a buttery, dense texture that’s reminiscent of a cookie. </span></p>
+<p dir="ltr"><span>Ideal for enjoying anytime, whether you're celebrating a special moment or just craving something sweet.</span></p>
+<p dir="ltr"><span>At Dadu's, we ensure that you can shop our premium sweets online with ease.</span></p>
+<p dir="ltr"><span>Dadu's Ghee Mysore Pak is delivered to your home with utmost care by our reliable logistics partners.</span></p>
+<p dir="ltr">For international shipping inquiries, contact our support. Our clients within Hyderabad, India can get instant delivery using <span style="color: rgb(137, 6, 12);"><a href="https://www.swiggy.com/menu/2085?source=sharing" style="color: rgb(137, 6, 12);">Swiggy</a></span> or <span style="color: rgb(137, 6, 12);"><a style="color: rgb(137, 6, 12);" href="https://zomato.onelink.me/xqzv/h1s29802">Zomato</a></span></p>
+<p dir="ltr"><span>For a free tasting and a true gourmet experience, visit Dadu’s near you.</span></p>
+<!----></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>ghee mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8339068223768</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">325.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8339068223768</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">650.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8178390204696</id>
+    <published>2025-10-21T19:03:00+05:30</published>
+    <updated>2025-10-21T19:03:00+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/badam-butterscotch-rocher"/>
+    <title>Badam Butterscotch Rocher</title>
+    <s:type>Dry Fruits Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Badam_Butterscotch_Rocher.jpg?v=1770626457"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Dry Fruits Mithai<br>
+        <strong>Price: </strong>
+            425.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Dry Fruits Mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-10</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8178390204696</id>
+      <title>130 Gms</title>
+      <s:price currency="INR">425.00</s:price>
+      <s:sku/>
+      <s:grams>400</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8157949886744</id>
+    <published>2025-10-21T19:02:58+05:30</published>
+    <updated>2025-10-21T19:02:58+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/kaju-katli"/>
+    <title>Kaju Katli</title>
+    <s:type>Dry Fruits Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Kaju_Katli.jpg?v=1770631595"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Dry Fruits Mithai<br>
+        <strong>Price: </strong>
+            605.00 - 2420.00
+            <a href="https://dadus.co.in/products/kaju-katli">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><div class="pro-des-title pro-info-box" data-mce-fragment="1">
+<h2 dir="ltr"><span style="color: rgb(137, 6, 12);">India’s Favourite Sweet </span></h2>
+<p dir="ltr"><span>Indulge in the sublime taste of Dadu’s Kaju Katli, made with premium large-size cashew nuts, pure ghee, and <strong>minimal sugar approach</strong> that allows the natural sweetness of cashews to shine. </span></p>
+<p dir="ltr"><span><span style="color: rgb(137, 6, 12);"><a style="color: rgb(137, 6, 12);" href="https://www.instagram.com/reel/CuCp3RfvwpG/?igsh=czc1bng5d2h4Z3ll" title="Watch how Dadu's Premium Kaju Katli is made online" rel="noopener" target="_blank">Watch</a></span> the Craftsmanship in Action</span></p>
+<h3 dir="ltr"><span style="color: rgb(137, 6, 12);">Key Features</span></h3>
+<h4 dir="ltr" role="presentation">
+<span>Finest Ingredients</span><span></span>
+</h4>
+<p dir="ltr" role="presentation">Made with organic large-sized cashew nuts, the purest desi ghee, and adorned with pure vegetarian silver leaf. Our silver leaf (varak) is meticulously crafted by skilled artisans through a unique process, ensuring unmatched quality and elegance in every piece. <a rel="noopener" title="Learn more about Dadu's Kaju Katli" href="https://dadus.co.in/blogs/explore-dadus/kaju-katli" target="_blank"><span style="color: rgb(137, 6, 12);">Learn More</span>.</a><br></p>
+<h4 dir="ltr" role="presentation"><span>Minimalist Sugar Approach </span></h4>
+<p dir="ltr" role="presentation">A healthier treat emphasizing the natural sweetness of cashews over sugar.</p>
+<h4 dir="ltr" role="presentation"><span style="color: rgb(0, 0, 0);"><a href="https://dadus.co.in/products/sugarfree-kajukatli?_pos=3&amp;_psq=sugarfree&amp;_ss=e&amp;_v=1.0" title="Shop Sugar Free Kaju Katli from Dadu's" rel="noopener" style="color: rgb(0, 0, 0);" target="_blank"><span>Sugar-Free Options</span></a></span></h4>
+<p dir="ltr" role="presentation"><span></span><span>Enjoy the same great taste without added sugar.</span></p>
+<h3 dir="ltr"><span style="color: rgb(137, 6, 12);"><strong>Order Today</strong></span></h3>
+<p dir="ltr"><span>Shop your favorite sweets online and enjoy our reliable delivery service. For a free tasting and a true gourmet experience, visit Dadu’s near you.</span></p>
+<p dir="ltr"><span>For international shipping inquiries, contact our support. Our clients within Hyderabad, India can get instant delivery using <a title="Shop Dadu's Sweets Collection on Swiggy and get instant delivery" href="https://www.swiggy.com/menu/2085?source=sharing"><span style="color: rgb(137, 6, 12);">Swiggy</span></a> or <a rel="noopener" title="SHOP Dadu's Sweet Collection on Zomato and get Instant Delivery" href="https://zomato.onelink.me/xqzv/h1s29802" target="_blank"><span style="color: rgb(137, 6, 12);">Zomato</span></a>.</span></p>
+</div></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Dry Fruits Mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-10</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8157949886744</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">605.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8157949886744</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1210.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8157949886744</id>
+      <title>1 kg</title>
+      <s:price currency="INR">2420.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8157943496984</id>
+    <published>2025-10-21T19:02:57+05:30</published>
+    <updated>2025-10-21T19:02:57+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/ajmeeri-kalakand"/>
+    <title>Ajmeri Kalakand</title>
+    <s:type>Milk Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Ajmeri_Kalakand.jpg?v=1770624790"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Milk Mithai<br>
+        <strong>Price: </strong>
+            375.00 - 1500.00
+            <a href="https://dadus.co.in/products/ajmeeri-kalakand">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><h2 dir="ltr"><span style="color: rgb(137, 6, 12);">Perfected With Pure Desi Ghee</span></h2>
+<p>Dadu’s Ajmeri Kalakand is the famous Rajasthani milk cake, in a rich baked colour and texture with a wholesome taste. This mithai is a representation of traditional Indian culture and has been a popular choice for generations.</p>
+<p>The farm-fresh milk and long hours of dedicated preparations give our Kalakand its tempting finish and taste- you can never stop at one piece!</p>
+<p>Online Ajmeri Kalakand orders are fulfilled by our trusted and reputed logistics partners with complete safety precautions and delivered straight to your doorstep. Dadu's Ajmeri Kalakand 1 kg price, Dadu's Ajmeri Kalakand 500 gm price and Dadu's Ajmeri Kalakand 250 gm price is the same as that of any of our retail outlets with no extra charges.</p>
+<p dir="ltr"><span>Our Ajmeeri Kalakand is delivered to your home with utmost care by our reliable logistics partners.</span></p>
+<p dir="ltr"><span>For international shipping inquiries, contact our support. Our clients within Hyderabad, India can get instant delivery using </span><span style="color: rgb(137, 6, 12);"><a href="https://www.swiggy.com/menu/2085?source=sharing" style="color: rgb(137, 6, 12);">Swiggy</a></span><span> or </span><span style="color: rgb(137, 6, 12);"><a href="https://zomato.onelink.me/xqzv/h1s29802" style="color: rgb(137, 6, 12);">Zomato</a></span><span>.</span></p>
+<p dir="ltr"><span>Contact our support directly for international shipping inquiries.</span></p>
+<p dir="ltr"><span>For a free tasting and a true gourmet experience, visit Dadu’s near you</span><b data-mce-fragment="1"></b></p>
+<ul></ul></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>Milk Mithai</s:tag>
+    <s:tag>shelf_life-7</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8157943496984</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">375.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8157943496984</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">750.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8157943496984</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">1500.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8157874946328</id>
+    <published>2025-10-19T11:26:26+05:30</published>
+    <updated>2025-10-19T11:26:26+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/motichur-laddu"/>
+    <title>Motichoor Laddu</title>
+    <s:type>Ghee Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/MotichoorLaddu.jpg?v=1770632228"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Ghee Mithai<br>
+        <strong>Price: </strong>
+            305.00 - 610.00
+            <a href="https://dadus.co.in/products/motichur-laddu">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><div data-mce-fragment="1" class="pro-des-title pro-info-box">
+<h2 data-mce-fragment="1"><span style="color: rgb(137, 6, 12);">India's Favourite Laddu</span></h2>
+<p dir="ltr"><span>Experience the authentic taste of Dadu's Signature Motichoor Laddu, meticulously crafted with premium ingredients and time-honoured techniques. </span></p>
+<p dir="ltr"><span>Renowned for its unmatched consistency in taste, texture, and form, this laddu is so soft it melts in your mouth with a gentle touch. It's no wonder that this sweet delight is one of the best sellers in India. </span></p>
+<p dir="ltr"><span>Indulge in the ultimate treat that embodies the rich tradition and exceptional quality Dadu's is known for.</span></p>
+<p dir="ltr"><span>Motichoor Laddu is a cherished delicacy with ancient roots in Hindu culture, especially popular during cultural &amp; festive seasons, Dussehra, and Diwali, embodying the essence of Indian tradition.</span></p>
+<p dir="ltr"><span><span style="color: rgb(137, 6, 12);"><a style="color: rgb(137, 6, 12);" title="Watch how Dadu's Motichoor Laddu gets made" href="https://www.instagram.com/reel/Chq9WTcBscZ/?igsh=eTR1Yzk2ZDF6NmRo">WATCH</a></span> the craftsmanship in action</span></p>
+<h3 dir="ltr"><span style="color: rgb(137, 6, 12);">Key Features</span></h3>
+<h4>
+<span>Premium Ingredients</span><span></span>
+</h4>
+<p><span></span><span></span><span></span>Made with the finest gram flour (besan), highest quality sugar, and pure desi ghee. </p>
+<h4><span>Minimalist Sugar Approach</span></h4>
+<p dir="ltr"><span>Dadu's Motichoor Laddu provides a natural sweetness, with just the right amount of sugar and clarified butter added to achieve the perfect taste.</span></p>
+<h4>
+<strong>Artful </strong><strong>Craftsmanship</strong>
+</h4>
+<p><span>Perfect <em>daana</em> and melt-in-your-mouth softness honed by decades of craftsmanship - a must try treat when travelling to Hyderabad</span></p>
+<p><a href="https://dadus.co.in/blogs/premium-sweets-and-online-mithai-store/indias-favourite-laddu" title="Learn more about Dadu's Motichur Laddu" rel="noopener" target="_blank"><span style="color: rgb(137, 6, 12);">Discover</span></a> why many across India consider Dadu’s Motichoor Laddu to be the best.</p>
+<h3 dir="ltr"><span style="color: rgb(137, 6, 12);"><strong>Order Today</strong></span></h3>
+<p dir="ltr"><span>Shop your favorite sweets online and enjoy our reliable delivery service. For a free tasting and a true gourmet experience, visit Dadu’s near you.</span></p>
+<p dir="ltr"><span>For international shipping inquiries, contact our support. Our clients within Hyderabad, India can get instant delivery using <a title="Shop Dadu's Sweets Collection on Swiggy and get instant delivery" href="https://www.swiggy.com/menu/2085?source=sharing"><span style="color: rgb(137, 6, 12);">Swiggy</span></a> or <a rel="noopener" title="SHOP Dadu's Sweet Collection on Zomato and get Instant Delivery" href="https://zomato.onelink.me/xqzv/h1s29802" target="_blank"><span style="color: rgb(137, 6, 12);">Zomato</span></a>.</span></p>
+<p dir="ltr"> </p>
+</div>
+<div data-mce-fragment="1" class="pro-description-box pro-info-box">
+<ul data-mce-fragment="1">
+<li>
+<b data-mce-fragment="1">Shelf Life<br></b>5 days from packaging<br><br>
+</li>
+<li data-mce-fragment="1">
+<b data-mce-fragment="1">Ingredients</b>
+<p data-mce-fragment="1"><span>Besan, Sugar, Ghee, Water</span></p>
+</li>
+<li data-mce-fragment="1">
+<b data-mce-fragment="1">Storage Instructions</b>
+<p data-mce-fragment="1">Store in a cool and dry place</p>
+</li>
+</ul>
+</div></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Ganesh Chaturthi Specials</s:tag>
+    <s:tag>ghee mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-5</s:tag>
+    <s:tag>Sweets</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8157874946328</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">305.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8157874946328</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">610.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>500</s:grams>
+    </s:variant>
+  </entry>
+</feed>

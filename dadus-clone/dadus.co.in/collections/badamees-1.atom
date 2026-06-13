@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en" xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:s="http://jadedpixel.com/-/spec/shopify">
+  <id>https://dadus.co.in/collections/all.atom</id>
+  <link rel="alternate" type="text/html" href="https://dadus.co.in/collections/all"/>
+  <link rel="self" type="application/atom+xml" href="https://dadus.co.in/collections/badamees-1.atom"/>
+  <title>DADUS</title>
+  <updated>2026-06-03T22:08:30+05:30</updated>
+  <author>
+    <name>DADUS</name>
+  </author>
+  <entry>
+    <id>https://dadus.co.in/products/8346315653400</id>
+    <published>2026-06-03T22:08:30+05:30</published>
+    <updated>2026-06-03T22:08:30+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/sugar-free-badamees"/>
+    <title>Sugarfree Badamees</title>
+    <s:type>Badamees</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/2_efc634e0-81dc-471b-a47a-3f49aa8b85c3.png?v=1742311280"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>Badamees<br>
+        <strong>Price: </strong>
+            505.00 - 1010.00
+            <a href="https://dadus.co.in/products/sugar-free-badamees">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p><span>Dadu's Sugar-Free Badamees delivers the rich, nutty flavour of almonds with zero to negligible sucrose content, vetted by rigorous lab testing. <br><br>Sweetened with Stevia, a natural plant-based sweetener, these sweet munchies are ideal for managing blood sugar levels and guilt free indulgence. With fewer calories, they are a great option for those mindful of their diet too. </span></p>
+<p><span>Crafted with 100% natural ingredients and free from artificial additives, our badamees offer a delicious and healthy treat that perfectly balances taste and health benefits.</span></p>
+<h3 dir="ltr"><span style="color: rgb(137, 6, 12);">What other Sugar Free Sweets does Dadus offer?</span></h3>
+<p dir="ltr"><span>Dadus offers a variety of sugar-free sweets, including Kaju Katli, Mysore Pak, Golden Coin, Anjeer Dry Fruit Delight, Badamees, and Khajoor Coin, all crafted for a guilt-free indulgence. </span></p>
+<h3 dir="ltr"><span style="color: rgb(137, 6, 12);">Can people with Diabetes/Sugar eat Dadus sugar free badamees?</span></h3>
+<p dir="ltr"><span>Absolutely. People with diabetes can enjoy all of Dadu’s sugar-free offerings as they are sweetened with Stevia, suitable for blood sugar management. However, it is advisable for those with Type-1 Diabetes to consult their GP before consumption.</span></p>
+<p dir="ltr"><span>Visit Dadu’s near you for a free tasting and gourmet experience. </span><span><br></span><span>In Hyderabad, explore our sweets on Swiggy &amp; Zomato for instant delivery. </span></p>
+<p dir="ltr"><span>All Dadu's sweets are fresh, vegetarian, and free from preservatives or artificial colours.</span></p>
+<!----></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Badamees</s:tag>
+    <s:tag>Bakery and Confections</s:tag>
+    <s:tag>shelf_life-45</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346315653400</id>
+      <title>250 GRMS</title>
+      <s:price currency="INR">505.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346315653400</id>
+      <title>500 GRMS</title>
+      <s:price currency="INR">1010.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/10077048996120</id>
+    <published>2026-02-09T14:51:28+05:30</published>
+    <updated>2026-02-09T14:51:28+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/chocolate-badamees"/>
+    <title>Chocolate Badamees</title>
+    <s:type>Badamees</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Chocolatebadamees.png?v=1771687891"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>Badamees<br>
+        <strong>Price: </strong>
+            445.00 - 890.00
+            <a href="https://dadus.co.in/products/chocolate-badamees">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p><img></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Bakery and Confections</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/10077048996120</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">445.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/10077048996120</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">890.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346251690264</id>
+    <published>2025-11-14T18:06:18+05:30</published>
+    <updated>2025-11-14T18:06:18+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/badam-pista-2-in-1"/>
+    <title>Badam Pista 2 In 1</title>
+    <s:type>Badamees</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Badamees_2_in_1.jpg?v=1770627330"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>Badamees<br>
+        <strong>Price: </strong>
+            960.00 - 1920.00
+            <a href="https://dadus.co.in/products/badam-pista-2-in-1">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Badamees</s:tag>
+    <s:tag>Bakery and Confections</s:tag>
+    <s:tag>shelf_life-45</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346251690264</id>
+      <title>500 GRMS</title>
+      <s:price currency="INR">960.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346251690264</id>
+      <title>1 KG</title>
+      <s:price currency="INR">1920.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346305495320</id>
+    <published>2025-11-14T18:06:14+05:30</published>
+    <updated>2025-11-14T18:06:14+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/pista-sticks"/>
+    <title>Pista Sticks</title>
+    <s:type>Badamees</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Pista_Badamees.jpg?v=1770634673"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>Badamees<br>
+        <strong>Price: </strong>
+            520.00 - 1040.00
+            <a href="https://dadus.co.in/products/pista-sticks">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Badamees</s:tag>
+    <s:tag>Bakery and Confections</s:tag>
+    <s:tag>shelf_life-45</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346305495320</id>
+      <title>250 GRMS</title>
+      <s:price currency="INR">520.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346305495320</id>
+      <title>500 GRMS</title>
+      <s:price currency="INR">1040.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346289307928</id>
+    <published>2025-11-14T18:05:51+05:30</published>
+    <updated>2025-11-14T18:05:51+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/badamees"/>
+    <title>Badamees</title>
+    <s:type>Badamees</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Badamees.jpg?v=1770627184"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>Badamees<br>
+        <strong>Price: </strong>
+            445.00 - 890.00
+            <a href="https://dadus.co.in/products/badamees">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Badamees</s:tag>
+    <s:tag>Bakery and Confections</s:tag>
+    <s:tag>bestseller</s:tag>
+    <s:tag>shelf_life-45</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346289307928</id>
+      <title>250 GRMS</title>
+      <s:price currency="INR">445.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346289307928</id>
+      <title>500 GRMS</title>
+      <s:price currency="INR">890.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+  </entry>
+</feed>

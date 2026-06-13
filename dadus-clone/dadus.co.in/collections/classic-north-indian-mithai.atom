@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en" xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:s="http://jadedpixel.com/-/spec/shopify">
+  <id>https://dadus.co.in/collections/all.atom</id>
+  <link rel="alternate" type="text/html" href="https://dadus.co.in/collections/all"/>
+  <link rel="self" type="application/atom+xml" href="https://dadus.co.in/collections/classic-north-indian-mithai.atom"/>
+  <title>DADUS</title>
+  <updated>2026-06-05T11:32:52+05:30</updated>
+  <author>
+    <name>DADUS</name>
+  </author>
+  <entry>
+    <id>https://dadus.co.in/products/8346500366616</id>
+    <published>2026-06-05T11:32:52+05:30</published>
+    <updated>2026-06-05T11:32:52+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/sohan-patti"/>
+    <title>Sohan Patti</title>
+    <s:type>Ghee Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/9_6322a78b-e4d7-46ee-9485-5de4230875ee.png?v=1742311268"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Ghee Mithai<br>
+        <strong>Price: </strong>
+            330.00 - 1320.00
+            <a href="https://dadus.co.in/products/sohan-patti">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>ghee mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346500366616</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">330.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346500366616</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">660.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346500366616</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">1320.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8178511020312</id>
+    <published>2026-06-03T22:13:06+05:30</published>
+    <updated>2026-06-03T22:13:06+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/strawberry-kaju-katli"/>
+    <title>Strawberry Kaju Katli</title>
+    <s:type>Dry Fruits Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/products/12_3_1.webp?v=1742311349"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Dry Fruits Mithai<br>
+        <strong>Price: </strong>
+            665.00 - 2660.00
+            <a href="https://dadus.co.in/products/strawberry-kaju-katli">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p><span>The classic kaju katli with a sweet strawberry twist</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Dry Fruits Mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-10</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8178511020312</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">665.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8178511020312</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">1330.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8178511020312</id>
+      <title>1 kg</title>
+      <s:price currency="INR">2660.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8348262793496</id>
+    <published>2026-05-30T23:00:41+05:30</published>
+    <updated>2026-05-30T23:00:41+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/agra-peta"/>
+    <title>Agra Petha</title>
+    <s:type>Milk Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/6_ac3ce7f5-9c00-47ba-ae1d-ad50407d5552.png?v=1742311193"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Milk Mithai<br>
+        <strong>Price: </strong>
+            462.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>Milk Mithai</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348262793496</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">462.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8349037035800</id>
+    <published>2026-02-21T21:06:29+05:30</published>
+    <updated>2026-02-21T21:06:29+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/pheni"/>
+    <title>Pheni</title>
+    <s:type>Ghee Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Sweetpheni2.jpg?v=1770633179"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Ghee Mithai<br>
+        <strong>Price: </strong>
+            345.00 - 690.00
+            <a href="https://dadus.co.in/products/pheni">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>ghee mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8349037035800</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">345.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8349037035800</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">690.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8348260270360</id>
+    <published>2025-10-21T19:03:46+05:30</published>
+    <updated>2025-10-21T19:03:46+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/bombay-halwa"/>
+    <title>Bombay Halwa</title>
+    <s:type>Ghee Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Bomabay_Halwa_2.jpg?v=1770628177"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Ghee Mithai<br>
+        <strong>Price: </strong>
+            315.00 - 630.00
+            <a href="https://dadus.co.in/products/bombay-halwa">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>ghee mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348260270360</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">315.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348260270360</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">630.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8348259451160</id>
+    <published>2025-10-21T19:03:46+05:30</published>
+    <updated>2025-10-21T19:03:46+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/chana-burfi"/>
+    <title>Chana Burfi</title>
+    <s:type>Ghee Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/chanaBurfi.png?v=1771686172"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Ghee Mithai<br>
+        <strong>Price: </strong>
+            290.00 - 580.00
+            <a href="https://dadus.co.in/products/chana-burfi">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>ghee mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348259451160</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">290.00</s:price>
+      <s:sku/>
+      <s:grams>225</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8348259451160</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">580.00</s:price>
+      <s:sku/>
+      <s:grams>450</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346740031768</id>
+    <published>2025-10-21T19:03:40+05:30</published>
+    <updated>2025-10-21T19:03:40+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/pathisa"/>
+    <title>Dryfruit  Patisa</title>
+    <s:type>Ghee Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Dryfruit_Patisa.jpg?v=1770630652"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Ghee Mithai<br>
+        <strong>Price: </strong>
+            365.00 - 730.00
+            <a href="https://dadus.co.in/products/pathisa">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>ghee mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346740031768</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">365.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346740031768</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">730.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346581860632</id>
+    <published>2025-10-21T19:03:33+05:30</published>
+    <updated>2025-10-21T19:03:33+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/gond-laddu"/>
+    <title>Gond Laddu</title>
+    <s:type>Ghee Mithai</s:type>
+    <s:vendor>DADUS</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Gondladdu.png?v=1771686380"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>DADUS<br>
+        <strong>Type: </strong>Ghee Mithai<br>
+        <strong>Price: </strong>
+            415.00 - 830.00
+            <a href="https://dadus.co.in/products/gond-laddu">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><div class="pro-des-title pro-info-box" data-mce-fragment="1">
+<h2 data-mce-fragment="1">A delicate and rich treat</h2>
+<p><span style="font-weight: 400;">Dadu’s Gond Laddu is an energizer and a nutrition packed delicacy. Most sought after in winters, these laddus are filled with the goodness of pure ghee and nuts. The age-old recipe of this traditional sweet dish is known to have many health benefits like boosting stamina and strengthening the immune system.</span></p>
+<p>Online Gond Laddu orders are fulfilled by our trusted and reputed logistics partners with complete safety precautions and delivered straight to your doorstep. Dadu's Gond Laddu 1 kg price, Dadu's Gond Laddu 500 gm price and Dadu's Gond Laddu 250 gm price is the same as that of any of our retail outlets with no extra charges.<br></p>
+<p>Gond Laddu can be bought online in an easy way via our website. Just add to cart, checkout, and get the delivery to enjoy this most sought after sweet.<br></p>
+</div>
+<div class="pro-description-box pro-info-box" data-mce-fragment="1">
+<ul data-mce-fragment="1">
+<li data-mce-fragment="1">
+<b data-mce-fragment="1">Shelf Life</b>
+<p data-mce-fragment="1">20 days from packaging</p>
+</li>
+<li data-mce-fragment="1">
+<b data-mce-fragment="1">Ingredients</b>
+<p data-mce-fragment="1">Gond, Ghee, Wheat flour, sugar and nuts.</p>
+</li>
+<li data-mce-fragment="1">
+<b data-mce-fragment="1">Storage Instructions</b>
+<p data-mce-fragment="1">Store in a cool and dry place</p>
+</li>
+</ul>
+</div></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>ghee mithai</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346581860632</id>
+      <title>300 Gms</title>
+      <s:price currency="INR">415.00</s:price>
+      <s:sku/>
+      <s:grams>300</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346581860632</id>
+      <title>600 Gms</title>
+      <s:price currency="INR">830.00</s:price>
+      <s:sku/>
+      <s:grams>600</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346504200472</id>
+    <published>2025-10-21T19:03:32+05:30</published>
+    <updated>2025-10-21T19:03:32+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/shahi-laddu"/>
+    <title>Shahi Laddu</title>
+    <s:type>Ghee Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/ShahiLaddu1.jpg?v=1771344873"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Ghee Mithai<br>
+        <strong>Price: </strong>
+            335.00 - 1340.00
+            <a href="https://dadus.co.in/products/shahi-laddu">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>ghee mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-5</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346504200472</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">335.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346504200472</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">670.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346504200472</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">1340.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346496401688</id>
+    <published>2025-10-21T19:03:30+05:30</published>
+    <updated>2025-10-21T19:03:30+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/besan-burfi"/>
+    <title>Besan Burfi</title>
+    <s:type>Ghee Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Besanburfi_1.png?v=1771686795"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Ghee Mithai<br>
+        <strong>Price: </strong>
+            330.00 - 660.00
+            <a href="https://dadus.co.in/products/besan-burfi">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>ghee mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-7</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346496401688</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">330.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346496401688</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">660.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8346236453144</id>
+    <published>2025-10-21T19:03:26+05:30</published>
+    <updated>2025-10-21T19:03:26+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/besan-laddu"/>
+    <title>Besan Laddu</title>
+    <s:type>Ghee Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Besanladdu_579563a2-90e2-427b-9174-0a0c29334035.png?v=1771686254"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Ghee Mithai<br>
+        <strong>Price: </strong>
+            315.00 - 630.00
+            <a href="https://dadus.co.in/products/besan-laddu">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>ghee mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-20</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346236453144</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">315.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8346236453144</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">630.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8345969000728</id>
+    <published>2025-10-21T19:03:23+05:30</published>
+    <updated>2025-10-21T19:03:23+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/doda-burfi"/>
+    <title>Doda Burfi</title>
+    <s:type>Milk Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Doda_3_-_Copy.jpg?v=1770630358"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Milk Mithai<br>
+        <strong>Price: </strong>
+            380.00 - 760.00
+            <a href="https://dadus.co.in/products/doda-burfi">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><!----></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>Milk Mithai</s:tag>
+    <s:tag>shelf_life-7</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8345969000728</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">380.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8345969000728</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">760.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8345942360344</id>
+    <published>2025-10-21T19:03:22+05:30</published>
+    <updated>2025-10-21T19:03:22+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/dharwad-peda"/>
+    <title>Dharwad Peda</title>
+    <s:type>Milk Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Dharwadpeda.png?v=1771686950"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Milk Mithai<br>
+        <strong>Price: </strong>
+            400.00 - 800.00
+            <a href="https://dadus.co.in/products/dharwad-peda">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><div data-mce-fragment="1" class="pro-des-title pro-info-box">
+<h2 data-mce-fragment="1">A delicate and rich treat</h2>
+<p><span style="font-weight: 400;">Dadu’s Dharwad Peda is a Karnataka delicacy, prepared to perfection by our specialist chef of that region. These pedas are of historic importance. We at Dadu’s use only the purest quality milk, sourced directly from the farms, for all our milk based mithais, like the Dharwad Peda. The texture is kept granular, to give the authentic taste of this delicacy.</span></p>
+<p>Online Dharwad Peda orders are fulfilled by our trusted and reputed logistics partners with complete safety precautions and delivered straight to your doorstep. Dadu's Dharwad Peda 1 kg price, Dadu's Dharwad Peda 500 gm price and Dadu's Dharwad Peda 250 gm price is the same as that of any of our retail outlets with no extra charges.<br></p>
+<p>Dharwad Peda can be bought online in an easy way via our website. Just add to cart, checkout, and get the delivery to enjoy this most sought after sweet.<br></p>
+</div>
+<div data-mce-fragment="1" class="pro-description-box pro-info-box">
+<ul data-mce-fragment="1">
+<li data-mce-fragment="1">
+<b data-mce-fragment="1">Shelf Life</b>
+<p data-mce-fragment="1">5 days from packaging</p>
+</li>
+<li data-mce-fragment="1">
+<b data-mce-fragment="1">Storage Instructions</b>
+<p data-mce-fragment="1">Store in a cool and dry place</p>
+</li>
+</ul>
+</div></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>Milk Mithai</s:tag>
+    <s:tag>shelf_life-7</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8345942360344</id>
+      <title>300 Gms</title>
+      <s:price currency="INR">400.00</s:price>
+      <s:sku/>
+      <s:grams>300</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8345942360344</id>
+      <title>600 Gms</title>
+      <s:price currency="INR">800.00</s:price>
+      <s:sku/>
+      <s:grams>600</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8341378662680</id>
+    <published>2025-10-21T19:03:17+05:30</published>
+    <updated>2025-10-21T19:03:17+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/moongdal-burfi"/>
+    <title>Moongdal Burfi</title>
+    <s:type>Ghee Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/MoongdalBurfi3.jpg?v=1770632147"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Ghee Mithai<br>
+        <strong>Price: </strong>
+            335.00 - 670.00
+            <a href="https://dadus.co.in/products/moongdal-burfi">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><!----></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>ghee mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-10</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341378662680</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">335.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341378662680</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">670.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8341215641880</id>
+    <published>2025-10-21T19:03:17+05:30</published>
+    <updated>2025-10-21T19:03:17+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/khova-gujia"/>
+    <title>Khova Gujiya</title>
+    <s:type>Ghee Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/KhovaGujiya_698db37a-b9ff-46f6-911b-74cf8449f8ae.jpg?v=1771672016"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Ghee Mithai<br>
+        <strong>Price: </strong>
+            340.00 - 1360.00
+            <a href="https://dadus.co.in/products/khova-gujia">(3 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><h2 dir="ltr"><span style="color: rgb(137, 6, 12);">A Timeless Delight</span></h2>
+<p dir="ltr"><span>Indulge in the traditional flavor of Dadu’s Khoya Gujiya, a beloved deep-fried sweet that has been a favorite across the Indian subcontinent for centuries. </span></p>
+<p dir="ltr"><span>Made with suji, each gujiya is stuffed with a sweet mixture of khoya (milk solids), freshly grated coconut, dried fruits, and a hint of suji for a grainy texture. </span></p>
+<p dir="ltr"><span>Fried to a perfect crisp in desi ghee, this half-moon shaped delicacy offers a delightful combination of textures and flavours that will leave you craving more.</span></p>
+<p dir="ltr"><span>At Dadu's, we ensure that you can shop our premium sweets online with ease.</span></p>
+<p dir="ltr"><span>Our Khoya Gujiya is delivered to your home with utmost care by our reliable logistics partners.</span></p>
+<p dir="ltr"><span>For international shipping inquiries, contact our support. Our clients within Hyderabad, India can get instant delivery using </span><span style="color: rgb(137, 6, 12);"><a href="https://www.swiggy.com/menu/2085?source=sharing" style="color: rgb(137, 6, 12);">Swiggy</a></span><span> or </span><span style="color: rgb(137, 6, 12);"><a href="https://zomato.onelink.me/xqzv/h1s29802" style="color: rgb(137, 6, 12);">Zomato</a></span></p>
+<p dir="ltr"><span>For a free tasting and a true gourmet experience, visit Dadu’s near you</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>ghee mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-7</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341215641880</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">340.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341215641880</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">680.00</s:price>
+      <s:sku/>
+      <s:grams>500</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8341215641880</id>
+      <title>1 Kg</title>
+      <s:price currency="INR">1360.00</s:price>
+      <s:sku/>
+      <s:grams>1000</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://dadus.co.in/products/8186851262744</id>
+    <published>2025-10-21T19:03:03+05:30</published>
+    <updated>2025-10-21T19:03:03+05:30</updated>
+    <link rel="alternate" type="text/html" href="https://dadus.co.in/products/soan-papdi"/>
+    <title>Sohan Papdi</title>
+    <s:type>Ghee Mithai</s:type>
+    <s:vendor>Dadu’s (Indian Mithai)</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0722/9692/3416/files/Sohanpapdi_b58b2368-930e-46c2-8edf-43b17e0908d1.png?v=1771686408"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Dadu’s (Indian Mithai)<br>
+        <strong>Type: </strong>Ghee Mithai<br>
+        <strong>Price: </strong>
+            315.00 - 630.00
+            <a href="https://dadus.co.in/products/soan-papdi">(2 variants)</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><div class="pro-des-title pro-info-box">
+<h2>A delicate and rich treat</h2>
+<p>Soan Papdi is a traditional Indian sweet delicacy that is known for its unique texture, flaky and crispy on the outside, and soft and melt-in-your-mouth on the inside. It is made from a combination of chickpea flour, sugar, ghee (clarified butter), and various nuts like almonds and pistachios.</p>
+</div>
+<div class="pro-description-box pro-info-box">
+<ul>
+<li>
+<b>Shelf Life</b>
+<p>30 days from packaging</p>
+</li>
+<li>
+<b>Ingredients</b>
+<p><span><strong>Khova Gujia - </strong> Maida, Besan, Ghee, Sugar, Badam, Pista </span> <span><strong>Mtichoor Laddu - </strong>Maida, Besan, Ghee, Sugar</span> <span><strong>Kaju Katli - </strong> Cashew, milk, Ghee,Sugar</span> <span><strong>Ajmeeri Kalakand - </strong> Cashew, milk, Ghee, Sugar</span> <span><strong> Mysore Pak - </strong>Cashew, milk, Ghee, Sugar</span> <span><strong>Suryakala -</strong> Wheat, Almond, Cashew, milk, Ghee, Sugar</span></p>
+</li>
+<li>
+<b>Storage Instructions</b>
+<p>Store in a cool and dry place</p>
+</li>
+</ul>
+</div></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>ghee mithai</s:tag>
+    <s:tag>Indian Mithai</s:tag>
+    <s:tag>shelf_life-30</s:tag>
+    <s:variant>
+      <id>https://dadus.co.in/products/8186851262744</id>
+      <title>250 Gms</title>
+      <s:price currency="INR">315.00</s:price>
+      <s:sku/>
+      <s:grams>250</s:grams>
+    </s:variant>
+    <s:variant>
+      <id>https://dadus.co.in/products/8186851262744</id>
+      <title>500 Gms</title>
+      <s:price currency="INR">630.00</s:price>
+      <s:sku>501</s:sku>
+      <s:grams>500</s:grams>
+    </s:variant>
+  </entry>
+</feed>
