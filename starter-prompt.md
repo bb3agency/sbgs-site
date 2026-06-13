@@ -161,7 +161,7 @@ If `db` or `redis` shows `disconnected`, fix the backend first. See `README.md` 
 # .env.local
 NEXT_PUBLIC_API_BASE_URL=http://localhost:3000/api/v1   # must include /api/v1
 NEXT_PUBLIC_STORE_NAME="Your Brand Name"
-NEXT_PUBLIC_STOREFRONT_URL=http://localhost:3001
+NEXT_PUBLIC_STOREFRONT_URL=http://localhost:3002
 NEXT_PUBLIC_RAZORPAY_KEY_ID=rzp_test_xxxxx              # public key ONLY — never the secret
 ```
 

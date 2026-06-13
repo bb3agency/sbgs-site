@@ -34,7 +34,7 @@ log "Checking monorepo layout at ${WWW_ROOT}..."
 
 log "Checking backend health..."
 BACKEND_PORT=$(grep -E '^BACKEND_PORT=' "$BACKEND_PATH/.env" | cut -d= -f2 | tr -d '[:space:]')
-BACKEND_PORT="${BACKEND_PORT:-3001}"
+BACKEND_PORT="${BACKEND_PORT:-3002}"
 curl -fsS "http://127.0.0.1:${BACKEND_PORT}/api/v1/health" >/dev/null || fail "Backend health failed on port ${BACKEND_PORT}"
 
 log "Checking PM2 frontend process ${CLIENT_ID}-frontend..."

@@ -34,7 +34,7 @@ The following must exist and be non-placeholder before first boot:
 
 - Bootstrap: `DATABASE_URL`, `REDIS_URL`, `OPS_DB_ENCRYPTION_KEY`
 - Auth/secrets: `JWT_SECRET`, `JWT_REFRESH_SECRET`, `OPS_COOKIE_SECRET`, `AUDIT_ANCHOR_SECRET`
-- Runtime routing: `NODE_ENV=production`, `PORT=3000`, `BACKEND_PORT=3001`
+- Runtime routing: `NODE_ENV=production`, `PORT=3000`, `BACKEND_PORT=3002`
 
 Runtime keys managed through Ops DB overlay are now allowed to be absent at startup. If absent, provider factories fail only at call-time with `CONFIG_NOT_READY`, and `/api/v1/health/ready` reports `runtimeConfigMissingKeys`.
 
@@ -312,7 +312,7 @@ Preflight: `backend/docs/templates/scripts/phase7.5-nginx-tls-preflight.sh` (per
   - `runtimeConfigMissingKeys` is empty
 - No `Missing required env var` in backend/workers logs.
 - No Prisma init errors in logs.
-- No pending port collisions (`5432`, `3001`).
+- No pending port collisions (`5432`, `3002`).
 
 Do not proceed to Nginx/TLS, Ops bootstrap, or frontend deploy until this gate is green.
 

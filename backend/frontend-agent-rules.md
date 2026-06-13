@@ -85,9 +85,9 @@ This is a **high-conversion e-commerce storefront** built as a headless frontend
 - **Public Variables:** For any environment variable that must be exposed to the browser (e.g., client components), ensure it is prefixed with `NEXT_PUBLIC_`.
 - **Private Variables:** Never prefix secret keys or server-only credentials with `NEXT_PUBLIC_`.
 - **Initial Setup:** BEFORE writing any code, ask the user the following questions in one message (do not start generating code until all are answered):
-  1. Backend API URL (local, e.g. `http://localhost:3001/api/v1`)
+  1. Backend API URL (local, e.g. `http://localhost:3002/api/v1`)
   2. Store name / brand name
-  3. Storefront local URL (e.g. `http://localhost:3101`)
+  3. Storefront local URL (e.g. `http://localhost:3102`)
   4. Razorpay **test** key ID (`rzp_test_xxx`) — public key only, never the secret
   5. Whether Resend email is active — confirm `NOTIFY_EMAIL_ENABLED=true` in backend `.env`. The `RESEND_API_KEY` itself is stored in the Ops DB config (not `.env`) and loaded at runtime.
   6. Which SMS provider is active — confirm `SMS_PROVIDER` in backend `.env` (`msg91`, `fast2sms`, or `noop`). The actual API key (`MSG91_AUTH_KEY` or `FAST2SMS_API_KEY`) is stored in Ops DB config, not `.env`.
@@ -101,7 +101,7 @@ This is a **high-conversion e-commerce storefront** built as a headless frontend
   10. Whether a `docs/FRONTEND_DEV_LOG.md` already exists in the frontend repo — if not, create one from the template in `../backend/docs/FRONTEND_DEV_LOG_TEMPLATE.md` before writing any code.
   11. **VPS deployment variables** (required if deploying via GitHub Actions CD to a self-hosted runner):
       - `CLIENT_ID` — the client slug used for PM2 process naming (e.g. `greengrocer`). Must match backend `CLIENT_ID`.
-      - `STOREFRONT_PORT` — the port PM2 starts Next.js on (e.g. `3101`). Must match Nginx `proxy_pass`.
+      - `STOREFRONT_PORT` — the port PM2 starts Next.js on (e.g. `3102`). Must match Nginx `proxy_pass`.
       These go in `.env.local` (or `.env.production.local`) on the VPS. They are read by `vps-frontend-deploy.sh` for `pm2 reload <client-id>-frontend` and the health check. Not needed in local `.env.local` for development.
       - On VPS first deploy, create runtime env from the tracked template: `cp .env.production.example .env.production.local`. Replace all `PRODUCTION_DOMAIN` placeholders before build.
   Then automatically generate the `.env.local` file with all collected values.
@@ -1185,7 +1185,7 @@ These backend characteristics affect frontend behavior understanding. No code ch
 NEXT_PUBLIC_API_BASE_URL=http://localhost:3000/api/v1
 
 # Site
-NEXT_PUBLIC_STOREFRONT_URL=http://localhost:3101
+NEXT_PUBLIC_STOREFRONT_URL=http://localhost:3102
 NEXT_PUBLIC_STORE_NAME="Sri Sai Baba Ghee Sweets"
 
 # Analytics (production only)

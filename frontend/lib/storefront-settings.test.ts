@@ -21,7 +21,7 @@ describe("storefront-settings", () => {
   const originalApiBase = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   beforeEach(() => {
-    process.env.NEXT_PUBLIC_API_BASE_URL = "http://localhost:3101/api/v1";
+    process.env.NEXT_PUBLIC_API_BASE_URL = "http://localhost:3102/api/v1";
   });
 
   afterEach(() => {
@@ -127,7 +127,7 @@ describe("storefront-settings", () => {
       configAvailable: true,
     });
     expect(global.fetch).toHaveBeenCalledWith(
-      "http://localhost:3101/api/v1/store/config",
+      "http://localhost:3102/api/v1/store/config",
       { cache: "no-store" },
     );
   });

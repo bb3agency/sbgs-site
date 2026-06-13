@@ -35,7 +35,7 @@
 
 **Backend Phase 1 (required before boot):** `NODE_ENV=production`, `STOREFRONT_URL`, `ADMIN_URL`, `DATABASE_URL`, `REDIS_URL`, secrets per `backend/.env.example`. Missing `STOREFRONT_URL` prevents boot in production-like profiles.
 
-**Frontend production:** `NEXT_PUBLIC_API_BASE_URL=https://srisaibabasweets.com/api/v1`, `INTERNAL_API_BASE_URL=http://127.0.0.1:3001/api/v1`, `NEXT_PUBLIC_STOREFRONT_URL=https://srisaibabasweets.com`, `NEXT_PUBLIC_IMAGE_CDN_URL=https://cdn.srisaibabasweets.com` (must match Ops `R2_PUBLIC_BASE_URL`). Storefront COD and module flags from **`GET /api/v1/store/config`** (no frontend redeploy when toggled).
+**Frontend production:** `NEXT_PUBLIC_API_BASE_URL=https://srisaibabasweets.com/api/v1`, `INTERNAL_API_BASE_URL=http://127.0.0.1:3002/api/v1`, `NEXT_PUBLIC_STOREFRONT_URL=https://srisaibabasweets.com`, `NEXT_PUBLIC_IMAGE_CDN_URL=https://cdn.srisaibabasweets.com` (must match Ops `R2_PUBLIC_BASE_URL`). Storefront COD and module flags from **`GET /api/v1/store/config`** (no frontend redeploy when toggled).
 
 **Ops Product Media (after Phase 8):** `MEDIA_STORAGE_PROVIDER=r2`, bucket `sbgs-product-images`, `R2_PUBLIC_BASE_URL=https://cdn.srisaibabasweets.com` — credentials in [VPS_INPUTS.md](./VPS_INPUTS.md); restart API/workers after save.
 

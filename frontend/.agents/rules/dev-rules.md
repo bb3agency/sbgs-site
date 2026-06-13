@@ -73,9 +73,9 @@ This is a **high-conversion e-commerce storefront** built as a headless frontend
 - **Public Variables:** For any environment variable that must be exposed to the browser (e.g., client components), ensure it is prefixed with `NEXT_PUBLIC_`.
 - **Private Variables:** Never prefix secret keys or server-only credentials with `NEXT_PUBLIC_`.
 - **Initial Setup:** BEFORE writing any code, ask the user the following questions in one message (do not start generating code until all are answered):
-  1. Backend API URL (local, e.g. `http://localhost:3001/api/v1`)
+  1. Backend API URL (local, e.g. `http://localhost:3002/api/v1`)
   2. Store name / brand name
-  3. Storefront local URL (e.g. `http://localhost:3101`)
+  3. Storefront local URL (e.g. `http://localhost:3102`)
   4. Razorpay **test** key ID (`rzp_test_xxx`) — public key only, never the secret
   5. Whether Resend is configured in the backend `.env` (key is backend-only, frontend does not need it — confirm it is set)
   6. Whether MSG91 SMS is configured in the backend `.env` (same — backend-only, confirm it is set)
@@ -672,7 +672,7 @@ These backend characteristics affect frontend behavior understanding. No code ch
 NEXT_PUBLIC_API_BASE_URL=http://localhost:3000/api/v1
 
 # Site
-NEXT_PUBLIC_STOREFRONT_URL=http://localhost:3101
+NEXT_PUBLIC_STOREFRONT_URL=http://localhost:3102
 NEXT_PUBLIC_STORE_NAME="Sri Sai Baba Ghee Sweets"
 
 # Analytics (production only)

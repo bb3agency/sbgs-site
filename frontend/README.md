@@ -18,7 +18,7 @@ npm install
 npm run dev
 ```
 
-Dev server: **http://localhost:3101** (also shown as Network URL, e.g. `http://192.168.1.4:3101`).
+Dev server: **http://localhost:3102** (also shown as Network URL, e.g. `http://192.168.1.4:3102`).
 
 `npm run dev` runs `scripts/ensure-backend-dev.mjs` automatically (`predev`). It probes `BACKEND_PROXY_URL` (default `http://127.0.0.1:3000`) and **exits with instructions** if the Fastify API is not reachable — avoiding broken `/api/v1/*` rewrites and `ECONNREFUSED` spam.
 
@@ -30,7 +30,7 @@ For **phone testing on the same Wi‑Fi**:
 ALLOWED_DEV_ORIGINS=192.168.1.4
 ```
 
-Use the IP printed by `npm run dev` (optional — `next.config.ts` also auto-detects LAN IPv4). Sign in at `http://<that-ip>:3101/admin/login` (not `localhost` if you browse via LAN IP — refresh cookies are host-scoped).
+Use the IP printed by `npm run dev` (optional — `next.config.ts` also auto-detects LAN IPv4). Sign in at `http://<that-ip>:3102/admin/login` (not `localhost` if you browse via LAN IP — refresh cookies are host-scoped).
 
 ## Typography
 
@@ -87,7 +87,7 @@ All settings panels are **mobile-optimized** for 375px viewports with 44px+ touc
 
 | Command | Purpose |
 | --- | --- |
-| `npm run dev` | Next dev on port 3101 (runs backend health check first) |
+| `npm run dev` | Next dev on port 3102 (runs backend health check first) |
 | `npm run build` | Production build |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run lint` | ESLint |

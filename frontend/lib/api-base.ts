@@ -36,7 +36,7 @@ export function getInternalApiBaseUrl(): string {
 /**
  * Base URL for browser `fetch` (client components, credentials: include).
  * Always uses the current page origin so refresh cookies and Next `/api/v1` rewrites
- * work on LAN/mobile hosts (e.g. `http://10.x.x.x:3101`), not `localhost` from env.
+ * work on LAN/mobile hosts (e.g. `http://10.x.x.x:3102`), not `localhost` from env.
  */
 export function getBrowserApiBaseUrl(): string {
   if (typeof window === "undefined") {

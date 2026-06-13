@@ -10,8 +10,8 @@ Fill [VPS_INPUTS.md](./VPS_INPUTS.md) first, then run scripts under [scripts/](.
 |-------|-------|
 | Client name | Sri Sai Baba Ghee Sweets |
 | `CLIENT_ID` | `sbgs` |
-| `BACKEND_PORT` | `3001` (confirm free on VPS) |
-| `STOREFRONT_PORT` | `3101` |
+| `BACKEND_PORT` | `3002` (confirm free on VPS) |
+| `STOREFRONT_PORT` | `3102` |
 | `POSTGRES_DB` (host) | `sbgs` |
 | VPS backend path | `/var/www/sbgs/backend` |
 | VPS frontend path | `/var/www/sbgs/frontend` |
@@ -49,7 +49,7 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
 ## Nginx + TLS (multi-client VPS)
 
-This VPS hosts **multiple clients**. SBGS is **slot 2**: ports **3001** / **3101**, domain **`srisaibabasweets.com`**. Canonical rules: [CLIENT_VPS_SETUP_GUIDE.md](../../../backend/docs/CLIENT_VPS_SETUP_GUIDE.md) §11.0.
+This VPS hosts **multiple clients**. SBGS is **slot 2**: ports **3002** / **3102**, domain **`srisaibabasweets.com`**. Canonical rules: [CLIENT_VPS_SETUP_GUIDE.md](../../../backend/docs/CLIENT_VPS_SETUP_GUIDE.md) §11.0.
 
 **Preflight (run before editing Nginx):**
 
@@ -64,7 +64,7 @@ bash docs/clients/sbgs/scripts/phase7.5-nginx-tls-preflight.sh
 | `default` site | **Do not** `rm sites-enabled/default` unless you verified it is unused |
 | Rate zones | Once per VPS: `rate-zones.conf.template` → `/etc/nginx/snippets/rate-zones.conf` + `include` in `nginx.conf` `http {}` |
 | Redis host port | Comment out `redis:` **`ports:`** in `backend/docker-compose.yml`; only one client can bind `0.0.0.0:6379` |
-| Port conflict | `ss -tlnp \| grep -E '3001\|3101'` — must be free or owned by `sbgs-*` / PM2 |
+| Port conflict | `ss -tlnp \| grep -E '3002\|3102'` — must be free or owned by `sbgs-*` / PM2 |
 
 **Install (additive — this domain only):**
 

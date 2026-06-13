@@ -28,7 +28,7 @@ describe("seo", () => {
 
   it("blocks indexing on localhost even in production mode", () => {
     vi.stubEnv("NODE_ENV", "production");
-    vi.stubEnv("NEXT_PUBLIC_STOREFRONT_URL", "http://localhost:3101");
+    vi.stubEnv("NEXT_PUBLIC_STOREFRONT_URL", "http://localhost:3102");
     expect(isProductionIndexableSite()).toBe(false);
   });
 

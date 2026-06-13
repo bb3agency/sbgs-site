@@ -8,8 +8,8 @@
 # be substituted before it can be installed at /etc/nginx/sites-available/.
 # Required variables:
 #   ${CLIENT_DOMAIN}     e.g. srisaibabasweets.com  (no scheme, no port)
-#   ${STOREFRONT_PORT}   e.g. 3101                 (Next.js local upstream)
-#   ${BACKEND_PORT}      e.g. 3001                 (Fastify local upstream)
+#   ${STOREFRONT_PORT}   e.g. 3102                 (Next.js local upstream)
+#   ${BACKEND_PORT}      e.g. 3002                 (Fastify local upstream)
 #
 # Render with:
 #   export CLIENT_DOMAIN=srisaibabasweets.com STOREFRONT_PORT=3102 BACKEND_PORT=3002

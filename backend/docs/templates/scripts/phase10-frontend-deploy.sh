@@ -38,7 +38,7 @@ npm ci
 npm run build
 
 STOREFRONT_PORT=$(grep -E '^STOREFRONT_PORT=' .env.production.local | cut -d= -f2 | tr -d '[:space:]')
-STOREFRONT_PORT="${STOREFRONT_PORT:-3101}"
+STOREFRONT_PORT="${STOREFRONT_PORT:-3102}"
 
 if pm2 describe "${CLIENT_ID}-frontend" >/dev/null 2>&1; then
   pm2 reload "${CLIENT_ID}-frontend" --update-env

@@ -431,7 +431,7 @@ Perform each dry-run as part of the vertical slice that builds the relevant fron
 
 3. **PostgreSQL 16 host service:** Confirm it is running on the host (not only in Docker). Containers reach it via `host.docker.internal`.
 
-4. **Firewall:** Ports 80 and 443 open inbound. Backend/storefront ports (3001–3099, 3101–3199) NOT exposed publicly — proxied only by Nginx.
+4. **Firewall:** Ports 80 and 443 open inbound. Backend/storefront ports (3002–3099, 3102–3199) NOT exposed publicly — proxied only by Nginx.
 
 5. **NTP / time sync:** Confirm `systemd-timesyncd` or equivalent is active.
    ```bash

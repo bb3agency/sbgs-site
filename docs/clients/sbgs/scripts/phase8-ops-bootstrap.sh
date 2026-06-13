@@ -24,5 +24,5 @@ npm run ops:newuser -- \
 echo "Complete /ops/setup in browser, then save provider keys via Ops UI and restart:"
 echo "  docker compose ${COMPOSE_ARGS} up -d backend workers"
 echo "Then verify readiness is fully green:"
-echo "  curl -fsS http://127.0.0.1:\${BACKEND_PORT:-3001}/api/v1/health/ready"
+echo "  curl -fsS http://127.0.0.1:\${BACKEND_PORT:-3002}/api/v1/health/ready"
 echo "Expected: status=ready and runtimeConfigMissingKeys=[]"

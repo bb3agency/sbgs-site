@@ -161,13 +161,13 @@ If `db` or `redis` shows `disconnected`, fix the backend first. See `README.md` 
 # .env.local  (development)
 NEXT_PUBLIC_API_BASE_URL=http://localhost:3000/api/v1   # must include /api/v1
 NEXT_PUBLIC_STORE_NAME="Your Brand Name"
-NEXT_PUBLIC_STOREFRONT_URL=http://localhost:3001
+NEXT_PUBLIC_STOREFRONT_URL=http://localhost:3002
 NEXT_PUBLIC_RAZORPAY_KEY_ID=rzp_test_xxxxx              # public key ONLY — never the secret
 
 # Required on VPS by vps-frontend-deploy.sh for PM2 process naming and health checks.
 # Set these in .env.local (or .env.production.local) on the VPS before the first deploy.
 CLIENT_ID=your-client-id                                # e.g. greengrocer (slug, no spaces)
-STOREFRONT_PORT=3101                                    # matches Nginx proxy_pass + port assignment
+STOREFRONT_PORT=3102                                    # matches Nginx proxy_pass + port assignment
 ```
 
 Never hardcode API URLs in fetch calls. Always use `process.env.NEXT_PUBLIC_API_BASE_URL`. Ensure all client components that need it use the `NEXT_PUBLIC_` prefix.
@@ -403,9 +403,9 @@ NEXT_PUBLIC_API_BASE_URL=https://your-domain.com/api/v1
 NEXT_PUBLIC_STORE_NAME="Your Brand Name"
 NEXT_PUBLIC_STOREFRONT_URL=https://your-domain.com
 NEXT_PUBLIC_RAZORPAY_KEY_ID=rzp_live_xxx    # Production key
-INTERNAL_API_BASE_URL=http://127.0.0.1:3001/api/v1
+INTERNAL_API_BASE_URL=http://127.0.0.1:3002/api/v1
 CLIENT_ID=your-client-id                     # PM2 process naming
-STOREFRONT_PORT=3101                         # Nginx proxy port
+STOREFRONT_PORT=3102                         # Nginx proxy port
 OPS_UI_BASIC_AUTH_USERNAME=<set-on-shared-vps>
 OPS_UI_BASIC_AUTH_PASSWORD=<set-on-shared-vps>
 ```

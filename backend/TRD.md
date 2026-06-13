@@ -159,7 +159,7 @@ extra_hosts:
 
 | Client Slot | Backend Port | Storefront Port |
 |---|---|---|
-| Client 1 | 3001 | 3101 |
+| Client 1 | 3002 | 3102 |
 | Client 2 | 3002 | 3102 |
 | Client N | 3000 + N | 3100 + N |
 
@@ -226,7 +226,7 @@ server {
   listen 443 ssl;
   server_name client1.com www.client1.com;
   location / {
-    proxy_pass http://127.0.0.1:3101;
+    proxy_pass http://127.0.0.1:3102;
   }
 }
 ```

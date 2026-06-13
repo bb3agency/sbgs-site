@@ -4,8 +4,8 @@ set -euo pipefail
 
 export CLIENT_ID="${CLIENT_ID:-sbgs}"
 export PRODUCTION_DOMAIN="${PRODUCTION_DOMAIN:-srisaibabasweets.com}"
-export BACKEND_PORT="${BACKEND_PORT:-3001}"
-export STOREFRONT_PORT="${STOREFRONT_PORT:-3101}"
+export BACKEND_PORT="${BACKEND_PORT:-3002}"
+export STOREFRONT_PORT="${STOREFRONT_PORT:-3102}"
 export BACKEND_PATH="${BACKEND_PATH:-/var/www/sbgs/backend}"
 export NGINX_SITE_NAME="${NGINX_SITE_NAME:-srisaibabasweets.com}"
 

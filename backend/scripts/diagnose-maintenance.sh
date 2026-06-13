@@ -91,10 +91,10 @@ section "3. MaintenanceState row (source of truth)"
 PSQL "SELECT mode, phase, \"pendingUntil\", \"activatedAt\", \"setAt\", \"updatedAt\", \"setByOpsUserId\" FROM \"MaintenanceState\" WHERE \"singletonKey\" = 'singleton';" || true
 
 section "4. Live API: GET /api/v1/maintenance/status"
-curl -sS -m 5 http://127.0.0.1:3001/api/v1/maintenance/status 2>&1 || echo "(failed to reach backend on 127.0.0.1:3001)"
+curl -sS -m 5 http://127.0.0.1:3002/api/v1/maintenance/status 2>&1 || echo "(failed to reach backend on 127.0.0.1:3002)"
 
 section "5. Live API: HEAD /api/v1/maintenance/gate (look for X-Maintenance-Active)"
-curl -sSI -m 5 -H "X-Original-URI: /" http://127.0.0.1:3001/api/v1/maintenance/gate 2>&1 | grep -iE "(^HTTP|X-Maintenance-Active)" || echo "(no relevant headers)"
+curl -sSI -m 5 -H "X-Original-URI: /" http://127.0.0.1:3002/api/v1/maintenance/gate 2>&1 | grep -iE "(^HTTP|X-Maintenance-Active)" || echo "(no relevant headers)"
 
 section "6. BullMQ cart-cleanup queue — delayed/waiting/completed (last 5)"
 docker compose "${COMPOSE_ARGS[@]}" exec -T backend node -e "

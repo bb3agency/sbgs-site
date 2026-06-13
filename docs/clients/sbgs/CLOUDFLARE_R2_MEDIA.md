@@ -12,7 +12,7 @@
 | Image CDN hostname | `cdn.srisaibabasweets.com` |
 | VPS origin | `178.104.46.202` |
 
-Storefront and API terminate at Nginx on the VPS (`srisaibabasweets.com` → `127.0.0.1:3101` / `3001`). Product images are served from **Cloudflare R2** via the custom domain `cdn.srisaibabasweets.com` (not from the VPS disk in production).
+Storefront and API terminate at Nginx on the VPS (`srisaibabasweets.com` → `127.0.0.1:3102` / `3002`). Product images are served from **Cloudflare R2** via the custom domain `cdn.srisaibabasweets.com` (not from the VPS disk in production).
 
 ## R2 bucket (non-secret identifiers)
 
@@ -48,7 +48,7 @@ Must match Ops `R2_PUBLIC_BASE_URL` exactly (scheme + host, no trailing slash). 
 
 ## Local development
 
-Keep `MEDIA_STORAGE_PROVIDER=local` in Ops (or unset). Optional `NEXT_PUBLIC_IMAGE_CDN_URL=http://localhost:3101` for relative `/api/v1/media/...` paths via Next rewrite.
+Keep `MEDIA_STORAGE_PROVIDER=local` in Ops (or unset). Optional `NEXT_PUBLIC_IMAGE_CDN_URL=http://localhost:3102` for relative `/api/v1/media/...` paths via Next rewrite.
 
 ## Security note
 

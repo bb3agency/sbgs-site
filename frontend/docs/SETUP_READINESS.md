@@ -117,7 +117,7 @@ If you skip dev bypass, ensure `RESEND_API_KEY` + `NOTIFY_EMAIL_ENABLED=true` in
 2. Verify health (direct): `curl http://127.0.0.1:3000/api/v1/health`
 3. Configure `frontend/.env.local` per `.env.example` (browser API on **storefront port**, not `:3000`)
 4. Start storefront: `cd frontend && npm run dev` (uses **webpack** dev on Windows — stable; see troubleshooting below)
-5. Verify rewrite: `curl http://localhost:3101/api/v1/health`
+5. Verify rewrite: `curl http://localhost:3102/api/v1/health`
 6. Run `npm run typecheck`, `npm test`, and `npx vitest run -c vitest.integration.config.ts`
 
 ## Local URLs
@@ -125,8 +125,8 @@ If you skip dev bypass, ensure `RESEND_API_KEY` + `NOTIFY_EMAIL_ENABLED=true` in
 | Service | URL | Notes |
 |---|---|---|
 | Backend API (direct) | http://127.0.0.1:3000/api/v1 | `INTERNAL_API_BASE_URL`, health, Postman |
-| Browser API | http://localhost:3101/api/v1 | `NEXT_PUBLIC_API_BASE_URL` — **required for cookies** |
-| Storefront / Admin UI | http://localhost:3101 | Next.js dev server |
+| Browser API | http://localhost:3102/api/v1 | `NEXT_PUBLIC_API_BASE_URL` — **required for cookies** |
+| Storefront / Admin UI | http://localhost:3102 | Next.js dev server |
 
 ## Dev server troubleshooting (Windows / Turbopack)
 
@@ -150,7 +150,7 @@ Stop other `node.exe` dev servers, and exclude `frontend\.next` from real-time a
 
 ## Admin session refresh
 
-After admin OTP login, `refresh_token` must appear under **localhost:3101** in DevTools → Application → Cookies. Page reload on `/admin` calls `POST /auth/refresh` via the same origin (see `lib/restore-auth-session.ts`, `components/auth/AdminGuard.tsx`). Details: `../backend/docs/NEXTJS_FRONTEND_INTEGRATION_GUIDE.md` §1.0.1.
+After admin OTP login, `refresh_token` must appear under **localhost:3102** in DevTools → Application → Cookies. Page reload on `/admin` calls `POST /auth/refresh` via the same origin (see `lib/restore-auth-session.ts`, `components/auth/AdminGuard.tsx`). Details: `../backend/docs/NEXTJS_FRONTEND_INTEGRATION_GUIDE.md` §1.0.1.
 
 ## Product images (Cloudflare R2 + CDN)
 
@@ -159,7 +159,7 @@ After admin OTP login, `refresh_token` must appear under **localhost:3101** in D
 | Upload | Admin → Products → edit product → **Images** → choose one or more files (JPEG/PNG/WebP/GIF, **max 5 MB** each) | Same; backend auto-uploads to **Cloudflare R2** (`MEDIA_STORAGE_PROVIDER=r2`) |
 | API | `POST /admin/products/:id/images/upload` (multipart) | Requires admin JWT + `products:write` |
 | Public serve | `GET /api/v1/media/products/:productId/:filename` when `local` | Images served from `R2_PUBLIC_BASE_URL` |
-| CDN URL | `MEDIA_STORAGE_PROVIDER=local`; optional `NEXT_PUBLIC_IMAGE_CDN_URL=http://localhost:3101` | `R2_PUBLIC_BASE_URL` + matching `NEXT_PUBLIC_IMAGE_CDN_URL` |
+| CDN URL | `MEDIA_STORAGE_PROVIDER=local`; optional `NEXT_PUBLIC_IMAGE_CDN_URL=http://localhost:3102` | `R2_PUBLIC_BASE_URL` + matching `NEXT_PUBLIC_IMAGE_CDN_URL` |
 
 **Backend:** configure in **Ops UI** → Product Media (not `backend/.env`). Local dev: `MEDIA_STORAGE_PROVIDER=local`. Production: `r2` + R2 keys in Ops panel; restart API after save. Preflight: `cd backend && npm run verify:r2-media`.
 
@@ -167,7 +167,7 @@ After admin OTP login, `refresh_token` must appear under **localhost:3101** in D
 
 ```bash
 # Must match R2_PUBLIC_BASE_URL in production
-# NEXT_PUBLIC_IMAGE_CDN_URL=http://localhost:3101
+# NEXT_PUBLIC_IMAGE_CDN_URL=http://localhost:3102
 ```
 
 Catalog images are resolved in `lib/media-url.ts` (`resolveProductImageUrl`) via `lib/product-adapters.ts`. In production, set `NEXT_PUBLIC_IMAGE_CDN_URL` to match Ops `R2_PUBLIC_BASE_URL`. SSR does **not** fall back to implicit `localhost` — only uses `NEXT_PUBLIC_STOREFRONT_URL` when CDN is unset.

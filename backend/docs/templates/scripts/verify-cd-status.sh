@@ -86,7 +86,7 @@ echo "3) Backend"
 if [ -f "$BACKEND_PATH/.env" ]; then
   pass "backend/.env exists"
   BACKEND_PORT=$(grep -E '^BACKEND_PORT=' "$BACKEND_PATH/.env" | head -1 | cut -d= -f2 | tr -d '[:space:]')
-  BACKEND_PORT="${BACKEND_PORT:-3001}"
+  BACKEND_PORT="${BACKEND_PORT:-3002}"
   curl -fsS "http://127.0.0.1:${BACKEND_PORT}/api/v1/health" >/dev/null 2>&1 \
     && pass "GET /api/v1/health OK on :$BACKEND_PORT" \
     || fail "Backend health failed on :$BACKEND_PORT"

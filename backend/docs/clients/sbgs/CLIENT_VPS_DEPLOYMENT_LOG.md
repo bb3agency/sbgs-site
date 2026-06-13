@@ -12,8 +12,8 @@
 | `CLIENT_ID` | `sbgs` |
 | Domain | `srisaibabasweets.com` (details in gitignored [VPS_INPUTS.md](./VPS_INPUTS.md)) |
 | Admin path | `/admin` |
-| Backend port | `3001` |
-| Storefront port | `3101` |
+| Backend port | `3002` |
+| Storefront port | `3102` |
 | VPS IP | `178.104.46.202` |
 | Deploy user | `d_user` |
 | Git repo | `https://github.com/bb3agency/sbgs-site` |
@@ -39,7 +39,7 @@
 
 - [x] `production.backend.env` on VPS at `backend/.env`
 - [x] Run `phase7-backend-deploy.sh`
-- [x] `curl http://127.0.0.1:3001/api/v1/health` OK
+- [x] `curl http://127.0.0.1:3002/api/v1/health` OK
 - [ ] Redis `ports:` commented out (multi-client — no host `6379` publish)
 - [ ] `phase7.5-nginx-tls-preflight.sh` then Nginx + Certbot per [VPS_DEPLOYMENT_PACK.md](./VPS_DEPLOYMENT_PACK.md) § multi-client
 

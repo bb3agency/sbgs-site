@@ -49,7 +49,7 @@ log "Building and starting backend + workers..."
 docker compose -p "$COMPOSE_PROJECT" "${COMPOSE_FILES[@]}" up -d --build backend workers
 
 BACKEND_PORT=$(grep -E '^BACKEND_PORT=' .env | cut -d= -f2 | tr -d '[:space:]')
-BACKEND_PORT="${BACKEND_PORT:-3001}"
+BACKEND_PORT="${BACKEND_PORT:-3002}"
 HEALTH_URL="http://127.0.0.1:${BACKEND_PORT}/api/v1/health"
 READY_URL="http://127.0.0.1:${BACKEND_PORT}/api/v1/health/ready"
 

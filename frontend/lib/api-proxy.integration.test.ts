@@ -5,7 +5,7 @@ import { refreshAccessToken } from "@/lib/auth-api";
 
 const storefrontApiBase = getConfiguredPublicApiBaseUrl();
 const isStorefrontProxyTarget =
-  storefrontApiBase.includes(":3101") || storefrontApiBase.startsWith("/api/v1");
+  storefrontApiBase.includes(":3102") || storefrontApiBase.startsWith("/api/v1");
 
 async function isNextDevProxyReachable(): Promise<boolean> {
   try {
@@ -38,7 +38,7 @@ describe.skipIf(!proxyReachable)(
 
     it("proxies refresh for apiClient (same-origin cookie auth path)", async () => {
       vi.stubGlobal("window", {
-        location: { href: "http://localhost:3101/admin" },
+        location: { href: "http://localhost:3102/admin" },
       } as Window & typeof globalThis);
 
       try {

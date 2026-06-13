@@ -293,12 +293,12 @@ log "Resolved nginx live config target: $NGINX_LIVE (domain=$NGINX_DOMAIN, proje
 #
 # CLIENT_DOMAIN  — derived from STOREFRONT_URL in .env (already in NGINX_DOMAIN above).
 # STOREFRONT_PORT — required in .env; PM2 starts Next.js on this port.
-# BACKEND_PORT    — defaults to 3001 because the docker-compose mapping
-#                   `0.0.0.0:3001->3000/tcp` is stable across clients.
+# BACKEND_PORT    — defaults to 3002 because the docker-compose mapping
+#                   `0.0.0.0:3002->3000/tcp` is stable across clients.
 NGINX_CLIENT_DOMAIN="$NGINX_DOMAIN"
 NGINX_STOREFRONT_PORT="$(grep -E '^STOREFRONT_PORT=' .env | head -1 | cut -d= -f2- | tr -d '[:space:]')"
 NGINX_BACKEND_PORT="$(grep -E '^BACKEND_PORT=' .env | head -1 | cut -d= -f2- | tr -d '[:space:]')"
-NGINX_BACKEND_PORT="${NGINX_BACKEND_PORT:-3001}"
+NGINX_BACKEND_PORT="${NGINX_BACKEND_PORT:-3002}"
 
 # 3.5a Install / refresh the static maintenance.html the nginx config references.
 #
@@ -362,7 +362,7 @@ if [ -f "$NGINX_TEMPLATE" ]; then
     log "WARNING: cannot render nginx template — missing required env vars:"
     log "  CLIENT_DOMAIN (derived from STOREFRONT_URL): '${NGINX_CLIENT_DOMAIN}'"
     log "  STOREFRONT_PORT: '${NGINX_STOREFRONT_PORT}'"
-    log "  BACKEND_PORT (defaults to 3001): '${NGINX_BACKEND_PORT}'"
+    log "  BACKEND_PORT (defaults to 3002): '${NGINX_BACKEND_PORT}'"
     log "Set these in $CLIENT_PATH/.env and re-run, or sync nginx manually."
   else
     # Render the template into a tmpfile with envsubst, then diff against live.
@@ -481,7 +481,7 @@ docker compose -p "$COMPOSE_PROJECT" "${COMPOSE_FILES[@]}" up -d --remove-orphan
 # 5. Health check — retry until backend is responding or timeout
 # ---------------------------------------------------------------------------
 BACKEND_PORT=$(grep -E '^BACKEND_PORT=' .env | cut -d= -f2 | tr -d '[:space:]')
-BACKEND_PORT="${BACKEND_PORT:-3001}"
+BACKEND_PORT="${BACKEND_PORT:-3002}"
 HEALTH_URL="http://127.0.0.1:${BACKEND_PORT}/api/v1/health"
 READY_URL="http://127.0.0.1:${BACKEND_PORT}/api/v1/health/ready"
 

@@ -252,7 +252,7 @@ Each client repo commit message records which template version it was bootstrapp
 │  │  Port 80  → redirect to 443                               │   │
 │  │  Port 443 → SSL termination + reverse proxy               │   │
 │  │                                                            │   │
-│  │  client1.com        → Docker: client1-backend :3001        │   │
+│  │  client1.com        → Docker: client1-backend :3002        │   │
 │  │  client1.com/admin  → Served by same frontend deployment    │   │
 │  │  client2.com        → Docker: client2-backend :3002        │   │
 │  │  client2.com/admin  → Served by same frontend deployment    │   │
@@ -263,7 +263,7 @@ Each client repo commit message records which template version it was bootstrapp
 │  │  (Docker Compose)   │  │  (Docker Compose)   │              │
 │  │                     │  │                     │              │
 │  │  client1-backend    │  │  client2-backend    │              │
-│  │  (Fastify :3001)    │  │  (Fastify :3002)    │              │
+│  │  (Fastify :3002)    │  │  (Fastify :3002)    │              │
 │  │                     │  │                     │              │
 │  │  client1-redis      │  │  client2-redis      │              │
 │  │  (:6379 internal)   │  │  (:6379 internal)   │              │
@@ -272,7 +272,7 @@ Each client repo commit message records which template version it was bootstrapp
 │  ┌─────────────────────┐  ┌─────────────────────┐  ...         │
 │  │ client1-frontend    │  │ client2-frontend    │              │
 │  │ (PM2, Next.js host) │  │ (PM2, Next.js host) │              │
-│  │ :3101               │  │ :3102               │              │
+│  │ :3102               │  │ :3102               │              │
 │  │ Auto-deployed via   │  │ Auto-deployed via   │              │
 │  │ GitHub Actions CD   │  │ GitHub Actions CD   │              │
 │  └─────────────────────┘  └─────────────────────┘              │
@@ -309,7 +309,7 @@ services:
     container_name: ${CLIENT_ID:-ecom}-backend
     restart: unless-stopped
     ports:
-      - "${BACKEND_PORT:-3000}:3000"       # e.g. 3001 for client1, 3002 for client2
+      - "${BACKEND_PORT:-3000}:3000"       # e.g. 3002 for client1, 3002 for client2
     extra_hosts:
       - "host.docker.internal:host-gateway"   # reach host PostgreSQL on VPS
     env_file: .env                             # all vars injected from .env
@@ -404,7 +404,7 @@ server {
   limit_req zone=api_client1 burst=10 nodelay;
 
   location /api/ {
-    proxy_pass http://127.0.0.1:3001;
+    proxy_pass http://127.0.0.1:3002;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -413,7 +413,7 @@ server {
   }
 
   location / {
-    proxy_pass http://127.0.0.1:3101;   # Next.js storefront
+    proxy_pass http://127.0.0.1:3102;   # Next.js storefront
   }
 }
 
@@ -483,7 +483,7 @@ cd /var/www/client-foodstore-frontend
 # Fill: CLIENT_ID, STOREFONT_PORT, NEXT_PUBLIC_API_BASE_URL, NEXT_PUBLIC_STOREFRONT_URL, NEXT_PUBLIC_IMAGE_CDN_URL, NEXT_PUBLIC_RAZORPAY_KEY_ID
 # Storefront COD/module flags: GET /api/v1/store/config (runtime) — not build-time NEXT_PUBLIC_FEATURE_*
 npm ci && npm run build
-pm2 start npm --name "foodstore-frontend" -- start -- -p 3101
+pm2 start npm --name "foodstore-frontend" -- start -- -p 3102
 pm2 save && pm2 startup   # persist across VPS reboots
 # Subsequent deploys: push to main → GitHub Actions CD runs vps-frontend-deploy.sh automatically
 
@@ -1466,7 +1466,7 @@ STORE_TIMEZONE=Asia/Kolkata
 
 # Infrastructure
 CLIENT_ID=annapoorna
-BACKEND_PORT=3001
+BACKEND_PORT=3002
 DATABASE_URL=postgresql://user:pass@host.docker.internal:5432/client_annapoorna
 JWT_SECRET=<openssl rand -base64 64>
 JWT_REFRESH_SECRET=<openssl rand -base64 64>

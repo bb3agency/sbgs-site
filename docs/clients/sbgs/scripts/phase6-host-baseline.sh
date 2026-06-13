@@ -23,13 +23,13 @@ log "Creating directories..."
 sudo mkdir -p "${WWW_ROOT}/backend" "${WWW_ROOT}/frontend"
 sudo chown -R "$(whoami):$(whoami)" "/var/www/${CLIENT_ID}"
 
-log "UFW reminder: allow 22,80,443 only; do NOT expose 3001/3101 publicly."
+log "UFW reminder: allow 22,80,443 only; do NOT expose 3002/3102 publicly."
 sudo ufw status || true
 
 log "Multi-client VPS: list existing Nginx sites (add new client configs — do not replace others):"
 ls -la /etc/nginx/sites-enabled/ 2>/dev/null || true
 
-log "Multi-client VPS: confirm this client's loopback ports are free (slot 2 = 3001/3101):"
-ss -tlnp 2>/dev/null | grep -E ':3002|:3102' || log "Ports 3001/3101 appear free"
+log "Multi-client VPS: confirm this client's loopback ports are free (slot 2 = 3002/3102):"
+ss -tlnp 2>/dev/null | grep -E ':3002|:3102' || log "Ports 3002/3102 appear free"
 
 log "Phase 6 baseline checks complete. Install missing packages per backend/docs/CLIENT_VPS_SETUP_GUIDE.md if any command failed."

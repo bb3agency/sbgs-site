@@ -112,7 +112,7 @@ echo "4) Backend (Docker)"
 if [ -f "$BACKEND_PATH/.env" ]; then
   pass "backend/.env exists"
   BACKEND_PORT=$(grep -E '^BACKEND_PORT=' "$BACKEND_PATH/.env" | cut -d= -f2 | tr -d '[:space:]')
-  BACKEND_PORT="${BACKEND_PORT:-3001}"
+  BACKEND_PORT="${BACKEND_PORT:-3002}"
   if curl -fsS "http://127.0.0.1:${BACKEND_PORT}/api/v1/health" >/dev/null 2>&1; then
     pass "GET /api/v1/health OK on :$BACKEND_PORT"
   else
@@ -156,7 +156,7 @@ fi
 
 STOREFRONT_PORT=3102
 if [ -f "$FRONTEND_PATH/.env.production.local" ]; then
-  STOREFRONT_PORT=$(grep -E '^STOREFRONT_PORT=' "$FRONTEND_PATH/.env.production.local" | cut -d= -f2 | tr -d '[:space:]' || echo 3101)
+  STOREFRONT_PORT=$(grep -E '^STOREFRONT_PORT=' "$FRONTEND_PATH/.env.production.local" | cut -d= -f2 | tr -d '[:space:]' || echo 3102)
 fi
 HTTP=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 "http://127.0.0.1:${STOREFRONT_PORT}/" 2>/dev/null || echo "000")
 if [[ "$HTTP" =~ ^(200|301|302|307|308)$ ]]; then

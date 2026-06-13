@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 /** Canonical storefront origin without trailing slash. */
 export function getSiteUrl(): string {
-  const url = process.env.NEXT_PUBLIC_STOREFRONT_URL ?? "http://localhost:3101";
+  const url = process.env.NEXT_PUBLIC_STOREFRONT_URL ?? "http://localhost:3102";
   return url.replace(/\/$/, "");
 }
 

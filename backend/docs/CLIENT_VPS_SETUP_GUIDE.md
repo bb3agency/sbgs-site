@@ -73,7 +73,7 @@ These are **operational thresholds**, not architecture changes. Canonical stack 
 
 | Client slot N | Backend host port | Typical storefront upstream port |
 | --- | --- | --- |
-| 1 | 3001 | 3101 |
+| 1 | 3002 | 3102 |
 | 2 | 3002 | 3102 |
 | N | 3000 + N | 3100 + N |
 
@@ -502,7 +502,7 @@ Evidence to archive before go-live:
 | **Site config file** | Add `/etc/nginx/sites-available/<domain.com>` (domain-based name) | Replace or delete other clients' files in `sites-enabled/` |
 | **Enable site** | `sudo ln -sf sites-available/<domain.com> sites-enabled/<domain.com>` | `sudo rm sites-enabled/default` unless you confirmed no other site uses it (`ls sites-enabled/`) |
 | **Rate-limit zones** | Install `snippets/rate-zones.conf` **once**; `include` it in `nginx.conf` `http {}` | Duplicate `limit_req_zone` lines in `nginx.conf` and the snippet (nginx reload will fail) |
-| **Ports** | Assign unique `BACKEND_PORT` / storefront port per client (§3); run `ss -tlnp` before deploy | Reuse another client's `3001`/`3101` (or their slot) |
+| **Ports** | Assign unique `BACKEND_PORT` / storefront port per client (§3); run `ss -tlnp` before deploy | Reuse another client's `3002`/`3102` (or their slot) |
 | **Redis** | Keep Redis on the Docker network only — deploy with `docker-compose.prod.yml` (`redis.ports: !reset []`) | Publish `6379` on `0.0.0.0` (only one client can bind host `6379`; local dev may use base compose port mapping) |
 | **TLS** | `certbot --nginx -d <this-domain> -d www.<this-domain>` per client | Assume one certificate covers all clients |
 | **Routing** | `server_name` matches **this** client's domain; `proxy_pass` to **this** client's loopback ports | Single catch-all `server {}` for all domains on one port |
@@ -522,7 +522,7 @@ bash docs/clients/<client-id>/scripts/phase7.5-nginx-tls-preflight.sh
 > **Important (May 2026):** `nginx/client.conf.template` is **not byte-installable** — it contains `${CLIENT_DOMAIN}`, `${STOREFRONT_PORT}`, and `${BACKEND_PORT}` placeholders that must be rendered with `envsubst` before installing. Copying the raw template verbatim will fail `nginx -t` with `cannot load certificate /etc/letsencrypt/live/${CLIENT_DOMAIN}/fullchain.pem`. The CD script (`backend/scripts/vps-deploy.sh` §3.5b) renders automatically on every deploy when `NGINX_AUTO_RELOAD=1`. For manual installs, render with:
 >
 > ```bash
-> export CLIENT_DOMAIN=<your-domain.com> STOREFRONT_PORT=3101 BACKEND_PORT=3001
+> export CLIENT_DOMAIN=<your-domain.com> STOREFRONT_PORT=3102 BACKEND_PORT=3002
 > envsubst '${CLIENT_DOMAIN} ${STOREFRONT_PORT} ${BACKEND_PORT}' \
 >   < nginx/client.conf.template \
 >   | sudo tee /etc/nginx/sites-available/${CLIENT_DOMAIN} >/dev/null
@@ -543,7 +543,7 @@ bash docs/clients/<client-id>/scripts/phase7.5-nginx-tls-preflight.sh
      sudo cp nginx/maintenance.html /etc/nginx/maintenance/maintenance.html
      ```
      The page auto-refreshes every 15 s and includes a `Retry-After: 15` header. It is served during the ~3–5 s restart window when a process restart is scheduled via `POST /api/v1/ops/system/restart`.
-2. The template uses placeholders for everything that varies per client: `${CLIENT_DOMAIN}` for `server_name` + certificate paths, `${STOREFRONT_PORT}` for the Next.js upstream (typically `3101`), and `${BACKEND_PORT}` for the Fastify upstream (defaults to `3001`). Render with `envsubst` (see top of this section). Webhook paths must proxy to the same backend without stripping body (next step).
+2. The template uses placeholders for everything that varies per client: `${CLIENT_DOMAIN}` for `server_name` + certificate paths, `${STOREFRONT_PORT}` for the Next.js upstream (typically `3102`), and `${BACKEND_PORT}` for the Fastify upstream (defaults to `3002`). Render with `envsubst` (see top of this section). Webhook paths must proxy to the same backend without stripping body (next step).
 3. **Webhook paths** must proxy to the **same** backend without stripping body: `location /api/` → backend. Webhook URLs for provider dashboards:
    - `https://<customer-domain>/api/v1/payments/webhook`
    - `https://<customer-domain>/api/v1/shipping/webhook`
@@ -839,7 +839,7 @@ cd /var/www/<client>/backend
 # Resolve placeholder values from .env (or set them explicitly).
 export CLIENT_DOMAIN="$(grep -E '^STOREFRONT_URL=' .env | head -1 | cut -d= -f2- | sed -E 's,^https?://,,;s,/.*$,,')"
 export STOREFRONT_PORT="$(grep -E '^STOREFRONT_PORT=' .env | head -1 | cut -d= -f2-)"
-export BACKEND_PORT="$(grep -E '^BACKEND_PORT=' .env | head -1 | cut -d= -f2- || echo 3001)"
+export BACKEND_PORT="$(grep -E '^BACKEND_PORT=' .env | head -1 | cut -d= -f2- || echo 3002)"
 
 # Render the template with substituted values, then install:
 envsubst '${CLIENT_DOMAIN} ${STOREFRONT_PORT} ${BACKEND_PORT}' \
@@ -890,7 +890,7 @@ After that, plain `docker compose up -d backend workers` Just Works — no `-f` 
 location / {
   auth_request /_maintenance_gate;
   error_page 401 = @maintenance_block;
-  proxy_pass http://127.0.0.1:3101;
+  proxy_pass http://127.0.0.1:3102;
 }
 
 # server-level — converts the auth_request 401 into a 503 that flows into
@@ -924,12 +924,12 @@ docker ps -a --filter "label=com.docker.compose.project=sbgs" \
 
 echo
 echo "=== 2. Backend health (bypasses Nginx + gate) ==="
-curl -sS -m 5 http://127.0.0.1:3001/api/v1/health | head -200 || echo "BACKEND UNREACHABLE on :3001"
+curl -sS -m 5 http://127.0.0.1:3002/api/v1/health | head -200 || echo "BACKEND UNREACHABLE on :3002"
 
 echo
 echo "=== 3. Maintenance gate direct (HTTP status is the answer; 401 = blocked, 200 = allowed) ==="
 curl -sS -m 5 -D - -o /dev/null -H "X-Original-URI: /" \
-  http://127.0.0.1:3001/api/v1/maintenance/gate \
+  http://127.0.0.1:3002/api/v1/maintenance/gate \
   | grep -iE '^(HTTP|X-Maintenance-Active|date)'
 
 echo
@@ -958,7 +958,7 @@ docker logs sbgs-backend --tail 200 2>&1 | grep -iE 'maintenance|gate|error' | t
 
 - **Step 2 fails / step 7 shows backend crashlooping** → backend is unhealthy. Look at the full `docker logs sbgs-backend` for the actual error (env mismatch, DB unreachable, migration not deployed, etc.). The gate route fails because the backend itself is failing. **Recovery:** fix the underlying issue; you may also need to `docker compose -p sbgs -f docker-compose.yml -f docker-compose.prod.yml restart backend`.
 - **Step 3 returns `HTTP/1.1 401`** (with `X-Maintenance-Active: 1` for backward compat) → maintenance mode is active and Nginx **should** be serving the maintenance page. If the storefront still returns a bare 500, the cause is symptom B (missing `maintenance.html`) — install it (see §19.5 Recovery below). To exit maintenance mode, use the ops console: `POST /api/v1/ops/load-shed` with `mode: 'normal'` (OTP required).
-- **Step 3 returns `HTTP/1.1 200` with `X-Maintenance-Active: 0`** → gate is healthy, maintenance is OFF, yet storefront still 500. Look harder at step 5 (Nginx error log) — likely an `upstream timed out` on the proxy to port 3101 (frontend), or a missing upstream entirely. Check `docker ps` for the frontend / PM2 process and whether `STOREFRONT_PORT` matches the nginx `proxy_pass` port.
+- **Step 3 returns `HTTP/1.1 200` with `X-Maintenance-Active: 0`** → gate is healthy, maintenance is OFF, yet storefront still 500. Look harder at step 5 (Nginx error log) — likely an `upstream timed out` on the proxy to port 3102 (frontend), or a missing upstream entirely. Check `docker ps` for the frontend / PM2 process and whether `STOREFRONT_PORT` matches the nginx `proxy_pass` port.
 - **Step 3 returns `HTTP/1.1 200` with `X-Maintenance-Active: 1`** → stale backend. This was the old gate contract (always 200) that we superseded on 2026-05-26. The running backend container is on a pre-fix image — rebuild with `docker compose -p sbgs build backend && docker compose -p sbgs up -d --force-recreate backend`. Until then Nginx will silently let traffic through during active maintenance.
 - **Step 3 returns 5xx or times out** → backend's gate handler itself is broken. Symptom A. Check step 7 for the actual error in the backend logs.
 - **Step 4 shows `ls: cannot access`** → `maintenance.html` is not installed on disk. Even if the gate is healthy right now, *any* future backend hiccup will surface as a bare 500 instead of the friendly page. **Install it now** (see Recovery below) — this is the fix that prevents this whole symptom from being incident-grade.
@@ -1321,7 +1321,7 @@ Run once after the first manual frontend build:
 ```bash
 cd /var/www/<client-id>/frontend
 
-# Start the PM2 process (replace port with client's STOREFRONT_PORT, e.g. 3101)
+# Start the PM2 process (replace port with client's STOREFRONT_PORT, e.g. 3102)
 pm2 start npm --name "<client-id>-frontend" -- start -- -p <STOREFRONT_PORT>
 
 # Persist the process list (survives pm2 restarts)
@@ -1356,7 +1356,7 @@ The script reads `CLIENT_ID` and `STOREFRONT_PORT` from `.env.local` (or `.env.p
 
 ```env
 CLIENT_ID=foodstore
-STOREFRONT_PORT=3101
+STOREFRONT_PORT=3102
 ```
 
 Recommended bootstrap flow:

@@ -21,8 +21,8 @@
 | Domain | e.g. `fashionhub.com` |
 | Admin path | e.g. `/admin` |
 | Ops path | e.g. `/ops` |
-| Backend port (assigned) | e.g. `3001` |
-| Storefront port (assigned) | e.g. `3101` |
+| Backend port (assigned) | e.g. `3002` |
+| Storefront port (assigned) | e.g. `3102` |
 | Payment provider | `razorpay` / `cod` |
 | Shipping provider | `delhivery` / `shiprocket` |
 | Notification channels | email (`resend`) / SMS (`msg91` or `fast2sms`) / WhatsApp (`meta-whatsapp`) |
