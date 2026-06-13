@@ -1,4 +1,4 @@
-# GitHub Actions — monorepo (`raghava-organics-site`)
+# GitHub Actions — monorepo (`sbgs-site`)
 
 GitHub only executes workflows from **this directory** (repository root).
 

@@ -202,7 +202,7 @@ These startup scripts now fail-closed on Prisma bootstrap and automatically:
 - run `prisma generate`, and
 - apply migrations via `prisma migrate deploy`.
 
-This prevents first-clone worker/server boot failures such as `Database "ecom_template" does not exist`.
+This prevents first-clone worker/server boot failures such as `Database "sbgs" does not exist`.
 
 ### Step 6: Verify Backend is Healthy
 
@@ -222,7 +222,7 @@ If `db` or `redis` shows `disconnected`:
 | Symptom | Quick Fix |
 |---------|-----------|
 | `P1000: Authentication failed` | Update password in container: `docker exec <CLIENT_ID>-postgres psql -U postgres -c "ALTER USER postgres WITH PASSWORD 'YourPassword';"` then update `.env`. |
-| Client repo still points to template DB (`ecom_template`) | Set `DATABASE_URL` to a client-specific DB name (for example `sbgs`) before first boot. |
+| Client repo still points to template DB (`sbgs`) | Set `DATABASE_URL` to a client-specific DB name (for example `sbgs`) before first boot. |
 | `Database "..." does not exist` on `npm run dev:e2e` / workers boot | Re-run `npm run dev:e2e` (or `npm run dev:e2e:workers`) after confirming `.env` `DATABASE_URL`; scripts now auto-create DB + run migrations. |
 | `ECONNRESET` / `ECONNABORTED` Redis loop | `REDIS_PASSWORD` is blank or `REDIS_URL` doesn't embed the password. Set both, then `docker compose down -v && docker compose up -d postgres redis`. Transient `[ioredis] Unhandled error event` spam after password is correct usually means host cannot reach Redis — confirm dev compose publishes `6379:6379` (see `docker-compose.yml`; production overlay removes the port). |
 | `POSTGRES_DB` has hyphens (e.g. `sbgs`) | PostgreSQL forbids hyphens in DB names. Rename to underscores (`sbgs`) in both `POSTGRES_DB` and `DATABASE_URL`, then `docker compose down -v && up -d` |
@@ -377,7 +377,7 @@ npx prisma migrate dev      # Create and apply migration
 
 ### Common Setup Troubleshooting
 
-1. **Prisma connects to `ecom_template` instead of your client DB:**
+1. **Prisma connects to `sbgs` instead of your client DB:**
    If you ran `docker compose up` before setting `POSTGRES_DB` in your `.env`, Docker created the default template database.
    *Fix:* Update your `.env`, run `docker compose down -v`, then `docker compose up -d postgres redis`.
 
@@ -525,7 +525,7 @@ npm run dev:e2e
 npm run dev:e2e:workers
 ```
 
-> Both scripts (`scripts/dev-up.cmd` and `scripts/dev-up-workers.cmd`) are idempotent and handle: auto-starting `ecom-postgres`/`ecom-redis` containers, waiting for Redis health, ensuring Prisma DB exists, running Prisma generate+migrations, killing stale Node processes on port 3000, and setting all noop/E2E env vars. They are the **permanent fix** for recurring local startup errors (`ECONNREFUSED`, `EADDRINUSE`, missing target DB).
+> Both scripts (`scripts/dev-up.cmd` and `scripts/dev-up-workers.cmd`) are idempotent and handle: auto-starting `sbgs-postgres`/`sbgs-redis` containers, waiting for Redis health, ensuring Prisma DB exists, running Prisma generate+migrations, killing stale Node processes on port 3000, and setting all noop/E2E env vars. They are the **permanent fix** for recurring local startup errors (`ECONNREFUSED`, `EADDRINUSE`, missing target DB).
 
 ### Terminal 3 — Frontend (monorepo)
 

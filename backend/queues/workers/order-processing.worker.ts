@@ -1242,7 +1242,7 @@ async function resolveSellerProfileOrThrow(prisma: RealPrismaClient): Promise<Se
   }
 
   return {
-    legalName: legalName || 'Ecom Store Pvt Ltd',
+    legalName: legalName || 'Sri Sai Baba Ghee Sweets',
     addressLine: addressLine || 'Address not configured',
     state: state || 'Unknown',
     gstin: gstin || 'GSTIN_NOT_CONFIGURED',

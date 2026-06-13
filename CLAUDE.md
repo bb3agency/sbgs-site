@@ -34,7 +34,7 @@ If `diff` output is non-empty, re-sync and commit the updated `.agents/rules/dev
    - `CLIENT_ID` is set to a client-specific slug (e.g. `sbgs`) — **not** `ecom` or empty. Docker container names are derived from this value (`<CLIENT_ID>-postgres`, `<CLIENT_ID>-redis`).
    - `POSTGRES_DB` uses **underscores only** (e.g. `sbgs`) — **hyphens are invalid in PostgreSQL DB names** and will cause container init or migration failures.
    - `POSTGRES_DB` and the DB name in `DATABASE_URL` **must match exactly** — mismatch means the bootstrap script creates the wrong DB.
-   - `DATABASE_URL` is **not** `ecom_template` and matches the `POSTGRES_DB` value.
+   - `DATABASE_URL` is **not** `sbgs` and matches the `POSTGRES_DB` value.
    - `REDIS_PASSWORD` is **non-empty** — blank value causes `ECONNABORTED`/`ECONNRESET` loops in ioredis on every reconnect attempt.
    - `REDIS_URL` **embeds the same password** as `REDIS_PASSWORD` (format: `redis://:yourpassword@localhost:6379`) — a URL without password while Redis requires auth will abort all connections.
    - `JWT_SECRET`, `JWT_REFRESH_SECRET`, `OPS_DB_ENCRYPTION_KEY` are set to unique non-placeholder values.
@@ -1326,7 +1326,7 @@ describe('API Client Integration', () => {
 **Database Reset Between Test Suites:**
 ```bash
 # In CI or local test run
-docker exec ecom-postgres psql -U postgres -d ecom_template -c "
+docker exec sbgs-postgres psql -U postgres -d sbgs -c "
   TRUNCATE TABLE orders, order_items, cart_items, payments CASCADE;
 "
 # Or use Prisma: npx prisma migrate reset --force

@@ -673,7 +673,7 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:3000/api/v1
 
 # Site
 NEXT_PUBLIC_STOREFRONT_URL=http://localhost:3101
-NEXT_PUBLIC_STORE_NAME="Raghava Organics"
+NEXT_PUBLIC_STORE_NAME="Sri Sai Baba Ghee Sweets"
 
 # Analytics (production only)
 NEXT_PUBLIC_GA_ID=
@@ -810,7 +810,7 @@ describe('API Client Integration', () => {
 **Database Reset Between Test Suites:**
 ```bash
 # In CI or local test run
-docker exec ecom-postgres psql -U postgres -d ecom_template -c "
+docker exec sbgs-postgres psql -U postgres -d sbgs -c "
   TRUNCATE TABLE orders, order_items, cart_items, payments CASCADE;
 "
 # Or use Prisma: npx prisma migrate reset --force

@@ -198,16 +198,16 @@ Before Phase 5 sign-off and again during Phase 12 go-live validation, verify:
    # .env — set ONCE before docker compose up
    POSTGRES_USER=postgres
    POSTGRES_PASSWORD=YourStrongPassword
-   POSTGRES_DB=ecom_template
-   DATABASE_URL=postgresql://postgres:YourStrongPassword@localhost:5432/ecom_template
+   POSTGRES_DB=sbgs
+   DATABASE_URL=postgresql://postgres:YourStrongPassword@localhost:5432/sbgs
    ```
    > URL-encode special characters: `@` → `%40`, `#` → `%23`
    
    **Verification after `docker compose up -d postgres`:**
    ```bash
    # Check container env matches
-   docker exec ecom-postgres printenv POSTGRES_USER
-   docker exec ecom-postgres printenv POSTGRES_DB
+   docker exec sbgs-postgres printenv POSTGRES_USER
+   docker exec sbgs-postgres printenv POSTGRES_DB
    
    # Test Prisma connection
    npx prisma migrate status --schema prisma/schema.prisma
@@ -215,7 +215,7 @@ Before Phase 5 sign-off and again during Phase 12 go-live validation, verify:
    
    **If P1000 error appears:** Password mismatch between `.env` and container volume. Fix without wiping:
    ```bash
-   docker exec ecom-postgres psql -U postgres -d ecom_template -c "ALTER USER postgres WITH PASSWORD 'YourNewPassword';"
+   docker exec sbgs-postgres psql -U postgres -d sbgs -c "ALTER USER postgres WITH PASSWORD 'YourNewPassword';"
    ```
    
    See `docs/MASTER_DEPLOYMENT_PLAYBOOK.md` Appendix H.4 for full troubleshooting.

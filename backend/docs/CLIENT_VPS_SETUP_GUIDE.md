@@ -350,7 +350,7 @@ Use **`migrate deploy`** in production (not `migrate dev`). Migration SQL lives 
 > npx prisma migrate resolve --applied 0_init
 > ```
 
-> **Troubleshooting Note:** If Prisma complains about `query_engine_bg.postgresql.wasm-base64.js` missing, the migration still succeeded. Simply run `npx prisma generate`. If `migrate deploy` connects to `ecom_template` instead of your client database, ensure `.env` is properly configured, then wipe the Docker volume (`docker compose down -v`) and try again. See **`MASTER_DEPLOYMENT_PLAYBOOK.md` Appendix H** for details.
+> **Troubleshooting Note:** If Prisma complains about `query_engine_bg.postgresql.wasm-base64.js` missing, the migration still succeeded. Simply run `npx prisma generate`. If `migrate deploy` connects to `sbgs` instead of your client database, ensure `.env` is properly configured, then wipe the Docker volume (`docker compose down -v`) and try again. See **`MASTER_DEPLOYMENT_PLAYBOOK.md` Appendix H** for details.
 
 ---
 

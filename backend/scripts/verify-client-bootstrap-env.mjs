@@ -47,7 +47,7 @@ const jwtSecret = requireKey("JWT_SECRET");
 const jwtRefresh = requireKey("JWT_REFRESH_SECRET");
 const opsKey = requireKey("OPS_DB_ENCRYPTION_KEY");
 
-if (clientId === "ecom" || clientId === "ecomtemplate") {
+if (clientId === "ecom" || clientId === "sbgs") {
   errors.push("CLIENT_ID must be a client slug (e.g. sbgs), not template default");
 }
 
@@ -55,8 +55,8 @@ if (postgresDb.includes("-")) {
   errors.push("POSTGRES_DB must use underscores only (hyphens invalid in PostgreSQL DB names)");
 }
 
-if (/ecom_template/i.test(databaseUrl)) {
-  errors.push("DATABASE_URL must not use ecom_template in a client workspace");
+if (/sbgs/i.test(databaseUrl)) {
+  errors.push("DATABASE_URL must not use sbgs in a client workspace");
 }
 
 if (!databaseUrl.includes(postgresDb)) {

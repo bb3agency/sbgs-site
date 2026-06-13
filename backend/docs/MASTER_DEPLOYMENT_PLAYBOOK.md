@@ -326,7 +326,7 @@ npm run dev:e2e:workers
 ```
 
 > Both `npm run dev:e2e` and `npm run dev:e2e:workers` invoke idempotent orchestrator scripts (`scripts/dev-up.cmd` and `scripts/dev-up-workers.cmd`) that:
-> - Auto-start `ecom-postgres` and `ecom-redis` containers (fixes recurring `ECONNREFUSED 127.0.0.1:6379` after Docker Desktop restart or laptop sleep)
+> - Auto-start `sbgs-postgres` and `sbgs-redis` containers (fixes recurring `ECONNREFUSED 127.0.0.1:6379` after Docker Desktop restart or laptop sleep)
 > - Wait for Redis readiness (`redis-cli ping`) and Postgres readiness (`pg_isready`, up to 30s) before proceeding — prevents `EPERM rename query_engine-windows.dll.node` when Postgres container is started but server isn't accepting connections yet
 > - Kill all stale `node.exe` processes + port-3000 PID **before** Prisma bootstrap (fixes `EPERM: operation not permitted, rename query_engine-windows.dll.node` on Windows when a previous `tsx watch` holds the DLL)
 > - Ensure Prisma target DB exists from `DATABASE_URL`, then run `prisma generate` + `prisma migrate deploy` against the squashed `0_init` baseline before API/worker boot (fixes first-clone `Database "..." does not exist`)
@@ -2024,7 +2024,7 @@ Token: <SHIPROCKET_WEBHOOK_TOKEN>
 | `ADMIN_URL` | Yes | `https://foodstore.com` | Used for CORS. Often same as `STOREFRONT_URL` for same-origin deployments. |
 | `POSTGRES_USER` | No | `postgres` | PostgreSQL user for Docker Compose service. Default: `postgres`. |
 | `POSTGRES_PASSWORD` | No | `postgres` | PostgreSQL password for Docker Compose service. Default: `postgres`. |
-| `POSTGRES_DB` | No | `ecom_template` | PostgreSQL database name for Docker Compose service. |
+| `POSTGRES_DB` | No | `sbgs` | PostgreSQL database name for Docker Compose service. |
 | `POSTGRES_PORT` | No | `5432` | Host-side PostgreSQL port mapping in Docker Compose. Default: `5432`. |
 | `REDIS_PORT` | No | `6379` | Host-side Redis port mapping in Docker Compose. Default: `6379`. |
 
@@ -2254,12 +2254,12 @@ When you decide to upgrade a core dependency:
 
 ## Appendix H: Common Setup Troubleshooting
 
-### H.1 Prisma connects to `ecom_template` instead of client DB
+### H.1 Prisma connects to `sbgs` instead of client DB
 
 **Symptom:** When running `npx prisma migrate dev`, the output says:
-`Datasource "db": PostgreSQL database "ecom_template", schema "public" at "localhost:5432"`
+`Datasource "db": PostgreSQL database "sbgs", schema "public" at "localhost:5432"`
 
-**Cause:** You ran `docker compose up -d postgres redis` *before* configuring your `.env` file with the client's `POSTGRES_DB` name. Docker fell back to the default `ecom_template` and initialized the database volume with that name.
+**Cause:** You ran `docker compose up -d postgres redis` *before* configuring your `.env` file with the client's `POSTGRES_DB` name. Docker fell back to the default `sbgs` and initialized the database volume with that name.
 
 **Solution:**
 1. Ensure `.env` has `POSTGRES_DB=your_client_name` and `DATABASE_URL` matches it.
@@ -2324,7 +2324,7 @@ Update the database user password to match your current `.env`:
 
 ```bash
 # Update postgres user password inside container to match your .env
-docker exec ecom-postgres psql -U postgres -d ecom_template -c "ALTER USER postgres WITH PASSWORD 'YourNewPassword';"
+docker exec sbgs-postgres psql -U postgres -d sbgs -c "ALTER USER postgres WITH PASSWORD 'YourNewPassword';"
 ```
 
 Then verify:
@@ -2346,16 +2346,16 @@ npx prisma migrate dev
    ```env
    POSTGRES_USER=postgres
    POSTGRES_PASSWORD=Umesh@05
-   POSTGRES_DB=ecom_template
+   POSTGRES_DB=sbgs
    POSTGRES_PORT=5432
-   DATABASE_URL=postgresql://postgres:Umesh%4005@localhost:5432/ecom_template
+   DATABASE_URL=postgresql://postgres:Umesh%4005@localhost:5432/sbgs
    ```
    > Note: URL-encode special chars in password (`@` → `%40`)
 
 2. **Check container env before connecting:**
    ```bash
-   docker exec ecom-postgres printenv POSTGRES_USER
-   docker exec ecom-postgres printenv POSTGRES_DB
+   docker exec sbgs-postgres printenv POSTGRES_USER
+   docker exec sbgs-postgres printenv POSTGRES_DB
    ```
 
 3. **Verify from host:**
@@ -2376,18 +2376,18 @@ npx prisma migrate dev
 The script now auto-loads from `.env` (updated in template), but if you need manual export:
 ```bash
 # Windows CMD
-set DATABASE_URL=postgresql://postgres:Umesh%%4005@localhost:5432/ecom_template
+set DATABASE_URL=postgresql://postgres:Umesh%%4005@localhost:5432/sbgs
 
 # Windows PowerShell
-$env:DATABASE_URL="postgresql://postgres:Umesh%4005@localhost:5432/ecom_template"
+$env:DATABASE_URL="postgresql://postgres:Umesh%4005@localhost:5432/sbgs"
 
 # Linux/macOS
-export DATABASE_URL="postgresql://postgres:Umesh%4005@localhost:5432/ecom_template"
+export DATABASE_URL="postgresql://postgres:Umesh%4005@localhost:5432/sbgs"
 ```
 
 **Verification:**
 ```bash
-docker exec ecom-postgres psql -U postgres -d ecom_template -c "SELECT 1;"
+docker exec sbgs-postgres psql -U postgres -d sbgs -c "SELECT 1;"
 # Should return: 1
 ```
 

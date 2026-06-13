@@ -19,7 +19,7 @@
 ### Recommended Start Commands (permanent fix for startup issues)
 
 Use the bundled orchestrator scripts. They are **idempotent** and handle:
-- Auto-starting `ecom-postgres` and `ecom-redis` containers (fixes `ECONNREFUSED 127.0.0.1:6379`)
+- Auto-starting `sbgs-postgres` and `sbgs-redis` containers (fixes `ECONNREFUSED 127.0.0.1:6379`)
 - Waiting for Redis health before launching Node
 - Killing stale Node processes on port 3000 (fixes `EADDRINUSE`)
 - Setting all required noop/E2E env vars
@@ -52,7 +52,7 @@ npm run dev:e2e:workers
 
 #### Manual fallback (Windows CMD)
 
-If you prefer manual control, run these in two separate terminals (after ensuring `docker start ecom-postgres ecom-redis` succeeded and no node process is holding port 3000):
+If you prefer manual control, run these in two separate terminals (after ensuring `docker start sbgs-postgres sbgs-redis` succeeded and no node process is holding port 3000):
 
 ```cmd
 REM Terminal 1 — server
@@ -531,7 +531,7 @@ Ramu (COD):
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| Server/worker boot: `Error: connect ECONNREFUSED 127.0.0.1:6379` | Redis container is stopped (Docker Desktop restart, laptop sleep, or container exit) | Run `docker start ecom-redis` (and `ecom-postgres`). Or use `npm run dev:e2e` / `npm run dev:e2e:workers` which auto-start them. |
+| Server/worker boot: `Error: connect ECONNREFUSED 127.0.0.1:6379` | Redis container is stopped (Docker Desktop restart, laptop sleep, or container exit) | Run `docker start sbgs-redis` (and `sbgs-postgres`). Or use `npm run dev:e2e` / `npm run dev:e2e:workers` which auto-start them. |
 | Server boot: `Error: listen EADDRINUSE: address already in use 0.0.0.0:3000` | Stale node process from a previous `tsx watch` still holding port 3000 | `npm run dev:e2e` kills it automatically. Manual: `netstat -ano \| findstr :3000` then `taskkill /F /PID <pid>`. Nuclear: `taskkill /F /IM node.exe`. |
 | 0.1 `j.data.accessToken` undefined | Response envelope disabled | Access `j.accessToken` directly (root field) |
 | 0.2 returns 400/500 | COD settings missing from policy registry | Fixed in `admin-endpoint-policy-registry.ts` + `admin-policy-registry.validation.ts` |
