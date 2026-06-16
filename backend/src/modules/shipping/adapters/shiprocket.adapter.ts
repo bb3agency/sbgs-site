@@ -20,6 +20,7 @@ import {
   normalizeIndianShippingPhone,
   resolveShiprocketCustomerEmail
 } from '@common/shipping/shiprocket-payload';
+import { isExistingPickupMessage, payloadIndicatesExistingPickup } from '@common/shipping/pickup-detection';
 
 const SHIPROCKET_BASE_URL = 'https://apiv2.shiprocket.in/v1/external';
 const DEFAULT_PICKUP_LOCATION = 'Primary';
@@ -39,7 +40,8 @@ type ShiprocketCourierCompany = {
   courier_name: string;
   rate: number;
   etd?: string;
-  estimated_delivery_days?: number;
+  // Shiprocket returns this as a string ("2" or "2-3") despite the API docs showing number
+  estimated_delivery_days?: number | string;
 };
 
 type ShiprocketServiceabilityResponse = {
@@ -138,18 +140,18 @@ export default class ShiprocketAdapter implements ShippingProviderAdapter {
     } catch (error) {
       clearTimeout(timer);
       const message = error instanceof Error ? error.message : 'Network error';
-      throw new AppError(ERROR_CODES.INTERNAL_ERROR, `Shiprocket auth failed: ${message}`, 502);
+      throw new AppError(ERROR_CODES.INTERNAL_ERROR, `Shiprocket auth failed: ${message}`, 422);
     }
     clearTimeout(timer);
 
     if (!res.ok) {
-      throw new AppError(ERROR_CODES.INTERNAL_ERROR, `Shiprocket auth HTTP ${res.status}`, 502);
+      throw new AppError(ERROR_CODES.INTERNAL_ERROR, `Shiprocket auth HTTP ${res.status}`, 422);
     }
 
     const data = await this.parseJson(res);
     const token = typeof data.token === 'string' ? data.token : null;
     if (!token) {
-      throw new AppError(ERROR_CODES.INTERNAL_ERROR, 'Shiprocket auth did not return a token', 502);
+      throw new AppError(ERROR_CODES.INTERNAL_ERROR, 'Shiprocket auth did not return a token', 422);
     }
 
     this.token = token;
@@ -184,7 +186,7 @@ export default class ShiprocketAdapter implements ShippingProviderAdapter {
     } catch (error) {
       clearTimeout(timer);
       const message = error instanceof Error ? error.message : 'Network error';
-      throw new AppError(ERROR_CODES.INTERNAL_ERROR, `Shiprocket API request failed: ${message}`, 502);
+      throw new AppError(ERROR_CODES.INTERNAL_ERROR, `Shiprocket API request failed: ${message}`, 422);
     }
     clearTimeout(timer);
 
@@ -198,7 +200,7 @@ export default class ShiprocketAdapter implements ShippingProviderAdapter {
       throw new AppError(
         ERROR_CODES.INTERNAL_ERROR,
         `Shiprocket API HTTP ${res.status}: ${errBody.slice(0, 200)}`,
-        502
+        422
       );
     }
 
@@ -210,12 +212,19 @@ export default class ShiprocketAdapter implements ShippingProviderAdapter {
     try {
       return JSON.parse(text) as Record<string, unknown>;
     } catch {
-      throw new AppError(ERROR_CODES.INTERNAL_ERROR, 'Shiprocket returned invalid JSON', 502);
+      throw new AppError(ERROR_CODES.INTERNAL_ERROR, 'Shiprocket returned invalid JSON', 422);
     }
   }
 
   async checkServiceability(pincode: string, originPincode?: string): Promise<ServiceabilityResult> {
-    const pickupPincode = originPincode ?? process.env.SHIPROCKET_PICKUP_PINCODE ?? '';
+    const pickupPincode = originPincode?.trim() || process.env.SHIPROCKET_PICKUP_PINCODE?.trim() || '';
+    if (!pickupPincode) {
+      throw new AppError(
+        ERROR_CODES.CONFIG_NOT_READY,
+        'Shiprocket pickup pincode is not configured — set SHIPROCKET_PICKUP_PINCODE or pass originPincode',
+        503
+      );
+    }
     const query = new URLSearchParams({
       pickup_postcode: pickupPincode,
       delivery_postcode: pincode,
@@ -236,6 +245,13 @@ export default class ShiprocketAdapter implements ShippingProviderAdapter {
   }
 
   async calculateDeliveryRate(input: DeliveryRateInput): Promise<DeliveryRateResult> {
+    if (!input.originPincode?.trim()) {
+      throw new AppError(
+        ERROR_CODES.CONFIG_NOT_READY,
+        'Shiprocket delivery rate requires originPincode — set SHIPROCKET_PICKUP_PINCODE or configure pickup pincode in store settings',
+        503
+      );
+    }
     const weightKg = Math.max(0.001, input.totalWeightGrams / 1000);
     const isCod = input.paymentMode === 'COD';
     const query = new URLSearchParams({
@@ -249,7 +265,12 @@ export default class ShiprocketAdapter implements ShippingProviderAdapter {
       `/courier/serviceability/?${query.toString()}`
     );
 
-    const couriers: ShiprocketCourierCompany[] = payload.data?.available_courier_companies ?? [];
+    const allCouriers: ShiprocketCourierCompany[] = payload.data?.available_courier_companies ?? [];
+
+    // Filter out couriers with null/undefined/zero rates — these are typically COD-only
+    // couriers that appear in prepaid responses with rate=0 or rate=null. Including them
+    // causes the cheapest sort to pick a 0-rate courier, resulting in free shipping silently.
+    const couriers = allCouriers.filter((c) => typeof c.rate === 'number' && c.rate > 0);
 
     if (couriers.length === 0) {
       throw new AppError(ERROR_CODES.PINCODE_NOT_SERVICEABLE, 'No couriers available for this pincode', 422);
@@ -265,13 +286,13 @@ export default class ShiprocketAdapter implements ShippingProviderAdapter {
       courierCompanyId: c.courier_company_id,
       courierName: c.courier_name,
       shippingChargePaise: Math.round((c.rate ?? 0) * 100),
-      estimatedDays: this.normalizeEstimatedDays(c.estimated_delivery_days ?? 4),
+      estimatedDays: this.normalizeEstimatedDays(this.parseEstimatedDays(c.estimated_delivery_days)),
       ...(c.etd != null ? { estimatedDeliveryDate: c.etd } : {})
     }));
 
     return {
       shippingChargePaise: Math.round((cheapest.rate ?? 0) * 100),
-      estimatedDays: this.normalizeEstimatedDays(cheapest.estimated_delivery_days ?? 4),
+      estimatedDays: this.normalizeEstimatedDays(this.parseEstimatedDays(cheapest.estimated_delivery_days)),
       courierName: cheapest.courier_name,
       courierCompanyId: cheapest.courier_company_id,
       ...(cheapest.etd != null ? { estimatedDeliveryDate: cheapest.etd } : {}),
@@ -351,7 +372,7 @@ export default class ShiprocketAdapter implements ShippingProviderAdapter {
       billing_phone: billingPhone,
       shipping_is_billing: true,
       order_items: orderItems,
-      payment_method: input.paymentMode,
+      payment_method: input.paymentMode === 'COD' ? 'COD' : 'Prepaid',
       shipping_charges: shippingChargeRupees.toFixed(2),
       giftwrap_charges: 0,
       transaction_charges: 0,
@@ -381,7 +402,7 @@ export default class ShiprocketAdapter implements ShippingProviderAdapter {
       throw new AppError(
         ERROR_CODES.INTERNAL_ERROR,
         'Shiprocket order created but no shipment_id returned',
-        502
+        422
       );
     }
 
@@ -400,22 +421,33 @@ export default class ShiprocketAdapter implements ShippingProviderAdapter {
     let awbNumber = awbData.response?.data?.awb_code ?? '';
     if (awbData.awb_assign_status !== 1) {
       const assignError = awbData.response?.data?.awb_assign_error ?? '';
-      // Idempotency: Shiprocket returns status=0 if AWB was already assigned in a prior attempt
-      const alreadyAssignedMatch = assignError.match(/AWB is already assigned with awb\s*-\s*(\S+)/i);
-      if (alreadyAssignedMatch) {
-        awbNumber = alreadyAssignedMatch[1] ?? '';
+      // Idempotency: Shiprocket returns status=0 if AWB was already assigned in a prior attempt.
+      // The exact wording varies — match multiple patterns.
+      const awbIdempotencyPatterns = [
+        /AWB is already assigned with awb\s*[-:]\s*(\S+)/i,
+        /already assigned.*?awb[:\s-]+(\S+)/i,
+        /awb[:\s-]+(\S+)\s+(?:is\s+)?already assigned/i,
+        /duplicate.*?awb[:\s-]+(\S+)/i
+      ];
+      let extractedAwb: string | null = null;
+      for (const pattern of awbIdempotencyPatterns) {
+        const m = assignError.match(pattern);
+        if (m?.[1]) { extractedAwb = m[1]; break; }
+      }
+      if (extractedAwb) {
+        awbNumber = extractedAwb;
       } else {
         const reason = assignError || awbData.message || JSON.stringify(awbData);
         throw new AppError(
           ERROR_CODES.INTERNAL_ERROR,
           `Shiprocket AWB assignment failed: ${reason}`,
-          502
+          422
         );
       }
     }
 
     if (!awbNumber) {
-      throw new AppError(ERROR_CODES.INTERNAL_ERROR, 'Shiprocket AWB code missing from assign response', 502);
+      throw new AppError(ERROR_CODES.INTERNAL_ERROR, 'Shiprocket AWB code missing from assign response', 422);
     }
 
     // Fetch estimated delivery days by checking serviceability for the assigned route.
@@ -465,12 +497,15 @@ export default class ShiprocketAdapter implements ShippingProviderAdapter {
       activities[0]?.status ||
       'UNKNOWN';
 
-    const events = activities.map((a) => ({
-      status: a.status ?? 'UNKNOWN',
-      ...(a.location != null ? { location: a.location } : {}),
-      description: a.activity ?? a.status ?? '',
-      occurredAt: a.date ?? new Date().toISOString()
-    }));
+    const events = activities.map((a) => {
+      const occurredAt = a.date ? this.normalizeShiprocketDate(a.date) : undefined;
+      return {
+        status: a.status ?? 'UNKNOWN',
+        ...(a.location != null ? { location: a.location } : {}),
+        description: a.activity ?? a.status ?? '',
+        ...(occurredAt != null ? { occurredAt } : {})
+      };
+    });
 
     return {
       status: latestStatus,
@@ -479,35 +514,67 @@ export default class ShiprocketAdapter implements ShippingProviderAdapter {
     };
   }
 
-  async cancelShipment(awbNumber: string): Promise<{ cancelled: boolean; providerPayload: Record<string, unknown> }> {
-    try {
-      const payload = await this.request<Record<string, unknown>>(
-        '/orders/cancel',
-        {
-          method: 'POST',
-          body: JSON.stringify({ ids: [awbNumber] })
-        }
+  // NOTE: `orderId` must be the Shiprocket ORDER id (the order_id returned at
+  // creation), NOT the shipment id or AWB. Shiprocket's /orders/cancel keys off
+  // the order id; passing anything else silently cancels nothing in the dashboard.
+  async cancelShipment(orderId: string): Promise<{ cancelled: boolean; providerPayload: Record<string, unknown> }> {
+    // Shiprocket order ids are numeric — send a number when possible so the
+    // cancel reliably matches the order in their system.
+    const cancelId = this.resolveShipmentIdPayload(orderId);
+    const payload = await this.request<Record<string, unknown>>(
+      '/orders/cancel',
+      {
+        method: 'POST',
+        body: JSON.stringify({ ids: [cancelId] })
+      }
+    );
+    const message = typeof payload.message === 'string' ? payload.message.toLowerCase() : '';
+    const cancelled = message.includes('cancel') || message.includes('success');
+    if (!cancelled) {
+      throw new AppError(
+        ERROR_CODES.INTERNAL_ERROR,
+        `Shiprocket did not confirm cancellation for order ${orderId}: ${message || JSON.stringify(payload).slice(0, 200)}`,
+        422
       );
-      const cancelled =
-        typeof payload.message === 'string' && payload.message.toLowerCase().includes('cancel');
-      return { cancelled, providerPayload: payload };
-    } catch {
-      return {
-        cancelled: false,
-        providerPayload: { reason: 'Shiprocket cancel API call failed' }
-      };
     }
+    return { cancelled: true, providerPayload: payload };
   }
 
   async schedulePickup(shiprocketShipmentId: string): Promise<SchedulePickupResult> {
     const shipmentId = this.resolveShipmentIdPayload(shiprocketShipmentId);
-    const payload = await this.request<ShiprocketPickupResponse>(
-      '/courier/generate/pickup',
-      {
-        method: 'POST',
-        body: JSON.stringify({ shipment_id: [shipmentId] })
+
+    let payload: ShiprocketPickupResponse;
+    try {
+      payload = await this.request<ShiprocketPickupResponse>(
+        '/courier/generate/pickup',
+        {
+          method: 'POST',
+          body: JSON.stringify({ shipment_id: [shipmentId] })
+        }
+      );
+    } catch (err) {
+      // Shiprocket returns HTTP 400 "Already in Pickup Queue" when a pickup for
+      // this shipment/warehouse is already arranged. The shipment is covered, so
+      // treat it as a successful (already-scheduled) pickup rather than an error.
+      if (err instanceof AppError && isExistingPickupMessage(err.message)) {
+        return {
+          scheduled: true,
+          alreadyScheduled: true,
+          providerPayload: { note: 'already_in_pickup_queue', detail: err.message }
+        };
       }
-    );
+      throw err;
+    }
+
+    // Shiprocket can also report an existing pickup as HTTP 200 with a message.
+    if (payloadIndicatesExistingPickup(payload as Record<string, unknown>)) {
+      return {
+        scheduled: true,
+        alreadyScheduled: true,
+        ...(payload.pickup_scheduled_date != null ? { pickupScheduledDate: payload.pickup_scheduled_date } : {}),
+        providerPayload: payload as Record<string, unknown>
+      };
+    }
 
     return {
       scheduled: (payload.status ?? 0) === 1,
@@ -529,7 +596,7 @@ export default class ShiprocketAdapter implements ShippingProviderAdapter {
 
     const labelUrl = payload.label_url ?? '';
     if (!labelUrl) {
-      throw new AppError(ERROR_CODES.INTERNAL_ERROR, 'Shiprocket label generation did not return a URL', 502);
+      throw new AppError(ERROR_CODES.INTERNAL_ERROR, 'Shiprocket label generation did not return a URL', 422);
     }
 
     return {
@@ -538,11 +605,32 @@ export default class ShiprocketAdapter implements ShippingProviderAdapter {
     };
   }
 
+  // Shiprocket activity dates are in IST: "2024-06-14 15:30:00" (space-separated, no TZ marker).
+  // new Date("2024-06-14 15:30:00") parses as UTC, producing timestamps 5h30m too early.
+  private normalizeShiprocketDate(raw: string): string {
+    const isoLike = raw.match(/^(\d{4})-(\d{2})-(\d{2})\s(\d{2}):(\d{2}):(\d{2})$/);
+    if (isoLike) {
+      const [, year, month, day, hour, minute, second] = isoLike;
+      const parsed = new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}+05:30`);
+      if (!Number.isNaN(parsed.getTime())) return parsed.toISOString();
+    }
+    const fallback = new Date(raw);
+    return Number.isNaN(fallback.getTime()) ? raw : fallback.toISOString();
+  }
+
   private normalizeEstimatedDays(value: number): number {
     const days = Math.floor(value);
     if (days < 1) return 1;
     if (days > 30) return 30;
     return days;
+  }
+
+  // Shiprocket returns estimated_delivery_days as a string ("2" or "2-3") in practice.
+  // Parse the first integer from the value; fall back to 4 if absent or unparseable.
+  private parseEstimatedDays(value: number | string | undefined): number {
+    if (value == null) return 4;
+    const first = parseInt(String(value), 10);
+    return Number.isFinite(first) && first > 0 ? first : 4;
   }
 
   private resolveShipmentIdPayload(shiprocketShipmentId: string): number | string {

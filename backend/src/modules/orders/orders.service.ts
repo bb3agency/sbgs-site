@@ -7,7 +7,8 @@ import {
   PaymentProvider,
   PaymentStatus,
   Prisma,
-  PrismaClient
+  PrismaClient,
+  ShippingProvider
 } from '@prisma/client';
 import { FastifyInstance } from 'fastify';
 import { AppError } from '@common/errors/app-error';
@@ -21,10 +22,7 @@ import { canTransitionOrder } from '@common/orders/order-state-machine';
 import { mapShipmentWebhookStatus, mapShipmentStatusToOrderStatus } from '@common/orders/webhook-status-mappers';
 import { CartService } from '@modules/cart/cart.service';
 import { createPaymentProvider } from '@modules/payments/payment-provider';
-import {
-  createShippingProvider,
-  createShippingAdapterForProvider
-} from '@modules/shipping/shipping-provider';
+import { createShippingAdapterForProvider } from '@modules/shipping/shipping-provider';
 import { createInvoiceStorageProvider } from '@modules/invoices/invoice-storage-provider';
 import {
   sendNotificationFailureAlert,
@@ -160,7 +158,21 @@ export class OrdersService {
     pickupPincodeConfigured?: boolean;
   }): { canShipNow: boolean; shipBlockReason: string | null } {
     if (input.status !== OrderStatus.CONFIRMED && input.status !== OrderStatus.PROCESSING) {
-      return { canShipNow: false, shipBlockReason: 'Order is not in a shippable state.' };
+      // Give a status-specific reason so the admin sees an accurate state instead of a
+      // generic "not shippable" message once the order has progressed past booking.
+      const reasonByStatus: Partial<Record<OrderStatus, string>> = {
+        [OrderStatus.SHIPPED]: 'Order is already shipped.',
+        [OrderStatus.OUT_FOR_DELIVERY]: 'Order is out for delivery.',
+        [OrderStatus.DELIVERED]: 'Order has been delivered.',
+        [OrderStatus.CANCELLED]: 'Order is cancelled.',
+        [OrderStatus.REFUNDED]: 'Order has been refunded.',
+        [OrderStatus.PENDING_PAYMENT]: 'Order is awaiting payment.',
+        [OrderStatus.PAYMENT_FAILED]: 'Order payment failed.'
+      };
+      return {
+        canShipNow: false,
+        shipBlockReason: reasonByStatus[input.status] ?? 'Order is not in a shippable state.'
+      };
     }
     if (input.awbNumber || input.shipmentStatus) {
       return { canShipNow: false, shipBlockReason: 'Shipment is already booked for this order.' };
@@ -486,20 +498,55 @@ export class OrdersService {
       if (!pickupPincode) {
         throw new AppError(ERROR_CODES.INTERNAL_ERROR, 'Shipping provider is not configured', 503);
       }
-      const selectedProviderKey = input.selectedShippingProvider?.toLowerCase() as 'delhivery' | 'shiprocket' | undefined;
+      const rawProviderKey = input.selectedShippingProvider?.toLowerCase();
+      const selectedProviderKey: 'delhivery' | 'shiprocket' | undefined =
+        rawProviderKey === 'delhivery' || rawProviderKey === 'shiprocket' ? rawProviderKey : undefined;
       const providerOverride =
         selectedProviderKey && !usingNoop
           ? (createShippingAdapterForProvider(selectedProviderKey) ?? undefined)
           : undefined;
-      const shippingQuote = await cartService.computeShippingChargeForCart({
-        cart,
-        destinationPincode: shippingAddress.pincode,
-        originPincode: pickupPincode,
-        usingNoop,
-        paymentMode: requestedPaymentMode === 'COD' ? 'COD' : 'PREPAID',
-        ...(providerOverride ? { provider: providerOverride } : {})
-      });
-      const shippingCharge = shippingQuote.shippingChargePaise;
+      const paymentModeForQuote: 'COD' | 'PREPAID' = requestedPaymentMode === 'COD' ? 'COD' : 'PREPAID';
+
+      // Determine the authoritative shipping quote. The provider is ALWAYS chosen server-side as the
+      // cheapest serviceable option — never trusted from the client. Priority:
+      //   1. The exact quote the customer saw (cached at getDeliveryRates) → guarantees shown == charged.
+      //   2. A fresh cross-provider comparison (Delhivery vs Shiprocket on chargeable weight) → always
+      //      assigns the genuinely cheapest provider, even if the cache expired.
+      //   3. Noop/single-provider fallback for dev/unconfigured environments.
+      let authoritativeQuote = usingNoop
+        ? null
+        : await cartService.getStoredShippingQuote(userId, undefined, cart.id, shippingAddress.pincode, paymentModeForQuote);
+      if (!authoritativeQuote && !usingNoop) {
+        authoritativeQuote = await cartService.getCheapestProviderQuoteForCart({
+          cart,
+          destinationPincode: shippingAddress.pincode,
+          pickupPincode,
+          paymentMode: paymentModeForQuote
+        });
+      }
+
+      let shippingCharge: number;
+      let lockedProvider: 'DELHIVERY' | 'SHIPROCKET' | undefined;
+      let lockedCourierCompanyId: number | undefined;
+      if (authoritativeQuote) {
+        shippingCharge = authoritativeQuote.shippingChargePaise;
+        lockedProvider = authoritativeQuote.provider;
+        lockedCourierCompanyId = authoritativeQuote.courierCompanyId;
+      } else {
+        // Noop / single-provider mode: compute via the (possibly overridden) provider.
+        const noopQuote = await cartService.computeShippingChargeForCart({
+          cart,
+          destinationPincode: shippingAddress.pincode,
+          originPincode: pickupPincode,
+          usingNoop,
+          paymentMode: paymentModeForQuote,
+          ...(providerOverride ? { provider: providerOverride } : {})
+        });
+        shippingCharge = noopQuote.shippingChargePaise;
+        lockedProvider = input.selectedShippingProvider;
+        lockedCourierCompanyId = input.courierCompanyId ?? noopQuote.courierCompanyId;
+      }
+
       const total = Math.max(subtotal + shippingCharge - discountAmount, 0);
 
       if (requestedPaymentMode === 'COD') {
@@ -524,8 +571,11 @@ export class OrdersService {
           userId,
           status: orderStatus,
           ...({ paymentMode: requestedPaymentMode } as Record<string, unknown>),
-          ...(input.selectedShippingProvider
-            ? ({ selectedShippingProvider: input.selectedShippingProvider } as Record<string, unknown>)
+          ...(lockedProvider
+            ? ({ selectedShippingProvider: lockedProvider } as Record<string, unknown>)
+            : {}),
+          ...(lockedCourierCompanyId != null
+            ? ({ courierCompanyId: lockedCourierCompanyId } as Record<string, unknown>)
             : {}),
           shippingAddress: {
             fullName: shippingAddress.fullName,
@@ -538,6 +588,7 @@ export class OrdersService {
           },
           subtotal,
           shippingCharge,
+          ...({ shippingChargeQuotedPaise: shippingCharge } as Record<string, unknown>),
           discountAmount,
           total,
           ...(input.notes !== undefined ? { notes: input.notes } : {}),
@@ -1180,20 +1231,55 @@ export class OrdersService {
       throw new AppError(ERROR_CODES.INTERNAL_ERROR, 'Shipping provider is not configured', 503);
     }
 
-    const selectedProviderKeyForCheckout = input.selectedShippingProvider?.toLowerCase() as 'delhivery' | 'shiprocket' | undefined;
+    const rawProviderKeyForCheckout = input.selectedShippingProvider?.toLowerCase();
+    const selectedProviderKeyForCheckout: 'delhivery' | 'shiprocket' | undefined =
+      rawProviderKeyForCheckout === 'delhivery' || rawProviderKeyForCheckout === 'shiprocket'
+        ? rawProviderKeyForCheckout
+        : undefined;
     const providerOverrideForCheckout =
       selectedProviderKeyForCheckout && !usingNoop
         ? (createShippingAdapterForProvider(selectedProviderKeyForCheckout) ?? undefined)
         : undefined;
-    const shippingQuote = await cartService.computeShippingChargeForCart({
-      cart,
-      destinationPincode: shippingAddress.pincode,
-      originPincode: pickupPincode,
-      usingNoop,
-      paymentMode: 'PREPAID',
-      ...(providerOverrideForCheckout ? { provider: providerOverrideForCheckout } : {})
-    });
-    const shippingCharge = shippingQuote.shippingChargePaise;
+
+    // Determine the authoritative shipping quote. The provider is ALWAYS chosen server-side as the
+    // cheapest serviceable option — never trusted from the client. Priority:
+    //   1. The exact quote the customer saw (cached at getDeliveryRates) → guarantees shown == charged.
+    //   2. A fresh cross-provider comparison (Delhivery vs Shiprocket on chargeable weight) → always
+    //      assigns the genuinely cheapest provider, even if the cache expired.
+    //   3. Noop/single-provider fallback for dev/unconfigured environments.
+    let authoritativeQuote = usingNoop
+      ? null
+      : await cartService.getStoredShippingQuote(userId, undefined, cart.id, shippingAddress.pincode, 'PREPAID');
+    if (!authoritativeQuote && !usingNoop) {
+      authoritativeQuote = await cartService.getCheapestProviderQuoteForCart({
+        cart,
+        destinationPincode: shippingAddress.pincode,
+        pickupPincode,
+        paymentMode: 'PREPAID'
+      });
+    }
+
+    let shippingCharge: number;
+    let lockedProvider: 'DELHIVERY' | 'SHIPROCKET' | null;
+    let lockedCourierCompanyId: number | null;
+    if (authoritativeQuote) {
+      shippingCharge = authoritativeQuote.shippingChargePaise;
+      lockedProvider = authoritativeQuote.provider;
+      lockedCourierCompanyId = authoritativeQuote.courierCompanyId ?? null;
+    } else {
+      const noopQuote = await cartService.computeShippingChargeForCart({
+        cart,
+        destinationPincode: shippingAddress.pincode,
+        originPincode: pickupPincode,
+        usingNoop,
+        paymentMode: 'PREPAID',
+        ...(providerOverrideForCheckout ? { provider: providerOverrideForCheckout } : {})
+      });
+      shippingCharge = noopQuote.shippingChargePaise;
+      lockedProvider = input.selectedShippingProvider ?? null;
+      lockedCourierCompanyId = input.courierCompanyId ?? noopQuote.courierCompanyId ?? null;
+    }
+
     const total = Math.max(subtotal + shippingCharge - discountAmount, 0);
 
     await this.checkoutRisk.assertInitiatePaymentAllowed({
@@ -1229,7 +1315,8 @@ export class OrdersService {
       total,
       couponId: effectiveCoupon?.id ?? null,
       razorpayOrderId: razorpayOrder.providerOrderId,
-      selectedShippingProvider: input.selectedShippingProvider ?? null,
+      selectedShippingProvider: lockedProvider,
+      courierCompanyId: lockedCourierCompanyId,
       items: cart.items.map((item) => ({
         variantId: item.variantId,
         productName: item.variant.product.name,
@@ -1273,6 +1360,7 @@ export class OrdersService {
       couponId: string | null;
       razorpayOrderId: string;
       selectedShippingProvider?: string | null;
+      courierCompanyId?: number | null;
       items: Array<{ variantId: string; productName: string; variantName: string; sku: string; quantity: number; unitPrice: number; totalPrice: number }>;
     };
 
@@ -1332,6 +1420,9 @@ export class OrdersService {
             ...(session.selectedShippingProvider
               ? ({ selectedShippingProvider: session.selectedShippingProvider } as Record<string, unknown>)
               : {}),
+            ...(session.courierCompanyId != null
+              ? ({ courierCompanyId: session.courierCompanyId } as Record<string, unknown>)
+              : {}),
             shippingAddress: {
               fullName: session.shippingAddress.fullName,
               phone: session.shippingAddress.phone,
@@ -1343,6 +1434,7 @@ export class OrdersService {
             },
             subtotal: session.subtotal,
             shippingCharge: session.shippingCharge,
+            ...({ shippingChargeQuotedPaise: session.shippingCharge } as Record<string, unknown>),
             discountAmount: session.discountAmount,
             total: session.total,
             ...(session.notes ? { notes: session.notes } : {}),
@@ -1761,33 +1853,61 @@ export class OrdersService {
       'SHIPPING_PROVIDER',
       'DELHIVERY_API_KEY',
       'DELHIVERY_WEBHOOK_TOKEN',
+      'SHIPROCKET_EMAIL',
+      'SHIPROCKET_PASSWORD',
       'SHIPROCKET_WEBHOOK_TOKEN',
       'SHIPROCKET_WEBHOOK_MAX_SKEW_SECONDS',
       'DELHIVERY_WEBHOOK_MAX_SKEW_SECONDS'
     ]);
     // Frontend integration contract:
     // - Browser clients MUST NOT call this webhook route directly.
-    // - Delhivery expects `Authorization: Token <DELHIVERY_WEBHOOK_TOKEN>`.
+    // - Delhivery Push API: client creates their own secret, tells Delhivery to echo it back
+    //   as `Authorization: Token <DELHIVERY_WEBHOOK_TOKEN>`. Token is optional — if unset, all
+    //   Delhivery webhooks are accepted (rely on SHIPPING_WEBHOOK_ALLOWLIST_CIDR instead).
     // - Shiprocket expects `x-api-key: <SHIPROCKET_WEBHOOK_TOKEN>` (per official Shiprocket docs).
     //   Also accepts `Authorization: Bearer <SHIPROCKET_WEBHOOK_TOKEN>` for backward compatibility.
+    //   Token is optional — if unset, all Shiprocket webhooks are accepted.
     // - `noop` fallback acceptance is for local/dev simulation only.
     const startedAt = Date.now();
     const env = (runtimeConfig.NODE_ENV ?? process.env.NODE_ENV ?? 'development').toLowerCase();
-    let activeProvider = (runtimeConfig.SHIPPING_PROVIDER ?? 'delhivery').trim().toLowerCase();
-    if (
-      env === 'test' &&
-      activeProvider === 'delhivery' &&
-      typeof process.env.SHIPPING_PROVIDER === 'string'
-    ) {
-      activeProvider = process.env.SHIPPING_PROVIDER.trim().toLowerCase();
+
+    // In dual-shipping mode both providers post to the same endpoint.
+    // Detect which provider sent this call from auth header format rather than
+    // trusting SHIPPING_PROVIDER (which names only one of the two active providers).
+    //   Delhivery: Authorization: Token <secret>
+    //   Shiprocket: x-api-key: <secret>  OR  Authorization: Bearer <secret>
+    // When runtimeConfig is empty (test harness), fall back to process.env
+    const hasDelhivery = Boolean(
+      (runtimeConfig.DELHIVERY_API_KEY ?? process.env.DELHIVERY_API_KEY ?? '').trim()
+    );
+    const hasShiprocket =
+      Boolean((runtimeConfig.SHIPROCKET_EMAIL ?? process.env.SHIPROCKET_EMAIL ?? '').trim()) &&
+      Boolean((runtimeConfig.SHIPROCKET_PASSWORD ?? process.env.SHIPROCKET_PASSWORD ?? '').trim());
+    const isDualMode = hasDelhivery && hasShiprocket;
+
+    let activeProvider: string;
+    if (isDualMode) {
+      // Discriminate by auth header prefix so each provider's token is validated correctly.
+      const looksLikeDelhivery =
+        typeof authHeader === 'string' && authHeader.trimStart().startsWith('Token ');
+      activeProvider = looksLikeDelhivery ? 'delhivery' : 'shiprocket';
+    } else {
+      // No credentials configured — noop mode (dev/test only, or unconfigured instance).
+      // SHIPPING_PROVIDER env var is intentionally NOT used; provider detection is credential-based.
+      activeProvider = hasDelhivery
+        ? 'delhivery'
+        : hasShiprocket
+          ? 'shiprocket'
+          : 'noop';
     }
+
     const isShiprocket = activeProvider === 'shiprocket';
     // isNoopShipping: true when SHIPPING_PROVIDER=noop or delhivery is configured with placeholder/empty API key
     const isNoopShipping = activeProvider === 'noop';
 
     let effectiveWebhookSecret: string;
     if (isShiprocket) {
-      effectiveWebhookSecret = (runtimeConfig.SHIPROCKET_WEBHOOK_TOKEN ?? '').trim();
+      effectiveWebhookSecret = (runtimeConfig.SHIPROCKET_WEBHOOK_TOKEN ?? process.env.SHIPROCKET_WEBHOOK_TOKEN ?? '').trim();
     } else if (isNoopShipping) {
       const headerToken =
         typeof authHeader === 'string' ? authHeader.replace(/^Bearer\s+/i, '').trim() : '';
@@ -1821,16 +1941,12 @@ export class OrdersService {
       }
     }
 
-    // Delhivery always requires a webhook secret. Shiprocket token is optional —
-    // if SHIPROCKET_WEBHOOK_TOKEN is not configured we accept unauthenticated webhooks
-    // (Shiprocket does not enforce auth by default; idempotency/dedup protects against replay).
-    if (!effectiveWebhookSecret && !isShiprocket) {
-      throw new AppError(
-        ERROR_CODES.INTERNAL_ERROR,
-        'Shipping webhook secret is not configured',
-        500
-      );
-    }
+    // Both DELHIVERY_WEBHOOK_TOKEN and SHIPROCKET_WEBHOOK_TOKEN are optional.
+    // Delhivery does NOT generate or provide a webhook secret — the merchant creates their own
+    // secret and tells Delhivery (via their account manager) to echo it back in the
+    // Authorization header on every push call. If DELHIVERY_WEBHOOK_TOKEN is not configured,
+    // we accept all Delhivery webhooks and rely on IP allowlisting (SHIPPING_WEBHOOK_ALLOWLIST_CIDR)
+    // for security. Same behaviour as Shiprocket. Idempotency/dedup protects against replay.
 
     let tokenValid: boolean;
     if (isNoopShipping) {
@@ -1846,8 +1962,13 @@ export class OrdersService {
         tokenValid = this.secureTokenMatch(headerToken, effectiveWebhookSecret);
       }
     } else {
-      const expectedToken = `Token ${effectiveWebhookSecret}`;
-      tokenValid = this.secureTokenMatch(authHeader, expectedToken);
+      if (!effectiveWebhookSecret) {
+        // No token configured — accept all Delhivery webhooks (optional auth).
+        tokenValid = true;
+      } else {
+        const expectedToken = `Token ${effectiveWebhookSecret}`;
+        tokenValid = this.secureTokenMatch(authHeader, expectedToken);
+      }
     }
 
     if (!tokenValid) {
@@ -1951,7 +2072,7 @@ export class OrdersService {
           status: parsed.status,
           description: parsed.description,
           location: parsed.location ?? null,
-          occurredAt: parsed.occurredAt ?? new Date().toISOString(),
+          occurredAt: parsed.occurredAt ?? null,
           ...(parsed.shiprocketShipmentId ? { shiprocketShipmentId: parsed.shiprocketShipmentId } : {}),
           payloadMetadata: {
             source: `${shippingProviderKey}-webhook`,
@@ -2729,25 +2850,37 @@ export class OrdersService {
     if (!shipment) {
       throw new AppError(ERROR_CODES.NOT_FOUND, 'Shipment not found for this order', 404);
     }
-    const shiprocketShipmentId = (
-      shipment as typeof shipment & { shiprocketShipmentId?: string | null }
-    ).shiprocketShipmentId;
-    if (!shiprocketShipmentId) {
-      throw new AppError(
-        ERROR_CODES.VALIDATION_ERROR,
-        'Shipment does not have a Shiprocket shipment ID — ensure SHIPPING_PROVIDER=shiprocket and AWB has been assigned',
-        422
-      );
+
+    const shipmentExt = shipment as typeof shipment & {
+      shiprocketShipmentId?: string | null;
+      awbNumber?: string | null;
+    };
+
+    let result: import('@common/interfaces/shipping-provider.interface').SchedulePickupResult;
+
+    if (shipment.provider === ShippingProvider.DELHIVERY) {
+      const provider = createShippingAdapterForProvider('delhivery');
+      if (!provider?.schedulePickup) {
+        throw new AppError(ERROR_CODES.INTERNAL_ERROR, 'Delhivery adapter is not configured', 501);
+      }
+      result = await provider.schedulePickup(shipmentExt.awbNumber ?? '');
+    } else {
+      // Shiprocket (and legacy single-provider) path
+      const shiprocketShipmentId = shipmentExt.shiprocketShipmentId;
+      if (!shiprocketShipmentId) {
+        throw new AppError(
+          ERROR_CODES.VALIDATION_ERROR,
+          'Shipment does not have a Shiprocket shipment ID — schedule pickup requires a Shiprocket shipment',
+          422
+        );
+      }
+      const provider = createShippingAdapterForProvider('shiprocket');
+      if (!provider?.schedulePickup) {
+        throw new AppError(ERROR_CODES.INTERNAL_ERROR, 'Shiprocket adapter is not configured', 501);
+      }
+      result = await provider.schedulePickup(shiprocketShipmentId);
     }
-    const provider = createShippingProvider();
-    if (!provider?.schedulePickup) {
-      throw new AppError(
-        ERROR_CODES.INTERNAL_ERROR,
-        'Schedule pickup is not supported by the active shipping provider',
-        501
-      );
-    }
-    const result = await provider.schedulePickup(shiprocketShipmentId);
+
     if (result.pickupScheduledDate) {
       await this.fastify.prisma.shipment.update({
         where: { id: shipment.id },
@@ -2769,7 +2902,26 @@ export class OrdersService {
     const shipmentExt = shipment as typeof shipment & {
       shiprocketShipmentId?: string | null;
       labelUrl?: string | null;
+      awbNumber?: string | null;
     };
+
+    // --- Delhivery path ---
+    if (shipment.provider === ShippingProvider.DELHIVERY) {
+      const awbNumber = shipmentExt.awbNumber;
+      if (!awbNumber) {
+        throw new AppError(ERROR_CODES.VALIDATION_ERROR, 'Shipment has no AWB — cannot generate Delhivery label', 422);
+      }
+      const provider = createShippingAdapterForProvider('delhivery');
+      if (!provider?.generateLabel) {
+        throw new AppError(ERROR_CODES.INTERNAL_ERROR, 'Delhivery adapter is not configured', 501);
+      }
+      const result = await provider.generateLabel(awbNumber);
+      // Delhivery returns HTML for in-browser rendering (no PDF URL).
+      // labelHtml is returned to the frontend which opens it in a new tab via document.write.
+      return { labelHtml: result.labelHtml };
+    }
+
+    // --- Shiprocket path (and legacy single-provider) ---
     if (shipmentExt.labelUrl) {
       return { labelUrl: shipmentExt.labelUrl };
     }
@@ -2777,17 +2929,13 @@ export class OrdersService {
     if (!shiprocketShipmentId) {
       throw new AppError(
         ERROR_CODES.VALIDATION_ERROR,
-        'Shipment does not have a Shiprocket shipment ID — ensure SHIPPING_PROVIDER=shiprocket and AWB has been assigned',
+        'Shipment does not have a Shiprocket shipment ID — label generation requires a Shiprocket shipment',
         422
       );
     }
-    const provider = createShippingProvider();
+    const provider = createShippingAdapterForProvider('shiprocket');
     if (!provider?.generateLabel) {
-      throw new AppError(
-        ERROR_CODES.INTERNAL_ERROR,
-        'Label generation is not supported by the active shipping provider',
-        501
-      );
+      throw new AppError(ERROR_CODES.INTERNAL_ERROR, 'Shiprocket adapter is not configured', 501);
     }
     const result = await provider.generateLabel(shiprocketShipmentId);
     await this.fastify.prisma.shipment.update({
@@ -2828,9 +2976,14 @@ export class OrdersService {
         throw new AppError(ERROR_CODES.NOT_FOUND, 'Order not found', 404);
       }
 
+      // Admin may cancel up to and including SHIPPED (in transit). Once the parcel is
+      // OUT_FOR_DELIVERY it can no longer be recalled, so cancellation stops there.
+      // For SHIPPED orders, enqueueShipmentCancellation cancels the AWB with the carrier
+      // (Delhivery/Shiprocket initiate RTO server-side when the parcel is already picked up).
       const cancellableStatuses: ReadonlyArray<OrderStatus> = [
         OrderStatus.CONFIRMED,
-        OrderStatus.PROCESSING
+        OrderStatus.PROCESSING,
+        OrderStatus.SHIPPED
       ];
       if (!cancellableStatuses.includes(existing.status)) {
         throw new AppError(
@@ -3758,6 +3911,7 @@ export class OrdersService {
 
   async adminListReturnRequests(query: {
     status?: ReturnRequestStatus;
+    orderId?: string;
     page?: number;
     limit?: number;
   }) {
@@ -3765,7 +3919,9 @@ export class OrdersService {
     const limit = Math.min(100, Math.max(1, query.limit ?? 20));
     const skip = (page - 1) * limit;
 
-    const where = query.status ? { status: query.status } : {};
+    const where: Record<string, unknown> = {};
+    if (query.status) where.status = query.status;
+    if (query.orderId) where.orderId = query.orderId;
     const [items, total] = await Promise.all([
       this.fastify.prisma.returnRequest.findMany({
         where,
@@ -3919,6 +4075,12 @@ export class OrdersService {
       shippingAddress: order.shippingAddress as Record<string, unknown>,
       subtotal: order.subtotal,
       shippingCharge: order.shippingCharge,
+      ...((order as Record<string, unknown>)['shippingChargeQuotedPaise'] != null
+        ? { shippingChargeQuotedPaise: (order as Record<string, unknown>)['shippingChargeQuotedPaise'] as number }
+        : {}),
+      ...((order as Record<string, unknown>)['selectedShippingProvider'] != null
+        ? { selectedShippingProvider: (order as Record<string, unknown>)['selectedShippingProvider'] as string }
+        : {}),
       discountAmount: order.discountAmount,
       ...(order.couponUsages && order.couponUsages.length > 0 && order.couponUsages[0]?.coupon
         ? { coupon: order.couponUsages[0].coupon }
@@ -4030,7 +4192,11 @@ export class OrdersService {
         originalInvoiceNumber: payload.originalInvoiceNumber,
         reason: payload.reason
       };
-    } catch {
+    } catch (err) {
+      this.fastify.log.warn(
+        { err, context: 'parseCreditNoteInfo' },
+        'Malformed credit note payload in DB — credit note details will be omitted from invoice'
+      );
       return null;
     }
   }
@@ -4486,9 +4652,26 @@ export class OrdersService {
       throw new AppError(ERROR_CODES.VALIDATION_ERROR, 'Shipment has no AWB number — cannot sync', 400);
     }
 
-    const provider = createShippingProvider();
-    if (!provider) {
-      throw new AppError(ERROR_CODES.CONFIG_NOT_READY, 'Shipping provider not configured', 503);
+    // Use the provider that created this shipment — never fall back to a different provider.
+    const syncAdapterKey: 'delhivery' | 'shiprocket' | null =
+      shipment.provider === 'SHIPROCKET' ? 'shiprocket' :
+      shipment.provider === 'DELHIVERY' ? 'delhivery' : null;
+
+    let provider: ReturnType<typeof createShippingAdapterForProvider>;
+    if (syncAdapterKey != null) {
+      provider = createShippingAdapterForProvider(syncAdapterKey);
+      if (!provider) {
+        throw new AppError(
+          ERROR_CODES.CONFIG_NOT_READY,
+          `Shipment belongs to ${shipment.provider} but the ${shipment.provider} adapter is not configured — cannot sync`,
+          503
+        );
+      }
+    } else {
+      provider = createShippingAdapterForProvider('shiprocket') ?? createShippingAdapterForProvider('delhivery');
+      if (!provider) {
+        throw new AppError(ERROR_CODES.CONFIG_NOT_READY, 'No shipping provider configured', 503);
+      }
     }
     const tracking = await provider.trackShipment(shipment.awbNumber);
 
@@ -4521,7 +4704,7 @@ export class OrdersService {
             status: event.status,
             description: event.description,
             location: event.location ?? null,
-            occurredAt: new Date(event.occurredAt)
+            occurredAt: event.occurredAt ? new Date(event.occurredAt) : new Date()
           })),
           skipDuplicates: false
         });

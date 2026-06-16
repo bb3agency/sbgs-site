@@ -138,16 +138,16 @@ describe('product-media-provider', () => {
   it('recognizes R2 CDN URLs as hosted when R2 is active', () => {
     setEnv({
       MEDIA_STORAGE_PROVIDER: 'r2',
-      CLIENT_ID: 'sbgs',
+      CLIENT_ID: 'SBGS',
       R2_ACCOUNT_ID: 'acct',
       R2_ACCESS_KEY_ID: 'kid',
       R2_SECRET_ACCESS_KEY: 'secret',
       R2_BUCKET_NAME: 'bucket',
       R2_PUBLIC_BASE_URL: 'https://cdn.example.com'
     });
-    const url = 'https://cdn.example.com/sbgs/products/prod_1/img.jpg';
+    const url = 'https://cdn.example.com/SBGS/products/prod_1/img.jpg';
     expect(isHostedProductImageUrl(url)).toBe(true);
-    expect(hostedStorageReferenceFromUrl(url)).toBe('sbgs/products/prod_1/img.jpg');
+    expect(hostedStorageReferenceFromUrl(url)).toBe('SBGS/products/prod_1/img.jpg');
   });
 
   it('returns false for an unrelated https URL (not a managed URL, R2 inactive)', () => {

@@ -20,7 +20,8 @@ import { getBrowserApiBaseUrl } from "@/lib/api-base";
 import { ApiError } from "@/lib/api";
 import { createIdempotencyKey } from "@/lib/idempotency";
 import { notifyAdminDataChanged } from "@/lib/admin-data-refresh";
-import { getApiErrorMessageWithHint } from "@/lib/error-messages";
+import { getApiErrorMessageWithHint, getOpsErrorDetail } from "@/lib/error-messages";
+import { shippingProviderLabel } from "@/lib/shipping-provider-labels";
 import { ADMIN_PERMISSIONS, hasAdminPermission } from "@/lib/permissions";
 import { useAuthStore } from "@/stores/auth";
 import { getPaginatedItems } from "@/lib/admin-api";
@@ -40,17 +41,21 @@ function codCollectionCopy(
   paymentMode: AdminOrderDetail["paymentMode"],
   paymentStatus: string | null | undefined,
   orderStatus: string,
+  shippingProvider?: string | null,
 ): string {
   if (paymentMode !== "COD") {
     return "Prepaid — captured via Razorpay.";
   }
+  const providerLabel = shippingProvider
+    ? (shippingProviderLabel(shippingProvider) === "—" ? "the shipping provider" : shippingProviderLabel(shippingProvider))
+    : "the shipping provider";
   if (paymentStatus === "CAPTURED") {
-    return "COD collected — synced from Shiprocket delivery webhook.";
+    return `COD collected — synced from ${providerLabel} delivery webhook.`;
   }
   if (orderStatus === "DELIVERED") {
     return "Delivered — awaiting payment capture from webhook.";
   }
-  return "Shiprocket collects cash on delivery; captured automatically on DELIVERED webhook.";
+  return `${providerLabel} collects cash on delivery; captured automatically on DELIVERED webhook.`;
 }
 
 export function AdminOrderFulfillmentPanel({
@@ -60,7 +65,9 @@ export function AdminOrderFulfillmentPanel({
   const api = useAuthenticatedApi();
   const accessToken = useAuthStore((s) => s.accessToken);
   const user = useAuthStore((s) => s.user);
+  const canWrite = hasAdminPermission(user, ADMIN_PERMISSIONS.ordersWrite);
   const canRefund = hasAdminPermission(user, ADMIN_PERMISSIONS.ordersRefund);
+  const canNotify = hasAdminPermission(user, ADMIN_PERMISSIONS.ordersNotify);
 
   const [orders, setOrders] = useState<AdminOrdersListResponse["items"]>([]);
   const [selectedOrderId, setSelectedOrderId] = useState(initialOrderId ?? "");
@@ -216,7 +223,30 @@ export function AdminOrderFulfillmentPanel({
         `/admin/orders/${selectedOrderId}/print-label`,
         { method: "POST", idempotencyKey: createIdempotencyKey(), body: JSON.stringify({}) },
       );
-      if (result.labelUrl) window.open(result.labelUrl, "_blank", "noopener,noreferrer");
+      if (result.labelUrl) {
+        window.open(result.labelUrl, "_blank", "noopener,noreferrer");
+      } else if (result.labelHtml) {
+        // Delhivery returns rendered HTML. Open it as a Blob URL in a new tab
+        // (the label page is mobile-responsive and has Print / Download buttons).
+        // A Blob document has no parent CSP, so the inline base64 barcode and
+        // logo render. `noopener` is omitted so we can detect a blocked popup
+        // (common on mobile) and fall back to a direct download.
+        const blob = new Blob([result.labelHtml], { type: "text/html" });
+        const blobUrl = URL.createObjectURL(blob);
+        const awbForName = detail?.shipment?.awb ?? selectedOrderId;
+        const win = window.open(blobUrl, "_blank");
+        if (!win) {
+          // Popup blocked (typical on mobile) — download the label so it can be
+          // opened, printed, and stuck on the package.
+          const anchor = document.createElement("a");
+          anchor.href = blobUrl;
+          anchor.download = `delhivery-label-${awbForName}.html`;
+          document.body.appendChild(anchor);
+          anchor.click();
+          anchor.remove();
+        }
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 60_000);
+      }
       setSuccess("Label ready.");
       await loadDetail(selectedOrderId);
       notifyAdminDataChanged(["orders", "shipments", "dashboard"]);
@@ -238,15 +268,36 @@ export function AdminOrderFulfillmentPanel({
         { method: "POST", idempotencyKey: createIdempotencyKey(), body: JSON.stringify({}) },
       );
       setPickupWasScheduled(true);
-      setSuccess(
-        result.pickupScheduledDate
-          ? `Pickup scheduled for ${result.pickupScheduledDate}.`
-          : "Pickup scheduled with Shiprocket.",
-      );
+      const isDelhivery = shipment?.provider === "DELHIVERY";
+      const providerName = isDelhivery ? "Delhivery" : "Shiprocket";
+      const pickupRef = result.pickupTokenNumber
+        ? ` (${providerName} pickup #${result.pickupTokenNumber})`
+        : "";
+      if (result.alreadyScheduled) {
+        // A pickup is already arranged — the courier visit covers this shipment
+        // too, so no new slot was created. The order stays in the provider's
+        // pre-pickup queue until the courier physically scans the label.
+        setSuccess(
+          `Pickup already arranged${pickupRef} — every ready shipment at this pickup location is collected in that visit. It stays in "Ready to Ship" on ${providerName} until the courier scans the label.`,
+        );
+      } else {
+        setSuccess(
+          result.pickupScheduledDate
+            ? `Pickup scheduled for ${result.pickupScheduledDate}${pickupRef}.`
+            : `Pickup scheduled${pickupRef}.`,
+        );
+      }
       await loadDetail(selectedOrderId);
       notifyAdminDataChanged(["orders", "shipments", "dashboard"]);
     } catch (err) {
-      setError(getApiErrorMessageWithHint(err));
+      // Surface the provider's real reason (e.g. Delhivery pickup-window
+      // rejection) to the operator instead of the generic retry copy.
+      const detail = getOpsErrorDetail(err);
+      setError(
+        detail
+          ? `${getApiErrorMessageWithHint(err)} ${detail}`
+          : getApiErrorMessageWithHint(err),
+      );
     } finally {
       setBusyAction(null);
     }
@@ -292,12 +343,19 @@ export function AdminOrderFulfillmentPanel({
 
   const shipment = detail?.shipment;
   const hasShipment = Boolean(shipment?.awb);
-  const hasShiprocketId = Boolean(shipment?.shiprocketShipmentId);
   const pickupScheduled = Boolean(shipment?.pickupScheduledDate);
+  // Admin can cancel up to and including SHIPPED (in transit). Once OUT_FOR_DELIVERY /
+  // DELIVERED / terminal, cancellation is no longer possible — mirrors the backend guard.
+  const cancellableStatuses = ["CONFIRMED", "PROCESSING", "SHIPPED"];
+  const canCancel = Boolean(detail) && cancellableStatuses.includes(detail?.status ?? "");
   const labelUrl = shipment?.shipmentLabelUrl ?? shipment?.labelUrl ?? null;
 
+  // Pickup can be scheduled once an AWB is booked, regardless of provider.
+  // Shiprocket exposes a shiprocketShipmentId; Delhivery does not, but its adapter
+  // schedules pickup by warehouse location — so gate on a booked shipment, not a
+  // Shiprocket-specific id (which would permanently disable the button for Delhivery).
   const canSchedulePickup =
-    hasShiprocketId && !pickupScheduled && !pickupWasScheduled && detail?.status !== "DELIVERED";
+    hasShipment && !pickupScheduled && !pickupWasScheduled && detail?.status !== "DELIVERED";
   const canPrintLabel = hasShipment;
   const canShip = detail?.canShipNow === true;
   const canSync =
@@ -332,7 +390,12 @@ export function AdminOrderFulfillmentPanel({
         <div className="flex items-center justify-between gap-2">
           <h2 className="font-heading text-sm font-semibold">
             Order fulfillment
-            <span className="ml-2 text-xs font-normal text-muted-foreground">via Shiprocket</span>
+            {shipment?.provider ? (
+              <span className="ml-2 text-xs font-normal text-muted-foreground">
+                via{" "}
+                {shippingProviderLabel(shipment.provider)}
+              </span>
+            ) : null}
           </h2>
           {!hideOrderPicker && selectedOrderId ? (
             <Link
@@ -344,8 +407,8 @@ export function AdminOrderFulfillmentPanel({
           ) : null}
         </div>
         <p className="mt-0.5 text-xs text-muted-foreground">
-          COD cash collection is synced automatically from Shiprocket on delivery — do not
-          mark COD collected manually.
+          COD cash collection is synced automatically on delivery via the shipping provider
+          webhook — do not mark COD collected manually.
         </p>
       </header>
 
@@ -414,6 +477,7 @@ export function AdminOrderFulfillmentPanel({
                 detail.paymentMode,
                 detail.payment?.status,
                 detail.status,
+                detail.shipment?.provider,
               )}
             />
             <InfoChip
@@ -431,6 +495,32 @@ export function AdminOrderFulfillmentPanel({
                 )
               }
             />
+            {detail?.selectedShippingProvider ? (
+              <InfoChip
+                label="Provider (locked at checkout)"
+                valueNode={
+                  <span className="flex items-center gap-1.5">
+                    <span className="font-medium">{shippingProviderLabel(detail.selectedShippingProvider)}</span>
+                    {!shipment?.awb && (
+                      <span className="rounded-sm bg-amber-100 px-1.5 py-0.5 text-xs font-medium text-amber-800">
+                        Awaiting AWB
+                      </span>
+                    )}
+                  </span>
+                }
+              />
+            ) : shipment?.provider ? (
+              <InfoChip
+                label="Shipping provider"
+                value={shippingProviderLabel(shipment.provider)}
+              />
+            ) : null}
+            {detail?.shippingChargeQuotedPaise != null && (
+              <InfoChip
+                label="Rate quoted at checkout"
+                value={`₹${(detail.shippingChargeQuotedPaise / 100).toFixed(2)}`}
+              />
+            )}
             <InfoChip label="AWB" value={shipment?.awb ?? "Not booked yet"} mono />
             <InfoChip
               label="Shipment status"
@@ -453,7 +543,7 @@ export function AdminOrderFulfillmentPanel({
                       onClick={runSyncStatus}
                       disabled={busyAction !== null}
                       className="flex items-center gap-1 text-xs text-blue-600 hover:underline disabled:opacity-50"
-                      title="Pull latest status from Shiprocket"
+                      title="Pull latest status from shipping provider"
                     >
                       <RefreshCw className={`h-3 w-3 ${busyAction === "sync" ? "animate-spin" : ""}`} />
                       {busyAction === "sync" ? "Syncing…" : "Sync"}
@@ -493,19 +583,27 @@ export function AdminOrderFulfillmentPanel({
             sublabel="Book AWB"
             icon={<Truck className="h-4 w-4" />}
             busy={busyAction === "ship"}
-            disabled={!canShip || busyAction !== null}
+            disabled={!canWrite || !canShip || busyAction !== null}
             onClick={() => runAction("ship", "/admin/orders/:id/ship")}
             primary
           />
           <ActionButton
             step={2}
             label="Schedule pickup"
-            sublabel="Request courier"
+            sublabel="Courier visit"
             icon={<Calendar className="h-4 w-4" />}
             busy={busyAction === "schedule-pickup"}
-            disabled={!canSchedulePickup || busyAction !== null}
+            disabled={!canWrite || !canSchedulePickup || busyAction !== null}
             onClick={runSchedulePickup}
-            title={canSchedulePickup ? undefined : "Requires Shiprocket ID after booking"}
+            title={
+              canSchedulePickup
+                ? "Requests a courier pickup for your warehouse. One pickup collects every ready shipment — safe to schedule on each order."
+                : !hasShipment
+                  ? "Book the shipment (AWB) first"
+                  : pickupScheduled || pickupWasScheduled
+                    ? "Pickup already scheduled — this shipment is covered"
+                    : "Pickup unavailable for this order"
+            }
           />
           <ActionButton
             step={3}
@@ -518,6 +616,30 @@ export function AdminOrderFulfillmentPanel({
             title={canPrintLabel ? undefined : "Book shipment first"}
           />
         </div>
+
+        {hasShipment ? (
+          <p className="-mt-1 flex items-start gap-1.5 text-xs text-muted-foreground">
+            <Calendar className="mt-0.5 h-3 w-3 shrink-0" aria-hidden="true" />
+            <span>
+              {shipment?.provider === "DELHIVERY" ? (
+                <>
+                  Delhivery pickup is arranged per warehouse, not per order — one
+                  courier visit collects every ready shipment. Scheduling again on
+                  another order just confirms it&apos;s covered by the same visit.
+                  The order stays in &quot;Ready to Ship&quot; on Delhivery until
+                  the courier scans the label, so print and attach every label.
+                </>
+              ) : (
+                <>
+                  This adds the shipment to your pickup queue. One courier visit
+                  per pickup location collects all queued shipments — schedule it
+                  on each order (or use the provider&apos;s &quot;Add all to
+                  pickup&quot;), and print and attach every label before handover.
+                </>
+              )}
+            </span>
+          </p>
+        ) : null}
 
         {/* Secondary actions */}
         <div className="border-t border-border pt-4">
@@ -547,27 +669,36 @@ export function AdminOrderFulfillmentPanel({
                 }
               />
             ) : null}
-            <SecondaryButton
-              icon={<Ban className="h-3.5 w-3.5" />}
-              label="Cancel order"
-              disabled={busyAction !== null}
-              variant="warning"
-              onClick={() =>
-                runAction("cancel", "/admin/orders/:id/cancel", {
-                  body: { reason: "Cancelled by admin fulfillment panel" },
-                })
-              }
-            />
-            <SecondaryButton
-              icon={<Mail className="h-3.5 w-3.5" />}
-              label="Retrigger email"
-              disabled={busyAction !== null}
-              onClick={() =>
-                runAction("retrigger", "/admin/orders/:id/notifications/retrigger", {
-                  body: { template: "OrderConfirmed", channels: ["EMAIL"] },
-                })
-              }
-            />
+            {canWrite ? (
+              <SecondaryButton
+                icon={<Ban className="h-3.5 w-3.5" />}
+                label="Cancel order"
+                disabled={busyAction !== null || !canCancel}
+                title={
+                  canCancel
+                    ? "Cancels the order, recalls the shipment (RTO if in transit), restocks items, and auto-refunds prepaid payments"
+                    : "Order can no longer be cancelled at this stage"
+                }
+                variant="warning"
+                onClick={() =>
+                  runAction("cancel", "/admin/orders/:id/cancel", {
+                    body: { reason: "Cancelled by admin fulfillment panel" },
+                  })
+                }
+              />
+            ) : null}
+            {canNotify ? (
+              <SecondaryButton
+                icon={<Mail className="h-3.5 w-3.5" />}
+                label="Retrigger email"
+                disabled={busyAction !== null}
+                onClick={() =>
+                  runAction("retrigger", "/admin/orders/:id/notifications/retrigger", {
+                    body: { template: "OrderConfirmed", channels: ["EMAIL"] },
+                  })
+                }
+              />
+            ) : null}
             {detail?.invoice?.hasPdf ? (
               <SecondaryButton
                 icon={<FileDown className="h-3.5 w-3.5" />}
@@ -675,12 +806,14 @@ function SecondaryButton({
   disabled,
   onClick,
   variant,
+  title,
 }: {
   icon: React.ReactNode;
   label: string;
   disabled: boolean;
   onClick: () => void;
   variant?: "danger" | "warning";
+  title?: string;
 }) {
   const variantClass =
     variant === "danger"
@@ -694,7 +827,8 @@ function SecondaryButton({
       type="button"
       disabled={disabled}
       onClick={onClick}
-      className={`flex h-9 items-center gap-1.5 rounded-lg border px-3 text-sm transition-colors disabled:opacity-50 ${variantClass}`}
+      title={title}
+      className={`flex h-9 items-center gap-1.5 rounded-lg border px-3 text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${variantClass}`}
     >
       {icon}
       {label}

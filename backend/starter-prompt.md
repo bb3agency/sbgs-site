@@ -106,7 +106,7 @@ generating $1M+ ARR.
 **Before prompting the AI to build anything**, verify the backend `.env` has these set correctly.
 
 **Pre-check rules (verify before touching Docker):**
-- `POSTGRES_DB` must use **underscores only** — PostgreSQL forbids hyphens in DB names (`sbgs` ✓, `sbgs` ✗)
+- `POSTGRES_DB` must use **underscores only** — PostgreSQL forbids hyphens in DB names (`SBGS_organics` ✓, `sbgs` ✗)
 - `POSTGRES_DB` and the DB name in `DATABASE_URL` **must be identical**
 - `REDIS_PASSWORD` must be **non-empty** — blank causes `ECONNABORTED` loops in ioredis on every reconnect
 - `REDIS_URL` must embed the password: `redis://:password@localhost:6379`
@@ -119,10 +119,10 @@ CLIENT_ID=sbgs            # <-- SET THIS (slug, no spaces, unique per project)
 
 # ── Database ───────────────────────────────────────────────────────────────
 # DB name: underscores only — hyphens are invalid in PostgreSQL
-POSTGRES_DB=sbgs           # <-- SET THIS (underscores only, must match DATABASE_URL)
+POSTGRES_DB=SBGS_organics           # <-- SET THIS (underscores only, must match DATABASE_URL)
 POSTGRES_PASSWORD=yourpassword         # <-- SET THIS
 # DB name in URL must exactly match POSTGRES_DB above
-DATABASE_URL=postgresql://postgres:yourpassword@localhost:5432/sbgs  # <-- SET THIS
+DATABASE_URL=postgresql://postgres:yourpassword@localhost:5432/SBGS_organics  # <-- SET THIS
 
 # ── Redis ───────────────────────────────────────────────────────────────────
 # NEVER blank — blank REDIS_PASSWORD causes ECONNABORTED/ECONNRESET on every ioredis reconnect

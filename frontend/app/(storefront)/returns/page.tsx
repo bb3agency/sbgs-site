@@ -5,7 +5,7 @@ import { APP_NAME } from "@/lib/constants";
 export const metadata = {
   title: `Return Policy — ${APP_NAME}`,
   description:
-    "How to raise a return request, what qualifies for a return, and how we process refunds for handcrafted ghee sweets orders.",
+    "How to raise a return request, what qualifies for a return, and how we process refunds for chemical-free produce orders.",
 };
 
 const SECTIONS = [
@@ -13,7 +13,7 @@ const SECTIONS = [
     icon: Clock,
     title: "1. Return Window",
     content:
-      "Due to the perishable nature of fresh sweets and savouries, return or damage claims must be raised within 24 hours of delivery. Please inspect your order on arrival. Claims raised after 24 hours will not be accepted for perishable items.",
+      "Due to the perishable nature of fresh fruits, vegetables, dairy, and other chemical-free produce, return or damage claims must be raised within 24 hours of delivery. Please inspect your order on arrival. Claims raised after 24 hours will not be accepted for perishable items.",
   },
   {
     icon: Camera,
@@ -25,13 +25,13 @@ const SECTIONS = [
     icon: CheckCircle,
     title: "3. Eligible Returns",
     content:
-      "We accept returns or replacements for: damaged boxes (beyond normal transit wear), incorrect items delivered, or quality issues (evidence of spoilage before expected shelf life). We reserve the right to request photographic evidence.",
+      "We accept returns or replacements for: damaged or bruised produce (beyond normal variation), incorrect items delivered, quality issues (evidence of non-organic contamination), or items that have visibly spoiled before their expected shelf life. We reserve the right to request photographic evidence.",
   },
   {
     icon: XCircle,
     title: "4. Non-Eligible Returns",
     content:
-      "We cannot accept returns for: sweets that have been stored incorrectly after delivery, natural variation in size or shape (this is expected in handcrafted sweets), or items that were delivered in good condition and later damaged by the customer.",
+      "We cannot accept returns for: produce that has been stored incorrectly after delivery (non-refrigerated), natural variation in size, shape, or colour (this is expected in chemical-free farming), or items that were delivered in good condition and later damaged by the customer.",
   },
   {
     icon: CreditCard,
@@ -49,32 +49,32 @@ const SECTIONS = [
 
 export default function ReturnPolicyPage() {
   return (
-    <div className="flex flex-col bg-[#fdf8f3] min-h-screen pb-16">
+    <div className="flex flex-col bg-[#faf5ec] min-h-screen pb-16">
       {/* ── Page Header Banner ──────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-[#f5e6d8] py-10 md:py-20">
+      <section className="relative overflow-hidden bg-[#f5d88e] py-10 md:py-20">
         <div className="mx-auto flex w-full max-w-[1440px] flex-col items-center justify-center px-4 text-center lg:px-8">
-          <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#D4A537]">
+          <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#d4a537]">
             Policies
           </p>
-          <h1 className="mb-3 font-heading text-3xl font-bold text-[#6B1D2A] sm:mb-4 sm:text-4xl md:text-5xl">
+          <h1 className="mb-3 font-heading text-3xl font-bold text-[#7f1416] sm:mb-4 sm:text-4xl md:text-5xl">
             Return Policy
           </h1>
           <nav
             className="flex items-center gap-1.5 text-xs font-bold text-[#767676] sm:gap-2 sm:text-sm"
             aria-label="Breadcrumb"
           >
-            <Link href="/" className="transition-colors hover:text-[#D4A537]">
+            <Link href="/" className="transition-colors hover:text-[#d4a537]">
               Home
             </Link>
             <ChevronRight className="size-3" />
-            <span className="text-[#D4A537]">Return Policy</span>
+            <span className="text-[#d4a537]">Return Policy</span>
           </nav>
-          <p className="mt-3 text-xs font-medium text-[#6B1D2A]/60">
+          <p className="mt-3 text-xs font-medium text-[#7f1416]/60">
             Last updated: June 2026
           </p>
         </div>
         <div
-          className="absolute -bottom-16 -right-16 size-64 rounded-full bg-[#D4A537] opacity-20 blur-3xl"
+          className="absolute -bottom-16 -right-16 size-64 rounded-full bg-[#f5d88e] opacity-40 blur-3xl"
           aria-hidden
         />
         <div
@@ -96,7 +96,7 @@ export default function ReturnPolicyPage() {
             ].map(({ value, label }) => (
               <div
                 key={label}
-                className="flex flex-col items-center justify-center rounded-[16px] bg-[#6B1D2A] px-3 py-5 text-center sm:py-6"
+                className="flex flex-col items-center justify-center rounded-[16px] bg-[#7f1416] px-3 py-5 text-center sm:py-6"
               >
                 <span className="font-heading text-xl font-bold text-white sm:text-2xl">
                   {value}
@@ -112,11 +112,11 @@ export default function ReturnPolicyPage() {
             <div className="grid gap-8">
               {SECTIONS.map(({ icon: Icon, title, content }) => (
                 <div key={title} className="flex gap-4 sm:gap-6">
-                  <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#fdf0d5] mt-0.5">
-                    <Icon className="size-5 text-[#D4A537]" aria-hidden />
+                  <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#faf5ec] mt-0.5">
+                    <Icon className="size-5 text-[#d4a537]" aria-hidden />
                   </div>
                   <div>
-                    <h2 className="mb-2 font-heading text-lg font-bold text-[#6B1D2A]">
+                    <h2 className="mb-2 font-heading text-lg font-bold text-[#7f1416]">
                       {title}
                     </h2>
                     <p className="text-sm leading-relaxed text-[#767676]">{content}</p>
@@ -125,22 +125,22 @@ export default function ReturnPolicyPage() {
               ))}
             </div>
 
-            <div className="mt-10 rounded-[16px] border border-[#ece3d8] bg-[#fdf8f3] p-5 sm:p-6">
+            <div className="mt-10 rounded-[16px] border border-[#f5ebe0] bg-[#faf5ec] p-5 sm:p-6">
               <p className="text-sm font-medium text-[#767676]">
-                <strong className="text-[#6B1D2A]">Need to raise a return?</strong>{" "}
+                <strong className="text-[#7f1416]">Need to raise a return?</strong>{" "}
                 Go to{" "}
                 <Link
                   href="/orders"
-                  className="font-bold text-[#D4A537] hover:underline"
+                  className="font-bold text-[#d4a537] hover:underline"
                 >
                   My Orders
                 </Link>{" "}
                 in your account, or contact us at{" "}
                 <a
-                  href="mailto:hello@srisaibabagheesweets.com"
-                  className="font-bold text-[#D4A537] hover:underline"
+                  href="mailto:hello@srisaibabasweets.com"
+                  className="font-bold text-[#d4a537] hover:underline"
                 >
-                  hello@srisaibabagheesweets.com
+                  hello@srisaibabasweets.com
                 </a>
                 .
               </p>

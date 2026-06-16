@@ -28,11 +28,11 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
   };
 
   return (
-    <div className="flex flex-col gap-3 p-4 sm:gap-4 sm:p-6 lg:p-8">
+    <div className="flex flex-col gap-3 sm:gap-4">
       {/* Main image */}
       <div
         className={cn(
-          "group relative aspect-square overflow-hidden rounded-xl bg-[#faf3ef] cursor-zoom-in",
+          "group relative aspect-square overflow-hidden rounded-2xl bg-[#faf5ec] ring-1 ring-black/[0.06] cursor-zoom-in",
           zoomed && "cursor-zoom-out",
         )}
         onClick={() => setZoomed((z) => !z)}
@@ -47,7 +47,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
           fill
           priority
           className={cn(
-            "object-contain p-4 transition-all duration-500 ease-out select-none",
+            "object-contain p-6 transition-all duration-500 ease-out select-none",
             zoomed
               ? "scale-150"
               : "scale-100 group-hover:scale-105",
@@ -79,10 +79,10 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
               type="button"
               onClick={() => { setActive(idx); setZoomed(false); }}
               className={cn(
-                "relative size-16 shrink-0 overflow-hidden rounded-lg bg-[#faf3ef] ring-2 transition-all duration-200 sm:size-[72px]",
+                "relative size-16 shrink-0 overflow-hidden rounded-xl bg-[#faf5ec] ring-2 transition-all duration-200 sm:size-[72px]",
                 idx === active
-                  ? "ring-[#6B1D2A] shadow-md"
-                  : "ring-transparent opacity-60 hover:opacity-100 hover:ring-[#D4A537]",
+                  ? "ring-[#d4a537] shadow-md"
+                  : "ring-transparent opacity-60 hover:opacity-100 hover:ring-[#f5d88e]",
               )}
               aria-label={`View image ${idx + 1}`}
               aria-pressed={idx === active}

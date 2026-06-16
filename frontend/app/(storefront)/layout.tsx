@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
 import { StoreConfigProvider } from "@/components/providers/StoreConfigProvider";
 import { getStoreCategories } from "@/lib/categories";
 import { getPublicStoreConfig } from "@/lib/storefront-settings";
-import { CartSheet } from "@/components/cart/CartSheet";
 
 interface StorefrontLayoutProps {
   children: ReactNode;
@@ -24,7 +24,7 @@ export default async function StorefrontLayout({ children }: StorefrontLayoutPro
       />
       <main className="flex-1">{children}</main>
       <Footer categories={categories} />
-      <CartSheet />
+      <WhatsAppFloat />
     </StoreConfigProvider>
   );
 }

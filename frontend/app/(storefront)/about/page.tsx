@@ -1,46 +1,46 @@
 import { getPublicStoreConfig } from "@/lib/storefront-settings";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronRight, Award, Flame, HandHeart, Heart, Package, Truck, Star } from "lucide-react";
+import { ChevronRight, Leaf, Heart, Shield, Users, Sprout, Truck, Star } from "lucide-react";
 import { APP_NAME } from "@/lib/constants";
 
 export const metadata = {
   title: `About Us — ${APP_NAME}`,
   description:
-    "Sri Sai Baba Ghee Sweets brings you handcrafted traditional Indian mithai made with 100% pure desi ghee. No preservatives, no shortcuts — just honest sweets.",
+    "We work directly with 120+ certified farmers across Telangana to bring you chemical-free, traceable produce. Every batch is lab-tested for 300+ pesticide residues.",
 };
 
 const VALUES = [
   {
-    icon: Award,
-    title: "100% Pure Desi Ghee",
+    icon: Leaf,
+    title: "100% Chemical Free",
     description:
-      "Every sweet we make uses only authentic cow ghee — never vanaspati, never palm oil. The richness you taste is genuine and unadulterated.",
-  },
-  {
-    icon: Flame,
-    title: "Handcrafted with love",
-    description:
-      "Our master halwais prepare each batch fresh every morning using time-honoured recipes passed down through generations of sweet-making families.",
-  },
-  {
-    icon: HandHeart,
-    title: "No Preservatives, Ever",
-    description:
-      "We believe in pure taste, naturally fresh. No artificial colours, no chemical preservatives — just honest sweets the way they were always meant to be.",
+      "Every product is grown without synthetic pesticides, herbicides, or chemical fertilisers. We test every batch in certified labs for 300+ pesticide residues before dispatch.",
   },
   {
     icon: Heart,
-    title: "Trusted by Thousands",
+    title: "Farmer First",
     description:
-      "Over 5,000 families trust Sri Sai Baba Ghee Sweets for their celebrations, festivals, daily indulgence, and gifting needs across India.",
+      "We eliminate middlemen and pay farmers directly at fair prices — typically 30–40% above the market rate. Healthy farmers grow healthier food.",
+  },
+  {
+    icon: Shield,
+    title: "Quality Promise",
+    description:
+      "Not satisfied with your order? We replace it or refund it, no questions asked. Your trust is more important than a single transaction.",
+  },
+  {
+    icon: Users,
+    title: "Community Rooted",
+    description:
+      "We partner with small family farms, cooperatives, and tribal farming communities — people who have practised natural farming for generations.",
   },
 ];
 
 const BASE_STATS = [
-  { value: "50+", label: "Sweet Varieties" },
-  { value: "100%", label: "Pure Desi Ghee" },
-  { value: "5,000+", label: "Happy Families" },
+  { value: "120+", label: "Partner Farmers" },
+  { value: "300+", label: "Pesticide Tests per Batch" },
+  { value: "48 hrs", label: "Farm to Door" },
 ] as const;
 
 const REVIEWS_STAT = { value: "4.8 ★", label: "Average Rating" } as const;
@@ -51,29 +51,29 @@ export default async function AboutPage() {
     ? [...BASE_STATS, REVIEWS_STAT]
     : [...BASE_STATS];
   return (
-    <div className="flex flex-col bg-[#fdf8f3] min-h-screen pb-16">
+    <div className="flex flex-col bg-[#faf5ec] min-h-screen pb-16">
       {/* ── Page Header Banner ──────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-[#f5e6d8] py-10 md:py-20">
+      <section className="relative overflow-hidden bg-[#f5d88e] py-10 md:py-20">
         <div className="mx-auto flex w-full max-w-[1440px] flex-col items-center justify-center px-4 text-center lg:px-8">
-          <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#D4A537]">
+          <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#d4a537]">
             Our Story
           </p>
-          <h1 className="mb-3 font-heading text-3xl font-bold text-[#6B1D2A] sm:mb-4 sm:text-4xl md:text-5xl">
+          <h1 className="mb-3 font-heading text-3xl font-bold text-[#7f1416] sm:mb-4 sm:text-4xl md:text-5xl">
             About {APP_NAME}
           </h1>
           <nav
             className="flex items-center gap-1.5 text-xs font-bold text-[#767676] sm:gap-2 sm:text-sm"
             aria-label="Breadcrumb"
           >
-            <Link href="/" className="transition-colors hover:text-[#D4A537]">
+            <Link href="/" className="transition-colors hover:text-[#d4a537]">
               Home
             </Link>
             <ChevronRight className="size-3" />
-            <span className="text-[#D4A537]">About Us</span>
+            <span className="text-[#d4a537]">About Us</span>
           </nav>
         </div>
         <div
-          className="absolute -bottom-16 -right-16 size-64 rounded-full bg-[#D4A537] opacity-20 blur-3xl"
+          className="absolute -bottom-16 -right-16 size-64 rounded-full bg-[#f5d88e] opacity-40 blur-3xl"
           aria-hidden
         />
         <div
@@ -90,36 +90,35 @@ export default async function AboutPage() {
           <div className="rounded-[20px] bg-white p-6 shadow-sm sm:p-8 lg:p-12">
             <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 lg:items-center">
               <div>
-                <p className="mb-3 text-xs font-bold uppercase tracking-widest text-[#D4A537]">
+                <p className="mb-3 text-xs font-bold uppercase tracking-widest text-[#d4a537]">
                   Who we are
                 </p>
-                <h2 className="mb-4 font-heading text-2xl font-bold text-[#6B1D2A] sm:text-3xl">
-                  Handcrafted pure ghee sweets, delivered with love
+                <h2 className="mb-4 font-heading text-2xl font-bold text-[#7f1416] sm:text-3xl">
+                  Farm-fresh chemical-free produce, direct to your doorstep
                 </h2>
                 <div className="space-y-4 text-sm font-medium leading-relaxed text-[#767676]">
                   <p>
-                    Sri Sai Baba Ghee Sweets was founded on a single belief: every
-                    celebration deserves sweets made the way our grandmothers made
-                    them — with pure ghee, honest ingredients, and no shortcuts.
+                    Sri Sai Baba Ghee Sweets was founded on a single belief: every family deserves
+                    access to food grown the way nature intended — without chemicals, without
+                    shortcuts, and with full traceability from seed to table.
                   </p>
                   <p>
-                    Our team of <strong className="text-[#6B1D2A]">master halwais</strong> prepare
-                    each batch fresh every morning using traditional recipes that have
-                    been perfected over generations. We use only <strong className="text-[#6B1D2A]">100%
-                    pure desi cow ghee</strong> — never vanaspati, never palm oil.
+                    We work directly with <strong className="text-[#7f1416]">120+ certified farmers</strong> across
+                    Telangana who have committed to chemical-free, native-seed farming. Their
+                    knowledge of the land, often passed down over generations, is irreplaceable.
+                    We give them a market; they give you real food.
                   </p>
                   <p>
-                    From <strong className="text-[#6B1D2A]">festive gift boxes</strong> to
-                    everyday indulgence, every sweet we sell is made without
-                    preservatives, artificial colours, or chemical additives. What you
-                    taste is pure, fresh, and crafted with care.
+                    Every batch is lab-tested for <strong className="text-[#7f1416]">300+ pesticide residues</strong> before
+                    it leaves the farm. If it does not pass, it does not ship — period. Orders
+                    are harvested and dispatched within 48 hours for peak freshness.
                   </p>
                 </div>
               </div>
-              <div className="relative overflow-hidden rounded-[20px] bg-[#fdf0e8]">
+              <div className="relative overflow-hidden rounded-[20px] bg-[#faf5ec]">
                 <Image
                   src="/images/product-placeholder.svg"
-                  alt="Sri Sai Baba Ghee Sweets — handcrafted pure ghee mithai"
+                  alt="Sri Sai Baba Ghee Sweets — fresh chemical-free produce"
                   width={600}
                   height={480}
                   className="mx-auto h-64 w-full object-contain p-8 lg:h-80"
@@ -133,7 +132,7 @@ export default async function AboutPage() {
             {stats.map(({ value, label }) => (
               <div
                 key={label}
-                className="flex flex-col items-center justify-center rounded-[20px] bg-[#6B1D2A] px-4 py-6 text-center sm:py-8"
+                className="flex flex-col items-center justify-center rounded-[20px] bg-[#7f1416] px-4 py-6 text-center sm:py-8"
               >
                 <span className="font-heading text-2xl font-bold text-white sm:text-3xl">
                   {value}
@@ -147,23 +146,23 @@ export default async function AboutPage() {
 
           {/* Values grid */}
           <div className="rounded-[20px] bg-white p-6 shadow-sm sm:p-8 lg:p-12">
-            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#D4A537]">
+            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#d4a537]">
               What we stand for
             </p>
-            <h2 className="mb-8 font-heading text-2xl font-bold text-[#6B1D2A] sm:text-3xl">
+            <h2 className="mb-8 font-heading text-2xl font-bold text-[#7f1416] sm:text-3xl">
               Our values
             </h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:gap-8">
               {VALUES.map(({ icon: Icon, title, description }) => (
                 <div
                   key={title}
-                  className="flex gap-4 rounded-[16px] border border-[#ece3d8] bg-[#fdf8f3] p-5 sm:p-6"
+                  className="flex gap-4 rounded-[16px] border border-[#f5ebe0] bg-[#faf5ec] p-5 sm:p-6"
                 >
-                  <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-[#fdf0d5]">
-                    <Icon className="size-5 text-[#D4A537]" aria-hidden />
+                  <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-[#faf5ec]">
+                    <Icon className="size-5 text-[#d4a537]" aria-hidden />
                   </div>
                   <div>
-                    <h3 className="mb-1.5 font-heading text-base font-bold text-[#6B1D2A]">
+                    <h3 className="mb-1.5 font-heading text-base font-bold text-[#7f1416]">
                       {title}
                     </h3>
                     <p className="text-sm leading-relaxed text-[#767676]">{description}</p>
@@ -175,27 +174,27 @@ export default async function AboutPage() {
 
           {/* Process steps */}
           <div className="rounded-[20px] bg-white p-6 shadow-sm sm:p-8 lg:p-12">
-            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#D4A537]">
+            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#d4a537]">
               How it works
             </p>
-            <h2 className="mb-8 font-heading text-2xl font-bold text-[#6B1D2A] sm:text-3xl">
-              From our kitchen to your table
+            <h2 className="mb-8 font-heading text-2xl font-bold text-[#7f1416] sm:text-3xl">
+              From seed to your table
             </h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {[
-                { icon: Award, step: "1", title: "Premium Ingredients", desc: "We source 100% pure desi cow ghee, finest dry fruits, and premium ingredients from trusted suppliers." },
-                { icon: Flame, step: "2", title: "Handcrafted by Masters", desc: "Our experienced halwais prepare each sweet fresh every morning using traditional techniques and recipes." },
-                { icon: Package, step: "3", title: "Packed with Care", desc: "Sweets are carefully packed in food-grade, tamper-proof packaging to maintain freshness and presentation." },
-                { icon: Truck, step: "4", title: "Delivered Fresh", desc: "Secure delivery across major cities. Your sweets arrive as fresh and delicious as when they left our kitchen." },
+                { icon: Sprout, step: "1", title: "Certified Farming", desc: "Partner farmers grow using native seeds and zero chemicals on certified plots." },
+                { icon: Star, step: "2", title: "Lab Testing", desc: "Every harvest is tested for 300+ pesticide residues before leaving the farm." },
+                { icon: Leaf, step: "3", title: "Fresh Harvest", desc: "We harvest within 48 hours of your order to ensure peak nutrition and freshness." },
+                { icon: Truck, step: "4", title: "Fast Delivery", desc: "Cold-chain delivery to your door — produce arrives as fresh as the morning harvest." },
               ].map(({ icon: Icon, step, title, desc }) => (
                 <div key={step} className="relative flex flex-col items-center text-center">
-                  <div className="mb-4 flex size-14 items-center justify-center rounded-full bg-[#fdf0d5]">
-                    <Icon className="size-7 text-[#6B1D2A]" aria-hidden />
+                  <div className="mb-4 flex size-14 items-center justify-center rounded-full bg-[#faf5ec]">
+                    <Icon className="size-7 text-[#7f1416]" aria-hidden />
                   </div>
-                  <span className="absolute -top-1 -right-1 flex size-6 items-center justify-center rounded-full bg-[#D4A537] text-xs font-bold text-white">
+                  <span className="absolute -top-1 -right-1 flex size-6 items-center justify-center rounded-full bg-[#d4a537] text-xs font-bold text-white">
                     {step}
                   </span>
-                  <h3 className="mb-2 font-heading text-sm font-bold text-[#6B1D2A] sm:text-base">
+                  <h3 className="mb-2 font-heading text-sm font-bold text-[#7f1416] sm:text-base">
                     {title}
                   </h3>
                   <p className="text-xs leading-relaxed text-[#767676] sm:text-sm">{desc}</p>
@@ -205,19 +204,18 @@ export default async function AboutPage() {
           </div>
 
           {/* Delivery areas */}
-          <div className="rounded-[20px] bg-[#6B1D2A] p-6 shadow-sm sm:p-8 lg:p-12 text-center">
+          <div className="rounded-[20px] bg-[#7f1416] p-6 shadow-sm sm:p-8 lg:p-12 text-center">
             <Truck className="mx-auto mb-4 size-10 text-white/70" aria-hidden />
             <h2 className="mb-3 font-heading text-2xl font-bold text-white sm:text-3xl">
               Delivery areas
             </h2>
             <p className="mx-auto mb-6 max-w-lg text-sm leading-relaxed text-white/75">
-              We deliver handcrafted sweets across Hyderabad and the surrounding districts
-              of Telangana. Enter your pincode at checkout to check serviceability — we are
-              expanding regularly.
+              We currently deliver across Hyderabad and the surrounding districts of Telangana.
+              Enter your pincode at checkout to check serviceability — we are expanding regularly.
             </p>
             <Link
               href="/products"
-              className="inline-flex h-12 items-center justify-center rounded-full bg-[#D4A537] px-8 text-sm font-bold text-white transition-transform hover:-translate-y-1 hover:bg-white hover:text-[#6B1D2A] hover:shadow-lg"
+              className="inline-flex h-12 items-center justify-center rounded-full bg-[#d4a537] px-8 text-sm font-bold text-white transition-transform hover:-translate-y-1 hover:bg-white hover:text-[#7f1416] hover:shadow-lg"
             >
               Shop Now
             </Link>

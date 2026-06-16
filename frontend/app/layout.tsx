@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { interFont, libreBaskervilleFont, montserratFont, plusJakartaSansFont } from "@/lib/fonts";
+import { interFont, headingFont } from "@/lib/fonts";
 import { APP_NAME, BRAND_LOGO_SRC } from "@/lib/constants";
 import { getSiteUrl } from "@/lib/seo";
 import { MaintenanceBanner } from "@/components/maintenance/MaintenanceBanner";
@@ -11,7 +11,8 @@ export const metadata: Metadata = {
     default: APP_NAME,
     template: `%s | ${APP_NAME}`,
   },
-  description: "Premium handcrafted ghee sweets and traditional Indian mithai from Sri Sai Baba Ghee Sweets.",
+  description:
+    "Pure ghee sweets and premium gifting from Sri Sai Baba Ghee Sweets. Fresh batches every day, made for celebrations.",
   icons: {
     icon: BRAND_LOGO_SRC,
     shortcut: BRAND_LOGO_SRC,
@@ -39,7 +40,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${interFont.variable} ${libreBaskervilleFont.variable} ${montserratFont.variable} ${plusJakartaSansFont.variable} h-full antialiased`}
+      className={`${interFont.variable} ${headingFont.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans overflow-x-hidden" suppressHydrationWarning>

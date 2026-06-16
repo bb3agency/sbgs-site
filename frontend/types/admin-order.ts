@@ -19,13 +19,16 @@ export interface AdminOrdersListResponse {
   };
 }
 
+export type ShippingProviderEnum = "DELHIVERY" | "SHIPROCKET" | "SELF";
+
 export interface AdminOrderShipment {
   id: string;
-  provider: string;
+  provider: ShippingProviderEnum;
   status: string;
   awb: string | null;
   trackingUrl: string | null;
   shipmentLabelUrl?: string | null;
+  /** Only present for Shiprocket shipments */
   shiprocketShipmentId?: string | null;
   labelUrl?: string | null;
   pickupScheduledDate?: string | null;
@@ -39,6 +42,10 @@ export interface AdminOrderDetail {
   canShipNow: boolean;
   shipBlockReason: string | null;
   shippingMode: "MANUAL";
+  /** Provider locked at checkout — must be used for AWB assignment */
+  selectedShippingProvider: ShippingProviderEnum | null;
+  /** Shipping rate quoted to customer at checkout (paise). Immutable after creation. */
+  shippingChargeQuotedPaise: number | null;
   payment: {
     status: string;
     provider: string;
@@ -52,9 +59,20 @@ export interface AdminOrderDetail {
 }
 
 export interface AdminPrintLabelResponse {
-  labelUrl: string;
+  /** Shiprocket: direct PDF URL */
+  labelUrl?: string | null;
+  /** Delhivery: self-contained HTML to render in a new tab */
+  labelHtml?: string | null;
 }
 
 export interface AdminSchedulePickupResponse {
+  scheduled?: boolean;
+  /**
+   * True when the courier pickup was already arranged for this warehouse and now
+   * also covers this shipment — the action succeeded without creating a new slot.
+   */
+  alreadyScheduled?: boolean;
   pickupScheduledDate?: string;
+  /** Provider pickup reference (Delhivery pickup_id / Shiprocket pickup token). */
+  pickupTokenNumber?: string;
 }

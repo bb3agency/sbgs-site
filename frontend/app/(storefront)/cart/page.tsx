@@ -8,22 +8,25 @@ export const metadata = {
 
 export default function CartPage() {
   return (
-    <div className="flex flex-col bg-[#FAF5EC] min-h-screen pb-16">
+    <div className="flex flex-col bg-[#faf5ec] min-h-screen pb-16">
       {/* ── Page Header ──────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-[#7F1416] py-10 md:py-16">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#7f1416] via-[#7f1416] to-[#651013] py-10 md:py-16">
+        <div className="absolute -top-16 right-16 size-56 rounded-full bg-[#d4a537] opacity-10 blur-3xl" aria-hidden />
+        <div className="absolute -bottom-12 -left-12 size-48 rounded-full bg-[#f5d88e] opacity-15 blur-3xl" aria-hidden />
+
         <div className="relative mx-auto flex w-full max-w-[1440px] flex-col items-center justify-center px-4 text-center lg:px-8">
-          <div className="mb-3 flex size-12 items-center justify-center border border-[#D4A537]/30 bg-white/5 backdrop-blur-sm">
-            <ShoppingCart className="size-5 text-[#D4A537]" aria-hidden />
+          <div className="mb-3 flex size-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm">
+            <ShoppingCart className="size-5 text-white" aria-hidden />
           </div>
-          <h1 className="mb-3 font-serif text-3xl font-normal text-[#FAF5EC] sm:text-4xl md:text-5xl italic">
+          <h1 className="mb-3 font-heading text-3xl font-bold text-white sm:text-4xl md:text-5xl">
             Shopping Cart
           </h1>
-          <nav className="flex items-center gap-1.5 text-xs font-semibold tracking-wide text-[#FAF5EC]/60 sm:gap-2 sm:text-sm font-['Montserrat'] uppercase" aria-label="Breadcrumb">
-            <Link href="/" className="transition-colors hover:text-[#D4A537]">Home</Link>
+          <nav className="flex items-center gap-1.5 text-xs font-semibold text-white/60 sm:gap-2 sm:text-sm" aria-label="Breadcrumb">
+            <Link href="/" className="transition-colors hover:text-[#f5d88e]">Home</Link>
             <ChevronRight className="size-3" />
-            <Link href="/products" className="transition-colors hover:text-[#D4A537]">Shop</Link>
+            <Link href="/products" className="transition-colors hover:text-[#f5d88e]">Shop</Link>
             <ChevronRight className="size-3" />
-            <span className="text-[#D4A537]">Cart</span>
+            <span className="text-[#f5d88e]">Cart</span>
           </nav>
         </div>
       </section>

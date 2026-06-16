@@ -17,8 +17,8 @@ interface FaqSectionProps {
 function buildFaqs(isCodEnabled: boolean): Faq[] {
   return [
     {
-      q: "What kind of ghee do you use in your sweets?",
-      a: "Every product from Sri Sai Baba Ghee Sweets is made exclusively with 100% pure desi cow ghee. We never use vanaspati, dalda, or palm oil — the richness you taste is real, traditional, and unadulterated.",
+      q: "How fresh are your sweets?",
+      a: "Every sweet is prepared in small batches with pure ghee and the finest ingredients, made fresh daily. We dispatch quickly so your order reaches you at its best — and recommend storage details are included with each product.",
     },
     {
       q: "Do you offer Cash on Delivery?",
@@ -27,16 +27,8 @@ function buildFaqs(isCodEnabled: boolean): Faq[] {
         : "Cash on Delivery is currently unavailable. Prepaid orders (UPI, cards, wallets) are accepted everywhere we ship.",
     },
     {
-      q: "How fresh are your sweets?",
-      a: "Our master halwais prepare sweets fresh every morning in small batches. Orders are packed the same day and dispatched for delivery — so what arrives at your door is as fresh as it gets.",
-    },
-    {
       q: "What if I'm not satisfied with my order?",
-      a: "If something arrives damaged, spoiled, or below the quality you expected, message us with a photo within 24 hours of delivery and we'll refund or replace it — no long forms, no back-and-forth.",
-    },
-    {
-      q: "Do you sell festive gift boxes?",
-      a: "Absolutely! We offer premium festive assortment boxes for Diwali, Raksha Bandhan, weddings, and more. Custom packaging is available for bulk orders — reach out to us on WhatsApp to discuss.",
+      a: "If something arrives damaged or below the quality you expected, message us with a photo within 24 hours of delivery and we'll refund or replace it — no long forms, no back-and-forth.",
     },
   ];
 }
@@ -52,26 +44,26 @@ export function FaqSection({ isCodEnabled = false }: FaqSectionProps) {
           {/* Sticky heading */}
           <div className="lg:col-span-5">
             <div className="lg:sticky lg:top-32">
-              <span className="inline-flex w-fit items-center gap-2 rounded-full bg-[#fdf0d5] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#6B1D2A]">
+              <span className="inline-flex w-fit items-center gap-2 rounded-full bg-[#f5d88e] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#7f1416]">
                 <span
-                  className="size-1.5 rounded-full bg-[#D4A537]"
+                  className="size-1.5 rounded-full bg-[#d4a537]"
                   aria-hidden
                 />
                 Questions, answered
               </span>
-              <h2 className="mt-4 font-heading text-3xl font-bold leading-[1.1] tracking-tight text-[#6B1D2A] sm:text-4xl lg:text-5xl">
+              <h2 className="mt-4 font-heading text-3xl font-bold leading-[1.1] tracking-tight text-[#7f1416] sm:text-4xl lg:text-5xl">
                 Everything you wanted to ask before you order.
               </h2>
-              <p className="mt-4 max-w-md text-base leading-relaxed text-[#6b6060]">
+              <p className="mt-4 max-w-md text-base leading-relaxed text-[#8c7b6b]">
                 We&apos;ve answered the ones we get most. If yours isn&apos;t
                 here, our team replies on WhatsApp within an hour.
               </p>
 
               <Link
-                href="https://wa.me/919440445006"
+                href="https://wa.me/919876543210"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex h-12 items-center gap-2 rounded-full bg-[#6B1D2A] px-6 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-[#501620] hover:shadow-lg"
+                className="mt-6 inline-flex h-12 items-center gap-2 rounded-full bg-[#7f1416] px-6 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-[#651013] hover:shadow-lg"
               >
                 <MessageCircle className="size-4" />
                 Chat with us on WhatsApp
@@ -90,25 +82,25 @@ export function FaqSection({ isCodEnabled = false }: FaqSectionProps) {
                     className={cn(
                       "overflow-hidden rounded-2xl border bg-white transition-all duration-300",
                       isOpen
-                        ? "border-[#6B1D2A]/20 shadow-[0_12px_30px_-18px_rgba(107,29,42,0.25)]"
-                        : "border-[#ece3d8]",
+                        ? "border-[#7f1416]/20 shadow-[0_12px_30px_-18px_rgba(35,64,61,0.25)]"
+                        : "border-[#efe8e4]",
                     )}
                   >
                     <button
                       type="button"
                       onClick={() => setOpenIndex(isOpen ? null : idx)}
-                      className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left transition-colors hover:bg-[#fdf8f3] sm:px-6 sm:py-6"
+                      className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left transition-colors hover:bg-[#faf5ec] sm:px-6 sm:py-6"
                       aria-expanded={isOpen}
                     >
-                      <span className="text-base font-bold text-[#6B1D2A] sm:text-lg">
+                      <span className="text-base font-bold text-[#7f1416] sm:text-lg">
                         {faq.q}
                       </span>
                       <span
                         className={cn(
                           "flex size-9 shrink-0 items-center justify-center rounded-full transition-colors",
                           isOpen
-                            ? "bg-[#6B1D2A] text-white"
-                            : "bg-[#fdf0d5] text-[#6B1D2A]",
+                            ? "bg-[#7f1416] text-white"
+                            : "bg-[#faf5ec] text-[#7f1416]",
                         )}
                         aria-hidden
                       >
@@ -128,7 +120,7 @@ export function FaqSection({ isCodEnabled = false }: FaqSectionProps) {
                       )}
                     >
                       <div className="overflow-hidden">
-                        <p className="px-5 pb-6 text-sm leading-relaxed text-[#6b6060] sm:px-6 sm:text-[15px]">
+                        <p className="px-5 pb-6 text-sm leading-relaxed text-[#8c7b6b] sm:px-6 sm:text-[15px]">
                           {faq.a}
                         </p>
                       </div>

@@ -55,7 +55,8 @@ function LoginPageContent() {
   const searchParams = useSearchParams();
   const setSession = useAuthStore((s) => s.setSession);
   const justReset = searchParams.get("reset") === "success";
-  const redirectTo = searchParams.get("redirect") ?? "/dashboard";
+  const rawRedirect = searchParams.get("redirect") ?? "";
+  const redirectTo = rawRedirect.startsWith("/") && !rawRedirect.startsWith("//") ? rawRedirect : "/dashboard";
 
   const [step, setStep] = useState<Step>({ kind: "identifier" });
   const [error, setError] = useState<string | null>(null);
@@ -238,20 +239,20 @@ function LoginPageContent() {
   // ─────────────────────────────────────────────────────────────────────────
 
   const inputCls =
-    "h-12 w-full rounded-full border border-[#ece3d8] bg-[#fcf9f6] px-4 text-sm font-medium text-[#6B1D2A] placeholder:text-[#767676] focus:border-[#6B1D2A] focus:outline-none focus:ring-1 focus:ring-[#6B1D2A]";
+    "h-12 w-full rounded-full border border-[#efe8e4] bg-[#faf5ec] px-4 text-sm font-medium text-[#7f1416] placeholder:text-[#767676] focus:border-[#7f1416] focus:outline-none focus:ring-1 focus:ring-[#7f1416]";
   const primaryBtnCls =
-    "mt-2 h-12 w-full rounded-full bg-gradient-to-r from-[#7F1416] to-[#6B1D2A] px-8 text-sm font-bold text-white transition-transform hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 btn-premium";
+    "mt-2 h-12 w-full rounded-full bg-[#7f1416] px-8 text-sm font-bold text-white transition-transform hover:-translate-y-1 hover:bg-[#d4a537] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0";
 
   return (
     <div className="flex flex-col gap-6 p-5 sm:gap-8 sm:p-8 lg:p-12">
       {justReset && (
-        <p className="rounded-2xl border border-[#ece3d8] bg-[#fdf8f3] px-4 py-3 text-sm font-medium text-[#6B1D2A]">
+        <p className="rounded-2xl border border-[#f5d88e] bg-[#faf5ec] px-4 py-3 text-sm font-medium text-[#7f1416]">
           Password reset successful. Please sign in with your new password.
         </p>
       )}
 
       <div className="text-center">
-        <h1 className="font-serif text-2xl font-bold text-[#6B1D2A] sm:text-3xl">
+        <h1 className="font-heading text-2xl font-bold text-[#7f1416] sm:text-3xl">
           Welcome Back
         </h1>
         <p className="mt-2 text-sm font-medium text-[#767676]">
@@ -263,7 +264,7 @@ function LoginPageContent() {
       {step.kind === "identifier" && (
         <form onSubmit={handleContinue} className="grid gap-5">
           <div className="grid gap-1.5">
-            <label htmlFor="identifier" className="text-sm font-bold text-[#6B1D2A]">
+            <label htmlFor="identifier" className="text-sm font-bold text-[#7f1416]">
               Mobile or Email
             </label>
             <input
@@ -307,12 +308,12 @@ function LoginPageContent() {
       {step.kind === "otp" && (
         <form onSubmit={handleVerifyOtp} className="grid gap-5">
           {/* Summary row */}
-          <div className="flex items-center justify-between rounded-2xl border border-[#ece3d8] bg-[#fdf8f3] px-4 py-3">
+          <div className="flex items-center justify-between rounded-2xl border border-[#f5d88e] bg-[#faf5ec] px-4 py-3">
             <div>
               <p className="text-xs font-medium text-[#767676]">OTP sent to</p>
-              <p className="text-sm font-bold text-[#6B1D2A]">{step.phone}</p>
+              <p className="text-sm font-bold text-[#7f1416]">{step.phone}</p>
             </div>
-            <button type="button" onClick={goBack} className="ml-3 shrink-0 text-xs font-bold text-[#7F1416] transition-colors hover:text-[#D4A537]">
+            <button type="button" onClick={goBack} className="ml-3 shrink-0 text-xs font-bold text-[#d4a537] hover:text-[#7f1416]">
               Change
             </button>
           </div>
@@ -322,7 +323,7 @@ function LoginPageContent() {
           )}
 
           <div className="grid gap-1.5">
-            <label htmlFor="otp" className="text-sm font-bold text-[#6B1D2A]">
+            <label htmlFor="otp" className="text-sm font-bold text-[#7f1416]">
               Enter OTP
             </label>
             <input
@@ -332,7 +333,7 @@ function LoginPageContent() {
               autoComplete="one-time-code"
               maxLength={6}
               autoFocus
-              className="h-12 w-full rounded-full border border-[#ece3d8] bg-[#fcf9f6] px-4 text-center text-lg font-bold tracking-[0.5em] text-[#6B1D2A] focus:border-[#6B1D2A] focus:outline-none focus:ring-1 focus:ring-[#6B1D2A]"
+              className="h-12 w-full rounded-full border border-[#efe8e4] bg-[#faf5ec] px-4 text-center text-lg font-bold tracking-[0.5em] text-[#7f1416] focus:border-[#7f1416] focus:outline-none focus:ring-1 focus:ring-[#7f1416]"
               {...otpForm.register("otp")}
             />
             {otpForm.formState.errors.otp && (
@@ -355,7 +356,7 @@ function LoginPageContent() {
               type="button"
               onClick={() => void handleResend()}
               disabled={resendCooldown > 0 || resending || (turnstileRequired && !turnstileReady)}
-              className="flex items-center gap-1.5 text-xs font-bold text-[#7F1416] transition-colors hover:text-[#D4A537] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex items-center gap-1.5 text-xs font-bold text-[#d4a537] transition-colors hover:text-[#7f1416] disabled:cursor-not-allowed disabled:opacity-50"
             >
               <RefreshCw className="size-3" aria-hidden />
               {resending ? "Resending…" : resendCooldown > 0 ? `Resend in ${resendCooldown}s` : "Resend OTP"}
@@ -376,18 +377,18 @@ function LoginPageContent() {
       {step.kind === "password" && (
         <form onSubmit={handlePasswordLogin} className="grid gap-5">
           {/* Summary row */}
-          <div className="flex items-center justify-between rounded-2xl border border-[#ece3d8] bg-[#fdf8f3] px-4 py-3">
+          <div className="flex items-center justify-between rounded-2xl border border-[#f5d88e] bg-[#faf5ec] px-4 py-3">
             <div>
               <p className="text-xs font-medium text-[#767676]">Signing in as</p>
-              <p className="text-sm font-bold text-[#6B1D2A] break-all">{step.identifier}</p>
+              <p className="text-sm font-bold text-[#7f1416] break-all">{step.identifier}</p>
             </div>
-            <button type="button" onClick={goBack} className="ml-3 shrink-0 text-xs font-bold text-[#7F1416] transition-colors hover:text-[#D4A537]">
+            <button type="button" onClick={goBack} className="ml-3 shrink-0 text-xs font-bold text-[#d4a537] hover:text-[#7f1416]">
               Change
             </button>
           </div>
 
           <div className="grid gap-1.5">
-            <label htmlFor="password" className="text-sm font-bold text-[#6B1D2A]">
+            <label htmlFor="password" className="text-sm font-bold text-[#7f1416]">
               Password
             </label>
             <input
@@ -427,24 +428,24 @@ function LoginPageContent() {
       <div className="grid gap-4 text-center">
         <Link
           href={`/register${redirectTo !== "/dashboard" ? `?redirect=${encodeURIComponent(redirectTo)}` : ""}`}
-          className="text-sm font-bold text-[#7F1416] transition-colors hover:text-[#D4A537]"
+          className="text-sm font-bold text-[#d4a537] transition-colors hover:text-[#7f1416]"
         >
           New customer? Create an account
         </Link>
         {(step.kind === "identifier" || step.kind === "password") && (
           <Link
             href="/forgot-password"
-            className="text-sm font-bold text-[#767676] transition-colors hover:text-[#6B1D2A]"
+            className="text-sm font-bold text-[#767676] transition-colors hover:text-[#7f1416]"
           >
             Forgot password?
           </Link>
         )}
       </div>
 
-      <div className="border-t border-[#ece3d8] pt-6">
+      <div className="border-t border-[#efe8e4] pt-6">
         <Link
           href="/"
-          className="block text-center text-sm font-bold text-[#6B1D2A] transition-colors hover:text-[#D4A537]"
+          className="block text-center text-sm font-bold text-[#7f1416] transition-colors hover:text-[#d4a537]"
         >
           &larr; Back to store
         </Link>

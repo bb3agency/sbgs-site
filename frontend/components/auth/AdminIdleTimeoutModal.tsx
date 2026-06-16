@@ -90,7 +90,7 @@ export function AdminIdleTimeoutModal() {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#23403d]/60 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#7f1416]/60 backdrop-blur-sm"
       role="alertdialog"
       aria-modal="true"
       aria-labelledby="idle-title"
@@ -103,14 +103,14 @@ export function AdminIdleTimeoutModal() {
 
         <h2
           id="idle-title"
-          className="font-heading text-lg font-semibold text-[#23403d]"
+          className="font-heading text-lg font-semibold text-[#7f1416]"
         >
           Session timeout warning
         </h2>
         <p id="idle-desc" className="mt-2 text-sm text-[#769b97]">
           You have been inactive for a while. Your admin session will expire
           automatically in{" "}
-          <span className="font-semibold text-[#ec6e55]">{timeLabel}</span>.
+          <span className="font-semibold text-[#d4a537]">{timeLabel}</span>.
         </p>
 
         <div className="mt-6 flex flex-col gap-2">
@@ -118,7 +118,7 @@ export function AdminIdleTimeoutModal() {
             type="button"
             disabled={extending}
             onClick={() => void handleExtend()}
-            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-[#23403d] px-4 text-sm font-medium text-white transition-colors hover:bg-[#1a3330] disabled:opacity-60"
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-[#7f1416] px-4 text-sm font-medium text-white transition-colors hover:bg-[#651013] disabled:opacity-60"
           >
             <RefreshCw
               className={`h-4 w-4 ${extending ? "animate-spin" : ""}`}
@@ -128,7 +128,7 @@ export function AdminIdleTimeoutModal() {
           <button
             type="button"
             onClick={handleLogout}
-            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-[#efe8e4] px-4 text-sm font-medium text-[#23403d] transition-colors hover:bg-[#faf3ef]"
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-[#efe8e4] px-4 text-sm font-medium text-[#7f1416] transition-colors hover:bg-[#faf5ec]"
           >
             <LogOut className="h-4 w-4" />
             Sign out now

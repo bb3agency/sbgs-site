@@ -11,7 +11,7 @@ interface RelatedProductsSectionProps {
 export async function RelatedProductsSection({
   categorySlug,
   currentProductId,
-  title = "You will love these too",
+  title = "You may also like",
   subtitle = "From the same category",
 }: RelatedProductsSectionProps) {
   const { products } = await fetchStorefrontProducts({
@@ -25,14 +25,12 @@ export async function RelatedProductsSection({
   if (related.length === 0) return null;
 
   return (
-    <section>
-      <div className="mb-6 text-center">
-        {subtitle && (
-          <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-[#D4A537]">
-            {subtitle}
-          </p>
-        )}
-        <h2 className="font-serif text-2xl font-bold text-[#6B1D2A] sm:text-3xl">
+    <section className="mt-6 rounded-[20px] bg-white px-5 py-7 shadow-sm sm:mt-8 sm:px-8 sm:py-9">
+      <div className="mb-6">
+        <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-[#d4a537]">
+          {subtitle}
+        </p>
+        <h2 className="font-heading text-xl font-bold text-[#7f1416] sm:text-2xl">
           {title}
         </h2>
       </div>

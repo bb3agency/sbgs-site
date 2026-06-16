@@ -27,7 +27,7 @@ function PaymentContent() {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    if (!isReady || !orderId || accessToken) return;
+    if (!isReady || !orderId || !accessToken) return;
     replace(
       `/login?redirect=${encodeURIComponent(`/checkout/payment?orderId=${orderId}`)}`,
     );
@@ -152,7 +152,7 @@ function PaymentContent() {
     return (
       <p className="text-sm text-muted-foreground">
         This order uses Cash on Delivery.{" "}
-        <a href={`/orders/${order.id}`} className="underline text-[#23403d]">
+        <a href={`/orders/${order.id}`} className="underline text-[#7f1416]">
           View order details
         </a>
       </p>
@@ -162,11 +162,11 @@ function PaymentContent() {
   if (!canRetry) {
     return (
       <div className="mx-auto max-w-md rounded-2xl border border-[#efe8e4] bg-white p-6 shadow-sm">
-        <h1 className="mb-4 font-heading text-2xl font-bold text-[#23403d]">Payment unavailable</h1>
+        <h1 className="mb-4 font-heading text-2xl font-bold text-[#7f1416]">Payment unavailable</h1>
         <p className="text-sm text-[#767676]">
-          This order is in <span className="font-semibold text-[#23403d]">{order.status}</span> status and cannot accept payment here.
+          This order is in <span className="font-semibold text-[#7f1416]">{order.status}</span> status and cannot accept payment here.
         </p>
-        <a href={`/orders/${order.id}`} className="mt-4 inline-block text-sm underline text-[#23403d]">
+        <a href={`/orders/${order.id}`} className="mt-4 inline-block text-sm underline text-[#7f1416]">
           View order details
         </a>
       </div>
@@ -175,18 +175,18 @@ function PaymentContent() {
 
   return (
     <div className="mx-auto max-w-md rounded-2xl border border-[#efe8e4] bg-white p-6 shadow-sm">
-      <h1 className="mb-4 font-heading text-2xl font-bold text-[#23403d]">Complete Payment</h1>
+      <h1 className="mb-4 font-heading text-2xl font-bold text-[#7f1416]">Complete Payment</h1>
       <p className="mb-6 text-sm text-[#767676]">
-        Please complete your payment of <span className="font-bold text-[#23403d]">{formatPrice(order.total)}</span> for Order <span className="font-mono font-bold text-[#23403d]">{order.orderNumber}</span>.
+        Please complete your payment of <span className="font-bold text-[#7f1416]">{formatPrice(order.total)}</span> for Order <span className="font-mono font-bold text-[#7f1416]">{order.orderNumber}</span>.
       </p>
 
       {error && <p className="mb-4 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">{error}</p>}
-      {statusMessage && <p className="mb-4 rounded-md bg-[#eff5ee] px-3 py-2 text-sm text-[#23403d]">{statusMessage}</p>}
+      {statusMessage && <p className="mb-4 rounded-md bg-[#faf5ec] px-3 py-2 text-sm text-[#7f1416]">{statusMessage}</p>}
 
       <Button
         onClick={handlePay}
         disabled={busy}
-        className="w-full h-12 rounded-full bg-[#23403d] font-bold text-white transition-colors hover:bg-[#ec6e55]"
+        className="w-full h-12 rounded-full bg-[#7f1416] font-bold text-white transition-colors hover:bg-[#d4a537]"
       >
         {busy ? "Opening Gateway..." : "Pay Now"}
       </Button>
@@ -196,7 +196,7 @@ function PaymentContent() {
 
 export default function CheckoutPaymentPage() {
   return (
-    <div className="flex bg-[#eff5ee] min-h-screen items-center justify-center py-16 px-4">
+    <div className="flex bg-[#faf5ec] min-h-screen items-center justify-center py-16 px-4">
       <Script
         src="https://checkout.razorpay.com/v1/checkout.js"
         strategy="lazyOnload"

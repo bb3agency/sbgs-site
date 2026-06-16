@@ -15,7 +15,6 @@ interface AddToCartButtonProps {
   quantity?: number;
   redirectTo?: string;
   className?: string;
-  containerClassName?: string;
   icon?: React.ReactNode;
 }
 
@@ -25,7 +24,6 @@ export function AddToCartButton({
   quantity = 1,
   redirectTo,
   className,
-  containerClassName,
   icon,
 }: AddToCartButtonProps) {
   const router = useRouter();
@@ -60,7 +58,7 @@ export function AddToCartButton({
   };
 
   return (
-    <div className={`grid gap-2 ${containerClassName ?? ""}`}>
+    <div className="grid gap-2">
       <button
         type="button"
         disabled={isSubmitting}

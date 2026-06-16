@@ -19,6 +19,7 @@ import { createOrder, prepareCheckout, confirmPrepaid } from "@/lib/orders-api";
 import { formatPrice } from "@/lib/format-price";
 import { CartLineProductDetails } from "@/components/cart/CartLineProductDetails";
 import { useCartSync } from "@/hooks/use-cart-sync";
+import { useAuthenticatedApi } from "@/hooks/use-authenticated-api";
 import { getCartLineImageAlt, getCartLineImageUrl } from "@/lib/cart-line-display";
 import { useStoreConfig } from "@/components/providers/StoreConfigProvider";
 import { formatAppliedCouponLabel, isFreeShippingCoupon } from "@/lib/coupon-display";
@@ -71,7 +72,7 @@ export function CheckoutForm() {
   const [submitting, setSubmitting] = useState(false);
   const [savedAddresses, setSavedAddresses] = useState<UserAddress[]>([]);
   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null);
-  const [shippingQuote, setShippingQuote] = useState<{ shippingCharge: number; estimatedDays: number; selectedShippingProvider?: "DELHIVERY" | "SHIPROCKET" } | null>(null);
+  const [shippingQuote, setShippingQuote] = useState<{ shippingCharge: number; estimatedDays: number; selectedShippingProvider?: "DELHIVERY" | "SHIPROCKET"; courierCompanyId?: number } | null>(null);
   const [shippingQuoteLoading, setShippingQuoteLoading] = useState(false);
   const [shippingQuoteError, setShippingQuoteError] = useState<string | null>(null);
   const [couponCode, setCouponCode] = useState("");
@@ -79,7 +80,9 @@ export function CheckoutForm() {
   const [couponError, setCouponError] = useState<string | null>(null);
   const { couponsEnabled, isCodEnabled, minOrderValuePaise, configAvailable } = useStoreConfig();
   useCartSync({ resyncKey: couponsEnabled });
+  const api = useAuthenticatedApi();
   const accessToken = useAuthStore((s) => s.accessToken);
+  const storefrontSessionStatus = useAuthStore((s) => s.storefrontSessionStatus);
   const user = useAuthStore((s) => s.user);
   const cart = useCartStore((s) => s.cart);
   const setCart = useCartStore((s) => s.setCart);
@@ -91,29 +94,57 @@ export function CheckoutForm() {
     defaultValues: {
       paymentMode: "PREPAID",
       fullName: user?.firstName ? `${user.firstName} ${user.lastName ?? ""}`.trim() : "",
+      phone: "",
+      line1: "",
+      line2: "",
+      city: "",
+      state: "",
+      pincode: "",
       saveAddress: false,
     },
   });
 
+  // Load and auto-fill default saved address on mount (authenticated customers only)
   useEffect(() => {
-    if (!accessToken) return;
-    getMyAddresses(accessToken)
+    if (!accessToken || storefrontSessionStatus === "checking") return;
+
+    let cancelled = false;
+
+    void getMyAddresses(accessToken)
       .then((addrs) => {
+        if (cancelled) return;
+
         setSavedAddresses(addrs);
+
+        // Auto-select default address (or first if no default)
         const defaultAddr = addrs.find((a) => a.isDefault) ?? addrs[0];
         if (defaultAddr) {
           setSelectedAddressId(defaultAddr.id);
+
+          // Auto-fill form fields with default address
           const patch = addressToFormValues(defaultAddr);
-          for (const [key, value] of Object.entries(patch)) {
+          Object.entries(patch).forEach(([key, value]) => {
             if (value !== undefined) {
-              form.setValue(key as keyof CheckoutValues, value as string);
+              form.setValue(key as keyof CheckoutValues, value as string, {
+                shouldValidate: false,
+                shouldDirty: false,
+              });
             }
-          }
+          });
         }
       })
-      .catch(() => { /* non-fatal */ });
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- load once per token
-  }, [accessToken]);
+      .catch(() => {
+        // Non-fatal: user can enter address manually
+        if (!cancelled) {
+          setSavedAddresses([]);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- load once per token+status change
+  }, [accessToken, storefrontSessionStatus]);
 
   const pincode = useWatch({ control: form.control, name: "pincode" });
   const paymentMode = useWatch({ control: form.control, name: "paymentMode" });
@@ -134,6 +165,7 @@ export function CheckoutForm() {
             shippingCharge: rates.shippingCharge,
             estimatedDays: rates.estimatedDays,
             selectedShippingProvider: rates.selectedShippingProvider,
+            courierCompanyId: rates.courierCompanyId,
           });
           setShippingQuoteError(null);
         }
@@ -211,12 +243,25 @@ export function CheckoutForm() {
     }
   };
 
+  if (storefrontSessionStatus === "checking") {
+    return (
+      <div className="rounded-[20px] bg-white p-8 shadow-sm" aria-busy="true">
+        <div className="animate-pulse space-y-4">
+          <div className="h-6 w-1/3 rounded bg-gray-200" />
+          <div className="h-12 rounded bg-gray-100" />
+          <div className="h-12 rounded bg-gray-100" />
+          <div className="h-12 w-2/3 rounded bg-gray-100" />
+        </div>
+      </div>
+    );
+  }
+
   if (!accessToken) {
     return (
       <div className="rounded-[20px] bg-white p-8 shadow-sm text-center">
         <div className="mb-4 flex justify-center">
-          <div className="flex size-16 items-center justify-center rounded-full bg-[#eff5ee]">
-            <ShoppingBag className="size-8 text-[#23403d]" aria-hidden />
+          <div className="flex size-16 items-center justify-center rounded-full bg-[#faf5ec]">
+            <ShoppingBag className="size-8 text-[#7f1416]" aria-hidden />
           </div>
         </div>
         <p className="mb-6 text-sm font-medium text-[#767676]">
@@ -224,7 +269,7 @@ export function CheckoutForm() {
         </p>
         <Link
           href="/login?redirect=/checkout"
-          className="inline-flex h-12 items-center justify-center rounded-full bg-[#23403d] px-8 text-sm font-bold text-white transition-colors hover:bg-[#ec6e55]"
+          className="inline-flex h-12 items-center justify-center rounded-full bg-[#7f1416] px-8 text-sm font-bold text-white transition-colors hover:bg-[#d4a537]"
         >
           Sign in to continue
         </Link>
@@ -301,7 +346,14 @@ export function CheckoutForm() {
         const orderIdempotencyKey = createIdempotencyKey();
         const order = await createOrder(
           addressId
-            ? { addressId, paymentMode: "COD", notes: values.notes, selectedShippingProvider: shippingQuote?.selectedShippingProvider }
+            ? {
+                addressId,
+                paymentMode: "COD",
+                notes: values.notes,
+                selectedShippingProvider: shippingQuote?.selectedShippingProvider,
+                shippingChargePaise: shippingQuote?.shippingCharge,
+                courierCompanyId: shippingQuote?.courierCompanyId,
+              }
             : {
                 paymentMode: "COD",
                 shippingAddress: {
@@ -315,6 +367,8 @@ export function CheckoutForm() {
                 },
                 notes: values.notes,
                 selectedShippingProvider: shippingQuote?.selectedShippingProvider,
+                shippingChargePaise: shippingQuote?.shippingCharge,
+                courierCompanyId: shippingQuote?.courierCompanyId,
               },
           accessToken,
           orderIdempotencyKey,
@@ -341,7 +395,13 @@ export function CheckoutForm() {
       const prepareKey = createIdempotencyKey();
       const checkout = await prepareCheckout(
         addressId
-          ? { addressId, notes: values.notes, selectedShippingProvider: shippingQuote?.selectedShippingProvider }
+          ? {
+              addressId,
+              notes: values.notes,
+              selectedShippingProvider: shippingQuote?.selectedShippingProvider,
+              shippingChargePaise: shippingQuote?.shippingCharge,
+              courierCompanyId: shippingQuote?.courierCompanyId,
+            }
           : {
               shippingAddress: {
                 fullName: values.fullName,
@@ -354,6 +414,8 @@ export function CheckoutForm() {
               },
               notes: values.notes,
               selectedShippingProvider: shippingQuote?.selectedShippingProvider,
+              shippingChargePaise: shippingQuote?.shippingCharge,
+              courierCompanyId: shippingQuote?.courierCompanyId,
             },
         accessToken,
         prepareKey,
@@ -434,7 +496,7 @@ export function CheckoutForm() {
     }
   });
 
-  const inputCls = "h-11 w-full rounded-xl border border-[#e8e4e0] bg-[#faf8f5] px-4 text-sm font-medium text-[#23403d] placeholder:text-[#bbb] transition-colors focus:border-[#23403d] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#23403d]/10 sm:h-12";
+  const inputCls = "h-11 w-full rounded-xl border border-[#e8e4e0] bg-[#faf5ec] px-4 text-sm font-medium text-[#7f1416] placeholder:text-[#bbb] transition-colors focus:border-[#7f1416] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#7f1416]/10 sm:h-12";
   const labelCls = "block text-xs font-bold uppercase tracking-wide text-[#555]";
   const fieldCls = "grid gap-1.5";
 
@@ -444,9 +506,9 @@ export function CheckoutForm() {
       {/* ── Cart Item Cards ───────────────────────────────────────────── */}
       {cartItems.length > 0 && (
         <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/[0.04]">
-          <div className="flex items-center gap-2 border-b border-[#f0ece8] bg-[#faf8f5] px-5 py-3.5">
-            <ShoppingBag className="size-4 text-[#23403d]" aria-hidden />
-            <span className="text-sm font-bold text-[#23403d]">
+          <div className="flex items-center gap-2 border-b border-[#f0ece8] bg-[#faf5ec] px-5 py-3.5">
+            <ShoppingBag className="size-4 text-[#7f1416]" aria-hidden />
+            <span className="text-sm font-bold text-[#7f1416]">
               Your items ({cartItems.length})
             </span>
           </div>
@@ -454,7 +516,7 @@ export function CheckoutForm() {
           <div className="divide-y divide-[#f0ece8]">
             {cartItems.map((item) => (
               <div key={item.id} className="flex items-center gap-3 px-5 py-3.5">
-                <div className="relative size-14 shrink-0 overflow-hidden rounded-xl bg-[#faf8f5]">
+                <div className="relative size-14 shrink-0 overflow-hidden rounded-xl bg-[#faf5ec]">
                   <Image
                     src={getCartLineImageUrl(item)}
                     alt={getCartLineImageAlt(item)}
@@ -462,28 +524,28 @@ export function CheckoutForm() {
                     className="object-cover"
                     sizes="56px"
                   />
-                  <span className="absolute -right-1 -top-1 flex size-5 items-center justify-center rounded-full bg-[#23403d] text-[10px] font-bold text-white">
+                  <span className="absolute -right-1 -top-1 flex size-5 items-center justify-center rounded-full bg-[#7f1416] text-[10px] font-bold text-white">
                     {item.quantity}
                   </span>
                 </div>
                 <div className="min-w-0 flex-1">
                   <CartLineProductDetails
                     item={item}
-                    nameClassName="truncate text-xs font-bold text-[#23403d] sm:text-sm"
+                    nameClassName="truncate text-xs font-bold text-[#7f1416] sm:text-sm"
                     descriptionClassName="text-[10px] text-[#999] line-clamp-1"
                   />
                 </div>
-                <span className="shrink-0 text-sm font-extrabold text-[#ec6e55]">
+                <span className="shrink-0 text-sm font-extrabold text-[#d4a537]">
                   {formatPrice(item.priceSnapshot * item.quantity)}
                 </span>
               </div>
             ))}
           </div>
 
-          <div className="border-t border-[#f0ece8] bg-[#faf8f5] px-5 py-3 space-y-1.5">
+          <div className="border-t border-[#f0ece8] bg-[#faf5ec] px-5 py-3 space-y-1.5">
             <div className="flex justify-between text-xs text-[#999]">
               <span>Subtotal</span>
-              <span className="font-semibold text-[#23403d]">{formatPrice(cartSubtotal)}</span>
+              <span className="font-semibold text-[#7f1416]">{formatPrice(cartSubtotal)}</span>
             </div>
             {cartDiscount > 0 && (
               <div className="flex justify-between text-xs text-[#00aa63]">
@@ -497,7 +559,7 @@ export function CheckoutForm() {
                 <span className="font-bold">Free shipping</span>
               </div>
             )}
-            <div className="flex justify-between border-t border-[#e8e4e0] pt-1.5 text-sm font-bold text-[#23403d]">
+            <div className="flex justify-between border-t border-[#e8e4e0] pt-1.5 text-sm font-bold text-[#7f1416]">
               <span>Total</span>
               <span>{formatPrice(cartPayableTotal)}</span>
             </div>
@@ -524,9 +586,9 @@ export function CheckoutForm() {
 
       {/* ── Shipping Details ─────────────────────────────────────────── */}
       <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/[0.04]">
-        <div className="border-b border-[#f0ece8] bg-[#faf8f5] px-5 py-3.5">
-          <h2 className="flex items-center gap-2 text-sm font-bold text-[#23403d]">
-            <MapPin className="size-4 text-[#ec6e55]" aria-hidden />
+        <div className="border-b border-[#f0ece8] bg-[#faf5ec] px-5 py-3.5">
+          <h2 className="flex items-center gap-2 text-sm font-bold text-[#7f1416]">
+            <MapPin className="size-4 text-[#d4a537]" aria-hidden />
             Shipping Details
           </h2>
         </div>
@@ -544,8 +606,8 @@ export function CheckoutForm() {
                     onClick={() => selectSavedAddress(addr)}
                     className={`rounded-xl border px-3 py-2 text-xs font-medium transition-all text-left ${
                       selectedAddressId === addr.id
-                        ? "border-[#23403d] bg-[#23403d] text-white shadow-sm"
-                        : "border-[#e8e4e0] bg-[#faf8f5] text-[#23403d] hover:border-[#23403d]"
+                        ? "border-[#7f1416] bg-[#7f1416] text-white shadow-sm"
+                        : "border-[#e8e4e0] bg-[#faf5ec] text-[#7f1416] hover:border-[#7f1416]"
                     }`}
                   >
                     {addr.fullName} — {addr.line1}, {addr.city}
@@ -555,7 +617,7 @@ export function CheckoutForm() {
               </div>
               <p className="text-xs text-[#bbb]">
                 Manage in{" "}
-                <Link href="/settings" className="font-bold text-[#ec6e55] underline">
+                <Link href="/settings" className="font-bold text-[#d4a537] underline">
                   account settings
                 </Link>
                 .
@@ -612,7 +674,7 @@ export function CheckoutForm() {
 
           {!selectedAddressId && (
             <label className="flex cursor-pointer items-center gap-2.5 text-sm font-medium text-[#555]">
-              <input type="checkbox" className="size-4 accent-[#ec6e55]" {...form.register("saveAddress")} />
+              <input type="checkbox" className="size-4 accent-[#d4a537]" {...form.register("saveAddress")} />
               Save this address for future orders
             </label>
           )}
@@ -621,28 +683,28 @@ export function CheckoutForm() {
 
       {/* ── Payment Method ────────────────────────────────────────────── */}
       <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/[0.04]">
-        <div className="border-b border-[#f0ece8] bg-[#faf8f5] px-5 py-3.5">
-          <h2 className="flex items-center gap-2 text-sm font-bold text-[#23403d]">
-            <span className="flex size-5 items-center justify-center rounded-full bg-[#ec6e55] text-[10px] font-extrabold text-white">2</span>
+        <div className="border-b border-[#f0ece8] bg-[#faf5ec] px-5 py-3.5">
+          <h2 className="flex items-center gap-2 text-sm font-bold text-[#7f1416]">
+            <span className="flex size-5 items-center justify-center rounded-full bg-[#d4a537] text-[10px] font-extrabold text-white">2</span>
             Payment Method
           </h2>
         </div>
 
         <fieldset className="grid gap-3 p-5">
           <legend className="sr-only">Payment Method</legend>
-          <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-[#e8e4e0] bg-[#faf8f5] px-4 py-3.5 text-sm font-bold text-[#23403d] transition-all has-[:checked]:border-[#23403d] has-[:checked]:bg-white has-[:checked]:shadow-sm">
-            <input type="radio" value="PREPAID" className="size-4 accent-[#ec6e55]" {...form.register("paymentMode")} />
+          <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-[#e8e4e0] bg-[#faf5ec] px-4 py-3.5 text-sm font-bold text-[#7f1416] transition-all has-[:checked]:border-[#7f1416] has-[:checked]:bg-white has-[:checked]:shadow-sm">
+            <input type="radio" value="PREPAID" className="size-4 accent-[#d4a537]" {...form.register("paymentMode")} />
             <span>Pay Online</span>
-            <span className="ml-auto rounded-full bg-[#eff5ee] px-2 py-0.5 text-[10px] font-bold text-[#23403d]">UPI · Cards · Wallets</span>
+            <span className="ml-auto rounded-full bg-[#faf5ec] px-2 py-0.5 text-[10px] font-bold text-[#7f1416]">UPI · Cards · Wallets</span>
           </label>
           {isCodEnabled ? (
-            <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-[#e8e4e0] bg-[#faf8f5] px-4 py-3.5 text-sm font-bold text-[#23403d] transition-all has-[:checked]:border-[#23403d] has-[:checked]:bg-white has-[:checked]:shadow-sm">
-              <input type="radio" value="COD" className="size-4 accent-[#ec6e55]" {...form.register("paymentMode")} />
+            <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-[#e8e4e0] bg-[#faf5ec] px-4 py-3.5 text-sm font-bold text-[#7f1416] transition-all has-[:checked]:border-[#7f1416] has-[:checked]:bg-white has-[:checked]:shadow-sm">
+              <input type="radio" value="COD" className="size-4 accent-[#d4a537]" {...form.register("paymentMode")} />
               <span>Cash on Delivery</span>
-              <span className="ml-auto rounded-full bg-[#eff5ee] px-2 py-0.5 text-[10px] font-bold text-[#23403d]">Pay on arrival</span>
+              <span className="ml-auto rounded-full bg-[#faf5ec] px-2 py-0.5 text-[10px] font-bold text-[#7f1416]">Pay on arrival</span>
             </label>
           ) : (
-            <p className="rounded-xl border border-[#e8e4e0] bg-[#faf8f5] px-4 py-3 text-xs font-medium text-[#bbb]">
+            <p className="rounded-xl border border-[#e8e4e0] bg-[#faf5ec] px-4 py-3 text-xs font-medium text-[#bbb]">
               Cash on Delivery is currently disabled.
             </p>
           )}
@@ -652,21 +714,21 @@ export function CheckoutForm() {
       {/* ── Coupon ────────────────────────────────────────────────────── */}
       {couponsEnabled ? (
         <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/[0.04]">
-          <div className="border-b border-[#f0ece8] bg-[#faf8f5] px-5 py-3.5">
-            <h2 className="flex items-center gap-2 text-sm font-bold text-[#23403d]">
-              <Tag className="size-4 text-[#ec6e55]" aria-hidden />
+          <div className="border-b border-[#f0ece8] bg-[#faf5ec] px-5 py-3.5">
+            <h2 className="flex items-center gap-2 text-sm font-bold text-[#7f1416]">
+              <Tag className="size-4 text-[#d4a537]" aria-hidden />
               Promo Code
             </h2>
           </div>
           <div className="p-5">
             {hasAppliedCoupon ? (
-              <div className="flex items-center justify-between rounded-xl bg-[#eff5ee] px-4 py-3">
+              <div className="flex items-center justify-between rounded-xl bg-[#faf5ec] px-4 py-3">
                 <span className="text-sm font-bold text-[#00aa63]">{appliedCouponLabel ?? "Coupon applied"}</span>
                 <button
                   type="button"
                   onClick={() => void handleRemoveCoupon()}
                   disabled={couponLoading}
-                  className="text-xs font-bold text-[#ec6e55] hover:underline disabled:opacity-60"
+                  className="text-xs font-bold text-[#d4a537] hover:underline disabled:opacity-60"
                 >
                   Remove
                 </button>
@@ -679,34 +741,34 @@ export function CheckoutForm() {
                   value={couponCode}
                   onChange={(e) => { setCouponCode(e.target.value.toUpperCase()); setCouponError(null); }}
                   disabled={couponLoading}
-                  className="flex-1 rounded-xl border border-[#e8e4e0] bg-[#faf8f5] px-4 py-2.5 text-sm font-bold uppercase placeholder:font-normal placeholder:normal-case placeholder:text-[#bbb] focus:border-[#23403d] focus:bg-white focus:outline-none disabled:opacity-60"
+                  className="flex-1 rounded-xl border border-[#e8e4e0] bg-[#faf5ec] px-4 py-2.5 text-sm font-bold uppercase placeholder:font-normal placeholder:normal-case placeholder:text-[#bbb] focus:border-[#7f1416] focus:bg-white focus:outline-none disabled:opacity-60"
                 />
                 <button
                   type="button"
                   onClick={() => void handleApplyCoupon()}
                   disabled={couponLoading || !couponCode.trim()}
-                  className="rounded-xl bg-[#23403d] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#ec6e55] disabled:cursor-not-allowed disabled:opacity-60"
+                  className="rounded-xl bg-[#7f1416] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#d4a537] disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {couponLoading ? "…" : "Apply"}
                 </button>
               </div>
             )}
-            {couponError && <p className="mt-2 text-xs font-medium text-[#ec6e55]">{couponError}</p>}
+            {couponError && <p className="mt-2 text-xs font-medium text-[#d4a537]">{couponError}</p>}
           </div>
         </div>
       ) : null}
 
       {/* ── Order Notes ───────────────────────────────────────────────── */}
       <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/[0.04]">
-        <div className="border-b border-[#f0ece8] bg-[#faf8f5] px-5 py-3.5">
-          <label className="text-sm font-bold text-[#23403d]" htmlFor="notes">
+        <div className="border-b border-[#f0ece8] bg-[#faf5ec] px-5 py-3.5">
+          <label className="text-sm font-bold text-[#7f1416]" htmlFor="notes">
             Order Notes <span className="font-normal text-[#bbb]">(optional)</span>
           </label>
         </div>
         <div className="p-5">
           <textarea
             id="notes"
-            className="min-h-[80px] w-full rounded-xl border border-[#e8e4e0] bg-[#faf8f5] px-4 py-3 text-sm font-medium text-[#23403d] placeholder:text-[#bbb] focus:border-[#23403d] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#23403d]/10"
+            className="min-h-[80px] w-full rounded-xl border border-[#e8e4e0] bg-[#faf5ec] px-4 py-3 text-sm font-medium text-[#7f1416] placeholder:text-[#bbb] focus:border-[#7f1416] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#7f1416]/10"
             placeholder="Special delivery instructions, preferred delivery time, etc."
             {...form.register("notes")}
           />
@@ -715,16 +777,16 @@ export function CheckoutForm() {
 
       {/* ── Order Summary ─────────────────────────────────────────────── */}
       <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/[0.04]">
-        <div className="border-b border-[#f0ece8] bg-[#faf8f5] px-5 py-3.5">
-          <h2 className="flex items-center gap-2 text-sm font-bold text-[#23403d]">
-            <Truck className="size-4 text-[#ec6e55]" aria-hidden />
+        <div className="border-b border-[#f0ece8] bg-[#faf5ec] px-5 py-3.5">
+          <h2 className="flex items-center gap-2 text-sm font-bold text-[#7f1416]">
+            <Truck className="size-4 text-[#d4a537]" aria-hidden />
             Order Total
           </h2>
         </div>
         <div className="grid gap-2.5 p-5 text-sm">
           <div className="flex justify-between">
             <span className="text-[#767676]">Subtotal</span>
-            <span className="font-semibold text-[#23403d]">{formatPrice(cartSubtotal)}</span>
+            <span className="font-semibold text-[#7f1416]">{formatPrice(cartSubtotal)}</span>
           </div>
           {cartDiscount > 0 && (
             <div className="flex justify-between text-[#00aa63]">
@@ -740,7 +802,7 @@ export function CheckoutForm() {
           )}
           <div className="flex items-center justify-between">
             <span className="text-[#767676]">Shipping</span>
-            <span className={`font-semibold ${shippingQuoteLoading ? "animate-pulse text-[#bbb]" : "text-[#23403d]"}`}>
+            <span className={`font-semibold ${shippingQuoteLoading ? "animate-pulse text-[#bbb]" : "text-[#7f1416]"}`}>
               {shippingQuoteLoading
                 ? "Calculating…"
                 : shippingQuoteError
@@ -760,11 +822,11 @@ export function CheckoutForm() {
               Estimated delivery: {shippingQuote.estimatedDays} day{shippingQuote.estimatedDays !== 1 ? "s" : ""}
             </p>
           )}
-          <div className="flex items-center justify-between rounded-xl bg-[#faf8f5] px-4 py-3">
-            <span className="font-heading font-bold text-[#23403d]">
+          <div className="flex items-center justify-between rounded-xl bg-[#faf5ec] px-4 py-3">
+            <span className="font-heading font-bold text-[#7f1416]">
               {hasShippingQuote ? "Estimated total" : "Cart total"}
             </span>
-            <span className="font-heading text-xl font-extrabold text-[#ec6e55]">{formatPrice(estimatedPayableTotal)}</span>
+            <span className="font-heading text-xl font-extrabold text-[#d4a537]">{formatPrice(estimatedPayableTotal)}</span>
           </div>
           {!hasShippingQuote && pincode?.length !== 6 && (
             <p className="text-xs text-[#bbb]">Enter a valid pincode to preview shipping cost.</p>
@@ -775,7 +837,7 @@ export function CheckoutForm() {
       {/* ── Place Order ───────────────────────────────────────────────── */}
       <button
         type="submit"
-        className="h-14 w-full rounded-2xl bg-[#23403d] text-base font-extrabold text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-[#ec6e55] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+        className="h-14 w-full rounded-2xl bg-[#7f1416] text-base font-extrabold text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-[#d4a537] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
         disabled={submitting || checkoutBlocked}
       >
         {submitting

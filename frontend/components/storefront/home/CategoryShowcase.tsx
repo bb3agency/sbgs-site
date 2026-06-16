@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import type { CategoryWithMeta } from "@/lib/categories";
+import { SectionHeading } from "./SectionHeading";
 
 interface CategoryShowcaseProps {
   categories: CategoryWithMeta[];
@@ -9,76 +11,70 @@ interface CategoryShowcaseProps {
 export function CategoryShowcase({ categories }: CategoryShowcaseProps) {
   if (!categories?.length) return null;
 
-  const displayCategories = categories.slice(0, 7);
+  const featured = categories.slice(0, 3);
 
   return (
-    <section className="relative overflow-hidden bg-[#FAF5EC]">
-      <div className="relative mx-auto flex w-full max-w-[1440px] flex-col px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-16">
-        {/* Header — Dadu's "Flavours for Every Moment" with decorative stickers */}
-        <div className="mb-8 flex shrink-0 items-center justify-center gap-3 lg:mb-12">
-          {/* Left decorative element */}
-          <div className="hidden size-[60px] items-center justify-center sm:flex">
-            <svg viewBox="0 0 40 40" className="size-10 text-[#7F1416]/30" aria-hidden>
-              <circle cx="20" cy="20" r="16" fill="none" stroke="currentColor" strokeWidth="1" />
-              <circle cx="20" cy="20" r="8" fill="none" stroke="currentColor" strokeWidth="0.8" />
-              <circle cx="20" cy="20" r="3" fill="currentColor" opacity="0.3" />
-            </svg>
-          </div>
+    <section className="bg-[#faf5ec]">
+      <div className="mx-auto w-full max-w-[1440px] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+        <SectionHeading
+          eyebrow="Shop by category"
+          title="Sweets for every occasion."
+          description="From everyday ghee sweets to festive gift boxes and corporate hampers — explore a range made fresh and packed with care."
+          cta={{ label: "View full catalogue", href: "/products" }}
+          className="mb-10 lg:mb-12"
+        />
 
-          <h2 className="text-center font-serif text-3xl text-[#7F1416] sm:text-4xl lg:text-5xl">
-            Flavours for{" "}
-            <em className="italic">Every Moment</em>
-          </h2>
+        <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {featured.map((cat, idx) => (
+            <Link
+              key={cat.slug}
+              href={`/categories/${cat.slug}`}
+              className="group relative flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-3xl bg-[#7f1416] p-6 text-white shadow-[0_24px_50px_-24px_rgba(35,64,61,0.5)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_30px_60px_-20px_rgba(35,64,61,0.55)] sm:p-7 lg:p-8"
+            >
+              {/* Background image */}
+              <Image
+                src={cat.image}
+                alt={cat.name}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+              {/* Overlay */}
+              <div
+                aria-hidden
+                className="absolute inset-0 bg-gradient-to-br from-[#7f1416]/85 via-[#7f1416]/55 to-transparent"
+              />
+              <div
+                aria-hidden
+                className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#7f1416]/90 to-transparent"
+              />
 
-          {/* Right decorative element */}
-          <div className="hidden size-[60px] items-center justify-center sm:flex">
-            <svg viewBox="0 0 40 40" className="size-10 text-[#7F1416]/30" aria-hidden>
-              <circle cx="20" cy="20" r="16" fill="none" stroke="currentColor" strokeWidth="1" />
-              <circle cx="20" cy="20" r="8" fill="none" stroke="currentColor" strokeWidth="0.8" />
-              <circle cx="20" cy="20" r="3" fill="currentColor" opacity="0.3" />
-            </svg>
-          </div>
-        </div>
+              {/* Top label */}
+              <div className="relative z-10 flex items-center justify-between">
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider backdrop-blur-md">
+                  <span className="font-mono">0{idx + 1}</span>
+                  Category
+                </span>
+                <span className="flex size-10 items-center justify-center rounded-full bg-white text-[#7f1416] transition-transform duration-300 group-hover:rotate-45">
+                  <ArrowUpRight className="size-4" />
+                </span>
+              </div>
 
-        {/* Category Grid — 7 items in a row */}
-        <div className="flex flex-1 items-center">
-          <div className="mx-auto grid w-full grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 lg:gap-x-8 lg:gap-y-10">
-            {displayCategories.map((cat, idx) => (
-              <Link
-                key={cat.slug}
-                href={`/products?category=${cat.slug}`}
-                className="group flex flex-col items-center gap-4 text-center"
-              >
-                {/* Decorative outer ring */}
-                <div className="relative w-full aspect-square p-2 sm:p-3">
-                  <div className="absolute inset-0 rounded-full border-[1.5px] border-dashed border-[#D4A537]/60 transition-transform duration-1000 ease-out group-hover:rotate-180" />
-                  <div className="absolute inset-1.5 rounded-full border border-[#D4A537]/30 transition-transform duration-500 group-hover:scale-105" />
-                  
-                  <div className="relative h-full w-full overflow-hidden rounded-full shadow-md transition-all duration-500 group-hover:shadow-2xl">
-                    <Image
-                      src={cat.image}
-                      alt={cat.name}
-                      fill
-                      sizes="(max-width: 768px) 45vw, 22vw"
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                    />
-                    {/* Inner overlay for richness */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-[#7F1416]/40 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                  </div>
+              {/* Bottom content */}
+              <div className="relative z-10 mt-auto flex flex-col gap-3">
+                <h3 className="font-heading text-2xl font-bold leading-tight tracking-tight sm:text-3xl">
+                  {cat.name}
+                </h3>
+                <p className="max-w-xs text-sm text-white/85">
+                  Made fresh in pure ghee, elegantly packed, and delivered across India.
+                </p>
+                <div className="mt-2 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#f5d88e]">
+                  Explore category
+                  <ArrowUpRight className="size-3 transition-transform group-hover:translate-x-0.5" />
                 </div>
-
-                <div className="flex flex-col items-center mt-2">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-[#7F1416] sm:text-[11px] font-['Montserrat'] transition-colors duration-300 group-hover:text-[#D4A537] lg:mt-2">
-                    {cat.name}
-                  </h3>
-                  <div className="h-px w-6 bg-[#D4A537] my-2 transition-all duration-300 group-hover:w-12"></div>
-                  <span className="text-[10px] uppercase tracking-widest text-[#7F1416]/60 font-bold transition-all duration-300 opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 font-['Montserrat']">
-                    Explore
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </section>

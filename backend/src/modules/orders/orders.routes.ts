@@ -29,6 +29,7 @@ import {
   adminUpdateReturnRequestSchema,
   adminUpdateOrderItemsSchema,
   adminGetShipmentByIdSchema,
+  adminSyncShipmentStatusSchema,
   adminGetPaymentByIdSchema,
   adminGetOrderTimelineSchema,
   createReturnRequestSchema,
@@ -103,9 +104,7 @@ export async function registerOrdersRoutes(fastify: FastifyInstance): Promise<vo
   let trustedProxyRules: ReturnType<typeof parseWebhookIpAllowlist> = [];
   try {
     razorpayAllowlistRules = parseWebhookIpAllowlist(process.env.RAZORPAY_WEBHOOK_ALLOWLIST_CIDR);
-    const shippingAllowlistCidr =
-      process.env.SHIPPING_WEBHOOK_ALLOWLIST_CIDR ?? process.env.DELHIVERY_WEBHOOK_ALLOWLIST_CIDR;
-    shippingWebhookAllowlistRules = parseWebhookIpAllowlist(shippingAllowlistCidr);
+    shippingWebhookAllowlistRules = parseWebhookIpAllowlist(process.env.SHIPPING_WEBHOOK_ALLOWLIST_CIDR);
     trustedProxyRules = parseWebhookIpAllowlist(process.env.TRUSTED_PROXY_ALLOWLIST_CIDR);
   } catch (error) {
     throw new AppError(
@@ -130,7 +129,7 @@ export async function registerOrdersRoutes(fastify: FastifyInstance): Promise<vo
     fastify.log.warn(
       {
         envKey: webhookAllowlistEnvKeyForProvider('Shipping'),
-        remediation: 'Set SHIPPING_WEBHOOK_ALLOWLIST_CIDR (or DELHIVERY_WEBHOOK_ALLOWLIST_CIDR) via Ops UI before go-live'
+        remediation: 'Set SHIPPING_WEBHOOK_ALLOWLIST_CIDR via Ops UI before go-live'
       },
       'Shipping webhook IP allowlist is empty — provider token/signature checks still apply'
     );
@@ -569,7 +568,7 @@ export async function registerOrdersRoutes(fastify: FastifyInstance): Promise<vo
       }
     },
     async (request) => {
-      const query = request.query as { status?: ReturnRequestStatus; page?: number; limit?: number };
+      const query = request.query as { status?: ReturnRequestStatus; orderId?: string; page?: number; limit?: number };
       return ordersService.adminListReturnRequests(query);
     }
   );
@@ -665,10 +664,8 @@ export async function registerOrdersRoutes(fastify: FastifyInstance): Promise<vo
   fastify.post(
     '/api/v1/admin/shipments/:id/sync',
     {
-      schema: {
-        params: { type: 'object', properties: { id: { type: 'string' } }, required: ['id'] }
-      },
-      preHandler: [...adminGuard, adminPermissionGuard('shipments:read')],
+      schema: adminSyncShipmentStatusSchema,
+      preHandler: [...adminGuard, adminPermissionGuard('orders:write')],
       config: {
         rateLimit: routeRateLimitProfiles.adminWrite
       }

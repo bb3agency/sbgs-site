@@ -66,7 +66,7 @@ describe('ResendAdapter', () => {
 
     await expect(
       adapter.sendEmail({
-        to: 'ops@srisaibabasweets.com',
+        to: 'ops@sbgs.com',
         template: 'OpsActionOtp',
         data: { code: '123456', action: 'config-save', expiresAt: '2026-01-01T00:00:00Z' }
       })

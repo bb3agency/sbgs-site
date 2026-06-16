@@ -21,6 +21,10 @@ export interface CreateOrderInput {
   paymentMode?: CheckoutPaymentMode;
   /** Backend-selected cheapest shipping provider from delivery rates response. */
   selectedShippingProvider?: "DELHIVERY" | "SHIPROCKET";
+  /** Rate shown to the customer by getDeliveryRates (paise). Ensures customer is charged exactly what was shown. */
+  shippingChargePaise?: number;
+  /** Shiprocket courier company ID from the quoted rate — ensures AWB uses the same courier that was priced. */
+  courierCompanyId?: number;
 }
 
 export interface OrderLineItem {
@@ -42,6 +46,10 @@ export interface OrderSummary {
   shippingAddress: CheckoutShippingAddressInput;
   subtotal: number;
   shippingCharge: number;
+  /** Shipping rate quoted at checkout (paise). Immutable — preserved even if shippingCharge is later adjusted. */
+  shippingChargeQuotedPaise?: number | null;
+  /** Provider locked at checkout — used for AWB assignment enforcement. */
+  selectedShippingProvider?: "DELHIVERY" | "SHIPROCKET" | null;
   discountAmount: number;
   couponCode?: string | null;
   total: number;
@@ -72,28 +80,6 @@ export interface InitiatePaymentResponse {
 
 export interface VerifyPaymentInput {
   orderId: string;
-  razorpayPaymentId: string;
-  razorpaySignature: string;
-}
-
-export interface PrepareCheckoutInput {
-  addressId?: string;
-  shippingAddress?: CheckoutShippingAddressInput;
-  notes?: string;
-  /** Backend-selected cheapest shipping provider from delivery rates response. */
-  selectedShippingProvider?: "DELHIVERY" | "SHIPROCKET";
-}
-
-export interface PrepareCheckoutResponse {
-  checkoutSessionId: string;
-  razorpayOrderId: string;
-  amount: number;
-  currency: string;
-}
-
-export interface ConfirmPrepaidInput {
-  checkoutSessionId: string;
-  razorpayOrderId: string;
   razorpayPaymentId: string;
   razorpaySignature: string;
 }
@@ -135,6 +121,31 @@ export async function verifyPayment(
     idempotencyKey,
     body: JSON.stringify(input),
   });
+}
+
+export interface PrepareCheckoutInput {
+  addressId?: string;
+  shippingAddress?: CheckoutShippingAddressInput;
+  notes?: string;
+  selectedShippingProvider?: "DELHIVERY" | "SHIPROCKET";
+  /** Rate shown to the customer by getDeliveryRates (paise). Ensures customer is charged exactly what was shown. */
+  shippingChargePaise?: number;
+  /** Shiprocket courier company ID from the quoted rate — ensures AWB uses the same courier that was priced. */
+  courierCompanyId?: number;
+}
+
+export interface PrepareCheckoutResponse {
+  checkoutSessionId: string;
+  razorpayOrderId: string;
+  amount: number;
+  currency: string;
+}
+
+export interface ConfirmPrepaidInput {
+  checkoutSessionId: string;
+  razorpayOrderId: string;
+  razorpayPaymentId: string;
+  razorpaySignature: string;
 }
 
 export async function prepareCheckout(

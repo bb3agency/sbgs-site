@@ -10,16 +10,16 @@ export function PriceDisplay({
   originalPricePaise,
 }: PriceDisplayProps) {
   return (
-    <div className="flex items-baseline gap-2">
-      <span className="text-2xl font-bold text-[#6B1D2A] sm:text-3xl">
-        {formatPrice(pricePaise)}
-      </span>
+    <div className="flex items-center gap-2">
       {typeof originalPricePaise === "number" &&
       originalPricePaise > pricePaise ? (
-        <span className="text-sm text-[#8c7b6b] line-through">
+        <span className="text-sm text-muted-foreground line-through">
           {formatPrice(originalPricePaise)}
         </span>
       ) : null}
+      <span className={`text-base font-bold ${typeof originalPricePaise === "number" && originalPricePaise > pricePaise ? "text-accent" : "text-foreground"}`}>
+        {formatPrice(pricePaise)}
+      </span>
     </div>
   );
 }

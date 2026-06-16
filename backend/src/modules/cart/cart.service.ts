@@ -14,10 +14,9 @@ import {
   isStorefrontCouponsEnabled
 } from '@common/coupons/coupons-feature';
 import { NoopShippingAdapter } from '@modules/shipping/adapters/noop-shipping.adapter';
-import {
-  createShippingProvider,
-  resolveDualShippingRuntime
-} from '@modules/shipping/shipping-provider';
+import { resolveDualShippingRuntime } from '@modules/shipping/shipping-provider';
+import { computeChargeableWeightGrams } from '@common/shipping/chargeable-weight';
+import { parseBoxPresets, type BoxPreset } from '@common/shipping/select-box-preset';
 import { sendTechnicalFailureAlert } from '@modules/notifications/notification-failure-alert';
 import { AddCartItemInput, ApplyCouponInput, UpdateCartItemInput } from './cart.types';
 
@@ -38,6 +37,7 @@ const HOT_SKU_SHARD_COUNT = Number(process.env.HOT_SKU_SHARD_COUNT ?? 8);
 const CART_ITEM_PRODUCT_SELECT = {
   categoryId: true,
   name: true,
+  slug: true,
   metaDescription: true,
   images: {
     orderBy: { sortOrder: 'asc' as const },
@@ -62,11 +62,7 @@ type CouponScope = {
 };
 
 export class CartService {
-  private readonly shippingProvider: ShippingProviderAdapter | null;
-
-  constructor(private readonly fastify: FastifyInstance) {
-    this.shippingProvider = createShippingProvider();
-  }
+  constructor(private readonly fastify: FastifyInstance) {}
 
   private async updateCartItemQuantityWithCas(
     tx: Prisma.TransactionClient,
@@ -142,6 +138,7 @@ export class CartService {
           product: {
             categoryId: string;
             name: string;
+            slug?: string | null;
             metaDescription: string | null;
             images: Array<{ url: string; altText: string }>;
           };
@@ -199,6 +196,7 @@ export class CartService {
           product: {
             categoryId: string;
             name: string;
+            slug?: string | null;
             metaDescription: string | null;
             images: Array<{ url: string; altText: string }>;
           };
@@ -531,7 +529,7 @@ export class CartService {
   }
 
   private isNoopMode(): boolean {
-    return !this.shippingProvider || this.shippingProvider instanceof NoopShippingAdapter;
+    return !resolveDualShippingRuntime().hasAny;
   }
 
   usesNoopShipping(): boolean {
@@ -539,21 +537,34 @@ export class CartService {
   }
 
   async checkPincodeServiceability(pincode: string) {
-    const usingNoop = this.isNoopMode();
-    if (!usingNoop && !this.shippingProvider) {
-      throw new AppError(ERROR_CODES.INTERNAL_ERROR, 'Shipping provider is not configured', 503);
-    }
-    const effectiveProvider: ShippingProviderAdapter =
-      usingNoop ? new NoopShippingAdapter() : (this.shippingProvider as ShippingProviderAdapter);
+    const runtime = resolveDualShippingRuntime();
+    const usingNoop = !runtime.hasAny;
     const originPincode =
       (await resolvePickupPincode(this.fastify.prisma, {
         noopFallback: usingNoop ? '500001' : null
       })) ?? undefined;
+
+    if (usingNoop) {
+      const result = await new NoopShippingAdapter().checkServiceability(pincode, originPincode);
+      return { pincode, serviceable: result.serviceable };
+    }
+
+    // Multi-provider mode: serviceable if ANY configured provider can service the pincode
+    const adapters = [runtime.delhivery?.adapter, runtime.shiprocket?.adapter].filter(
+      (a): a is ShippingProviderAdapter => a != null
+    );
     try {
-      const result = await effectiveProvider.checkServiceability(pincode, originPincode);
+      const results = await Promise.allSettled(
+        adapters.map((a) => a.checkServiceability(pincode, originPincode))
+      );
+      if (results.every((r) => r.status === 'rejected')) {
+        throw (results[0] as PromiseRejectedResult).reason;
+      }
       return {
         pincode,
-        serviceable: result.serviceable
+        serviceable: results.some(
+          (r) => r.status === 'fulfilled' && r.value.serviceable
+        )
       };
     } catch (error) {
       if (error instanceof AppError && error.code === ERROR_CODES.CONFIG_NOT_READY) {
@@ -593,7 +604,7 @@ export class CartService {
       if (!pickupPincode) {
         throw new AppError(ERROR_CODES.INTERNAL_ERROR, 'Pickup pincode is not configured', 503);
       }
-      return this.getDeliveryRatesMultiProvider({
+      const result = await this.getDeliveryRatesMultiProvider({
         cart,
         pincode,
         pickupPincode,
@@ -601,6 +612,17 @@ export class CartService {
         delhiveryAdapter: providerRuntime.delhivery?.adapter ?? null,
         shiprocketAdapter: providerRuntime.shiprocket?.adapter ?? null
       });
+      // Persist the exact winning quote so checkout reuses it verbatim — no re-computation.
+      // Shiprocket's serviceability API is non-deterministic (different courier/rate per call),
+      // so re-computing at checkout can diverge from what the customer was shown. Storing the
+      // quote here guarantees: shown rate == charged rate == locked courier.
+      await this.persistShippingQuote(userId, sessionToken, cart.id, pincode, paymentMode, {
+        provider: result.selectedShippingProvider,
+        shippingChargePaise: result.shippingCharge,
+        estimatedDays: result.estimatedDays,
+        ...(result.courierCompanyId != null ? { courierCompanyId: result.courierCompanyId } : {})
+      });
+      return result;
     }
 
     // Noop fallback — no providers configured at all
@@ -626,16 +648,40 @@ export class CartService {
   }
 
   private async getDeliveryRatesMultiProvider(input: {
-    cart: { coupon: Coupon | null; items: Array<{ quantity: number; variant: { id: string; weight?: number | null } }> };
+    cart: {
+      coupon: Coupon | null;
+      items: Array<{
+        quantity: number;
+        variant: {
+          id: string;
+          weight?: number | null;
+          packageLengthCm?: number | null;
+          packageWidthCm?: number | null;
+          packageHeightCm?: number | null;
+        };
+      }>;
+    };
     pincode: string;
     pickupPincode: string;
     paymentMode: 'COD' | 'PREPAID';
     delhiveryAdapter: ShippingProviderAdapter | null;
     shiprocketAdapter: ShippingProviderAdapter | null;
   }) {
-    const totalWeightGrams = input.cart.items.reduce((sum, item) => {
-      return sum + Math.max(item.variant.weight ?? 1, 1) * item.quantity;
-    }, 0);
+    // Quote on the chargeable weight the courier will actually bill — max(dead weight, volumetric
+    // weight of the box). Quoting on dead weight alone underprices bulky parcels: the quote looks
+    // cheap, but Shiprocket later bills on the volumetric weight derived from the box dimensions
+    // the AWB sends, charging far more than was shown.
+    const boxPresets = await this.loadBoxPresets();
+    const totalWeightGrams = computeChargeableWeightGrams({
+      boxPresets,
+      items: input.cart.items.map((item) => ({
+        quantity: item.quantity,
+        weightGrams: item.variant.weight ?? null,
+        lengthCm: item.variant.packageLengthCm ?? null,
+        widthCm: item.variant.packageWidthCm ?? null,
+        heightCm: item.variant.packageHeightCm ?? null
+      }))
+    });
 
     const activeAdapters: Array<{ key: 'DELHIVERY' | 'SHIPROCKET'; adapter: ShippingProviderAdapter }> = [];
     if (input.delhiveryAdapter) activeAdapters.push({ key: 'DELHIVERY', adapter: input.delhiveryAdapter });
@@ -670,18 +716,28 @@ export class CartService {
 
     type CandidateRate = {
       provider: 'DELHIVERY' | 'SHIPROCKET';
+      /** TRUE provider cost (what the courier bills the merchant). Always used for provider comparison. */
       shippingChargePaise: number;
       estimatedDays: number;
+      /** Courier company ID — Shiprocket only. Must be passed back to createShipment so AWB assignment locks the quoted courier. */
+      courierCompanyId?: number;
     };
 
     const candidates: CandidateRate[] = [];
     for (let i = 0; i < serviceableAdapters.length; i++) {
       const result = rateResults[i];
+      const provider = serviceableAdapters[i]!.key;
       if (result?.status === 'fulfilled') {
+        // Always compare on the TRUE provider cost — never the free-shipping-discounted value.
+        // A FREE_SHIPPING coupon hides the cost from the customer, but the merchant still pays the
+        // courier, so the genuinely cheapest provider must win. Zeroing the charge before comparison
+        // makes every provider tie at ₹0, and the tiebreaker (fastest) then locks the most expensive
+        // courier (e.g. Shiprocket → Blue Dart Air) — the merchant silently eats the difference.
         candidates.push({
-          provider: serviceableAdapters[i]!.key,
-          shippingChargePaise: isFreeShipping ? 0 : result.value.shippingChargePaise,
-          estimatedDays: result.value.estimatedDays
+          provider,
+          shippingChargePaise: result.value.shippingChargePaise,
+          estimatedDays: result.value.estimatedDays,
+          ...(result.value.courierCompanyId != null ? { courierCompanyId: result.value.courierCompanyId } : {})
         });
       }
     }
@@ -690,7 +746,7 @@ export class CartService {
       throw new AppError(ERROR_CODES.INTERNAL_ERROR, 'Unable to fetch delivery rates from any provider', 503);
     }
 
-    // Sort by cheapest, then fastest as tiebreaker
+    // Pick the genuinely cheapest provider (by true cost), then fastest as tiebreaker.
     candidates.sort((a, b) =>
       a.shippingChargePaise !== b.shippingChargePaise
         ? a.shippingChargePaise - b.shippingChargePaise
@@ -699,11 +755,165 @@ export class CartService {
 
     const winner = candidates[0]!;
 
+    // Free-shipping discount applies ONLY to the customer-facing charge, after the cheapest provider
+    // has been selected on true cost. Provider/courier lock still points at the cheapest real option.
+    const customerFacingChargePaise = isFreeShipping ? 0 : winner.shippingChargePaise;
+
     return {
       pincode: input.pincode,
-      shippingCharge: winner.shippingChargePaise,
+      shippingCharge: customerFacingChargePaise,
       estimatedDays: winner.estimatedDays,
-      selectedShippingProvider: winner.provider
+      selectedShippingProvider: winner.provider,
+      ...(winner.courierCompanyId != null ? { courierCompanyId: winner.courierCompanyId } : {})
+    };
+  }
+
+  /**
+   * Loads the merchant's configured parcel box presets from store settings. Used to replicate the
+   * worker's box selection at quote time so volumetric weight (and thus the quoted rate) matches
+   * what the courier bills at AWB. Returns [] on any error — chargeable weight then falls back to
+   * the adapter's default box, which is still correct.
+   */
+  private async loadBoxPresets(): Promise<BoxPreset[]> {
+    try {
+      const settings = await this.fastify.prisma.storeSettings.findUnique({
+        where: { singletonKey: 'default' },
+        select: { boxPresets: true }
+      });
+      return parseBoxPresets((settings as { boxPresets?: unknown } | null)?.boxPresets);
+    } catch (error) {
+      this.fastify.log?.warn({ err: error }, 'loadBoxPresets: failed to load box presets — using default box');
+      return [];
+    }
+  }
+
+  private buildShippingQuoteKey(
+    userId: string | undefined,
+    sessionToken: string | undefined,
+    pincode: string,
+    paymentMode: 'COD' | 'PREPAID'
+  ): string | null {
+    const owner = userId ?? sessionToken;
+    if (!owner) return null;
+    return `shipping:quote:${owner}:${pincode}:${paymentMode}`;
+  }
+
+  private async persistShippingQuote(
+    userId: string | undefined,
+    sessionToken: string | undefined,
+    cartId: string,
+    pincode: string,
+    paymentMode: 'COD' | 'PREPAID',
+    quote: {
+      provider: 'DELHIVERY' | 'SHIPROCKET';
+      shippingChargePaise: number;
+      estimatedDays: number;
+      courierCompanyId?: number;
+    }
+  ): Promise<void> {
+    const key = this.buildShippingQuoteKey(userId, sessionToken, pincode, paymentMode);
+    if (!key) return;
+    try {
+      await this.fastify.redis.set(key, JSON.stringify({ cartId, ...quote }), 'EX', 1800);
+    } catch (error) {
+      // Non-fatal — checkout falls back to re-computation if the quote is unavailable.
+      this.fastify.log?.warn({ err: error, key }, 'persistShippingQuote: failed to cache delivery quote');
+    }
+  }
+
+  /**
+   * Returns the exact quote shown to the customer at getDeliveryRates, if still valid for this
+   * cart + pincode + paymentMode. Checkout uses this to charge/lock the same rate and courier the
+   * customer saw, avoiding divergence from Shiprocket's non-deterministic serviceability API.
+   * Returns null when no matching quote is cached — caller must fall back to re-computation.
+   */
+  async getStoredShippingQuote(
+    userId: string | undefined,
+    sessionToken: string | undefined,
+    cartId: string,
+    pincode: string,
+    paymentMode: 'COD' | 'PREPAID'
+  ): Promise<{
+    provider: 'DELHIVERY' | 'SHIPROCKET';
+    shippingChargePaise: number;
+    estimatedDays: number;
+    courierCompanyId?: number;
+  } | null> {
+    const key = this.buildShippingQuoteKey(userId, sessionToken, pincode, paymentMode);
+    if (!key) return null;
+    let raw: string | null;
+    try {
+      raw = await this.fastify.redis.get(key);
+    } catch (error) {
+      this.fastify.log?.warn({ err: error, key }, 'getStoredShippingQuote: failed to read cached delivery quote');
+      return null;
+    }
+    if (!raw) return null;
+    try {
+      const parsed = JSON.parse(raw) as {
+        cartId: string;
+        provider: 'DELHIVERY' | 'SHIPROCKET';
+        shippingChargePaise: number;
+        estimatedDays: number;
+        courierCompanyId?: number;
+      };
+      if (parsed.cartId !== cartId) return null;
+      return {
+        provider: parsed.provider,
+        shippingChargePaise: parsed.shippingChargePaise,
+        estimatedDays: parsed.estimatedDays,
+        ...(parsed.courierCompanyId != null ? { courierCompanyId: parsed.courierCompanyId } : {})
+      };
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Authoritative cheapest-provider quote for checkout. Re-runs the SAME cross-provider comparison
+   * as getDeliveryRates (Delhivery vs Shiprocket, on chargeable weight), so the order is always
+   * assigned to the genuinely cheapest serviceable provider — independent of what the client sent.
+   * Used as the fallback when no cached quote exists. Returns null in noop/single-provider mode so
+   * the caller falls back to single-provider computation.
+   */
+  async getCheapestProviderQuoteForCart(input: {
+    cart: {
+      coupon: Coupon | null;
+      items: Array<{
+        quantity: number;
+        variant: {
+          id: string;
+          weight?: number | null;
+          packageLengthCm?: number | null;
+          packageWidthCm?: number | null;
+          packageHeightCm?: number | null;
+        };
+      }>;
+    };
+    destinationPincode: string;
+    pickupPincode: string;
+    paymentMode: 'COD' | 'PREPAID';
+  }): Promise<{
+    provider: 'DELHIVERY' | 'SHIPROCKET';
+    shippingChargePaise: number;
+    estimatedDays: number;
+    courierCompanyId?: number;
+  } | null> {
+    const providerRuntime = resolveDualShippingRuntime();
+    if (!providerRuntime.hasAny) return null;
+    const result = await this.getDeliveryRatesMultiProvider({
+      cart: input.cart,
+      pincode: input.destinationPincode,
+      pickupPincode: input.pickupPincode,
+      paymentMode: input.paymentMode,
+      delhiveryAdapter: providerRuntime.delhivery?.adapter ?? null,
+      shiprocketAdapter: providerRuntime.shiprocket?.adapter ?? null
+    });
+    return {
+      provider: result.selectedShippingProvider,
+      shippingChargePaise: result.shippingCharge,
+      estimatedDays: result.estimatedDays,
+      ...(result.courierCompanyId != null ? { courierCompanyId: result.courierCompanyId } : {})
     };
   }
 
@@ -712,7 +922,13 @@ export class CartService {
       coupon: Coupon | null;
       items: Array<{
         quantity: number;
-        variant: { id: string; weight?: number | null };
+        variant: {
+          id: string;
+          weight?: number | null;
+          packageLengthCm?: number | null;
+          packageWidthCm?: number | null;
+          packageHeightCm?: number | null;
+        };
       }>;
     };
     destinationPincode: string;
@@ -723,24 +939,29 @@ export class CartService {
   }): Promise<{
     shippingChargePaise: number;
     estimatedDays: number;
+    /** Shiprocket courier company ID for the cheapest courier — used to lock AWB to the quoted courier. */
+    courierCompanyId?: number;
     availableCouriers?: DeliveryRateResult['availableCouriers'];
   }> {
-    const usingNoop = input.usingNoop ?? this.isNoopMode();
-    const effectiveProvider =
-      input.provider ??
-      (usingNoop ? new NoopShippingAdapter() : (this.shippingProvider as ShippingProviderAdapter));
+    const usingNoop = input.usingNoop ?? !resolveDualShippingRuntime().hasAny;
+    if (!input.provider && !usingNoop) {
+      throw new AppError(ERROR_CODES.INTERNAL_ERROR, 'Shipping provider is required', 503);
+    }
+    const effectiveProvider = input.provider ?? new NoopShippingAdapter();
 
-    const totalWeightGrams = input.cart.items.reduce((sum, item) => {
-      const unitWeight = item.variant.weight ?? 0;
-      if (unitWeight <= 0 && !usingNoop) {
-        throw new AppError(
-          ERROR_CODES.VALIDATION_ERROR,
-          `Missing or invalid variant weight for variant ${item.variant.id}`,
-          422
-        );
-      }
-      return sum + Math.max(unitWeight, 1) * item.quantity;
-    }, 0);
+    // Charge on the courier's chargeable weight (max of dead and volumetric) so the quoted rate
+    // matches what the provider bills at AWB. See computeChargeableWeightGrams.
+    const boxPresets = usingNoop ? [] : await this.loadBoxPresets();
+    const totalWeightGrams = computeChargeableWeightGrams({
+      boxPresets,
+      items: input.cart.items.map((item) => ({
+        quantity: item.quantity,
+        weightGrams: item.variant.weight ?? null,
+        lengthCm: item.variant.packageLengthCm ?? null,
+        widthCm: item.variant.packageWidthCm ?? null,
+        heightCm: item.variant.packageHeightCm ?? null
+      }))
+    });
 
     const rate = await effectiveProvider.calculateDeliveryRate({
       destinationPincode: input.destinationPincode,
@@ -757,6 +978,7 @@ export class CartService {
     return {
       shippingChargePaise,
       estimatedDays: rate.estimatedDays,
+      ...(rate.courierCompanyId != null ? { courierCompanyId: rate.courierCompanyId } : {}),
       ...(rate.availableCouriers ? { availableCouriers: rate.availableCouriers } : {})
     };
   }
@@ -967,6 +1189,7 @@ export class CartService {
           product: {
             categoryId: string;
             name: string;
+            slug?: string | null;
             metaDescription: string | null;
             images: Array<{ url: string; altText: string }>;
           };
@@ -993,6 +1216,7 @@ export class CartService {
         lineTotal: item.priceSnapshot * item.quantity,
         product: {
           name: item.variant.product?.name ?? item.variant.name,
+          slug: item.variant.product?.slug ?? null,
           metaDescription: item.variant.product?.metaDescription ?? null,
           imageUrl: item.variant.product?.images?.[0]?.url ?? null,
           imageAlt: item.variant.product?.images?.[0]?.altText ?? null

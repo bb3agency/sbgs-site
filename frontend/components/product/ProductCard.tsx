@@ -82,7 +82,7 @@ export function ProductCard({
   return (
     <article
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden bg-white shadow-sm ring-1 ring-[#7F1416]/[0.06] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:ring-[#D4A537]/20",
+        "group relative flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-black/[0.08]",
         className,
       )}
     >
@@ -90,7 +90,7 @@ export function ProductCard({
       <div className="relative overflow-hidden">
         <Link
           href={`/products/${product.slug}`}
-          className="relative block aspect-[4/3] overflow-hidden bg-[#fdf8f3]"
+          className="relative block aspect-[4/3] overflow-hidden bg-[#f5f0eb]"
           aria-label={product.name}
         >
           <Image
@@ -108,13 +108,13 @@ export function ProductCard({
         {/* Badges top-left */}
         <div className="absolute left-2.5 top-2.5 flex flex-wrap gap-1 z-10">
           {product.isFeatured ? (
-            <span className="inline-flex items-center gap-0.5 rounded-full bg-[#D4A537] px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-wide text-white shadow-sm">
+            <span className="inline-flex items-center gap-0.5 rounded-full bg-[#d4a537] px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-wide text-white shadow-sm">
               <Sparkles className="size-2.5" aria-hidden />
               Featured
             </span>
           ) : null}
           {hasDiscount && discountPct > 0 ? (
-            <span className="rounded-full bg-[#7F1416] px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-wide text-white shadow-sm">
+            <span className="rounded-full bg-[#7f1416] px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-wide text-white shadow-sm">
               -{discountPct}%
             </span>
           ) : null}
@@ -130,8 +130,8 @@ export function ProductCard({
           <button
             type="button"
             className={cn(
-              "absolute right-2.5 top-2.5 z-10 flex size-8 items-center justify-center rounded-full bg-white/90 text-[#7F1416] shadow-md backdrop-blur-sm transition-all hover:bg-[#7F1416] hover:text-white hover:scale-110",
-              inWishlist && "bg-[#7F1416] text-white",
+              "absolute right-2.5 top-2.5 z-10 flex size-8 items-center justify-center rounded-full bg-white/90 text-[#7f1416] shadow-md backdrop-blur-sm transition-all hover:bg-[#d4a537] hover:text-white hover:scale-110",
+              inWishlist && "bg-[#d4a537] text-white",
               loading && "opacity-60",
             )}
             aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
@@ -143,7 +143,7 @@ export function ProductCard({
         ) : null}
 
         {/* In-stock accent bar */}
-        <div className={cn("absolute bottom-0 left-0 right-0 h-0.5", product.inStock ? "bg-[#D4A537]" : "bg-[#d1d5db]")} aria-hidden />
+        <div className={cn("absolute bottom-0 left-0 right-0 h-0.5", product.inStock ? "bg-[#d4a537]" : "bg-[#d1d5db]")} aria-hidden />
       </div>
 
       {/* Content */}
@@ -151,14 +151,14 @@ export function ProductCard({
         {product.category.name ? (
           <Link
             href={`/categories/${product.category.slug}`}
-            className="mb-1 block text-[10px] font-bold uppercase tracking-widest text-[#D4A537]/80 transition-colors hover:text-[#D4A537]"
+            className="mb-1 block text-[10px] font-bold uppercase tracking-widest text-[#d4a537]/80 transition-colors hover:text-[#d4a537]"
           >
             {product.category.name}
           </Link>
         ) : null}
 
         <Link href={`/products/${product.slug}`} className="mb-1.5">
-          <h3 className="line-clamp-2 text-sm font-bold leading-snug text-[#7F1416] transition-colors group-hover:text-[#D4A537]">
+          <h3 className="line-clamp-2 text-sm font-bold leading-snug text-[#3a2218] transition-colors group-hover:text-[#d4a537]">
             {product.name}
           </h3>
         </Link>
@@ -178,7 +178,7 @@ export function ProductCard({
             {variantLabels.map((label) => (
               <span
                 key={label}
-                className="rounded-full border border-[#e8ede7] bg-[#faf8f5] px-2 py-0.5 text-[10px] font-semibold text-[#666]"
+                className="rounded-full border border-[#efe8e4] bg-[#faf5ec] px-2 py-0.5 text-[10px] font-semibold text-[#666]"
               >
                 {label}
               </span>
@@ -194,7 +194,7 @@ export function ProductCard({
                 {formatPrice(activeVariant.compareAtPrice)}
               </span>
             ) : null}
-            <span className="text-base font-extrabold text-[#7F1416]">
+            <span className="text-base font-extrabold text-[#7f1416]">
               {formatPrice(activeVariant?.price ?? 0)}
             </span>
           </div>
@@ -202,14 +202,14 @@ export function ProductCard({
           {product.inStock && activeVariant ? (
             <AddToCartButton
               variantId={activeVariant.id}
-              className="btn-premium flex h-9 shrink-0 items-center justify-center gap-1.5 rounded-lg bg-gradient-to-r from-[#7F1416] to-[#6B1D2A] px-3.5 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm transition-all hover:shadow-[0_4px_12px_rgba(107,29,42,0.3)]"
+              className="flex h-9 shrink-0 items-center justify-center gap-1.5 rounded-full bg-[#7f1416] px-3 text-[11px] font-bold text-white shadow-sm transition-all hover:bg-[#d4a537] hover:shadow-md"
               label="Add"
-              icon={<ShoppingCart className="btn-icon-animated size-3.5" />}
+              icon={<ShoppingCart className="size-3.5" />}
             />
           ) : (
             <Link
               href={`/products/${product.slug}`}
-              className="flex h-9 shrink-0 items-center justify-center rounded-lg border-2 border-[#ece3d8] bg-[#fdf8f3] px-3.5 text-[11px] font-bold uppercase tracking-wider text-[#999] transition-all hover:border-[#7F1416] hover:text-[#7F1416]"
+              className="flex h-9 shrink-0 items-center justify-center rounded-full border border-[#efe8e4] bg-[#faf5ec] px-3 text-[11px] font-bold text-[#999] transition-colors hover:border-[#7f1416] hover:text-[#7f1416]"
               aria-label={`View ${product.name}`}
             >
               View

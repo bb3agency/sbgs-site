@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Search, Sparkles, ChevronRight, FolderOpen } from "lucide-react";
+import { Search, Leaf, ChevronRight, FolderOpen } from "lucide-react";
 import { ProductGrid } from "@/components/product/ProductGrid";
 import { StorefrontPagination } from "@/components/product/StorefrontPagination";
 import { SearchInput } from "@/components/shared/SearchInput";
@@ -47,25 +47,25 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const hasResults = products.length > 0 || categories.length > 0;
 
   return (
-    <div className="flex flex-col bg-[#fdf8f3] min-h-screen pb-16">
-      <section className="relative overflow-hidden bg-[#fdf0e8] py-8 md:py-20">
+    <div className="flex flex-col bg-[#faf5ec] min-h-screen pb-16">
+      <section className="relative overflow-hidden bg-[#f5d88e] py-8 md:py-20">
         <div className="mx-auto flex w-full max-w-[1440px] flex-col items-center justify-center px-4 text-center lg:px-8">
-          <h1 className="mb-4 font-heading text-2xl font-bold capitalize text-[#6B1D2A] sm:text-4xl md:text-5xl">
+          <h1 className="mb-4 font-heading text-2xl font-bold capitalize text-[#7f1416] sm:text-4xl md:text-5xl">
             {title}
           </h1>
           <nav
             className="flex items-center gap-2 text-xs font-bold text-[#767676] sm:text-sm"
             aria-label="Breadcrumb"
           >
-            <Link href="/" className="hover:text-[#D4A537] transition-colors">
+            <Link href="/" className="hover:text-[#d4a537] transition-colors">
               Home
             </Link>
             <ChevronRight className="size-3" />
-            <span className="text-[#D4A537]">Search</span>
+            <span className="text-[#d4a537]">Search</span>
           </nav>
         </div>
         <div
-          className="absolute -bottom-16 -right-16 size-64 rounded-full bg-[#D4A537] opacity-20 blur-3xl"
+          className="absolute -bottom-16 -right-16 size-64 rounded-full bg-[#f5d88e] opacity-40 blur-3xl"
           aria-hidden
         />
         <div
@@ -81,23 +81,23 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
         {!q ? (
           <div className="flex flex-col items-center justify-center rounded-[20px] bg-white px-4 py-24 text-center shadow-sm">
-            <div className="mb-6 flex size-20 items-center justify-center rounded-full bg-[#fdf0d5]">
-              <Search className="size-10 text-[#D4A537]" aria-hidden />
+            <div className="mb-6 flex size-20 items-center justify-center rounded-full bg-[#faf5ec]">
+              <Search className="size-10 text-[#d4a537]" aria-hidden />
             </div>
-            <h2 className="mb-2 font-heading text-2xl font-bold text-[#6B1D2A]">
+            <h2 className="mb-2 font-heading text-2xl font-bold text-[#7f1416]">
               Start Searching
             </h2>
             <p className="mb-8 text-sm font-medium text-[#767676] max-w-md">
-              Search by product name, SKU, or category to find handcrafted
-              sweets and savouries.
+              Search by product name, SKU, or category to find farm-fresh
+              chemical free and natural products.
             </p>
           </div>
         ) : !hasResults ? (
           <div className="flex flex-col items-center justify-center rounded-[20px] bg-white px-4 py-24 text-center shadow-sm">
-            <div className="mb-6 flex size-20 items-center justify-center rounded-full bg-[#fdf0d5]">
-              <Sparkles className="size-10 text-[#D4A537]" aria-hidden />
+            <div className="mb-6 flex size-20 items-center justify-center rounded-full bg-[#faf5ec]">
+              <Leaf className="size-10 text-[#d4a537]" aria-hidden />
             </div>
-            <h2 className="mb-2 font-heading text-2xl font-bold text-[#6B1D2A]">
+            <h2 className="mb-2 font-heading text-2xl font-bold text-[#7f1416]">
               No results for &ldquo;{q}&rdquo;
             </h2>
             <p className="mb-8 text-sm font-medium text-[#767676] max-w-md">
@@ -106,7 +106,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             </p>
             <Link
               href="/products"
-              className="inline-flex h-12 items-center justify-center rounded-full bg-[#6B1D2A] px-8 text-sm font-bold text-white transition-transform hover:-translate-y-1 hover:bg-[#D4A537] hover:shadow-lg"
+              className="inline-flex h-12 items-center justify-center rounded-full bg-[#7f1416] px-8 text-sm font-bold text-white transition-transform hover:-translate-y-1 hover:bg-[#d4a537] hover:shadow-lg"
             >
               Browse All Products
             </Link>
@@ -116,7 +116,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             {categories.length > 0 ? (
               <section className="rounded-[20px] bg-white p-4 shadow-sm lg:p-6">
                 <div className="mb-4 flex items-center justify-between gap-3">
-                  <h2 className="font-heading text-lg font-bold text-[#6B1D2A]">
+                  <h2 className="font-heading text-lg font-bold text-[#7f1416]">
                     Categories
                   </h2>
                   <p className="text-sm font-bold text-[#767676]">
@@ -131,7 +131,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                       <Link
                         key={category.id}
                         href={`/categories/${category.slug}`}
-                        className="flex items-center gap-3 rounded-2xl border border-[#efe8e4] p-3 transition-colors hover:border-[#6B1D2A] hover:bg-[#fdf8f3]"
+                        className="flex items-center gap-3 rounded-2xl border border-[#efe8e4] p-3 transition-colors hover:border-[#7f1416] hover:bg-[#faf5ec]"
                       >
                         {image ? (
                           <Image
@@ -142,12 +142,12 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                             className="size-14 shrink-0 rounded-xl object-cover"
                           />
                         ) : (
-                          <div className="flex size-14 shrink-0 items-center justify-center rounded-xl bg-[#fdf0d5]">
-                            <FolderOpen className="size-5 text-[#6B1D2A]" />
+                          <div className="flex size-14 shrink-0 items-center justify-center rounded-xl bg-[#faf5ec]">
+                            <FolderOpen className="size-5 text-[#7f1416]" />
                           </div>
                         )}
                         <div className="min-w-0">
-                          <p className="truncate text-sm font-bold text-[#6B1D2A]">
+                          <p className="truncate text-sm font-bold text-[#7f1416]">
                             {category.name}
                           </p>
                           <p className="text-xs font-medium text-[#767676]">

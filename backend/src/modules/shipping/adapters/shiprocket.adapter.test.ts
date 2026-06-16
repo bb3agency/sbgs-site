@@ -1,13 +1,20 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import ShiprocketAdapter from './shiprocket.adapter';
 
 describe('ShiprocketAdapter', () => {
+  beforeEach(() => {
+    // Suppress debug logging during tests
+    vi.spyOn(console, 'log').mockImplementation(() => {});
+  });
+
   afterEach(() => {
     vi.unstubAllGlobals();
     vi.unstubAllEnvs();
+    vi.restoreAllMocks();
   });
 
   it('authenticates and caches token on first request', async () => {
+    vi.stubEnv('SHIPROCKET_PICKUP_PINCODE', '110001');
     const fetchMock = vi.fn().mockResolvedValueOnce({
       ok: true,
       status: 200,
@@ -392,6 +399,7 @@ describe('ShiprocketAdapter', () => {
   });
 
   it('checks serviceability and returns true when couriers exist', async () => {
+    vi.stubEnv('SHIPROCKET_PICKUP_PINCODE', '110001');
     const fetchMock = vi.fn()
       .mockResolvedValueOnce({
         ok: true,
@@ -470,6 +478,72 @@ describe('ShiprocketAdapter', () => {
     expect(result.availableCouriers).toHaveLength(2);
   });
 
+  it('filters out zero and null rate couriers before picking cheapest', async () => {
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        text: async () => JSON.stringify({ token: 'sr-token-123' })
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        text: async () => JSON.stringify({
+          data: {
+            available_courier_companies: [
+              { courier_company_id: 1, courier_name: 'ZeroRate', rate: 0, estimated_delivery_days: 1 },
+              { courier_company_id: 2, courier_name: 'NullRate', rate: null, estimated_delivery_days: 1 },
+              { courier_company_id: 3, courier_name: 'ValidCourier', rate: 130, estimated_delivery_days: 3 }
+            ]
+          }
+        })
+      });
+    vi.stubGlobal('fetch', fetchMock);
+
+    const adapter = new ShiprocketAdapter({ email: 'test@example.com', password: 'secret' });
+    const result = await adapter.calculateDeliveryRate({
+      destinationPincode: '560001',
+      originPincode: '110001',
+      totalWeightGrams: 500
+    });
+
+    // Must pick ValidCourier (₹130), not ZeroRate or NullRate
+    expect(result.shippingChargePaise).toBe(13000);
+    expect(result.courierName).toBe('ValidCourier');
+    expect(result.availableCouriers).toHaveLength(1); // Only valid courier
+  });
+
+  it('throws PINCODE_NOT_SERVICEABLE when all couriers have zero/null rates', async () => {
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        text: async () => JSON.stringify({ token: 'sr-token-123' })
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        text: async () => JSON.stringify({
+          data: {
+            available_courier_companies: [
+              { courier_company_id: 1, courier_name: 'ZeroOnly', rate: 0, estimated_delivery_days: 1 },
+              { courier_company_id: 2, courier_name: 'NullOnly', rate: null, estimated_delivery_days: 1 }
+            ]
+          }
+        })
+      });
+    vi.stubGlobal('fetch', fetchMock);
+
+    const adapter = new ShiprocketAdapter({ email: 'test@example.com', password: 'secret' });
+    await expect(
+      adapter.calculateDeliveryRate({
+        destinationPincode: '999999',
+        originPincode: '110001',
+        totalWeightGrams: 500
+      })
+    ).rejects.toMatchObject({ code: 'PINCODE_NOT_SERVICEABLE' });
+  });
+
   it('schedules pickup successfully', async () => {
     const fetchMock = vi.fn()
       .mockResolvedValueOnce({
@@ -494,6 +568,70 @@ describe('ShiprocketAdapter', () => {
     expect(result.scheduled).toBe(true);
     expect(result.pickupScheduledDate).toBe('2026-05-06');
     expect(result.pickupTokenNumber).toBe('PKP123');
+    expect(result.alreadyScheduled).toBeUndefined();
+  });
+
+  it('treats "Already in Pickup Queue" (HTTP 400) as a successful, already-scheduled pickup', async () => {
+    // When a warehouse pickup is already arranged, Shiprocket rejects further
+    // pickup requests for the same shipment/warehouse. The shipment is covered,
+    // so the operator must not see a failure when scheduling later same-day orders.
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        text: async () => JSON.stringify({ token: 'sr-token-123' })
+      })
+      .mockResolvedValueOnce({
+        ok: false,
+        status: 400,
+        text: async () => JSON.stringify({ message: 'Already in Pickup Queue.' })
+      });
+    vi.stubGlobal('fetch', fetchMock);
+
+    const adapter = new ShiprocketAdapter({ email: 'test@example.com', password: 'secret' });
+    const result = await adapter.schedulePickup('SHIP202');
+
+    expect(result.scheduled).toBe(true);
+    expect(result.alreadyScheduled).toBe(true);
+  });
+
+  it('treats an existing pickup reported with HTTP 200 + message as already-scheduled', async () => {
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        text: async () => JSON.stringify({ token: 'sr-token-123' })
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        text: async () => JSON.stringify({ status: 0, message: 'Pickup already scheduled' })
+      });
+    vi.stubGlobal('fetch', fetchMock);
+
+    const adapter = new ShiprocketAdapter({ email: 'test@example.com', password: 'secret' });
+    const result = await adapter.schedulePickup('SHIP202');
+
+    expect(result.scheduled).toBe(true);
+    expect(result.alreadyScheduled).toBe(true);
+  });
+
+  it('still surfaces a genuine pickup failure', async () => {
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        text: async () => JSON.stringify({ token: 'sr-token-123' })
+      })
+      .mockResolvedValueOnce({
+        ok: false,
+        status: 422,
+        text: async () => JSON.stringify({ message: 'Invalid shipment id' })
+      });
+    vi.stubGlobal('fetch', fetchMock);
+
+    const adapter = new ShiprocketAdapter({ email: 'test@example.com', password: 'secret' });
+    await expect(adapter.schedulePickup('SHIP202')).rejects.toMatchObject({ statusCode: 422 });
   });
 
   it('generates label and returns URL', async () => {
@@ -544,6 +682,7 @@ describe('ShiprocketAdapter', () => {
       });
     vi.stubGlobal('fetch', fetchMock);
 
+    vi.stubEnv('SHIPROCKET_PICKUP_PINCODE', '110001');
     const adapter = new ShiprocketAdapter({ email: 'test@example.com', password: 'secret' });
     await adapter.checkServiceability('560001');
 
@@ -552,6 +691,7 @@ describe('ShiprocketAdapter', () => {
   });
 
   it('throws when Shiprocket returns invalid JSON on success response', async () => {
+    vi.stubEnv('SHIPROCKET_PICKUP_PINCODE', '110001');
     const fetchMock = vi.fn().mockResolvedValueOnce({
       ok: true,
       status: 200,
@@ -565,7 +705,7 @@ describe('ShiprocketAdapter', () => {
 
     const adapter = new ShiprocketAdapter({ email: 'test@example.com', password: 'secret' });
     await expect(adapter.checkServiceability('560001')).rejects.toMatchObject({
-      statusCode: 502,
+      statusCode: 422,
       message: 'Shiprocket returned invalid JSON'
     });
   });

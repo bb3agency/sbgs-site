@@ -113,7 +113,7 @@ Copy `.env.example` to `.env` and set these **before starting Docker**.
 > **Client repos:** change every value marked `# <-- SET THIS` before first boot. Do not copy template defaults verbatim.
 >
 > **Critical rules before first boot:**
-> - `POSTGRES_DB` and the DB name in `DATABASE_URL` **must match exactly** and use **underscores only** (e.g. `sbgs`) — hyphens in DB names are invalid in PostgreSQL.
+> - `POSTGRES_DB` and the DB name in `DATABASE_URL` **must match exactly** and use **underscores only** (e.g. `SBGS_organics`) — hyphens in DB names are invalid in PostgreSQL.
 > - `REDIS_PASSWORD` must be **non-empty** — blank password causes `ECONNRESET`/`ECONNABORTED` loops in ioredis.
 > - `REDIS_URL` must embed the same password: `redis://:yourpassword@localhost:6379`.
 > - Once containers start, changing `POSTGRES_DB` or `POSTGRES_PASSWORD` requires `docker compose down -v` to wipe the volume before changes take effect.
@@ -127,11 +127,11 @@ CLIENT_ID=sbgs            # <-- SET THIS (slug, no spaces)
 # Decide NOW before first container start — changing later requires wiping volume.
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=yourpassword         # <-- SET THIS
-POSTGRES_DB=sbgs           # <-- SET THIS (underscores only — hyphens are invalid)
+POSTGRES_DB=SBGS_organics           # <-- SET THIS (underscores only — hyphens are invalid)
 POSTGRES_PORT=5432
 # URL-encode special chars in password (@ → %40, # → %23)
 # DB name in URL must exactly match POSTGRES_DB above
-DATABASE_URL=postgresql://postgres:yourpassword@localhost:5432/sbgs  # <-- SET THIS
+DATABASE_URL=postgresql://postgres:yourpassword@localhost:5432/SBGS_organics  # <-- SET THIS
 
 # ── Redis ────────────────────────────────────────────────────────────────
 # NEVER leave REDIS_PASSWORD blank — blank value causes ECONNABORTED/ECONNRESET loops in ioredis
@@ -202,7 +202,7 @@ These startup scripts now fail-closed on Prisma bootstrap and automatically:
 - run `prisma generate`, and
 - apply migrations via `prisma migrate deploy`.
 
-This prevents first-clone worker/server boot failures such as `Database "sbgs" does not exist`.
+This prevents first-clone worker/server boot failures such as `Database "ecom_template" does not exist`.
 
 ### Step 6: Verify Backend is Healthy
 
@@ -222,10 +222,10 @@ If `db` or `redis` shows `disconnected`:
 | Symptom | Quick Fix |
 |---------|-----------|
 | `P1000: Authentication failed` | Update password in container: `docker exec <CLIENT_ID>-postgres psql -U postgres -c "ALTER USER postgres WITH PASSWORD 'YourPassword';"` then update `.env`. |
-| Client repo still points to template DB (`sbgs`) | Set `DATABASE_URL` to a client-specific DB name (for example `sbgs`) before first boot. |
+| Client repo still points to template DB (`ecom_template`) | Set `DATABASE_URL` to a client-specific DB name (for example `SBGS_organics`) before first boot. |
 | `Database "..." does not exist` on `npm run dev:e2e` / workers boot | Re-run `npm run dev:e2e` (or `npm run dev:e2e:workers`) after confirming `.env` `DATABASE_URL`; scripts now auto-create DB + run migrations. |
 | `ECONNRESET` / `ECONNABORTED` Redis loop | `REDIS_PASSWORD` is blank or `REDIS_URL` doesn't embed the password. Set both, then `docker compose down -v && docker compose up -d postgres redis`. Transient `[ioredis] Unhandled error event` spam after password is correct usually means host cannot reach Redis — confirm dev compose publishes `6379:6379` (see `docker-compose.yml`; production overlay removes the port). |
-| `POSTGRES_DB` has hyphens (e.g. `sbgs`) | PostgreSQL forbids hyphens in DB names. Rename to underscores (`sbgs`) in both `POSTGRES_DB` and `DATABASE_URL`, then `docker compose down -v && up -d` |
+| `POSTGRES_DB` has hyphens (e.g. `sbgs`) | PostgreSQL forbids hyphens in DB names. Rename to underscores (`SBGS_organics`) in both `POSTGRES_DB` and `DATABASE_URL`, then `docker compose down -v && up -d` |
 | `POSTGRES_DB` and `DATABASE_URL` DB name don't match | Both must be identical. Mismatch means migrations run against a different DB than the one Postgres initialized. Fix both and `docker compose down -v`. |
 | `DATABASE_URL is not set` in scripts | Scripts auto-load from `.env` now; or set explicitly: `set DATABASE_URL=postgresql://...` |
 | `Variant not found` in flash-sale tests | Run: `node scripts/seed-flash-sale-fixtures.js` |
@@ -338,7 +338,7 @@ Expected result for release sign-off:
 - `prisma validate` confirms schema validity.
 - `test:guardrails` passes `admin-layer-drift-check`, `docs-runtime-drift-check`, and `config-runtime-parity-check`.
 - `stress:flash-sale:api:matrix` does not fail invariant enforcement (including fixture precondition checks).
-- App startup in production-like profiles now **fails fast** if `PAYMENT_PROVIDER=noop`, `SHIPPING_PROVIDER=noop`, provider/auth secrets use placeholder values (`replace_with_*`, `change_me*`, `<...>`), or required webhook allowlists are missing.
+- App startup in production-like profiles now **fails fast** if `PAYMENT_PROVIDER=noop`, no shipping provider credentials are set (Delhivery or Shiprocket), provider/auth secrets use placeholder values (`replace_with_*`, `change_me*`, `<...>`), or required webhook allowlists are missing. `SHIPPING_PROVIDER` env var is ignored — provider detection is credential-based.
 - Release evidence includes completed `docs/BACKEND_GO_LIVE_CHECKLIST.md` (full env + implementation parity) and `docs/FRONTEND_AI_GO_LIVE_CHECKLIST.md`.
 
 `NODE_ENV` profile mapping used by backend startup guards:
@@ -377,7 +377,7 @@ npx prisma migrate dev      # Create and apply migration
 
 ### Common Setup Troubleshooting
 
-1. **Prisma connects to `sbgs` instead of your client DB:**
+1. **Prisma connects to `ecom_template` instead of your client DB:**
    If you ran `docker compose up` before setting `POSTGRES_DB` in your `.env`, Docker created the default template database.
    *Fix:* Update your `.env`, run `docker compose down -v`, then `docker compose up -d postgres redis`.
 
@@ -525,7 +525,7 @@ npm run dev:e2e
 npm run dev:e2e:workers
 ```
 
-> Both scripts (`scripts/dev-up.cmd` and `scripts/dev-up-workers.cmd`) are idempotent and handle: auto-starting `sbgs-postgres`/`sbgs-redis` containers, waiting for Redis health, ensuring Prisma DB exists, running Prisma generate+migrations, killing stale Node processes on port 3000, and setting all noop/E2E env vars. They are the **permanent fix** for recurring local startup errors (`ECONNREFUSED`, `EADDRINUSE`, missing target DB).
+> Both scripts (`scripts/dev-up.cmd` and `scripts/dev-up-workers.cmd`) are idempotent and handle: auto-starting `ecom-postgres`/`ecom-redis` containers, waiting for Redis health, ensuring Prisma DB exists, running Prisma generate+migrations, killing stale Node processes on port 3000, and setting all noop/E2E env vars. They are the **permanent fix** for recurring local startup errors (`ECONNREFUSED`, `EADDRINUSE`, missing target DB).
 
 ### Terminal 3 — Frontend (monorepo)
 
@@ -546,14 +546,14 @@ npm run dev
 **Key notes:**
 - Shipment dispatch is manual-only: payment confirmation does not auto-create shipment jobs.
 - Admin must trigger `POST /api/v1/admin/orders/:id/ship` (or click Ship Order in admin UI) to create shipment/AWB.
-- Shipping webhook token validation is relaxed only in noop/placeholder shipping mode (`SHIPPING_PROVIDER=noop` or placeholder/empty `DELHIVERY_API_KEY`), where any non-empty auth header is accepted for simulation. In production, Shiprocket sends the token via `x-api-key` header (per official docs); the backend also accepts `Authorization: Bearer` as a fallback. Delhivery uses `Authorization: Token`.
+- Shipping webhook token validation is relaxed only when no shipping provider credentials are configured (noop mode — empty `DELHIVERY_API_KEY` and no Shiprocket credentials), where any non-empty auth header is accepted for simulation. In production, Shiprocket sends the token via `x-api-key` header (per official docs); the backend also accepts `Authorization: Bearer` as a fallback. Delhivery uses `Authorization: Token`.
 - Order idempotency keys are timestamp-based — each run creates fresh orders; re-running the full sequence is safe.
 - Without workers: all tests PASS with warnings; Raj's order stays at `PENDING_PAYMENT` so ship step (3.4) returns `409` warning instead of `200`.
 - With workers + restarted server: all steps return `200`; final board shows both orders `DELIVERED`.
 
 See [`docs/postman/E2E-FLOW-TEST-LOG.md`](docs/postman/E2E-FLOW-TEST-LOG.md) for per-step assertion details, environment variable chain, failure-mode table, and complete fix history.
 
-> ⚠️ `PAYMENT_PROVIDER=noop` and `SHIPPING_PROVIDER=noop` must **never** be set in production `.env`.
+> ⚠️ `PAYMENT_PROVIDER=noop` must **never** be set in production `.env`. For shipping, at least one provider's credentials (Delhivery or Shiprocket) must be configured. `SHIPPING_PROVIDER` is not a valid env var.
 
 ---
 
@@ -569,7 +569,7 @@ Categories (see `.env.example` for full details):
 | **Infrastructure** | `DATABASE_URL`, `REDIS_URL`, `STOREFRONT_URL` |
 | **Auth** | `JWT_SECRET`, `JWT_REFRESH_SECRET` (both fail-fast on missing/empty — `resolveRefreshSecret()` in auth service, `requireEnv()` in config) |
 | **Payments** | `PAYMENT_PROVIDER` (`razorpay`/`cod`/`noop`; unrecognised values rejected at startup), `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `RAZORPAY_WEBHOOK_SECRET` (Razorpay keys required only when `PAYMENT_PROVIDER=razorpay`) |
-| **Shipping** | `SHIPPING_PROVIDER` (`delhivery`/`shiprocket`/`noop`; unrecognised values rejected at startup), `DELHIVERY_API_KEY`, `DELHIVERY_WEBHOOK_TOKEN` |
+| **Shipping** | `DELHIVERY_API_KEY`, `DELHIVERY_WEBHOOK_TOKEN`, `SHIPROCKET_EMAIL`, `SHIPROCKET_PASSWORD`, `SHIPROCKET_WEBHOOK_TOKEN` — provider detection is credential-based; both can be active simultaneously (cheapest rate wins at checkout). `SHIPPING_PROVIDER` is ignored. |
 | **Notifications** | `RESEND_API_KEY`, active SMS provider key (`MSG91_AUTH_KEY` when `SMS_PROVIDER=msg91` or `FAST2SMS_API_KEY` when `SMS_PROVIDER=fast2sms`), channel toggles (`NOTIFY_*`). Provider keys are fail-fast at startup when respective channel is enabled; MSG91 input phones are normalized to `91XXXXXXXXXX`. Merchant SMS templates can be stored in `StoreSettings.smsTemplates` (DB-backed) and override defaults at runtime. |
 | **Invoice Storage** | `INVOICE_STORAGE_ROOT` |
 | **Feature Flags** | `FEATURE_COUPONS_ENABLED`, `FEATURE_REVIEWS_ENABLED`, `FEATURE_RESPONSE_ENVELOPE_ENABLED`, etc. |

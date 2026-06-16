@@ -14,7 +14,7 @@ export function Rating({ rating, reviewCount }: RatingProps) {
         {Array.from({ length: 5 }).map((_, idx) => (
           <Star
             key={idx}
-            className={`size-3.5 ${idx < rounded ? "fill-[#ec6e55] text-[#ec6e55]" : "text-[#efe8e4]"}`}
+            className={`size-3.5 ${idx < rounded ? "fill-[#d4a537] text-[#d4a537]" : "text-[#efe8e4]"}`}
             aria-hidden
           />
         ))}

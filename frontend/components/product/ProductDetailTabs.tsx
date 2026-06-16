@@ -12,7 +12,7 @@ interface ProductDetailTabsProps {
   categorySlug: string;
 }
 
-type TabId = "about" | "ingredients" | "shelf_life" | "additional";
+type TabId = "description" | "additional";
 
 export function ProductDetailTabs({
   description,
@@ -20,22 +20,21 @@ export function ProductDetailTabs({
   categoryName,
   categorySlug,
 }: ProductDetailTabsProps) {
-  const [activeTab, setActiveTab] = useState<TabId>("about");
+  const [activeTab, setActiveTab] = useState<TabId>("description");
 
   // Break description into paragraphs
   const paragraphs = description.split(/\n{2,}/).filter(Boolean);
 
-  const tabs: { id: TabId; label: string }[] = [
-    { id: "about", label: "About" },
-    { id: "ingredients", label: "Ingredients" },
-    { id: "shelf_life", label: "Shelf Life" },
-  ];
-
   return (
-    <div className="rounded-xl border border-[#ece3d8] bg-white">
+    <div className="mt-6 rounded-[20px] bg-white shadow-sm sm:mt-8">
       {/* Tab bar */}
-      <div className="flex gap-0 overflow-x-auto border-b border-[#ece3d8] scrollbar-hide">
-        {tabs.map((tab) => (
+      <div className="flex gap-0 overflow-x-auto border-b border-[#f0f0f0] scrollbar-hide">
+        {(
+          [
+            { id: "description" as TabId, label: "Description" },
+            { id: "additional" as TabId, label: "Additional Information" },
+          ] as const
+        ).map((tab) => (
           <button
             key={tab.id}
             type="button"
@@ -43,13 +42,13 @@ export function ProductDetailTabs({
             className={cn(
               "relative shrink-0 px-5 py-4 text-sm font-semibold transition-colors sm:px-8",
               activeTab === tab.id
-                ? "text-[#6B1D2A]"
-                : "text-[#8c7b6b] hover:text-[#3a2218]",
+                ? "text-[#7f1416]"
+                : "text-[#999] hover:text-[#555]",
             )}
           >
             {tab.label}
             {activeTab === tab.id && (
-              <span className="absolute bottom-0 left-5 right-5 h-0.5 rounded-full bg-[#6B1D2A]" />
+              <span className="absolute bottom-0 left-5 right-5 h-0.5 rounded-full bg-[#7f1416]" />
             )}
           </button>
         ))}
@@ -57,7 +56,7 @@ export function ProductDetailTabs({
 
       {/* Tab content */}
       <div className="px-5 py-7 sm:px-8 sm:py-9">
-        {activeTab === "about" && (
+        {activeTab === "description" && (
           <div className="max-w-3xl">
             {paragraphs.length > 1 ? (
               <div className="space-y-4">
@@ -72,9 +71,9 @@ export function ProductDetailTabs({
                         {lines.map((line, j) => (
                           <li
                             key={j}
-                            className="flex items-start gap-2 text-sm leading-relaxed text-[#6b5c50]"
+                            className="flex items-start gap-2 text-sm leading-relaxed text-[#555]"
                           >
-                            <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-[#6B1D2A]" aria-hidden />
+                            <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-[#d4a537]" aria-hidden />
                             {line.replace(/^[-*•]\s*/, "")}
                           </li>
                         ))}
@@ -92,95 +91,89 @@ export function ProductDetailTabs({
                   if (isHeading && rest) {
                     return (
                       <div key={i}>
-                        <h3 className="mb-2 text-sm font-bold text-[#3a2218]">
+                        <h3 className="mb-2 text-sm font-bold text-[#7f1416]">
                           {firstLine.replace(/:$/, "")}
                         </h3>
-                        <p className="text-sm leading-relaxed text-[#6b5c50]">{rest}</p>
+                        <p className="text-sm leading-relaxed text-[#555]">{rest}</p>
                       </div>
                     );
                   }
 
                   return (
-                    <p key={i} className="text-sm leading-relaxed text-[#6b5c50]">
+                    <p key={i} className="text-sm leading-relaxed text-[#555]">
                       {para}
                     </p>
                   );
                 })}
               </div>
             ) : (
-              <p className="text-sm leading-relaxed text-[#6b5c50]">
+              <p className="text-sm leading-relaxed text-[#555]">
                 {description || "No description available."}
               </p>
             )}
+          </div>
+        )}
 
-            {/* Category & tags */}
-            <div className="mt-6 space-y-3 border-t border-[#ece3d8] pt-5">
-              <div className="flex items-center gap-3">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#8c7b6b]">Category</span>
-                <Link
-                  href={`/categories/${categorySlug}`}
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#6B1D2A] hover:underline"
-                >
-                  <Package className="size-3.5" aria-hidden />
-                  {categoryName}
-                </Link>
+        {activeTab === "additional" && (
+          <div className="max-w-2xl">
+            <dl className="divide-y divide-[#f0f0f0]">
+              <div className="flex items-start gap-6 py-3">
+                <dt className="w-36 shrink-0 text-xs font-bold uppercase tracking-wider text-[#999]">
+                  Category
+                </dt>
+                <dd>
+                  <Link
+                    href={`/categories/${categorySlug}`}
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#7f1416] hover:text-[#d4a537]"
+                  >
+                    <Package className="size-3.5" aria-hidden />
+                    {categoryName}
+                  </Link>
+                </dd>
               </div>
+
               {tags.length > 0 && (
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#8c7b6b]">Tags</span>
-                  <div className="flex flex-wrap gap-1.5">
+                <div className="flex items-start gap-6 py-3">
+                  <dt className="w-36 shrink-0 text-xs font-bold uppercase tracking-wider text-[#999]">
+                    Tags
+                  </dt>
+                  <dd className="flex flex-wrap gap-1.5">
                     {tags.map((tag) => (
                       <span
                         key={tag}
-                        className="inline-flex items-center gap-1 rounded-full bg-[#f5ebe0] px-2.5 py-0.5 text-xs font-semibold text-[#6B1D2A]"
+                        className="inline-flex items-center gap-1 rounded-full bg-[#faf5ec] px-2.5 py-0.5 text-xs font-semibold text-[#7f1416]"
                       >
                         <Tag className="size-2.5" aria-hidden />
                         {tag}
                       </span>
                     ))}
-                  </div>
+                  </dd>
                 </div>
               )}
-            </div>
-          </div>
-        )}
 
-        {activeTab === "ingredients" && (
-          <div className="max-w-3xl space-y-4">
-            <p className="text-sm leading-relaxed text-[#6b5c50]">
-              Made with premium quality ingredients sourced from trusted suppliers:
-            </p>
-            <ul className="space-y-2 pl-1">
-              {["100% Pure Desi Ghee", "Fresh Milk & Khoya", "Premium Sugar", "Cardamom & Natural Flavors", "Dry Fruits (as applicable)"].map((item) => (
-                <li key={item} className="flex items-center gap-2 text-sm text-[#6b5c50]">
-                  <span className="size-1.5 shrink-0 rounded-full bg-[#6B1D2A]" aria-hidden />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-4 rounded-lg bg-[#f5ebe0] px-4 py-3 text-xs text-[#8c7b6b]">
-              <strong className="text-[#3a2218]">Note:</strong> Contains milk and milk products. May contain traces of nuts.
-            </p>
-          </div>
-        )}
+              <div className="flex items-start gap-6 py-3">
+                <dt className="w-36 shrink-0 text-xs font-bold uppercase tracking-wider text-[#999]">
+                  Origin
+                </dt>
+                <dd className="text-sm text-[#555]">Telangana, India</dd>
+              </div>
 
-        {activeTab === "shelf_life" && (
-          <div className="max-w-3xl space-y-4">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-lg border border-[#ece3d8] p-4">
-                <p className="text-xs font-bold uppercase tracking-wider text-[#8c7b6b]">Shelf Life</p>
-                <p className="mt-1 text-lg font-bold text-[#3a2218]">15–20 Days</p>
-                <p className="mt-1 text-xs text-[#8c7b6b]">When stored properly</p>
+              <div className="flex items-start gap-6 py-3">
+                <dt className="w-36 shrink-0 text-xs font-bold uppercase tracking-wider text-[#999]">
+                  Certification
+                </dt>
+                <dd className="text-sm text-[#555]">Chemical-free, Lab-tested</dd>
               </div>
-              <div className="rounded-lg border border-[#ece3d8] p-4">
-                <p className="text-xs font-bold uppercase tracking-wider text-[#8c7b6b]">Storage</p>
-                <p className="mt-1 text-lg font-bold text-[#3a2218]">Refrigerate</p>
-                <p className="mt-1 text-xs text-[#8c7b6b]">Keep in cool, dry place</p>
+
+              <div className="flex items-start gap-6 py-3">
+                <dt className="w-36 shrink-0 text-xs font-bold uppercase tracking-wider text-[#999]">
+                  Storage
+                </dt>
+                <dd className="text-sm text-[#555]">
+                  Store in a cool, dry place. Refrigerate after opening.
+                </dd>
               </div>
-            </div>
-            <p className="text-sm leading-relaxed text-[#6b5c50]">
-              For best taste, consume within the recommended shelf life. Store in an airtight container away from direct sunlight. Refrigerate after opening to maintain freshness.
-            </p>
+            </dl>
           </div>
         )}
       </div>

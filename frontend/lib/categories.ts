@@ -9,25 +9,25 @@ export interface CategoryWithMeta extends ProductCategory {
 
 const CATEGORY_META_FALLBACKS: Record<string, { image: string; color: string }> = {
   "fresh-vegetables": {
-    image: "/images/sweets/IMG_20260612_180122.jpg",
+    image: "https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=160&h=160&fit=crop",
     color: "bg-[#e8f5e9]",
   },
   "fruits": {
-    image: "/images/sweets/IMG_20260612_173835.jpg",
+    image: "https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=160&h=160&fit=crop",
     color: "bg-[#ffebee]",
   },
   "spices-condiments": {
-    image: "/images/sweets/IMG_20260612_165103.jpg",
+    image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=160&h=160&fit=crop",
     color: "bg-[#fdf2e9]",
   },
   "flash-sale": {
-    image: "/images/sweets/IMG_20260612_214801.jpg",
+    image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=160&h=160&fit=crop",
     color: "bg-[#fff3e0]",
   },
 };
 
 const DEFAULT_META = {
-  image: "/images/sweets/IMG_20260612_182754.jpg",
+  image: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=160&h=160&fit=crop",
   color: "bg-[#f5f5f5]",
 };
 

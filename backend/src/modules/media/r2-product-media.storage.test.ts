@@ -29,7 +29,7 @@ describe('createR2ProductMediaStorage', () => {
       secretAccessKey: 'secret',
       bucketName: 'product-images',
       publicBaseUrl: 'https://cdn.example.com',
-      clientId: 'sbgs'
+      clientId: 'SBGS'
     });
 
     const result = await storage.saveProductImage({
@@ -41,9 +41,9 @@ describe('createR2ProductMediaStorage', () => {
 
     expect(sendMock).toHaveBeenCalledTimes(1);
     expect(result.publicUrl).toBe(
-      'https://cdn.example.com/sbgs/products/prod_1/img_1.jpg'
+      'https://cdn.example.com/SBGS/products/prod_1/img_1.jpg'
     );
-    expect(result.storageReference).toBe('sbgs/products/prod_1/img_1.jpg');
+    expect(result.storageReference).toBe('SBGS/products/prod_1/img_1.jpg');
     expect(storage.isManagedPublicUrl(result.publicUrl)).toBe(true);
   });
 
@@ -54,10 +54,10 @@ describe('createR2ProductMediaStorage', () => {
       secretAccessKey: 'secret',
       bucketName: 'product-images',
       publicBaseUrl: 'https://cdn.example.com',
-      clientId: 'sbgs'
+      clientId: 'SBGS'
     });
 
-    await storage.deleteProductImage('sbgs/products/prod_1/img_1.jpg');
+    await storage.deleteProductImage('SBGS/products/prod_1/img_1.jpg');
     expect(sendMock).toHaveBeenCalledTimes(1);
   });
 });

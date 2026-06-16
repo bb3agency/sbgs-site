@@ -53,13 +53,13 @@ export function StickyAddToCartBar({
     <div
       aria-hidden={!visible}
       className={cn(
-        "fixed bottom-0 left-0 right-0 z-40 border-t border-[#ece3d8] bg-white/95 shadow-[0_-4px_20px_-4px_rgba(107,29,42,0.12)] backdrop-blur-sm transition-transform duration-300",
+        "fixed bottom-0 left-0 right-0 z-40 border-t border-[#f5ebe0] bg-white/95 shadow-[0_-4px_20px_-4px_rgba(35,64,61,0.12)] backdrop-blur-sm transition-transform duration-300",
         visible ? "translate-y-0" : "translate-y-full",
       )}
     >
-      <div className="mx-auto flex max-w-[1280px] items-center gap-3 px-4 py-3 sm:gap-5 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-[1440px] items-center gap-3 px-4 py-3 sm:gap-5 sm:px-6 lg:px-8">
         {/* Product thumb */}
-        <div className="relative hidden size-12 shrink-0 overflow-hidden rounded-lg border border-[#ece3d8] bg-[#faf3ef] sm:block">
+        <div className="relative hidden size-12 shrink-0 overflow-hidden rounded-xl border border-[#efe8e4] bg-[#fafafa] sm:block">
           <Image
             src={productImage}
             alt={imageAlt}
@@ -71,13 +71,13 @@ export function StickyAddToCartBar({
 
         {/* Name + price */}
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-bold text-[#3a2218]">{productName}</p>
+          <p className="truncate text-sm font-bold text-[#7f1416]">{productName}</p>
           <div className="mt-0.5 flex items-baseline gap-2">
-            <span className="text-sm font-extrabold text-[#6B1D2A]">
+            <span className="text-sm font-extrabold text-[#d4a537]">
               {formatPrice(price)}
             </span>
             {compareAtPrice && compareAtPrice > price ? (
-              <span className="text-xs text-[#8c7b6b] line-through">
+              <span className="text-xs text-[#aaa] line-through">
                 {formatPrice(compareAtPrice)}
               </span>
             ) : null}
@@ -87,9 +87,9 @@ export function StickyAddToCartBar({
         {/* CTA */}
         <AddToCartButton
           variantId={variantId}
-          className="btn-sticky-cta flex h-11 shrink-0 items-center gap-2.5 rounded-xl bg-gradient-to-r from-[#6B1D2A] via-[#7B2534] to-[#6B1D2A] px-6 text-sm font-bold uppercase tracking-[0.08em] text-white shadow-[0_4px_16px_rgba(107,29,42,0.3)] sm:h-12 sm:px-8"
+          className="flex h-10 shrink-0 items-center gap-2 rounded-full bg-[#7f1416] px-5 text-sm font-bold text-white transition-colors hover:bg-[#d4a537] sm:h-11 sm:px-7"
           label="Add to cart"
-          icon={<ShoppingCart className="btn-icon-animated size-4" />}
+          icon={<ShoppingCart className="size-4" />}
         />
       </div>
     </div>

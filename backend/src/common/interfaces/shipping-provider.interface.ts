@@ -55,7 +55,7 @@ export type TrackShipmentResult = {
     status: string;
     location?: string;
     description: string;
-    occurredAt: string;
+    occurredAt?: string;
   }>;
   providerPayload: Record<string, unknown>;
 };
@@ -96,11 +96,21 @@ export type SchedulePickupResult = {
   scheduled: boolean;
   pickupScheduledDate?: string;
   pickupTokenNumber?: string;
+  /**
+   * True when the provider reports a pickup is already arranged for this
+   * warehouse/shipment (e.g. an earlier open pickup request that will collect
+   * this AWB too). The action succeeded — the shipment is covered — even though
+   * no new pickup slot was created. Pickup is warehouse-level, not per-order.
+   */
+  alreadyScheduled?: boolean;
   providerPayload: Record<string, unknown>;
 };
 
 export type GenerateLabelResult = {
-  labelUrl: string;
+  /** Direct URL to the label PDF (Shiprocket). Mutually exclusive with labelHtml. */
+  labelUrl?: string;
+  /** Self-contained HTML label page (Delhivery). Mutually exclusive with labelUrl. */
+  labelHtml?: string;
   providerPayload: Record<string, unknown>;
 };
 

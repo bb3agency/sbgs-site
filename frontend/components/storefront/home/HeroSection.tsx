@@ -1,98 +1,198 @@
-import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import Link from "next/link";
+import {
+  ArrowRight,
+  Gift,
+  Sparkles,
+  ShieldCheck,
+  Truck,
+  Lock,
+} from "lucide-react";
+
+const HERO_STATS = [
+  {
+    label: "100% Pure Ghee",
+    desc: "No Compromise",
+    icon: ShieldCheck,
+  },
+  {
+    label: "Made Fresh Daily",
+    desc: "Small Batches",
+    icon: Sparkles,
+  },
+  {
+    label: "Secure Payments",
+    desc: "100% Safe",
+    icon: Lock,
+  },
+  {
+    label: "Pan-India Delivery",
+    desc: "Fast & Reliable",
+    icon: Truck,
+  },
+];
+
+const HERO_CHIPS = [
+  { icon: Sparkles, label: "Made fresh daily" },
+  { icon: Gift, label: "Premium gifting" },
+  { icon: ShieldCheck, label: "100% pure ghee" },
+];
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[100vh] overflow-hidden bg-[#F6EDE0]">
-      {/* Background Image — premium sweet gift boxes with slow zoom */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/sweets/IMG_20260612_183232.jpg"
-          alt="Premium gift boxes of traditional Indian sweets"
-          fill
-          priority
-          className="object-cover animate-[heroZoom_20s_ease-in-out_infinite_alternate]"
-          sizes="100vw"
-        />
-        {/* Left-to-right dark gradient overlay for text readability, leaving the right side clear */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
-      </div>
+    <section className="relative overflow-hidden bg-[#faf5ec]">
+      {/* Decorative blurs */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -left-32 top-20 size-[420px] rounded-full bg-[#f5d88e] opacity-50 blur-3xl"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-40 bottom-0 size-[480px] rounded-full bg-[#f5d88e] opacity-60 blur-3xl"
+      />
 
-      {/* Content — editorial layout matching Dadu's style */}
-      <div className="relative z-10 flex min-h-[100vh] items-end pb-32">
-        <div className="mx-auto w-full max-w-[1440px] px-4 py-20 sm:px-6 lg:px-8">
-          <div className="max-w-2xl text-left">
-            {/* Decorative accent */}
-            <div className="mb-6 flex items-center justify-start gap-3">
-              <span className="font-['Montserrat'] text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4A537]">
-                Since 1985 — Nandyal
+      <div className="relative mx-auto w-full max-w-[1440px] px-4 pb-16 pt-10 sm:px-6 sm:pb-20 sm:pt-16 lg:px-8 lg:pb-24 lg:pt-20">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
+          {/* Left: editorial copy */}
+          <div className="lg:col-span-7">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#7f1416]/15 bg-white/70 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-[#7f1416] backdrop-blur-sm">
+              <span className="flex size-2 items-center justify-center">
+                <span className="absolute size-2 animate-ping rounded-full bg-[#d4a537] opacity-70" />
+                <span className="relative size-2 rounded-full bg-[#d4a537]" />
               </span>
-              <div className="h-px w-10 bg-[#D4A537]/60" />
-            </div>
+              Tradition of purity · Promise of quality
+            </span>
 
-            {/* Script heading — Libre Baskerville style */}
-            <p className="font-serif text-xl italic text-[#D4A537] sm:text-2xl lg:text-3xl">
-              Festive Specials
-            </p>
-
-            <h1 className="mt-2 font-heading text-5xl font-bold leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-[5.5rem]">
-              to Timeless{" "}
-              <span className="block font-serif italic font-normal text-[#FAF5EC]/90">
-                Favourites
-              </span>
+            <h1 className="mt-5 font-heading text-4xl font-bold leading-[1.05] tracking-tight text-[#7f1416] sm:text-5xl md:text-6xl lg:text-[68px]">
+              Pure Ghee Goodness,{" "}
+              <span className="relative inline-block">
+                <span className="relative z-10">Made for</span>
+                <svg
+                  aria-hidden
+                  viewBox="0 0 300 14"
+                  preserveAspectRatio="none"
+                  className="absolute inset-x-0 -bottom-1 z-0 h-3 w-full text-[#d4a537]/40"
+                >
+                  <path
+                    d="M2 9 Q150 -3 298 8"
+                    stroke="currentColor"
+                    strokeWidth="6"
+                    fill="none"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>{" "}
+              Celebrations.
             </h1>
 
-            <p className="mt-6 max-w-lg text-sm leading-relaxed text-[#FAF5EC]/80 sm:text-base lg:text-lg font-['Montserrat'] uppercase tracking-widest font-semibold">
-              Premium Handcrafted Ghee Sweets & Traditional Indian Mithai
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-[#8c7b6b] sm:text-lg">
+              Crafted with devotion and made with pure ghee. Traditional sweets and
+              premium gift boxes in fresh small batches every day — perfect for
+              festivals, weddings, and every reason to celebrate.
             </p>
 
-            <div className="mt-10 flex flex-wrap items-center justify-start gap-4">
+            {/* Chips */}
+            <div className="mt-6 flex flex-wrap gap-2">
+              {HERO_CHIPS.map(({ icon: Icon, label }) => (
+                <span
+                  key={label}
+                  className="inline-flex items-center gap-2 rounded-full border border-[#7f1416]/10 bg-white px-3.5 py-1.5 text-xs font-semibold text-[#7f1416]"
+                >
+                  <Icon className="size-3.5 text-[#d4a537]" aria-hidden />
+                  {label}
+                </span>
+              ))}
+            </div>
+
+            {/* CTAs */}
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
-                href="/products"
-                className="group inline-flex h-14 items-center gap-3 bg-[#FAF5EC] px-9 text-sm font-bold uppercase tracking-[0.15em] text-[#7B1C1C] transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-xl hover:shadow-black/10 font-['Montserrat']"
+                href="/products?sort=popularity"
+                className="group inline-flex h-14 items-center justify-center gap-2 rounded-full bg-[#7f1416] px-8 text-sm font-bold text-white shadow-lg shadow-[#7f1416]/20 transition-all hover:-translate-y-0.5 hover:bg-[#651013] hover:shadow-xl"
               >
-                Explore Now
-                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1.5" />
+                Shop Bestsellers
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+              <Link
+                href="/categories"
+                className="group inline-flex h-14 items-center justify-center gap-2 rounded-full border border-[#7f1416]/25 bg-white px-8 text-sm font-bold text-[#7f1416] transition-all hover:-translate-y-0.5 hover:border-[#7f1416] hover:shadow-md"
+              >
+                <Gift className="size-4 text-[#d4a537]" />
+                Explore Gifting
               </Link>
             </div>
 
-            {/* Trust indicators */}
-            <div className="mt-12 flex flex-wrap items-center justify-start gap-6 text-[11px] font-semibold uppercase tracking-[0.12em] text-white/70 font-['Montserrat']">
-              <span className="flex items-center gap-2">
-                <span className="size-1.5 rounded-full bg-[#4CAF50]" />
-                100% Pure Ghee
+            {/* Trust strip */}
+            <div className="mt-10 grid grid-cols-2 gap-3 rounded-2xl border border-[#efe8e4] bg-white/90 p-4 shadow-sm backdrop-blur-md sm:grid-cols-4 sm:gap-2">
+              {HERO_STATS.map((stat) => (
+                <div key={stat.label} className="flex items-center gap-2.5">
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-[#faf5ec] text-[#d4a537]">
+                    <stat.icon className="size-5" strokeWidth={1.6} />
+                  </span>
+                  <div className="flex flex-col leading-tight">
+                    <span className="text-xs font-bold text-[#7f1416]">
+                      {stat.label}
+                    </span>
+                    <span className="text-[10px] text-[#767676]">{stat.desc}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: editorial visual stack */}
+          <div className="relative lg:col-span-5">
+            <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[32px] bg-[#f5d88e] shadow-[0_30px_80px_-30px_rgba(35,64,61,0.4)]">
+              <Image
+                src="/images/sweets/IMG_20260612_163129.jpg"
+                alt="Premium gift box of traditional ghee sweets by Sri Sai Baba Ghee Sweets"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 450px"
+                className="object-cover"
+              />
+              <div
+                aria-hidden
+                className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#7f1416]/60 to-transparent"
+              />
+              <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between gap-3 rounded-2xl border border-white/30 bg-white/90 p-3 backdrop-blur-md">
+                <div className="flex items-center gap-3">
+                  <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#d4a537] text-white">
+                    <Gift className="size-5" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-[#7f1416]">
+                      Festive Gift Boxes
+                    </p>
+                    <p className="text-xs text-[#767676]">
+                      Elegant, gift-ready packaging
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Floating sticker */}
+            <div className="absolute -left-4 top-8 hidden rotate-[-8deg] rounded-2xl border border-[#7f1416]/10 bg-white/95 px-4 py-3 shadow-lg backdrop-blur-sm sm:flex sm:items-center sm:gap-2 md:-left-6">
+              <Sparkles className="size-5 text-[#7f1416]" />
+              <div>
+                <p className="text-xs font-bold text-[#7f1416]">Made fresh daily</p>
+                <p className="text-[10px] text-[#767676]">Small batches · Pure ghee</p>
+              </div>
+            </div>
+
+            {/* Floating trust sticker */}
+            <div className="absolute -right-2 bottom-12 hidden rotate-[6deg] flex-col items-center justify-center rounded-full border-4 border-white bg-[#d4a537] p-4 text-[#7f1416] shadow-xl sm:flex md:-right-4">
+              <span className="font-heading text-xl font-black leading-none">
+                100%
               </span>
-              <span className="hidden items-center gap-2 sm:flex">
-                <span className="size-1.5 rounded-full bg-[#D4A537]" />
-                No Preservatives
-              </span>
-              <span className="hidden items-center gap-2 md:flex">
-                <span className="size-1.5 rounded-full bg-[#D4A537]" />
-                Pan India Delivery
+              <span className="text-[9px] font-bold uppercase tracking-wider">
+                Pure ghee
               </span>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 animate-bounce">
-        <ChevronDown className="size-5 text-white/60" />
-      </div>
-
-      {/* Floating WhatsApp Button */}
-      <a
-        href="https://wa.me/919440445006"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-[60] flex size-14 items-center justify-center rounded-full bg-[#25D366] shadow-lg shadow-[#25D366]/30 transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-[#25D366]/40"
-        aria-label="Chat on WhatsApp"
-      >
-        <svg viewBox="0 0 24 24" className="size-7 fill-white" aria-hidden>
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-        </svg>
-      </a>
     </section>
   );
 }

@@ -99,7 +99,12 @@ export const OPS_CONFIG_OVERVIEW_GROUPS: Array<{
     domain: 'shipping',
     label: 'Shipping',
     items: [
-      { key: 'SHIPPING_PROVIDER', mutableViaOps: true, requiresRestart: true },
+      {
+        key: 'SHIPPING_PROVIDER',
+        mutableViaOps: false,
+        requiresRestart: true,
+        note: 'Not used by the routing logic. Routing is fully auto-detected from credentials: both DELHIVERY_API_KEY and SHIPROCKET_EMAIL/PASSWORD set → dual mode (cheapest rate per order wins); only one set → that provider is used. Set credentials below — do not change this field.'
+      },
       { key: 'SHIPPING_PROVIDER_FAILOVER_ENABLED', mutableViaOps: true, requiresRestart: true },
       { key: 'SHIPPING_CB_FAILURE_THRESHOLD', mutableViaOps: true, requiresRestart: true },
       { key: 'SHIPPING_CB_COOLDOWN_MS', mutableViaOps: true, requiresRestart: true },
@@ -123,7 +128,13 @@ export const OPS_CONFIG_OVERVIEW_GROUPS: Array<{
       { key: 'DELHIVERY_SELLER_CITY', mutableViaOps: true, requiresRestart: true },
       { key: 'DELHIVERY_SELLER_STATE', mutableViaOps: true, requiresRestart: true },
       { key: 'DELHIVERY_SELLER_PHONE', mutableViaOps: true, requiresRestart: true },
-      { key: 'DELHIVERY_WEBHOOK_TOKEN', mutableViaOps: true, requiresRestart: true, runtimeSource: 'db-overlay' },
+      {
+        key: 'DELHIVERY_WEBHOOK_TOKEN',
+        mutableViaOps: true,
+        requiresRestart: true,
+        runtimeSource: 'db-overlay',
+        note: 'Optional. A secret token you create and tell Delhivery to echo in the Authorization header on every webhook push. If not set, all incoming Delhivery webhooks are accepted — use SHIPPING_WEBHOOK_ALLOWLIST_CIDR as the security layer instead. Delhivery does not generate or provide this token; you supply it when registering your webhook endpoint with your account manager.'
+      },
       { key: 'DELHIVERY_WEBHOOK_ALLOWLIST_CIDR', mutableViaOps: true, requiresRestart: true, runtimeSource: 'db-overlay' },
       { key: 'DELHIVERY_WEBHOOK_MAX_SKEW_SECONDS', mutableViaOps: true, requiresRestart: true },
       { key: 'SHIPROCKET_EMAIL', mutableViaOps: true, requiresRestart: true },
@@ -190,20 +201,13 @@ const OPS_CONFIG_KNOWN_KEYS = new Set(
   OPS_CONFIG_OVERVIEW_GROUPS.flatMap((group) => group.items.map((item) => item.key))
 );
 
+// Shipping is intentionally absent from this map. Routing auto-detects from
+// credentials via resolveDualShippingRuntime (SHIPPING_PROVIDER env var is unused).
+// Shipping key requirements are computed directly from credential presence below.
 const OPS_CONFIG_REQUIRED_BY_PROVIDER: Record<string, Record<string, string[]>> = {
   PAYMENT_PROVIDER: {
     razorpay: ['RAZORPAY_KEY_ID', 'RAZORPAY_KEY_SECRET', 'RAZORPAY_WEBHOOK_SECRET'],
     cod: [],
-    noop: []
-  },
-  SHIPPING_PROVIDER: {
-    delhivery: ['DELHIVERY_API_KEY'],
-    shiprocket: [
-      'SHIPROCKET_EMAIL',
-      'SHIPROCKET_PASSWORD',
-      'SHIPROCKET_PICKUP_PINCODE',
-      'SHIPROCKET_PICKUP_LOCATION'
-    ],
     noop: []
   },
   SMS_PROVIDER: {
@@ -230,13 +234,10 @@ const OPS_CONFIG_REQUIRED_BY_PROVIDER: Record<string, Record<string, string[]>> 
   }
 };
 
+// Shipping strict requirements are handled credential-based in computeRequiredOpsConfigKeys.
 const OPS_CONFIG_STRICT_ADDITIONAL_REQUIRED_BY_PROVIDER: Record<string, Record<string, string[]>> = {
   PAYMENT_PROVIDER: {
     razorpay: ['RAZORPAY_WEBHOOK_ALLOWLIST_CIDR']
-  },
-  SHIPPING_PROVIDER: {
-    delhivery: ['DELHIVERY_WEBHOOK_TOKEN', 'SHIPPING_WEBHOOK_ALLOWLIST_CIDR'],
-    shiprocket: ['SHIPROCKET_WEBHOOK_TOKEN', 'SHIPPING_WEBHOOK_ALLOWLIST_CIDR']
   }
 };
 
@@ -262,7 +263,6 @@ function isEnabled(value: string | undefined): boolean {
 
 const OPS_PROVIDER_DEFAULTS: Record<string, string> = {
   PAYMENT_PROVIDER: 'razorpay',
-  SHIPPING_PROVIDER: 'delhivery',
   SMS_PROVIDER: 'msg91'
 };
 
@@ -356,11 +356,12 @@ export function resolveOpsConfigDomainForKey(key: string): OpsConfigDomain | nul
 export function computeRequiredOpsConfigKeys(draftEnv: NodeJS.ProcessEnv, strictProfile: boolean): string[] {
   const required = new Set<string>([
     'PAYMENT_PROVIDER',
-    'SHIPPING_PROVIDER',
+    // SHIPPING_PROVIDER omitted — routing auto-detects from credentials (resolveDualShippingRuntime)
     'SMS_PROVIDER',
     'MEDIA_STORAGE_PROVIDER'
   ]);
 
+  // Payment, SMS, and media storage: selector-based required keys
   for (const [providerKey, providerMap] of Object.entries(OPS_CONFIG_REQUIRED_BY_PROVIDER)) {
     const hasExplicitProvider = (draftEnv[providerKey] ?? '').trim().length > 0;
     if (!hasExplicitProvider) {
@@ -370,6 +371,19 @@ export function computeRequiredOpsConfigKeys(draftEnv: NodeJS.ProcessEnv, strict
     for (const key of providerMap[providerValue] ?? []) {
       required.add(key);
     }
+  }
+
+  // Shipping: credential-presence-based (mirrors resolveDualShippingRuntime detection logic)
+  const hasDelhiveryCreds = Boolean((draftEnv['DELHIVERY_API_KEY'] ?? '').trim());
+  const hasPartialShiprocket =
+    Boolean((draftEnv['SHIPROCKET_EMAIL'] ?? '').trim()) ||
+    Boolean((draftEnv['SHIPROCKET_PASSWORD'] ?? '').trim());
+  if (hasPartialShiprocket) {
+    // If operator has started configuring Shiprocket, require all activation credentials
+    required.add('SHIPROCKET_EMAIL');
+    required.add('SHIPROCKET_PASSWORD');
+    required.add('SHIPROCKET_PICKUP_PINCODE');
+    required.add('SHIPROCKET_PICKUP_LOCATION');
   }
 
   for (const [flagKey, keys] of Object.entries(OPS_CONFIG_REQUIRED_BY_FLAG)) {
@@ -385,6 +399,7 @@ export function computeRequiredOpsConfigKeys(draftEnv: NodeJS.ProcessEnv, strict
       required.add(key);
     }
 
+    // Payment strict requirements (selector-based)
     for (const [providerKey, strictMap] of Object.entries(OPS_CONFIG_STRICT_ADDITIONAL_REQUIRED_BY_PROVIDER)) {
       const hasExplicitProvider = (draftEnv[providerKey] ?? '').trim().length > 0;
       if (!hasExplicitProvider) {
@@ -394,6 +409,16 @@ export function computeRequiredOpsConfigKeys(draftEnv: NodeJS.ProcessEnv, strict
       for (const key of strictMap[providerValue] ?? []) {
         required.add(key);
       }
+    }
+
+    // Shipping strict: webhook requirements per credential-active provider
+    if (hasDelhiveryCreds) {
+      required.add('DELHIVERY_WEBHOOK_TOKEN');
+      required.add('SHIPPING_WEBHOOK_ALLOWLIST_CIDR');
+    }
+    if (hasPartialShiprocket) {
+      required.add('SHIPROCKET_WEBHOOK_TOKEN');
+      required.add('SHIPPING_WEBHOOK_ALLOWLIST_CIDR');
     }
   }
 

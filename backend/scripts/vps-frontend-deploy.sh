@@ -107,16 +107,66 @@ if [ "$SKIP_BUILD" = "true" ]; then
   fi
 else
   cd "$FRONTEND_PATH"
-  echo "Running npm ci…"
-  npm ci --prefer-offline 2>&1
-  echo "Running npm run build…"
-  npm run build 2>&1
-  if [ ! -d "$FRONTEND_PATH/.next" ]; then
-    echo "::error::Build finished but .next/ is missing."
+
+  # Verify no stale config files exist (should only have next.config.ts from git)
+  echo "Verifying config integrity…"
+  if [ -f "next.config.js" ]; then
+    echo "::warning::Found stale next.config.js (not tracked in git). Removing…"
+    rm -f next.config.js
+  fi
+
+  # Clean install (npm ci is safe — it doesn't break concurrent builds)
+  # Do NOT aggressively delete .next or node_modules — let npm/next handle it
+  # Aggressive deletion causes race conditions with Turbopack/build process
+  echo "Running npm ci (clean install)…"
+  if ! npm ci --prefer-offline --no-audit 2>&1; then
+    echo "::error::npm ci failed."
     exit 1
   fi
+
+  # Build with error capture
+  echo "Running npm run build…"
+  BUILD_LOG=$(mktemp)
+  if ! npm run build > "$BUILD_LOG" 2>&1; then
+    echo "::error::npm run build failed. Build output:"
+    cat "$BUILD_LOG"
+    rm -f "$BUILD_LOG"
+
+    # Rollback: restore previous build
+    if [ -d "$FRONTEND_PATH/.next.old" ]; then
+      rm -rf "$FRONTEND_PATH/.next" 2>/dev/null || true
+      mv "$FRONTEND_PATH/.next.old" "$FRONTEND_PATH/.next"
+      echo "::warning::Rolled back to previous .next build due to build failure."
+    fi
+    exit 1
+  fi
+  rm -f "$BUILD_LOG"
+
+  # Verify build artifacts exist and are complete
+  if [ ! -d "$FRONTEND_PATH/.next" ]; then
+    echo "::error::Build finished but .next/ directory is missing."
+    if [ -d "$FRONTEND_PATH/.next.old" ]; then
+      mv "$FRONTEND_PATH/.next.old" "$FRONTEND_PATH/.next"
+      echo "::warning::Rolled back to previous .next build."
+    fi
+    exit 1
+  fi
+
+  if [ ! -f "$FRONTEND_PATH/.next/BUILD_ID" ]; then
+    echo "::error::Build verification failed: .next/BUILD_ID is missing (corrupt build)."
+    rm -rf "$FRONTEND_PATH/.next"
+    if [ -d "$FRONTEND_PATH/.next.old" ]; then
+      mv "$FRONTEND_PATH/.next.old" "$FRONTEND_PATH/.next"
+      echo "::warning::Rolled back to previous .next build due to corrupt new build."
+    fi
+    exit 1
+  fi
+
+  # Clean up old build backup
+  rm -rf "$FRONTEND_PATH/.next.old" 2>/dev/null || true
+
   echo "$COMMIT_SHA" > "$BUILD_SHA_RECORD"
-  echo "Build complete. Recorded build SHA: $COMMIT_SHA"
+  echo "Build complete and verified. Recorded build SHA: $COMMIT_SHA"
 fi
 
 cd "$FRONTEND_PATH"

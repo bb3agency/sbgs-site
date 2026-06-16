@@ -7,6 +7,7 @@ import { getMyOrder, cancelMyOrder, createReturnRequest, downloadCustomerInvoice
 import { getApiErrorMessage } from "@/lib/error-messages";
 import { formatPrice } from "@/lib/format-price";
 import { formatPaymentModeLabel } from "@/lib/format-payment-mode";
+import { shippingProviderLabel } from "@/lib/shipping-provider-labels";
 import { Button } from "@/components/ui/button";
 
 export default function AccountOrderDetailPage() {
@@ -127,10 +128,17 @@ export default function AccountOrderDetailPage() {
         },
         accessToken,
       );
-      alert("Return request submitted successfully. We will review it shortly.");
       setShowReturnForm(false);
+      setReturnReason("");
+      setReturnItems({});
       const result = await getMyOrder(order.id, accessToken);
       setOrder(result);
+      // Re-initialise return item config from refreshed order
+      const refreshed: Record<string, { quantity: number; reason: string; selected: boolean }> = {};
+      result.items?.forEach((item) => {
+        refreshed[item.id] = { quantity: item.quantity, reason: "", selected: false };
+      });
+      setReturnItems(refreshed);
     } catch (err) {
       setError(getApiErrorMessage(err));
     } finally {
@@ -230,7 +238,7 @@ export default function AccountOrderDetailPage() {
           )}
           <p className="flex justify-between border-t border-border pt-2 font-medium">
             <span>Total</span>
-            <span className="text-[#ec6e55]">{formatPrice(order.total)}</span>
+            <span className="text-[#d4a537]">{formatPrice(order.total)}</span>
           </p>
         </div>
       </div>
@@ -278,8 +286,8 @@ export default function AccountOrderDetailPage() {
       )}
 
       {order.status === "DELIVERED" && showReturnForm && (
-        <form onSubmit={handleReturnSubmit} className="grid gap-4 rounded-lg border border-[#ec6e55]/30 bg-[#faf3ef]/20 p-4">
-          <h2 className="font-heading text-lg font-bold text-[#23403d]">Request a Return</h2>
+        <form onSubmit={handleReturnSubmit} className="grid gap-4 rounded-lg border border-[#d4a537]/30 bg-[#faf5ec]/20 p-4">
+          <h2 className="font-heading text-lg font-bold text-[#7f1416]">Request a Return</h2>
           <p className="text-xs text-[#767676] mb-2">Select the items you would like to return and specify the details.</p>
 
           <div className="grid gap-4">
@@ -291,7 +299,7 @@ export default function AccountOrderDetailPage() {
                     <input
                       type="checkbox"
                       id={`check-${item.id}`}
-                      className="mt-1 h-4 w-4 rounded border-gray-300 text-[#ec6e55] focus:ring-[#ec6e55]"
+                      className="mt-1 h-4 w-4 rounded border-gray-300 text-[#d4a537] focus:ring-[#d4a537]"
                       checked={config.selected}
                       onChange={(e) => setReturnItems({
                         ...returnItems,
@@ -373,7 +381,7 @@ export default function AccountOrderDetailPage() {
                 rel="noreferrer"
                 className="text-primary underline"
               >
-                Track on {order.shipment.provider}
+                Track on {shippingProviderLabel(order.shipment?.provider ?? "")}
               </a>
             )}
           </div>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import { Sparkles, SlidersHorizontal, ChevronRight } from "lucide-react";
+import { Leaf, SlidersHorizontal, ChevronRight, Sparkles } from "lucide-react";
 import { ProductGrid } from "@/components/product/ProductGrid";
 import { PlpSortSelect } from "@/components/product/PlpSortSelect";
 import { StorefrontPagination } from "@/components/product/StorefrontPagination";
@@ -20,9 +20,9 @@ interface ProductsPageProps {
 }
 
 export const metadata = {
-  title: "Shop Handcrafted Sweets",
+  title: "Shop Chemical Free & Natural Products",
   description:
-    "Browse our full range of handcrafted desi ghee sweets, traditional mithai, and everyday indulgences.",
+    "Browse our full range of chemical free and natural produce, staples, and everyday essentials.",
 };
 
 const VALID_SORTS = new Set<StorefrontProductSort>([
@@ -60,45 +60,51 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
   const totalProducts = meta?.total ?? products.length;
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#FAF5EC] pb-16">
+    <div className="flex min-h-screen flex-col bg-[#faf5ec] pb-16">
 
       {/* ── Hero Banner ──────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-[#7F1416] py-12 md:py-20">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#7f1416] via-[#7f1416] to-[#651013] py-12 md:py-20">
+        {/* Decorative orbs */}
+        <div className="absolute -top-20 right-20 size-72 rounded-full bg-[#d4a537] opacity-10 blur-3xl" aria-hidden />
+        <div className="absolute -bottom-16 -left-16 size-64 rounded-full bg-[#f5d88e] opacity-15 blur-3xl" aria-hidden />
+        <div className="absolute right-1/3 top-1/4 size-40 rounded-full bg-white opacity-5 blur-2xl" aria-hidden />
+
         <div className="relative mx-auto flex w-full max-w-[1440px] flex-col items-center justify-center px-4 text-center lg:px-8">
           {/* Label chip */}
-          <span className="mb-4 inline-flex items-center gap-1.5 border border-[#D4A537]/30 px-3 py-1 text-xs font-bold uppercase tracking-widest text-[#D4A537] font-['Montserrat']">
-            <Sparkles className="size-3" aria-hidden />
+          <span className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-widest text-[#f5d88e] backdrop-blur-sm">
+            <Leaf className="size-3" aria-hidden />
             100% Natural
           </span>
 
-          <h1 className="mb-3 font-serif text-3xl font-normal capitalize text-[#FAF5EC] sm:mb-4 sm:text-5xl md:text-6xl">
+          <h1 className="mb-3 font-heading text-3xl font-bold capitalize text-white sm:mb-4 sm:text-5xl md:text-6xl">
             {title}
           </h1>
 
           {/* Breadcrumb */}
           <nav
-            className="mb-6 flex items-center gap-1.5 text-xs font-semibold tracking-wider text-[#FAF5EC]/60 sm:gap-2 sm:text-sm font-['Montserrat'] uppercase"
+            className="mb-6 flex items-center gap-1.5 text-xs font-semibold text-white/60 sm:gap-2 sm:text-sm"
             aria-label="Breadcrumb"
           >
-            <Link href="/" className="transition-colors hover:text-[#D4A537]">
+            <Link href="/" className="transition-colors hover:text-[#f5d88e]">
               Home
             </Link>
             <ChevronRight className="size-3" />
-            <span className="text-[#D4A537]">
+            <span className="capitalize text-[#f5d88e]">
               {q ? "Search" : category ? category.replace(/-/g, " ") : "Shop"}
             </span>
           </nav>
 
           {/* Stats strip */}
           {totalProducts > 0 && (
-            <div className="flex items-center gap-6 sm:gap-10 mt-4">
+            <div className="flex items-center gap-6 sm:gap-10">
               {[
                 { value: `${totalProducts}+`, label: "Products" },
-                { value: "100%", label: "Pure Ghee" },
+                { value: "100%", label: "Chemical Free" },
+                { value: "Farm", label: "Direct" },
               ].map(({ value, label }) => (
                 <div key={label} className="text-center">
-                  <p className="font-serif text-xl font-normal text-[#FAF5EC] sm:text-2xl italic">{value}</p>
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-[#FAF5EC]/60 font-['Montserrat']">{label}</p>
+                  <p className="text-xl font-extrabold text-white sm:text-2xl">{value}</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-white/50">{label}</p>
                 </div>
               ))}
             </div>
@@ -108,30 +114,36 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
 
       {/* ── Controls Bar ──────────────────────────────────────────────────── */}
       <section className="mx-auto w-full max-w-[1440px] px-4 pt-6 sm:pt-10 lg:px-8">
-        <div className="mb-6 flex flex-col items-start justify-between gap-3 border border-[#7F1416]/10 bg-white px-4 py-3 sm:mb-8 sm:flex-row sm:items-center sm:gap-4 sm:px-5 sm:py-4">
+        <div className="mb-6 flex flex-col items-start justify-between gap-3 rounded-2xl border border-white/60 bg-white px-4 py-3 shadow-sm sm:mb-8 sm:flex-row sm:items-center sm:gap-4 sm:px-5 sm:py-4">
           {/* Results count */}
           <div className="flex items-center gap-2">
-            <p className="text-sm text-[#7F1416]/70 font-['Montserrat'] uppercase tracking-wider font-semibold">
+            <span className="flex size-7 items-center justify-center rounded-lg bg-[#faf5ec]">
+              <Sparkles className="size-3.5 text-[#d4a537]" aria-hidden />
+            </span>
+            <p className="text-sm font-semibold text-[#555]">
               {products.length > 0 ? (
                 <>
-                  <span className="font-extrabold text-[#7F1416]">{products.length}</span>
-                  {" "}product{products.length !== 1 ? "s" : ""}
+                  <span className="font-extrabold text-[#7f1416]">{products.length}</span>
+                  {" "}product{products.length !== 1 ? "s" : ""} on this page
+                  {totalPages > 1 && (
+                    <span className="text-[#999]"> · page {page} of {totalPages}</span>
+                  )}
                 </>
               ) : (
-                <span className="text-[#7F1416]/50">No products found</span>
+                <span className="text-[#999]">No products found</span>
               )}
             </p>
           </div>
 
           {/* Sort */}
           <div className="flex items-center gap-2.5">
-            <span className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-[#7F1416] font-['Montserrat']">
-              <SlidersHorizontal className="size-3.5 text-[#D4A537]" aria-hidden />
+            <span className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-[#767676]">
+              <SlidersHorizontal className="size-3.5 text-[#d4a537]" aria-hidden />
               Sort
             </span>
             <Suspense
               fallback={
-                <div className="h-9 w-40 animate-pulse bg-[#FAF5EC]" />
+                <div className="h-9 w-40 animate-pulse rounded-full bg-[#f0f0f0]" />
               }
             >
               <PlpSortSelect current={sort} />
@@ -142,11 +154,11 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
         {/* Active filters */}
         {(q || category) && (
           <div className="mb-5 flex flex-wrap items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wide text-[#7F1416]/50 font-['Montserrat']">Active filters:</span>
+            <span className="text-xs font-bold uppercase tracking-wide text-[#999]">Active filters:</span>
             {q && (
               <Link
                 href={`/products?${new URLSearchParams({ sort, category }).toString()}`}
-                className="flex items-center gap-1.5 border border-[#7F1416]/20 bg-white px-3 py-1 text-xs font-semibold text-[#7F1416] transition-colors hover:border-[#D4A537] hover:text-[#D4A537] font-['Montserrat']"
+                className="flex items-center gap-1.5 rounded-full border border-[#efe8e4] bg-white px-3 py-1 text-xs font-semibold text-[#7f1416] transition-colors hover:border-[#d4a537] hover:text-[#d4a537]"
               >
                 Search: {q} ×
               </Link>
@@ -154,14 +166,14 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
             {category && (
               <Link
                 href={`/products?${new URLSearchParams({ sort, q }).toString()}`}
-                className="flex items-center gap-1.5 border border-[#7F1416]/20 bg-white px-3 py-1 text-xs font-semibold text-[#7F1416] transition-colors hover:border-[#D4A537] hover:text-[#D4A537] font-['Montserrat']"
+                className="flex items-center gap-1.5 rounded-full border border-[#efe8e4] bg-white px-3 py-1 text-xs font-semibold text-[#7f1416] transition-colors hover:border-[#d4a537] hover:text-[#d4a537]"
               >
                 {category.replace(/-/g, " ")} ×
               </Link>
             )}
             <Link
               href="/products"
-              className="text-xs font-bold text-[#D4A537] transition-colors hover:underline uppercase font-['Montserrat'] tracking-wide"
+              className="text-xs font-bold text-[#d4a537] transition-colors hover:underline"
             >
               Clear all
             </Link>
@@ -180,18 +192,21 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
             />
           </>
         ) : (
-          <div className="flex flex-col items-center justify-center border border-dashed border-[#D4A537]/50 bg-white px-4 py-28 text-center shadow-sm">
-            <h2 className="mb-3 font-serif text-2xl font-normal text-[#7F1416]">
+          <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-[#f5d88e] bg-white px-4 py-28 text-center shadow-sm">
+            <div className="mb-6 flex size-20 items-center justify-center rounded-full bg-gradient-to-br from-[#faf5ec] to-[#f5d88e]">
+              <Leaf className="size-10 text-[#d4a537]" aria-hidden />
+            </div>
+            <h2 className="mb-3 font-heading text-2xl font-bold text-[#7f1416]">
               {q ? "No products matched your search" : "No active products yet"}
             </h2>
-            <p className="mb-8 max-w-md text-sm font-medium text-[#7F1416]/70 font-['Montserrat']">
+            <p className="mb-8 max-w-md text-sm font-medium text-[#767676]">
               {q
                 ? "Try checking your spelling or use more general terms."
                 : "Add products in the admin console and set their status to Active — they will show up here automatically."}
             </p>
             <Link
               href="/products"
-              className="inline-flex h-12 items-center justify-center bg-[#7F1416] px-8 text-sm font-bold uppercase tracking-widest text-[#FAF5EC] transition-all hover:bg-[#D4A537] font-['Montserrat']"
+              className="inline-flex h-12 items-center justify-center rounded-full bg-[#7f1416] px-8 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-[#d4a537] hover:shadow-lg"
             >
               Browse All Products
             </Link>

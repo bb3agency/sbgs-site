@@ -47,7 +47,7 @@ export function StorefrontSearchDropdown({
           className,
         )}
       >
-        <Loader2 className="size-5 animate-spin text-[#ec6e55]" aria-hidden />
+        <Loader2 className="size-5 animate-spin text-[#d4a537]" aria-hidden />
         <span className="sr-only">Searching catalog</span>
       </div>
     );
@@ -71,7 +71,7 @@ export function StorefrontSearchDropdown({
         <Link
           href={searchHref}
           onClick={onNavigate}
-          className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-[#ec6e55] hover:text-[#23403d]"
+          className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-[#d4a537] hover:text-[#7f1416]"
         >
           View search page <ArrowRight className="size-3.5" />
         </Link>
@@ -97,7 +97,7 @@ export function StorefrontSearchDropdown({
             <Link
               href={searchHref}
               onClick={onNavigate}
-              className="inline-flex items-center gap-0.5 text-[10px] font-bold text-[#ec6e55] hover:text-[#23403d]"
+              className="inline-flex items-center gap-0.5 text-[10px] font-bold text-[#d4a537] hover:text-[#7f1416]"
             >
               View all <ArrowRight className="size-3" />
             </Link>
@@ -110,7 +110,7 @@ export function StorefrontSearchDropdown({
                   <Link
                     href={`/categories/${category.slug}`}
                     onClick={onNavigate}
-                    className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-[#faf3ef]"
+                    className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-[#faf5ec]"
                     role="option"
                   >
                     {image ? (
@@ -122,12 +122,12 @@ export function StorefrontSearchDropdown({
                         className="size-10 shrink-0 rounded-lg object-cover"
                       />
                     ) : (
-                      <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-[#eff5ee]">
-                        <FolderOpen className="size-4 text-[#23403d]" />
+                      <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-[#faf5ec]">
+                        <FolderOpen className="size-4 text-[#7f1416]" />
                       </div>
                     )}
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-bold text-[#23403d]">
+                      <p className="truncate text-sm font-bold text-[#7f1416]">
                         {category.name}
                       </p>
                       <p className="text-xs font-medium text-[#767676]">
@@ -152,7 +152,7 @@ export function StorefrontSearchDropdown({
             <Link
               href={searchHref}
               onClick={onNavigate}
-              className="inline-flex items-center gap-0.5 text-[10px] font-bold text-[#ec6e55] hover:text-[#23403d]"
+              className="inline-flex items-center gap-0.5 text-[10px] font-bold text-[#d4a537] hover:text-[#7f1416]"
             >
               View all <ArrowRight className="size-3" />
             </Link>
@@ -166,7 +166,7 @@ export function StorefrontSearchDropdown({
                   <Link
                     href={`/products/${product.slug}`}
                     onClick={onNavigate}
-                    className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-[#faf3ef]"
+                    className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-[#faf5ec]"
                     role="option"
                   >
                     {image ? (
@@ -178,12 +178,12 @@ export function StorefrontSearchDropdown({
                         className="size-10 shrink-0 rounded-lg object-cover"
                       />
                     ) : (
-                      <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-[#eff5ee]">
-                        <Package className="size-4 text-[#23403d]" />
+                      <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-[#faf5ec]">
+                        <Package className="size-4 text-[#7f1416]" />
                       </div>
                     )}
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-bold text-[#23403d]">
+                      <p className="truncate text-sm font-bold text-[#7f1416]">
                         {product.name}
                       </p>
                       <p className="truncate text-xs font-medium text-[#767676]">
@@ -192,7 +192,7 @@ export function StorefrontSearchDropdown({
                           <>
                             {" "}
                             ·{" "}
-                            <span className="inline text-[#ec6e55]">
+                            <span className="inline text-[#d4a537]">
                               <PriceDisplay pricePaise={price} />
                             </span>
                           </>
@@ -212,7 +212,7 @@ export function StorefrontSearchDropdown({
         <Link
           href={searchHref}
           onClick={onNavigate}
-          className="flex items-center justify-center gap-2 border-t border-[#efe8e4] py-3 text-xs font-bold text-[#ec6e55] transition-colors hover:bg-[#faf3ef] hover:text-[#23403d]"
+          className="flex items-center justify-center gap-2 border-t border-[#efe8e4] py-3 text-xs font-bold text-[#d4a537] transition-colors hover:bg-[#faf5ec] hover:text-[#7f1416]"
         >
           See all {results.productTotal} product results
           <ChevronRight className="size-3.5" />

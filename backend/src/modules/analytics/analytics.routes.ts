@@ -1,5 +1,5 @@
 import { AnalyticsEventType, Role } from '@prisma/client';
-import { FastifyInstance } from 'fastify';
+import { FastifyInstance, FastifyRequest } from 'fastify';
 import { adminPermissionGuard } from '@common/guards/admin-permissions.guard';
 import { jwtAuthGuard } from '@common/guards/jwt-auth.guard';
 import { rolesGuard } from '@common/guards/roles.guard';
@@ -8,6 +8,7 @@ import { routeRateLimitProfiles } from '@common/rate-limit/rate-limit-policies';
 import { loadShedGuard } from '@common/reliability/load-shed.guard';
 import {
   analyticsCategoryBreakdownSchema,
+  analyticsShippingProviderStatsSchema,
   analyticsEventRecordSchema,
   analyticsFunnelSchema,
   analyticsInventoryAlertsSchema,
@@ -37,6 +38,16 @@ export async function registerAnalyticsRoutes(fastify: FastifyInstance): Promise
     '/api/v1/analytics/event',
     {
       schema: analyticsEventRecordSchema,
+      preHandler: [
+        // Optionally extract JWT if present — public route so never throw on missing token
+        async (request: FastifyRequest) => {
+          try {
+            await request.jwtVerify();
+          } catch {
+            // No valid token — unauthenticated request, continue as guest
+          }
+        }
+      ],
       config: {
         rateLimit: routeRateLimitProfiles.cartOps
       }
@@ -48,10 +59,13 @@ export async function registerAnalyticsRoutes(fastify: FastifyInstance): Promise
         userId?: string;
         payload?: Record<string, unknown>;
       };
+      // If authenticated, use the verified token subject — never trust body userId
+      const authenticatedUserId = (request as { user?: { sub?: string } }).user?.sub;
+      const resolvedUserId = authenticatedUserId ?? (body.userId ?? undefined);
       const result = await service.recordEvent({
         eventType: body.eventType as AnalyticsEventType,
         sessionId: body.sessionId,
-        ...(body.userId ? { userId: body.userId } : {}),
+        ...(resolvedUserId ? { userId: resolvedUserId } : {}),
         ...(body.payload ? { payload: body.payload } : {})
       });
       reply.status(201);
@@ -264,6 +278,18 @@ export async function registerAnalyticsRoutes(fastify: FastifyInstance): Promise
       }
     },
     async (request) => service.getCategoryBreakdown(request.query as never)
+  );
+
+  fastify.get(
+    '/api/v1/admin/analytics/shipping-providers',
+    {
+      schema: analyticsShippingProviderStatsSchema,
+      preHandler: [...adminGuard, adminPermissionGuard('analytics:read')],
+      config: {
+        rateLimit: routeRateLimitProfiles.adminRead
+      }
+    },
+    async (request) => service.getShippingProviderStats(request.query as never)
   );
 }
 

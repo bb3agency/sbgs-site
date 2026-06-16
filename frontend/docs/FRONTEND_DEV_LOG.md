@@ -45,6 +45,80 @@
 
 ---
 
+## Deployment & Build Reliability (2026-06-14)
+
+**Issue:** Build corruption on GitHub Actions deployment (`.next/image-optimizer` missing, causing "Cannot find module" on VPS startup).
+
+**Root cause:** Incomplete npm builds from stale cache, race conditions on parallel npm operations, or mid-build interruptions leaving .next in corrupt state.
+
+**Solution implemented:**
+- `scripts/vps-frontend-deploy.sh` § Build step now:
+  - ✅ Cleans `node_modules/.cache` and `.next` before every build (not just on failure)
+  - ✅ Uses **atomic swap**: moves old `.next` → `.next.old` before building, easy rollback if new build fails
+  - ✅ Validates build output: checks `.next/BUILD_ID` exists (Next.js creates this on success)
+  - ✅ Captures full npm build log on failure for debugging
+  - ✅ Automatic rollback: if build fails, restore previous `.next` and exit (zero downtime)
+- `.github/workflows/deploy.yml` § Pre-deploy checks:
+  - ✅ Verifies Node.js/npm versions available on runner
+  - ✅ Validates VPS paths before running deploy script
+  - ✅ Post-deploy result summary (success/failure with troubleshooting guidance)
+
+**How to prevent in future:**
+1. **Always use `npm ci`** (clean install, not `npm install`) — reproducible builds, no cache drift
+2. **Clean build artifacts** before starting: `rm -rf .next node_modules/.cache`
+3. **Verify build output** — check `.next/BUILD_ID` file exists after build completes
+4. **Use atomic swap** — move old build away before new one, restore on failure
+5. **Capture build logs** — full npm output on failure for debugging
+
+**VPS deployment checklist (before pushing to main):**
+- [ ] Backend health check passes: `curl http://127.0.0.1:3002/api/v1/health`
+- [ ] `INTERNAL_API_BASE_URL=http://127.0.0.1:3002/api/v1` is set in `.env.production.local`
+- [ ] `.next` directory has proper permissions: `ls -la .next/BUILD_ID` succeeds
+- [ ] PM2 process registered: `pm2 describe sbgs-frontend` shows status online
+- [ ] Disk space available: `df -h` shows >5GB free in `/var/www`
+- [ ] No npm processes stuck: `ps aux | grep npm` shows clean output
+
+**Reference:** `scripts/vps-frontend-deploy.sh` (lines 98–160) for full build/verify/rollback logic.
+
+---
+
+## Content Security Policy & Third-Party Integrations (2026-06-14)
+
+**Incident:** Entire frontend appeared broken on production VPS after successful build — Add to Cart buttons unresponsive, admin/ops pages stuck forever, only static pages worked.
+
+**Root cause:** CSP `script-src` directive was missing `'unsafe-inline'`, blocking **all Next.js/Turbopack inline scripts**. React Server Component (RSC) payload is carried to the browser in inline `<script>` tags — without them, React never hydrates → no event handlers, no effects, no API calls.
+
+**Discovery:** Browser DevTools Console showed 18+ CSP violation messages; Network tab showed zero fetch/XHR requests (confirming React didn't hydrate).
+
+**Fix:** Updated `next.config.ts` to allow:
+- `'unsafe-inline'` in `script-src` (required for Next.js RSC hydration)
+- `https://cdn.razorpay.com` in `script-src` (Razorpay risk detection)
+- `https://api.razorpay.com` in `frame-src` (payment iframe)
+- `https://challenges.cloudflare.com` in `script-src` + `frame-src` (Turnstile CAPTCHA)
+- `https://cloudflareinsights.com` in `connect-src` (analytics)
+
+**Documentation:** To prevent future regressions and guide future integrations:
+- **Quick reference:** `docs/CSP_QUICK_REFERENCE.md` — 5-step checklist for adding new services
+- **Full guide:** `docs/CSP_AND_THIRD_PARTY_INTEGRATION_GUIDE.md` — incident analysis, debugging, current services
+- **CLAUDE.md §4.5:** Security rules, CSP configuration, how to add integrations safely
+
+**Testing before go-live:**
+1. Open in incognito mode (fresh cache)
+2. DevTools Console → zero CSP violations
+3. Network tab → all service requests successful
+4. Feature works end-to-end (Add to Cart, checkout, etc.)
+
+**VPS deployment checklist (CSP changes):**
+- [ ] `next.config.ts` updated with new domains
+- [ ] `npm run build` completes successfully
+- [ ] PM2 restart: `pm2 restart sbgs-frontend --update-env`
+- [ ] Production DevTools Console: zero CSP violations
+- [ ] Production Network tab: service requests successful
+
+**Reference:** Commits `de131f2`, `cd67cc6`, `df70777` for CSP fixes; `6e6df3d` for documentation.
+
+---
+
 ## Backend Provider Confirmation (confirm before Tier 3 mutations)
 
 | Provider | Backend `.env` key set? | Dry-run status | Dry-run date |
@@ -150,7 +224,7 @@ NEXT_PUBLIC_IMAGE_CDN_URL=https://cdn.srisaibabasweets.com
 | Slice | Status | Notes |
 |---|---|---|
 | Mutation panels with idempotency keys | [x] | `components/admin/AdminMutationPanel.tsx` |
-| Ship/cancel/refund fulfillment (Shiprocket; COD via webhook) | [x] | `AdminOrderFulfillmentPanel.tsx` — refund via `PATCH .../status` REFUNDED |
+| Ship/cancel/refund fulfillment (dual-provider: Delhivery + Shiprocket; COD via webhook) | [x] | `AdminOrderFulfillmentPanel.tsx` — provider shown dynamically from `Shipment.provider`; refund via `PATCH .../status` REFUNDED |
 | Customer ban/unban + notes CRUD | [x] | `AdminCustomerDetailPanel.tsx` |
 | Inventory bulk + variant delete + review delete | [x] | `AdminMutationPanel` presets on inventory/reviews pages |
 | Coupons lifecycle (feature-flagged) | [x] | `admin/coupons` + mutation presets |
@@ -294,7 +368,7 @@ NEXT_PUBLIC_IMAGE_CDN_URL=https://cdn.srisaibabasweets.com
   - `npx: not found` in deploy path traced to production image intentionally removing npm/npx.
   - `EACCES` on `.prisma/client` traced to runtime container generate step under non-root user.
   - `backend/scripts/vps-deploy.sh` updated: run migrations on host via local Prisma CLI and skip runtime-container Prisma generate.
-- Final backend deploy blocker was expected readiness gate (`/health/ready`) due to missing Ops DB-overlay runtime keys (`PAYMENT_PROVIDER`, `SHIPPING_PROVIDER`, `SMS_PROVIDER`).
+- Final backend deploy blocker was expected readiness gate (`/health/ready`) due to missing Ops DB-overlay runtime keys (`PAYMENT_PROVIDER`, `SMS_PROVIDER`, shipping provider credentials).
   - Resolution path documented in client CD setup doc: complete Ops Config (Phase 8), restart API/workers, verify `runtimeConfigMissingKeys: []`.
 - Ops permissions model update:
   - Backend now enforces both `OPS_READ` + `OPS_WRITE` for every ops user during invite creation, invite consumption, and login session normalization.
@@ -1293,4 +1367,67 @@ Documented in §2026-06-03; still required: sign in on the **network URL** from 
 **Notification Timing:**
 - Customer gets notified immediately when admin clicks "Ship" (not waiting for `IN_TRANSIT` webhook)
 - Additional notification on webhook status changes (IN_TRANSIT, OUT_FOR_DELIVERY, DELIVERED)
+
+---
+
+## 2026-06-14 — Cross-session address loading bug fix + session bootstrap hardening
+
+**Scope:** Fix checkout addresses not loading when a user opens a new tab (Session 2) hours after logging in (Session 1), and fix silent authentication failures when access tokens expire mid-session.
+
+### Root Cause (3 gaps)
+
+**Gap 1 — `useSessionBootstrap` trusted expired tokens.**
+The bootstrap checked `if (accessToken)` (non-null check). An expired token passed this check and the bootstrap returned `"authenticated"` without refreshing. The expired token stayed in Zustand forever. Any API call made with it got a silent 401.
+
+**Gap 2 — `CheckoutForm` showed "Please sign in" during session restore.**
+In a new tab, Zustand starts empty (`accessToken = null`). `useSessionBootstrap` runs asynchronously. Before it completes, `CheckoutForm` saw `accessToken = null` and rendered "Please sign in to place an order" with a link to `/login?redirect=/checkout`. Users clicked the link thinking they needed to re-login, when their session was being restored.
+
+**Gap 3 — Address fetch used the bare `apiClient` (no 401→refresh→retry).**
+`getMyAddresses(accessToken)` calls `apiClient` directly. The `apiClient` does not have 401 interception. When the token expired mid-session, the fetch returned 401 which was silently swallowed by `.catch(() => {})`. Addresses never loaded.
+
+### Files Changed
+
+**`frontend/hooks/use-session-bootstrap.ts`**
+- Imported `isAccessTokenUsable` from `lib/jwt-utils`
+- Changed both the inner `runStorefrontSessionBootstrap()` check and the `useEffect` check from `if (accessToken)` → `if (accessToken && isAccessTokenUsable(accessToken))`
+- Expired tokens now trigger a refresh, not a silent "authenticated" status
+
+**`frontend/components/checkout/CheckoutForm.tsx`**
+- Added `storefrontSessionStatus` subscription from Zustand auth store
+- Added skeleton loading state when `storefrontSessionStatus === "checking"` (renders before the "Please sign in" guard)
+- Added `useAuthenticatedApi()` hook — authenticated client with 401→refresh→retry
+- Replaced `getMyAddresses(accessToken)` with `api<unknown>("/users/me/addresses")` via the authenticated client
+- Address effect now also skips when `storefrontSessionStatus === "checking"` (waits for restore to complete before fetching)
+- Removed `getMyAddresses` import (no longer used)
+
+### Pattern Established
+
+1. **Always use `isAccessTokenUsable()` before trusting a stored token** — non-null alone is not sufficient
+2. **Gate "Please sign in" UI on `storefrontSessionStatus !== "checking"`** — prevents false redirects during restore
+3. **Use `useAuthenticatedApi()` for all client-component authenticated fetches** — auto-retry on 401, transparent refresh
+4. **Canonical reference:** `backend/docs/NEXTJS_FRONTEND_INTEGRATION_GUIDE.md` §10.2
+
+---
+
+## 2026-06-14 — Dual shipping provider + provider analytics
+
+**Scope:** Support both Delhivery and Shiprocket simultaneously. Provider detection is now credential-based (not env-var). `SHIPPING_PROVIDER` env var is dead and ignored. Analytics endpoint added for provider breakdown.
+
+### Backend Changes
+
+- `resolveDualShippingRuntime()` — returns which providers are active based solely on credentials; `SHIPPING_PROVIDER` env var ignored
+- Cart service: `getDeliveryRates()` queries all active providers in parallel, picks cheapest; `selectedShippingProvider` stored on order
+- Ship action: uses `selectedShippingProvider` from order to route to correct adapter; `Shipment.provider` DB field records which provider fulfilled each order
+- `CartService` constructor: removed `createShippingProvider()` call (was returning NoopShippingAdapter in dual mode, silently bypassing real shipping logic); all detection now happens at call time
+- New endpoint: `GET /api/v1/admin/analytics/shipping-providers` — returns shipment count, revenue, delivery rate, and share % per provider (`analytics:read` permission)
+- Removed stale `vi.stubEnv('SHIPPING_PROVIDER', ...)` from all test files
+
+### Frontend Changes
+
+- `lib/shipping-provider-labels.ts` — shared `SHIPPING_PROVIDER_LABELS` map + `shippingProviderLabel()` helper (replaces inline ternary chains throughout)
+- `AdminShipmentsList.tsx` — filter `<option>` values fixed from lowercase (`delhivery`) to uppercase (`DELHIVERY`) enum values; provider column now shows friendly names
+- `AdminOrderFulfillmentPanel.tsx` — provider label uses shared helper; "Shipping provider" InfoChip shows actual provider
+- `AdminAnalyticsPanels.tsx` — new `AdminShippingProviderStatsPanel` with provider breakdown table
+- Storefront order detail — "Track on DELHIVERY" → "Track on Delhivery"
+- `types/admin-order.ts` + `lib/admin-api.ts` — `provider` fields typed as `ShippingProviderEnum` instead of `string`; `shiprocketShipmentId` kept as optional (Shiprocket-specific)
 

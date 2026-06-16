@@ -1,14 +1,6 @@
-import { Inter, Libre_Baskerville, Montserrat, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 
-/** Plus Jakarta Sans — display font used on the locations page. */
-export const plusJakartaSansFont = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-location-display",
-  display: "swap",
-});
-
-/** Site-wide Inter — body, headings, admin, ops, storefront. */
+/** Site-wide Inter — body / UI sans-serif (storefront, admin, ops). */
 export const interFont = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -16,25 +8,13 @@ export const interFont = Inter({
   display: "swap",
 });
 
-/** Libre Baskerville — editorial serif for storefront headings. */
-export const libreBaskervilleFont = Libre_Baskerville({
+/** Elegant serif for storefront headings — heritage, premium feel. */
+export const headingFont = Playfair_Display({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-libre",
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-playfair",
   display: "swap",
 });
 
-/** Montserrat — premium sans-serif for storefront body and CTAs. */
-export const montserratFont = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-montserrat",
-  display: "swap",
-});
-
-/** @deprecated Use `interFont` — kept for imports that expect separate body/heading tokens. */
+/** @deprecated Use `interFont` — kept for imports that expect a body token. */
 export const bodyFont = interFont;
-
-/** @deprecated Use `interFont` — kept for imports that expect separate body/heading tokens. */
-export const headingFont = interFont;

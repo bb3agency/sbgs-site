@@ -18,12 +18,12 @@ export async function ViewersAlsoLikedSection({
   if (items.length === 0) return null;
 
   return (
-    <section className="mt-6 rounded-xl border border-[#ece3d8] bg-[#faf3ef] px-5 py-7 sm:mt-8 sm:px-8 sm:py-9">
-      <div className="mb-6 text-center">
-        <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-[#D4A537]">
+    <section className="mt-6 rounded-[20px] bg-[#faf5ec] px-5 py-7 shadow-sm sm:mt-8 sm:px-8 sm:py-9">
+      <div className="mb-6">
+        <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-[#d4a537]">
           Trending now
         </p>
-        <h2 className="font-serif text-2xl font-bold text-[#6B1D2A] sm:text-3xl">
+        <h2 className="font-heading text-xl font-bold text-[#7f1416] sm:text-2xl">
           Viewers also liked
         </h2>
       </div>

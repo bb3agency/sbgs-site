@@ -26,6 +26,7 @@ type ShippingWorkerDeps = {
   PrismaClient?: typeof RealPrismaClient;
   Worker?: typeof Worker;
   createShippingProvider?: typeof createShippingProvider;
+  createShippingAdapterForProvider?: (providerKey: 'delhivery' | 'shiprocket') => ReturnType<typeof createShippingAdapterForProvider>;
   sendTechnicalFailureAlert?: typeof sendTechnicalFailureAlert;
 };
 
@@ -222,6 +223,7 @@ export function createShippingWorker(
   const PrismaClientCtor = deps?.PrismaClient ?? RealPrismaClient;
   const WorkerCtor = deps?.Worker ?? Worker;
   const shippingProviderFactory = deps?.createShippingProvider ?? createShippingProvider;
+  const shippingAdapterFactory = deps?.createShippingAdapterForProvider ?? createShippingAdapterForProvider;
   const alertFn = deps?.sendTechnicalFailureAlert ?? sendTechnicalFailureAlert;
   const prisma = new PrismaClientCtor();
   const notificationsQueue = notificationsQueueArg ?? new Queue('notifications', { connection });
@@ -364,15 +366,33 @@ export function createShippingWorker(
               ? ShippingProvider.DELHIVERY
               : null;
 
-        const effectiveShippingProvider =
-          resolvedProviderForOrder === ShippingProvider.SHIPROCKET
-            ? (createShippingAdapterForProvider('shiprocket') ?? shippingProvider)
-            : resolvedProviderForOrder === ShippingProvider.DELHIVERY
-              ? (createShippingAdapterForProvider('delhivery') ?? shippingProvider)
-              : shippingProvider;
-
-        if (!effectiveShippingProvider) {
-          throw new Error('Shipping provider is not configured');
+        // Strict rate-lock enforcement: the provider selected at checkout MUST be used for AWB.
+        // Never fall back to a different provider — doing so would ship at a different rate than quoted.
+        let effectiveShippingProvider: typeof shippingProvider;
+        if (resolvedProviderForOrder === ShippingProvider.DELHIVERY) {
+          const adapter = shippingAdapterFactory('delhivery');
+          if (!adapter) {
+            throw new Error(
+              `Order ${order.id} has shipping locked to DELHIVERY at checkout but the Delhivery ` +
+              `adapter is not configured. Verify Delhivery credentials in Ops config and restart the worker.`
+            );
+          }
+          effectiveShippingProvider = adapter;
+        } else if (resolvedProviderForOrder === ShippingProvider.SHIPROCKET) {
+          const adapter = shippingAdapterFactory('shiprocket');
+          if (!adapter) {
+            throw new Error(
+              `Order ${order.id} has shipping locked to SHIPROCKET at checkout but the Shiprocket ` +
+              `adapter is not configured. Verify Shiprocket credentials in Ops config and restart the worker.`
+            );
+          }
+          effectiveShippingProvider = adapter;
+        } else {
+          // No provider locked at checkout (legacy orders or single-provider mode): use global default.
+          if (!shippingProvider) {
+            throw new Error('Shipping provider is not configured');
+          }
+          effectiveShippingProvider = shippingProvider;
         }
 
         const orderPaymentMode = (order as Record<string, unknown>)['paymentMode'] as string | undefined;
@@ -452,9 +472,13 @@ export function createShippingWorker(
         // --- Phase 2: external provider call (no DB connection held) ---
         const shipment = await effectiveShippingProvider.createShipment(shipmentInput);
 
+        // Determine which provider handled this shipment.
+        // Prefer the order-level selection; fall back to shipment response signature
+        // (shiprocketShipmentId present → Shiprocket, absent → Delhivery).
+        // SHIPPING_PROVIDER env var is intentionally NOT used — routing is credential-based.
         const resolvedProvider =
           resolvedProviderForOrder ??
-          ((process.env.SHIPPING_PROVIDER ?? 'delhivery').trim().toLowerCase() === 'shiprocket'
+          (shipment.shiprocketShipmentId != null
             ? ShippingProvider.SHIPROCKET
             : ShippingProvider.DELHIVERY);
 
@@ -560,9 +584,10 @@ export function createShippingWorker(
           }
         });
 
-        if (awbToCancel && shippingProvider) {
+        if (awbToCancel) {
           try {
-            await shippingProvider.cancelShipment(awbToCancel);
+            // Use the same adapter that created the AWB, not the global env-based one.
+            await effectiveShippingProvider.cancelShipment(awbToCancel);
           } catch (error) {
             await alertFn({
               prisma,
@@ -583,11 +608,72 @@ export function createShippingWorker(
 
       if (job.name === 'cancel-shipment') {
         const data = job.data as CancelShipmentJobData;
-        if (!shippingProvider) {
-          return;
+
+        // Look up which provider created this shipment so we cancel with the same one.
+        // In dual-shipping mode the global shippingProvider may be wrong (env-based).
+        // For Shiprocket /orders/cancel we need the Shiprocket ORDER id (stored on
+        // the Order, not the Shipment) — not the shipment id and not the AWB; for
+        // Delhivery we use the AWB.
+        const existingShipment = await prisma.shipment.findFirst({
+          where: { orderId: data.orderId },
+          select: {
+            provider: true,
+            shiprocketShipmentId: true,
+            awbNumber: true,
+            order: {
+              select: { shiprocketOrderId: true }
+            }
+          }
+        });
+
+        if (!existingShipment) {
+          return; // No shipment to cancel.
         }
 
-        await shippingProvider.cancelShipment(data.awbNumber);
+        const cancelAdapterKey: 'delhivery' | 'shiprocket' | null =
+          existingShipment.provider === ShippingProvider.SHIPROCKET
+            ? 'shiprocket'
+            : existingShipment.provider === ShippingProvider.DELHIVERY
+              ? 'delhivery'
+              : null;
+
+        // Strict: cancel MUST use the same adapter that created the AWB — never fall back.
+        let cancelAdapter: typeof shippingProvider;
+        if (cancelAdapterKey === 'delhivery') {
+          const adapter = shippingAdapterFactory('delhivery');
+          if (!adapter) {
+            throw new Error(
+              `Cannot cancel AWB ${data.awbNumber}: shipment belongs to DELHIVERY but the Delhivery adapter is not configured.`
+            );
+          }
+          cancelAdapter = adapter;
+        } else if (cancelAdapterKey === 'shiprocket') {
+          const adapter = shippingAdapterFactory('shiprocket');
+          if (!adapter) {
+            throw new Error(
+              `Cannot cancel shipment ${data.awbNumber}: shipment belongs to SHIPROCKET but the Shiprocket adapter is not configured.`
+            );
+          }
+          cancelAdapter = adapter;
+        } else {
+          // No shipment record found — fall back to global provider.
+          if (!shippingProvider) return;
+          cancelAdapter = shippingProvider;
+        }
+
+        // Shiprocket's /orders/cancel expects the Shiprocket ORDER id — passing the
+        // shipment id or AWB cancels nothing in their dashboard. Prefer the stored
+        // order id, then the shipment id (legacy rows), then the AWB as a last
+        // resort. Delhivery cancels by AWB via /api/p/edit/.
+        const cancelIdentifier =
+          cancelAdapterKey === 'shiprocket'
+            ? (existingShipment.order?.shiprocketOrderId ??
+               existingShipment.shiprocketShipmentId ??
+               data.awbNumber)
+            : data.awbNumber;
+
+        await cancelAdapter.cancelShipment(cancelIdentifier);
+
         await prisma.shipment.updateMany({
           where: {
             orderId: data.orderId,
@@ -633,7 +719,23 @@ export function createShippingWorker(
         for (const shipment of activeShipments) {
           if (!shipment.awbNumber) continue;
           try {
-            const tracking = await shippingProvider.trackShipment(shipment.awbNumber);
+            // In dual-shipping mode, shipments may belong to different providers.
+            // Use the provider recorded on the shipment row, not the global env-based one.
+            const pollAdapterKey: 'delhivery' | 'shiprocket' | null =
+              shipment.provider === ShippingProvider.SHIPROCKET
+                ? 'shiprocket'
+                : shipment.provider === ShippingProvider.DELHIVERY
+                  ? 'delhivery'
+                  : null;
+            // Use the correct adapter for this shipment — never cross-provider.
+            const pollAdapter =
+              pollAdapterKey === 'delhivery'
+                ? shippingAdapterFactory('delhivery')
+                : pollAdapterKey === 'shiprocket'
+                  ? shippingAdapterFactory('shiprocket')
+                  : shippingProvider;
+            if (!pollAdapter) continue;
+            const tracking = await pollAdapter.trackShipment(shipment.awbNumber);
             const nextShipmentStatus = mapShipmentWebhookStatus(tracking.status);
 
             if (!nextShipmentStatus || nextShipmentStatus === shipment.status) continue;
@@ -653,7 +755,7 @@ export function createShippingWorker(
                     status: event.status,
                     description: event.description,
                     location: event.location ?? null,
-                    occurredAt: new Date(event.occurredAt)
+                    occurredAt: event.occurredAt ? new Date(event.occurredAt) : new Date()
                   })),
                   skipDuplicates: true
                 });

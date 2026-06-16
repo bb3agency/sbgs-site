@@ -45,7 +45,6 @@ export const PUBLIC_STATIC_PATHS = [
   "/",
   "/products",
   "/about",
-  "/locations",
   "/terms",
   "/privacy",
   "/returns",

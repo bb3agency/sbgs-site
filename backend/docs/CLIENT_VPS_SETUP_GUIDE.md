@@ -277,7 +277,7 @@ Expected:
    | Group | Keys (representative) | Notes |
    | --- | --- | --- |
    | Payments | `PAYMENT_PROVIDER`, `RAZORPAY_*`, `PAYMENT_CB_*` | `PAYMENT_PROVIDER`: `razorpay` or `cod`; never `noop` in production |
-   | Shipping | `SHIPPING_PROVIDER`, `DELHIVERY_*`, `SHIPROCKET_*`, `SHIPPING_*` | Must be `delhivery` or `shiprocket`; never `noop` in production |
+   | Shipping | `DELHIVERY_*`, `SHIPROCKET_*`, `SHIPPING_*` | Detection is credential-based — set keys for whichever provider(s) you use; both can be active simultaneously (cheapest rate wins). `SHIPPING_PROVIDER` is ignored. At least one provider must be configured for production. |
    | Webhook security | `RAZORPAY_WEBHOOK_ALLOWLIST_CIDR`, `SHIPPING_WEBHOOK_ALLOWLIST_CIDR`, skew windows, webhook tokens | Hard-fail in production-like profiles if missing |
    | Notifications | `NOTIFY_*`, `RESEND_*`, `MSG91_*`, `FAST2SMS_API_KEY`, `META_WHATSAPP_*`, `SMS_PROVIDER` | Provider credentials; per-template channels configured in `StoreSettings` |
    | Invoice storage | `INVOICE_STORAGE_ROOT` | Local filesystem root for invoice PDFs |
@@ -350,7 +350,7 @@ Use **`migrate deploy`** in production (not `migrate dev`). Migration SQL lives 
 > npx prisma migrate resolve --applied 0_init
 > ```
 
-> **Troubleshooting Note:** If Prisma complains about `query_engine_bg.postgresql.wasm-base64.js` missing, the migration still succeeded. Simply run `npx prisma generate`. If `migrate deploy` connects to `sbgs` instead of your client database, ensure `.env` is properly configured, then wipe the Docker volume (`docker compose down -v`) and try again. See **`MASTER_DEPLOYMENT_PLAYBOOK.md` Appendix H** for details.
+> **Troubleshooting Note:** If Prisma complains about `query_engine_bg.postgresql.wasm-base64.js` missing, the migration still succeeded. Simply run `npx prisma generate`. If `migrate deploy` connects to `ecom_template` instead of your client database, ensure `.env` is properly configured, then wipe the Docker volume (`docker compose down -v`) and try again. See **`MASTER_DEPLOYMENT_PLAYBOOK.md` Appendix H** for details.
 
 ---
 
@@ -532,7 +532,8 @@ bash docs/clients/<client-id>/scripts/phase7.5-nginx-tls-preflight.sh
 1. Start from repo **`nginx/client.conf.template`** — it encodes **`TRD.md` §3.5** edge limits:
    - HTTP → HTTPS **301**
    - **TLSv1.2** and **TLSv1.3** only, `ssl_prefer_server_ciphers on`
-   - **Security headers** (added in deep audit May 2026): `Strict-Transport-Security` (HSTS, 2-year max-age + includeSubDomains + preload), `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `X-XSS-Protection: 1; mode=block`, `Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()`
+   - **Security headers** (added in deep audit May 2026, updated June 2026): `Strict-Transport-Security` (HSTS, 2-year max-age + includeSubDomains + preload), `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `X-XSS-Protection: 1; mode=block`, `Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()`
+   - **Note (June 2026):** The Next.js frontend (`frontend/next.config.ts`) also emits its own security headers via the `async headers()` export, including a full Content-Security-Policy and `Cross-Origin-Opener-Policy: same-origin-allow-popups` (required for Razorpay popup flow). The Nginx layer and Next.js layer are complementary — do not remove Nginx headers on the assumption that Next.js covers them. Both must be present in production. When both layers set `X-Frame-Options`, browsers use the most restrictive value.
    - **TLS hardening**: `ssl_ciphers` ECDHE-only AEAD suite, `ssl_session_cache shared:SSL:10m`, `ssl_session_timeout 1d`, `ssl_session_tickets off`, `ssl_stapling on`, `ssl_stapling_verify on`
    - **Rate-limit zones**: copy **`nginx/rate-zones.conf.template`** to `/etc/nginx/snippets/rate-zones.conf` and add `include /etc/nginx/snippets/rate-zones.conf;` inside the `http {}` block of your top-level `nginx.conf`. The template defines `limit_req_zone` for all route classes (auth, checkout, admin, catalog, cart, webhook, health, default). Per-route `limit_req` directives stay in dedicated `location` blocks inside `client.conf.template` — never inside `if` blocks.
    - **`client_max_body_size 20M`**
@@ -596,7 +597,7 @@ Provider lifecycle controls for this stage:
 | Checkout split | PREPAID uses `/payments/initiate` + `/payments/verify`; COD skips Razorpay init path |
 | Webhook boundary | No browser calls to `/payments/webhook` or `/shipping/webhook` |
 | Auth refresh | On first `401`, frontend performs single refresh + retry policy |
-| Production provider posture | Frontend/release docs explicitly forbid `PAYMENT_PROVIDER=noop` and `SHIPPING_PROVIDER=noop` in production |
+| Production provider posture | `PAYMENT_PROVIDER=noop` is forbidden in production. For shipping, at least one provider's credentials must be set (Delhivery and/or Shiprocket). `SHIPPING_PROVIDER` env var is ignored. |
 
 ---
 
@@ -1418,7 +1419,7 @@ Runtime env files are **never written by deploy scripts** — they must be place
 - `deploy.yml` uses `vars.VPS_DEPLOY_ENABLED` / `vars.FRONTEND_DEPLOY_ENABLED` and `secrets.VPS_CLIENT_PATH` / `secrets.VPS_FRONTEND_PATH`; wrong placement silently skips or fails jobs.
 - Self-hosted runner under systemd can have minimal PATH; VPS scripts must prefer project-local CLIs (`node_modules/.bin/*`) over global `npx`.
 - Production backend image intentionally strips `npm`/`npx`; do not run `npx prisma generate` inside runtime containers.
-- Runtime readiness (`/api/v1/health/ready`) is a hard gate. Missing Ops DB-overlay keys (`PAYMENT_PROVIDER`, `SHIPPING_PROVIDER`, `SMS_PROVIDER`, strict tokens/allowlists) correctly fail deploy until Phase 8 config is complete.
+- Runtime readiness (`/api/v1/health/ready`) is a hard gate. Missing Ops DB-overlay keys (`PAYMENT_PROVIDER`, `SMS_PROVIDER`, shipping provider credentials, strict tokens/allowlists) correctly fail deploy until Phase 8 config is complete.
 
 ---
 

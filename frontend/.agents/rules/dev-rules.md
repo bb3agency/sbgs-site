@@ -810,7 +810,7 @@ describe('API Client Integration', () => {
 **Database Reset Between Test Suites:**
 ```bash
 # In CI or local test run
-docker exec sbgs-postgres psql -U postgres -d sbgs -c "
+docker exec ecom-postgres psql -U postgres -d ecom_template -c "
   TRUNCATE TABLE orders, order_items, cart_items, payments CASCADE;
 "
 # Or use Prisma: npx prisma migrate reset --force

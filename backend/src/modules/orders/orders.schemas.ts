@@ -97,6 +97,7 @@ export const adminListReturnRequestsSchema = {
     additionalProperties: false,
     properties: {
       status: { type: 'string', enum: returnRequestStatusEnum, maxLength: 30 },
+      orderId: { type: 'string', maxLength: 36 },
       page: { type: 'integer', minimum: 1, default: 1 },
       limit: { type: 'integer', minimum: 1, maximum: 100, default: 20 }
     }
@@ -480,6 +481,8 @@ const adminOrderDetailSchema = {
     shippingAddress: shippingAddressSnapshotSchema,
     subtotal: { type: 'integer', minimum: 0, maximum: 1000000000 },
     shippingCharge: { type: 'integer', minimum: 0, maximum: 1000000000 },
+    shippingChargeQuotedPaise: { anyOf: [{ type: 'integer', minimum: 0, maximum: 1000000000 }, { type: 'null' }] },
+    selectedShippingProvider: { anyOf: [{ type: 'string', maxLength: 40 }, { type: 'null' }] },
     discountAmount: { type: 'integer', minimum: 0, maximum: 1000000000 },
     couponCode: { anyOf: [{ type: 'string', maxLength: 50 }, { type: 'null' }] },
     total: { type: 'integer', minimum: 0, maximum: 1000000000 },
@@ -801,7 +804,9 @@ export const createOrderSchema = {
       },
       notes: { type: 'string', maxLength: 2000 },
       paymentMode: { type: 'string', enum: ['PREPAID', 'COD'], maxLength: 10 },
-      selectedShippingProvider: { type: 'string', enum: ['DELHIVERY', 'SHIPROCKET'], maxLength: 20 }
+      selectedShippingProvider: { type: 'string', enum: ['DELHIVERY', 'SHIPROCKET'], maxLength: 20 },
+      shippingChargePaise: { type: 'integer', minimum: 0, maximum: 10000000 },
+      courierCompanyId: { type: 'integer', minimum: 1 }
     },
     anyOf: [{ required: ['addressId'] }, { required: ['shippingAddress'] }]
   },
@@ -946,7 +951,9 @@ export const prepareCheckoutSchema = {
         }
       },
       notes: { type: 'string', maxLength: 2000 },
-      selectedShippingProvider: { type: 'string', enum: ['DELHIVERY', 'SHIPROCKET'], maxLength: 20 }
+      selectedShippingProvider: { type: 'string', enum: ['DELHIVERY', 'SHIPROCKET'], maxLength: 20 },
+      shippingChargePaise: { type: 'integer', minimum: 0, maximum: 10000000 },
+      courierCompanyId: { type: 'integer', minimum: 1 }
     },
     anyOf: [{ required: ['addressId'] }, { required: ['shippingAddress'] }]
   },
@@ -1147,6 +1154,7 @@ export const adminSchedulePickupSchema = {
       required: ['scheduled'],
       properties: {
         scheduled: { type: 'boolean' },
+        alreadyScheduled: { type: 'boolean' },
         pickupScheduledDate: { type: 'string', maxLength: 64 },
         pickupTokenNumber: { type: 'string', maxLength: 64 }
       }
@@ -1170,9 +1178,10 @@ export const adminPrintLabelSchema = {
     200: {
       type: 'object',
       additionalProperties: false,
-      required: ['labelUrl'],
+      // Either labelUrl (Shiprocket PDF) or labelHtml (Delhivery rendered HTML) is present.
       properties: {
-        labelUrl: { type: 'string', maxLength: 2048 }
+        labelUrl: { anyOf: [{ type: 'string', maxLength: 2048 }, { type: 'null' }] },
+        labelHtml: { anyOf: [{ type: 'string', maxLength: 524288 }, { type: 'null' }] }
       }
     },
     ...standardAdminErrorResponses
@@ -1487,6 +1496,32 @@ export const adminGetShipmentByIdSchema = {
         labelUrl: { anyOf: [{ type: 'string' }, { type: 'null' }] },
         pickupScheduledDate: { anyOf: [{ type: 'string' }, { type: 'null' }] },
         createdAt: { type: 'string' },
+        updatedAt: { type: 'string' }
+      }
+    },
+    ...standardAdminErrorResponses
+  }
+} as const;
+
+export const adminSyncShipmentStatusSchema = {
+  tags: ['admin', 'shipments'],
+  summary: 'Force-sync shipment status from shipping provider',
+  params: {
+    type: 'object',
+    additionalProperties: false,
+    required: ['id'],
+    properties: { id: { type: 'string', maxLength: 64 } }
+  },
+  response: {
+    200: {
+      type: 'object',
+      additionalProperties: false,
+      required: ['id', 'status', 'updatedAt'],
+      properties: {
+        id: { type: 'string' },
+        status: { type: 'string' },
+        awbNumber: { anyOf: [{ type: 'string' }, { type: 'null' }] },
+        trackingUrl: { anyOf: [{ type: 'string' }, { type: 'null' }] },
         updatedAt: { type: 'string' }
       }
     },

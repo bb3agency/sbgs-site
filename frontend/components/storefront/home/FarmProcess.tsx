@@ -1,4 +1,4 @@
-import { Flame, HandHeart, Package, Truck, type LucideIcon } from "lucide-react";
+import { Sprout, FlaskConical, Package, Truck, type LucideIcon } from "lucide-react";
 
 interface Step {
   icon: LucideIcon;
@@ -9,25 +9,25 @@ interface Step {
 
 const STEPS: Step[] = [
   {
-    icon: Flame,
+    icon: Sprout,
     step: "Step 01",
-    title: "Sourced with care",
+    title: "Grown by partner farmers",
     description:
-      "We use 100% pure desi cow ghee, premium dry fruits, and the finest ingredients — sourced from trusted suppliers across India.",
+      "120+ small farms across Telangana grow with native seeds, cow-based manure, and seasonal rotation. No synthetic anything.",
   },
   {
-    icon: HandHeart,
+    icon: FlaskConical,
     step: "Step 02",
-    title: "Handcrafted by master halwais",
+    title: "Tested in certified labs",
     description:
-      "Each sweet is prepared fresh every morning by our experienced halwais using traditional recipes and time-honoured techniques.",
+      "Every harvest batch is screened for 300+ pesticide residues by NABL-accredited labs. We publish the reports if asked.",
   },
   {
     icon: Package,
     step: "Step 03",
-    title: "Packed for perfection",
+    title: "Hand-packed same day",
     description:
-      "Sweets are carefully packed in food-grade, tamper-proof packaging designed to maintain freshness and presentation.",
+      "Produce is sorted, packed in food-grade boxes, and routed within hours of arriving at our Hyderabad facility.",
   },
 ];
 
@@ -35,10 +35,10 @@ function buildDeliveryStep(isCodEnabled: boolean): Step {
   return {
     icon: Truck,
     step: "Step 04",
-    title: "Delivered to your door",
+    title: "Delivered within 48 hours",
     description: isCodEnabled
-      ? "Secure delivery across major cities. Cash on Delivery available where supported."
-      : "Secure delivery across major cities. Prepaid checkout available everywhere we ship.",
+      ? "Cold-chain logistics across major cities. COD available where supported."
+      : "Cold-chain logistics across major cities. Prepaid checkout available everywhere we ship.",
   };
 }
 
@@ -49,31 +49,30 @@ interface FarmProcessProps {
 export function FarmProcess({ isCodEnabled = false }: FarmProcessProps) {
   const steps = [...STEPS, buildDeliveryStep(isCodEnabled)];
   return (
-    <section className="relative overflow-hidden bg-[#6B1D2A] text-white">
+    <section className="relative overflow-hidden bg-[#7f1416] text-white">
       {/* Decorative pattern */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-32 top-20 size-[420px] rounded-full bg-[#D4A537] opacity-10 blur-3xl"
+        className="pointer-events-none absolute -left-32 top-20 size-[420px] rounded-full bg-[#d4a537] opacity-10 blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-40 bottom-0 size-[480px] rounded-full bg-[#F5D88E] opacity-8 blur-3xl"
+        className="pointer-events-none absolute -right-40 bottom-0 size-[480px] rounded-full bg-[#f5d88e] opacity-10 blur-3xl"
       />
 
       <div className="relative mx-auto w-full max-w-[1440px] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
         <div className="mx-auto mb-12 max-w-3xl text-center lg:mb-16">
           <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
-            <span className="size-1.5 rounded-full bg-[#D4A537]" aria-hidden />
+            <span className="size-1.5 rounded-full bg-[#d4a537]" aria-hidden />
             How it works
           </span>
           <h2 className="mt-4 font-heading text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl lg:text-5xl">
-            From our kitchen to yours <br className="hidden sm:block" />
-            in four simple steps.
+            From the soil to your kitchen <br className="hidden sm:block" />
+            in four traceable steps.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-white/75">
-            We skip the factory line. Every sweet is handcrafted in small
-            batches, packed fresh, and shipped directly to you — with no
-            middlemen diluting the quality.
+            Most groceries pass through five middlemen before reaching you. We
+            cut it down to one — us — and document everything in between.
           </p>
         </div>
 
@@ -88,11 +87,11 @@ export function FarmProcess({ isCodEnabled = false }: FarmProcessProps) {
             {steps.map(({ icon: Icon, step, title, description }) => (
               <div key={step} className="relative">
                 {/* Step number badge */}
-                <div className="relative z-10 mb-6 flex size-14 items-center justify-center rounded-2xl bg-[#D4A537] text-white shadow-lg shadow-[#D4A537]/30">
+                <div className="relative z-10 mb-6 flex size-14 items-center justify-center rounded-2xl bg-[#d4a537] text-white shadow-lg shadow-[#d4a537]/30">
                   <Icon className="size-6" aria-hidden />
                 </div>
 
-                <p className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#F5D88E]">
+                <p className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#f5d88e]">
                   {step}
                 </p>
                 <h3 className="mt-2 font-heading text-xl font-bold leading-tight text-white">

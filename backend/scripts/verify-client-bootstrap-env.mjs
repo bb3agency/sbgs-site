@@ -47,7 +47,7 @@ const jwtSecret = requireKey("JWT_SECRET");
 const jwtRefresh = requireKey("JWT_REFRESH_SECRET");
 const opsKey = requireKey("OPS_DB_ENCRYPTION_KEY");
 
-if (clientId === "ecom" || clientId === "sbgs") {
+if (clientId === "ecom" || clientId === "ecomtemplate") {
   errors.push("CLIENT_ID must be a client slug (e.g. sbgs), not template default");
 }
 
@@ -55,8 +55,8 @@ if (postgresDb.includes("-")) {
   errors.push("POSTGRES_DB must use underscores only (hyphens invalid in PostgreSQL DB names)");
 }
 
-if (/sbgs/i.test(databaseUrl)) {
-  errors.push("DATABASE_URL must not use sbgs in a client workspace");
+if (/ecom_template/i.test(databaseUrl)) {
+  errors.push("DATABASE_URL must not use ecom_template in a client workspace");
 }
 
 if (!databaseUrl.includes(postgresDb)) {
@@ -128,43 +128,41 @@ if (!paymentProviderRaw) {
   );
 }
 
-const shippingProviderRaw = (env.SHIPPING_PROVIDER ?? "").trim().toLowerCase();
-const shippingProvider = shippingProviderRaw || "delhivery";
+// Shipping — provider is auto-detected from credentials (resolveDualShippingRuntime).
+// SHIPPING_PROVIDER env var is not used for routing and should NOT be set in .env.
 const delhiveryEnvKeys = ["DELHIVERY_API_KEY", "DELHIVERY_WEBHOOK_TOKEN"];
 const shiprocketEnvKeys = ["SHIPROCKET_EMAIL", "SHIPROCKET_PASSWORD", "SHIPROCKET_WEBHOOK_TOKEN"];
 const hasDelhiveryEnvKeys = delhiveryEnvKeys.some((key) => (env[key] ?? "").trim());
 const hasShiprocketEnvKeys = shiprocketEnvKeys.some((key) => (env[key] ?? "").trim());
 
-if (!["delhivery", "shiprocket", "noop"].includes(shippingProvider)) {
-  errors.push(`Unsupported SHIPPING_PROVIDER='${shippingProvider}'. Allowed: delhivery, shiprocket, noop.`);
+if ((env.SHIPPING_PROVIDER ?? "").trim()) {
+  warnings.push(
+    "SHIPPING_PROVIDER is set in .env but is ignored — shipping provider auto-detects from credentials. " +
+      "Remove SHIPPING_PROVIDER from .env to avoid confusion."
+  );
 }
 
-if (!shippingProviderRaw) {
+if (!hasDelhiveryEnvKeys && !hasShiprocketEnvKeys) {
   warnings.push(
-    "SHIPPING_PROVIDER is not set — OK for Phase 1. Configure shipping provider + keys via Ops UI before shipping flows."
+    "No shipping credentials found in .env — OK for Phase 1. " +
+      "Configure Delhivery (DELHIVERY_API_KEY) and/or Shiprocket (SHIPROCKET_EMAIL + SHIPROCKET_PASSWORD) " +
+      "via Ops UI before shipping flows. Both can be active simultaneously (dual mode)."
   );
-} else if (shippingProvider === "delhivery" && !hasDelhiveryEnvKeys) {
-  errors.push(
-    "SHIPPING_PROVIDER=delhivery is set in .env but Delhivery keys are not in .env. " +
-      "For VPS Phase 1 bootstrap, remove SHIPPING_PROVIDER from .env and configure via Ops UI after login."
-  );
-} else if (shippingProvider === "shiprocket" && !hasShiprocketEnvKeys) {
-  errors.push(
-    "SHIPPING_PROVIDER=shiprocket is set in .env but Shiprocket keys are not in .env. " +
-      "For VPS Phase 1 bootstrap, remove SHIPPING_PROVIDER from .env and configure via Ops UI after login."
-  );
-} else if (shippingProvider === "delhivery") {
-  for (const key of delhiveryEnvKeys) {
-    requireKey(key);
-    if (/replace_with|change_me/i.test(env[key] ?? "")) {
-      errors.push(`${key} still contains placeholder text`);
+} else {
+  if (hasDelhiveryEnvKeys) {
+    for (const key of delhiveryEnvKeys) {
+      requireKey(key);
+      if (/replace_with|change_me/i.test(env[key] ?? "")) {
+        errors.push(`${key} still contains placeholder text`);
+      }
     }
   }
-} else if (shippingProvider === "shiprocket") {
-  for (const key of shiprocketEnvKeys) {
-    requireKey(key);
-    if (/replace_with|change_me/i.test(env[key] ?? "")) {
-      errors.push(`${key} still contains placeholder text`);
+  if (hasShiprocketEnvKeys) {
+    for (const key of shiprocketEnvKeys) {
+      requireKey(key);
+      if (/replace_with|change_me/i.test(env[key] ?? "")) {
+        errors.push(`${key} still contains placeholder text`);
+      }
     }
   }
 }

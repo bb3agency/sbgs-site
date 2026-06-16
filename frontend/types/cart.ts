@@ -7,6 +7,7 @@ export interface CartLineItem {
   /** Present on API responses; optional for legacy persisted cart snapshots. */
   product?: {
     name: string;
+    slug: string | null;
     metaDescription: string | null;
     imageUrl: string | null;
     imageAlt: string | null;
@@ -48,6 +49,8 @@ export interface DeliveryRates {
   estimatedDays: number;
   /** Backend-selected cheapest provider — passed to order creation. */
   selectedShippingProvider?: "DELHIVERY" | "SHIPROCKET";
+  /** Shiprocket courier company ID for the quoted rate — must be passed back to lock AWB to the same courier. */
+  courierCompanyId?: number;
   availableCouriers?: Array<{
     courierCompanyId: number;
     courierName: string;

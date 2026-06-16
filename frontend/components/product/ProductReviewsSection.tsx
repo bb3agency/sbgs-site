@@ -53,7 +53,7 @@ export function ProductReviewsSection({ productSlug }: ProductReviewsSectionProp
 
   if (error) {
     return (
-      <div className="py-8 text-center text-sm text-[#ec6e55]" role="alert">
+      <div className="py-8 text-center text-sm text-[#d4a537]" role="alert">
         {error}
       </div>
     );
@@ -62,7 +62,7 @@ export function ProductReviewsSection({ productSlug }: ProductReviewsSectionProp
   if (reviews.length === 0) {
     return (
       <section className="mt-16 border-t border-[#efe8e4] pt-12">
-        <h2 className="mb-3 font-heading text-2xl font-bold text-[#23403d]">
+        <h2 className="mb-3 font-heading text-2xl font-bold text-[#7f1416]">
           Customer Reviews
         </h2>
         <p className="text-sm text-[#767676]">
@@ -75,7 +75,7 @@ export function ProductReviewsSection({ productSlug }: ProductReviewsSectionProp
 
   return (
     <section className="mt-16 border-t border-[#efe8e4] pt-12">
-      <h2 className="mb-8 font-heading text-2xl font-bold text-[#23403d]">
+      <h2 className="mb-8 font-heading text-2xl font-bold text-[#7f1416]">
         Customer Reviews
       </h2>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -86,7 +86,7 @@ export function ProductReviewsSection({ productSlug }: ProductReviewsSectionProp
           >
             <div className="mb-4 flex items-center justify-between gap-3">
               <div className="min-w-0">
-                <p className="truncate font-bold text-[#23403d]">
+                <p className="truncate font-bold text-[#7f1416]">
                   {formatReviewerName(review.author)}
                 </p>
                 <p className="text-xs font-medium text-[#767676]">

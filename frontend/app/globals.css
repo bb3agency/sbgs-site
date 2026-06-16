@@ -8,7 +8,7 @@
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-    --font-heading: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    --font-heading: var(--font-playfair), Georgia, "Times New Roman", serif;
     --font-mono:
         ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
         "Liberation Mono", monospace;
@@ -51,50 +51,50 @@
 }
 
 :root {
-    /* Sri Sai Baba Ghee Sweets — Warm Maroon & Gold palette */
-    /* Background: warm ivory #fdf8f3 */
-    --background: oklch(0.978 0.008 75);
-    /* Foreground: near-black #1a1412 */
-    --foreground: oklch(0.145 0.012 50);
-    /* Card: warm cream white */
-    --card: oklch(0.990 0.004 70);
-    --card-foreground: oklch(0.145 0.012 50);
-    --popover: oklch(0.990 0.004 70);
-    --popover-foreground: oklch(0.145 0.012 50);
-    /* Primary: deep maroon #6B1D2A */
-    --primary: oklch(0.335 0.105 18);
-    --primary-foreground: oklch(0.985 0 0);
+    /* Sri Sai Baba Ghee Sweets — heritage maroon & ghee gold palette */
+    /* Background: warm ivory #faf5ec */
+    --background: oklch(0.974 0.014 82);
+    /* Foreground: dark cocoa #3a2218 */
+    --foreground: oklch(0.27 0.04 50);
+    /* Card: near-white warm */
+    --card: oklch(0.99 0.006 82);
+    --card-foreground: oklch(0.27 0.04 50);
+    --popover: oklch(0.99 0.006 82);
+    --popover-foreground: oklch(0.27 0.04 50);
+    /* Primary: deep maroon #7f1416 */
+    --primary: oklch(0.4 0.145 25);
+    --primary-foreground: oklch(0.985 0.01 85);
     /* Secondary: warm light surface */
-    --secondary: oklch(0.955 0.012 65);
-    --secondary-foreground: oklch(0.335 0.105 18);
-    /* Muted: warm beige */
-    --muted: oklch(0.950 0.010 68);
-    --muted-foreground: oklch(0.50 0.010 55);
-    /* Accent: saffron gold #D4A537 */
-    --accent: oklch(0.74 0.135 85);
-    --accent-foreground: oklch(0.145 0.012 50);
+    --secondary: oklch(0.955 0.013 80);
+    --secondary-foreground: oklch(0.4 0.145 25);
+    /* Muted: warm cocoa-gray */
+    --muted: oklch(0.955 0.013 80);
+    --muted-foreground: oklch(0.52 0.025 55);
+    /* Accent: ghee gold #d4a537 */
+    --accent: oklch(0.74 0.115 82);
+    --accent-foreground: oklch(0.27 0.04 50);
     --destructive: oklch(0.577 0.245 27.325);
-    /* Borders: warm sand #ece3d8 */
-    --border: oklch(0.918 0.014 68);
-    --input: oklch(0.918 0.014 68);
-    --ring: oklch(0.335 0.105 18);
+    /* Borders: warm light #efe8e4 */
+    --border: oklch(0.924 0.012 70);
+    --input: oklch(0.924 0.012 70);
+    --ring: oklch(0.4 0.145 25);
     /* Charts */
-    --chart-1: oklch(0.335 0.105 18);
-    --chart-2: oklch(0.74 0.135 85);
-    --chart-3: oklch(0.55 0.08 30);
-    --chart-4: oklch(0.65 0.10 55);
-    --chart-5: oklch(0.85 0.06 70);
+    --chart-1: oklch(0.4 0.145 25);
+    --chart-2: oklch(0.74 0.115 82);
+    --chart-3: oklch(0.55 0.06 150);
+    --chart-4: oklch(0.65 0.1 60);
+    --chart-5: oklch(0.82 0.07 80);
     /* Radius: 10px to match design */
     --radius: 0.625rem;
     /* Sidebar (ops console) */
-    --sidebar: oklch(0.955 0.012 65);
-    --sidebar-foreground: oklch(0.145 0.012 50);
-    --sidebar-primary: oklch(0.335 0.105 18);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.918 0.014 68);
-    --sidebar-accent-foreground: oklch(0.335 0.105 18);
-    --sidebar-border: oklch(0.918 0.014 68);
-    --sidebar-ring: oklch(0.335 0.105 18);
+    --sidebar: oklch(0.955 0.013 80);
+    --sidebar-foreground: oklch(0.27 0.04 50);
+    --sidebar-primary: oklch(0.4 0.145 25);
+    --sidebar-primary-foreground: oklch(0.985 0.01 85);
+    --sidebar-accent: oklch(0.924 0.012 70);
+    --sidebar-accent-foreground: oklch(0.4 0.145 25);
+    --sidebar-border: oklch(0.924 0.012 70);
+    --sidebar-ring: oklch(0.4 0.145 25);
 }
 
 .dark {
@@ -158,208 +158,6 @@
 }
 .scrollbar-hide::-webkit-scrollbar {
     display: none;
-}
-
-/* ── Premium Storefront Animations ──────────────────────────────────────── */
-
-@keyframes heroZoom {
-    0% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(1.08);
-    }
-}
-
-@keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(24px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes shimmer {
-    0% {
-        background-position: -200% 0;
-    }
-    100% {
-        background-position: 200% 0;
-    }
-}
-
-/* ── Premium Button Animations ─────────────────────────────────────────── */
-
-@keyframes btnShimmer {
-    0% {
-        left: -100%;
-    }
-    100% {
-        left: 100%;
-    }
-}
-
-@keyframes btnPulseRing {
-    0% {
-        box-shadow: 0 0 0 0 rgba(107, 29, 42, 0.4);
-    }
-    70% {
-        box-shadow: 0 0 0 10px rgba(107, 29, 42, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(107, 29, 42, 0);
-    }
-}
-
-@keyframes btnIconBounce {
-    0%, 100% {
-        transform: translateX(0);
-    }
-    50% {
-        transform: translateX(3px);
-    }
-}
-
-/* Smooth section entrance on scroll */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-/* ── Premium Button Base Styles ────────────────────────────────────────── */
-
-.btn-premium {
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
-    isolation: isolate;
-}
-
-.btn-premium::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    width: 50%;
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.15) 50%,
-        transparent 100%
-    );
-    transform: skewX(-20deg);
-    left: -100%;
-    pointer-events: none;
-}
-
-.btn-premium:hover::before {
-    animation: btnShimmer 0.75s ease forwards;
-}
-
-.btn-premium:active {
-    transform: scale(0.97);
-    transition: transform 0.1s ease;
-}
-
-/* Outlined variant */
-.btn-premium-outline {
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
-    isolation: isolate;
-}
-
-.btn-premium-outline::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 0;
-    background: #6B1D2A;
-    z-index: -1;
-    transition: height 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-.btn-premium-outline:hover::before {
-    height: 100%;
-}
-
-.btn-premium-outline:hover {
-    color: white !important;
-    border-color: #6B1D2A !important;
-}
-
-.btn-premium-outline:hover svg {
-    color: white;
-}
-
-.btn-premium-outline:active {
-    transform: scale(0.97);
-    transition: transform 0.1s ease;
-}
-
-/* Icon bounce on hover */
-.btn-premium:hover .btn-icon-animated,
-.btn-premium-outline:hover .btn-icon-animated {
-    animation: btnIconBounce 0.4s ease-in-out;
-}
-
-/* Sticky bar button */
-.btn-sticky-cta {
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-.btn-sticky-cta:hover {
-    box-shadow: 0 4px 20px rgba(107, 29, 42, 0.35);
-    transform: translateY(-1px);
-}
-
-.btn-sticky-cta:active {
-    transform: translateY(0) scale(0.97);
-}
-
-/* ── Enhanced Typography ────────────────────────────────────────────────── */
-
-/* Smooth text rendering */
-body {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-}
-
-/* Selection color matching the brand palette */
-::selection {
-    background-color: #7F1416;
-    color: #F5D88E;
-}
-
-/* Serif font for editorial headings */
-.font-serif {
-    font-family: var(--font-libre), 'Georgia', 'Times New Roman', serif;
-}
-
-/* Montserrat for storefront body/CTAs — accessed via font-['Montserrat'] or this utility */
-.font-montserrat {
-    font-family: var(--font-montserrat), 'Montserrat', sans-serif;
-}
-
-/* Focus ring styling */
-:focus-visible {
-    outline: 2px solid #D4A537;
-    outline-offset: 2px;
 }
 
 /* Ops control plane — scoped via .dark.ops-console on the shell root (see OpsConsoleShell) */

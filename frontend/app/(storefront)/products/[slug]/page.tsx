@@ -1,18 +1,20 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
-import { ChevronRight, Leaf, ShieldCheck, Truck, Sparkles } from "lucide-react";
+import { Leaf, ShieldCheck, Truck, RotateCcw, ChevronRight } from "lucide-react";
 import { apiClient } from "@/lib/api";
 import { mapProduct } from "@/lib/product-adapters";
 import { ProductGallery } from "@/components/product/ProductGallery";
+import { Rating } from "@/components/shared/Rating";
 import { ProductVariantSelector } from "@/components/product/ProductVariantSelector";
 import { ProductReviewsSection } from "@/components/product/ProductReviewsSection";
 import { ProductViewTracker } from "@/components/shared/ProductViewTracker";
+import { ProductShareMenu } from "@/components/product/ProductShareMenu";
+import { StickyAddToCartBar } from "@/components/product/StickyAddToCartBar";
 import { ProductDetailTabs } from "@/components/product/ProductDetailTabs";
 import { RelatedProductsSection } from "@/components/product/RelatedProductsSection";
+import { ViewersAlsoLikedSection } from "@/components/product/ViewersAlsoLikedSection";
 import { ProductCardSkeleton } from "@/components/product/ProductCardSkeleton";
-import { PoliciesSection } from "@/components/product/PoliciesSection";
-import { FreeDeliveryMarquee } from "@/components/product/FreeDeliveryMarquee";
 import { getPublicStoreConfig } from "@/lib/storefront-settings";
 import { STOREFRONT_URL } from "@/lib/constants";
 import type { Product } from "@/types/product";
@@ -41,8 +43,8 @@ export async function generateMetadata({ params }: ProductDetailPageProps) {
 
 function RelatedSkeleton() {
   return (
-    <div className="mt-8 px-4 lg:px-0">
-      <div className="mb-6 h-7 w-48 animate-pulse rounded-lg bg-[#f0e8e0]" />
+    <div className="mt-6 rounded-[20px] bg-white px-5 py-7 shadow-sm sm:mt-8 sm:px-8 sm:py-9">
+      <div className="mb-6 h-7 w-48 animate-pulse rounded-lg bg-[#f0f0f0]" />
       <div className="flex gap-4 overflow-hidden">
         {Array.from({ length: 5 }).map((_, i) => (
           <div key={i} className="w-[200px] shrink-0">
@@ -72,121 +74,161 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   const storeConfig = await getPublicStoreConfig();
   const productUrl = `${STOREFRONT_URL}/products/${product.slug}`;
 
+  const firstImage = product.images[0];
+  const imageSrc = firstImage?.url ?? "/images/product-placeholder.svg";
+
+  const hasDiscount =
+    typeof activeVariant?.compareAtPrice === "number" &&
+    activeVariant.compareAtPrice > activeVariant.price;
+
   return (
-    <div className="min-h-screen bg-[#FDF8F3]">
+    <div className="min-h-screen bg-[#faf5ec] pb-24">
       <ProductViewTracker productId={product.id} productName={product.name} />
 
-      {/* ── Breadcrumb ───────────────────────────────────────────────────────── */}
-      <nav
-        className="mx-auto flex max-w-[1280px] flex-wrap items-center gap-1.5 px-4 py-3 text-xs text-[#8c7b6b] sm:px-6 sm:py-4 lg:px-8"
-        aria-label="Breadcrumb"
-      >
-        <Link href="/" className="transition-colors hover:text-[#6B1D2A]">
-          Home
-        </Link>
-        <ChevronRight className="size-3" />
-        <Link href="/products" className="transition-colors hover:text-[#6B1D2A]">
-          Shop
-        </Link>
-        <ChevronRight className="size-3" />
-        <Link
-          href={`/categories/${product.category.slug}`}
-          className="transition-colors hover:text-[#6B1D2A]"
-        >
-          {product.category.name}
-        </Link>
-        <ChevronRight className="size-3" />
-        <span className="font-semibold text-[#6B1D2A]">{product.name}</span>
-      </nav>
+      {/* Sticky bar — appears when CTA scrolls out of view */}
+      {product.inStock && activeVariant ? (
+        <StickyAddToCartBar
+          productName={product.name}
+          productImage={imageSrc}
+          imageAlt={firstImage?.altText ?? product.name}
+          price={activeVariant.price}
+          compareAtPrice={hasDiscount ? (activeVariant.compareAtPrice ?? undefined) : undefined}
+          variantId={activeVariant.id}
+          inStock={product.inStock}
+        />
+      ) : null}
 
-      {/* ── Main product section ─────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-[1280px] px-4 pb-6 sm:px-6 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[55%_45%] lg:gap-12">
+      <div className="mx-auto max-w-[1440px] px-4 py-4 sm:py-8 lg:px-8">
+        {/* Breadcrumb */}
+        <nav
+          className="mb-4 flex flex-wrap items-center gap-1.5 text-xs font-bold text-[#767676] sm:mb-8 sm:gap-2 sm:text-sm"
+          aria-label="Breadcrumb"
+        >
+          <Link href="/" className="transition-colors hover:text-[#d4a537]">
+            Home
+          </Link>
+          <ChevronRight className="size-3" />
+          <Link href="/products" className="transition-colors hover:text-[#d4a537]">
+            Shop
+          </Link>
+          <ChevronRight className="size-3" />
+          <Link
+            href={`/categories/${product.category.slug}`}
+            className="transition-colors hover:text-[#d4a537]"
+          >
+            {product.category.name}
+          </Link>
+          <ChevronRight className="size-3" />
+          <span className="truncate text-[#d4a537]">{product.name}</span>
+        </nav>
+
+        {/* ── Main product grid ─────────────────────────────────────────────── */}
+        <div className="grid gap-6 rounded-[20px] bg-white p-4 shadow-sm sm:gap-10 sm:p-6 lg:grid-cols-[52%_48%] lg:p-12">
           {/* Gallery */}
-          <div className="overflow-hidden rounded-2xl bg-[#f5ebe0]">
+          <div className="rounded-[20px] bg-[#faf5ec] p-4 lg:p-8">
             <ProductGallery images={product.images} productName={product.name} />
           </div>
 
           {/* Info panel */}
-          <div className="flex flex-col gap-0">
-            {/* Product name */}
-            <h1 className="font-serif text-2xl font-bold uppercase leading-tight tracking-wide text-[#6B1D2A] sm:text-3xl lg:text-[2.5rem]">
+          <section className="flex flex-col gap-5">
+            {/* Category */}
+            <Link
+              href={`/categories/${product.category.slug}`}
+              className="w-fit text-[11px] font-extrabold uppercase tracking-widest text-[#d4a537] hover:underline"
+            >
+              {product.category.name}
+            </Link>
+
+            {/* Title */}
+            <h1 className="font-heading text-2xl font-bold leading-tight text-[#7f1416] sm:text-3xl md:text-4xl">
               {product.name}
             </h1>
 
-            {/* Price + Variant + CTA — all handled by the client component */}
-            <ProductVariantSelector product={product} defaultVariant={activeVariant} />
+            {/* Rating */}
+            {storeConfig.reviewsEnabled && (
+              <div className="flex flex-wrap items-center gap-2">
+                <Rating rating={product.rating} reviewCount={product.reviewCount} />
+                <span className="text-sm font-semibold text-[#999]">
+                  ({product.reviewCount} {product.reviewCount === 1 ? "review" : "reviews"})
+                </span>
+              </div>
+            )}
 
-            {/* ── Brand story section ─────────────────────────────── */}
-            <div className="mt-8 rounded-2xl border border-[#ece3d8] bg-[#fdf8f3] p-5 sm:p-7">
-              <h3 className="font-serif text-lg italic text-[#6B1D2A] sm:text-xl">
-                Sri Sai Baba&apos;s Signature
-              </h3>
-              <h2 className="mt-1 font-serif text-xl font-bold text-[#3a2218] sm:text-2xl">
-                {product.name}
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-[#6b5c50]">
-                {product.description || "Handcrafted with 100% pure desi ghee and the finest natural ingredients, following time-honored traditional recipes passed down through generations."}
+            <hr className="border-[#f0f0f0]" />
+
+            {/* Short description — above the price */}
+            {product.description ? (
+              <p className="line-clamp-3 text-sm leading-relaxed text-[#666]">
+                {product.description}
               </p>
+            ) : null}
+
+            {/* Stock indicator + share */}
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2 text-sm font-bold">
+                {product.inStock ? (
+                  <>
+                    <span className="inline-block size-2 rounded-full bg-[#00aa63]" aria-hidden />
+                    <span className="text-[#00aa63]">In stock, ready to ship</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="inline-block size-2 rounded-full bg-[#d4a537]" aria-hidden />
+                    <span className="text-[#d4a537]">Out of stock</span>
+                  </>
+                )}
+              </div>
+              <ProductShareMenu productName={product.name} productUrl={productUrl} />
             </div>
 
-            {/* Trust signals — 2x2 grid */}
-            <div className="mt-6 grid grid-cols-2 gap-4 sm:gap-5">
+            {/* Price + variant selector + CTAs */}
+            <ProductVariantSelector product={product} defaultVariant={activeVariant} />
+
+            {/* Trust signals */}
+            <div className="mt-2 grid grid-cols-2 gap-3 rounded-[20px] bg-[#faf5ec] p-4 sm:gap-4 sm:p-5">
               {[
-                { icon: Leaf, title: "100% Pure", subtitle: "Vegetarian" },
-                { icon: Sparkles, title: "Natural", subtitle: "Ingredients" },
-                { icon: ShieldCheck, title: "No Added", subtitle: "Preservatives" },
-                { icon: Truck, title: "Shipping", subtitle: "and Safety Assured" },
-              ].map(({ icon: Icon, title, subtitle }) => (
-                <div key={title} className="flex items-start gap-3">
-                  <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#f5ebe0]">
-                    <Icon className="size-5 text-[#6B1D2A]" aria-hidden />
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold text-[#3a2218] sm:text-sm">{title}</p>
-                    <p className="text-[10px] text-[#8c7b6b] sm:text-xs">{subtitle}</p>
-                  </div>
+                { icon: Leaf, text: "100% Chemical Free" },
+                { icon: Truck, text: "Free Delivery" },
+                { icon: RotateCcw, text: "Easy Returns" },
+                { icon: ShieldCheck, text: "Secure Pay" },
+              ].map(({ icon: Icon, text }) => (
+                <div key={text} className="flex items-center gap-2 sm:gap-3">
+                  <Icon className="size-4 shrink-0 text-[#d4a537] sm:size-5" aria-hidden />
+                  <span className="text-xs font-bold text-[#7f1416] sm:text-sm">{text}</span>
                 </div>
               ))}
             </div>
-          </div>
+          </section>
         </div>
-      </section>
 
-      {/* ── Description Tabs ─────────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-[1280px] px-4 py-6 sm:px-6 lg:px-8">
+        {/* ── Description + Additional Information tabs ─────────────────────── */}
         <ProductDetailTabs
           description={product.description}
           tags={product.tags}
           categoryName={product.category.name}
           categorySlug={product.category.slug}
         />
-      </section>
 
-      {/* ── You will love these too ──────────────────────────────────────────── */}
-      <section className="mx-auto max-w-[1280px] px-4 py-8 sm:px-6 lg:px-8">
+        {/* ── You may also like ─────────────────────────────────────────────── */}
         <Suspense fallback={<RelatedSkeleton />}>
           <RelatedProductsSection
             categorySlug={product.category.slug}
             currentProductId={product.id}
-            title="You will love these too"
-            subtitle=""
           />
         </Suspense>
-      </section>
 
-      {/* ── FREE DELIVERY marquee ────────────────────────────────────────────── */}
-      <FreeDeliveryMarquee />
+        {/* ── Viewers also liked ────────────────────────────────────────────── */}
+        <Suspense fallback={<RelatedSkeleton />}>
+          <ViewersAlsoLikedSection currentProductId={product.id} />
+        </Suspense>
 
-      {/* ── Our Policies ─────────────────────────────────────────────────────── */}
-      <PoliciesSection />
-
-      {/* ── Reviews ──────────────────────────────────────────────────────────── */}
-      {storeConfig.reviewsEnabled ? (
-        <section className="mx-auto max-w-[1280px] px-4 py-8 sm:px-6 lg:px-8">
-          <ProductReviewsSection productSlug={product.slug} />
-        </section>
-      ) : null}
+        {/* ── Reviews ──────────────────────────────────────────────────────── */}
+        {storeConfig.reviewsEnabled ? (
+          <div className="mt-6 sm:mt-8">
+            <ProductReviewsSection productSlug={product.slug} />
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }

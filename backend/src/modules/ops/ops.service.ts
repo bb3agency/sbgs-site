@@ -1506,22 +1506,8 @@ export class OpsService {
       }
     }
 
-    if (checkedKeys.includes('SHIPPING_PROVIDER')) {
-      const shippingProvider = (draftEnv.SHIPPING_PROVIDER ?? '').trim().toLowerCase();
-      if (shippingProvider && !['delhivery', 'shiprocket', 'noop'].includes(shippingProvider)) {
-        errors.push({
-          key: 'SHIPPING_PROVIDER',
-          code: 'UNSUPPORTED_PROVIDER',
-          message: `Unsupported SHIPPING_PROVIDER: ${shippingProvider}`
-        });
-      } else if (strictProfile && shippingProvider === 'noop') {
-        errors.push({
-          key: 'SHIPPING_PROVIDER',
-          code: 'NOOP_BLOCKED_IN_STRICT_PROFILE',
-          message: 'SHIPPING_PROVIDER=noop is not allowed in production-like profiles.'
-        });
-      }
-    }
+    // SHIPPING_PROVIDER validation removed — mutableViaOps: false means it cannot appear
+    // in a config draft. Routing auto-detects from credentials (resolveDualShippingRuntime).
 
     if (checkedKeys.includes('SMS_PROVIDER')) {
       const smsProvider = (draftEnv.SMS_PROVIDER ?? '').trim().toLowerCase();
@@ -2374,7 +2360,7 @@ export class OpsService {
     email: string;
     requestIp: string;
     turnstileToken?: string;
-  }): Promise<{ message: string }> {
+  }): Promise<{ message: string; expiresAt: string; devOtp?: string }> {
     await assertTurnstileToken({
       clientIp: input.requestIp,
       ...(input.turnstileToken ? { turnstileToken: input.turnstileToken } : {})
@@ -2383,6 +2369,8 @@ export class OpsService {
     const email = input.email.trim().toLowerCase();
     const prisma = this.prisma();
     const opsUser = await prisma.opsUser.findUnique({ where: { email } });
+
+    const ttl = getLoginOtpTtlSeconds();
 
     if (!opsUser || !opsUser.isActive) {
       // Blind audit: record the failed attempt using system actor to preserve anti-enumeration
@@ -2398,10 +2386,11 @@ export class OpsService {
         method: 'POST',
         summary: { reason: 'account_not_found_or_inactive' }
       });
-      return { message: 'If a registered ops account exists for this email, an OTP has been sent.' };
+      return {
+        message: 'If a registered ops account exists for this email, an OTP has been sent.',
+        expiresAt: new Date(Date.now() + ttl * 1000).toISOString()
+      };
     }
-
-    const ttl = getLoginOtpTtlSeconds();
     const otpKey = `ops:login-otp:${hashOpaqueToken(email)}`;
     const attemptKey = `ops:login-otp-attempts:${hashOpaqueToken(email)}`;
 
@@ -2421,7 +2410,9 @@ export class OpsService {
         summary: { channel: 'dev-bypass', action: 'ops-login' }
       });
       return {
-        message: `Development mode: use OTP ${devOtp} (no email sent).`
+        message: `Development mode: use OTP ${devOtp} (no email sent).`,
+        expiresAt: new Date(Date.now() + ttl * 1000).toISOString(),
+        devOtp
       };
     }
 
@@ -2469,7 +2460,10 @@ export class OpsService {
       summary: { channel: 'email', action: 'ops-login' }
     });
 
-    return { message: 'If a registered ops account exists for this email, an OTP has been sent.' };
+    return {
+      message: 'If a registered ops account exists for this email, an OTP has been sent.',
+      expiresAt: new Date(Date.now() + ttl * 1000).toISOString()
+    };
   }
 
   /**
