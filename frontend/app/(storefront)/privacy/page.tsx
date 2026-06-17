@@ -5,7 +5,7 @@ import { APP_NAME } from "@/lib/constants";
 export const metadata = {
   title: `Privacy Policy — ${APP_NAME}`,
   description:
-    "How Sri Sai Baba Ghee Sweets collects, uses, stores, and protects your personal information when you shop for chemical-free produce.",
+    "How Sri Sai Baba Ghee Sweets collects, uses, stores, and protects your personal information when you shop for sweets and gift boxes.",
 };
 
 const SECTIONS = [
@@ -43,13 +43,13 @@ const SECTIONS = [
     icon: UserCheck,
     title: "6. Your Rights",
     content:
-      "Under applicable Indian data protection law, you have the right to access, correct, or delete the personal data we hold about you. You can update your name, phone number, and delivery addresses directly from your account settings. To request a full data export or account deletion, contact us at hello@srisaibabasweets.com.",
+      "Under applicable Indian data protection law, you have the right to access, correct, or delete the personal data we hold about you. You can update your name, phone number, and delivery addresses directly from your account settings. To request a full data export or account deletion, contact us at hello@sbgsweets.com.",
   },
   {
     icon: Mail,
     title: "7. Contact & Updates",
     content:
-      "We may update this policy as our practices evolve. Material changes will be communicated by email to registered customers. Continued use of the site after a policy update constitutes acceptance. For privacy questions or concerns, contact us at hello@srisaibabasweets.com.",
+      "We may update this policy as our practices evolve. Material changes will be communicated by email to registered customers. Continued use of the site after a policy update constitutes acceptance. For privacy questions or concerns, contact us at hello@sbgsweets.com.",
   },
 ];
 
@@ -113,10 +113,10 @@ export default function PrivacyPage() {
               <strong className="text-[#7f1416]">Privacy questions?</strong>{" "}
               Email us at{" "}
               <a
-                href="mailto:hello@srisaibabasweets.com"
+                href="mailto:hello@sbgsweets.com"
                 className="font-bold text-[#d4a537] hover:underline"
               >
-                hello@srisaibabasweets.com
+                hello@sbgsweets.com
               </a>
               . Also read our{" "}
               <Link href="/terms" className="font-bold text-[#d4a537] hover:underline">

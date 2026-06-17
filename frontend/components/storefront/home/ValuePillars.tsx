@@ -1,5 +1,8 @@
+"use client";
+
 import { Sprout, FlaskConical, Users, HeartHandshake, type LucideIcon } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
+import { Stagger, StaggerItem } from "@/components/shared/motion/Stagger";
 
 interface Pillar {
   icon: LucideIcon;
@@ -51,10 +54,12 @@ export function ValuePillars() {
           className="mx-auto mb-12 max-w-3xl text-center lg:mb-16"
         />
 
-        <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <Stagger className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4">
           {PILLARS.map(({ icon: Icon, title, description, accent }, idx) => (
-            <article
+            <StaggerItem
               key={title}
+              index={idx}
+              as="article"
               className="group relative flex flex-col gap-4 rounded-3xl border border-[#7f1416]/8 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#7f1416]/20 hover:shadow-[0_24px_60px_-24px_rgba(35,64,61,0.25)] sm:p-7"
             >
               <div
@@ -74,9 +79,9 @@ export function ValuePillars() {
                   {description}
                 </p>
               </div>
-            </article>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </div>
     </section>
   );

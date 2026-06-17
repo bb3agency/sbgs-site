@@ -1,11 +1,12 @@
 import { Mail, Sparkles } from "lucide-react";
 import { NewsletterForm } from "@/components/shared/NewsletterForm";
+import { Reveal } from "@/components/shared/motion/Reveal";
 
 export function NewsletterCTA() {
   return (
     <section className="bg-white">
       <div className="mx-auto w-full max-w-[1440px] px-4 pb-16 pt-4 sm:px-6 sm:pb-20 lg:px-8 lg:pb-24">
-        <div className="relative overflow-hidden rounded-[32px] bg-[#7f1416] px-6 py-12 text-white sm:px-10 sm:py-16 lg:px-16 lg:py-20">
+        <Reveal className="relative overflow-hidden rounded-[32px] bg-[#7f1416] px-6 py-12 text-white sm:px-10 sm:py-16 lg:px-16 lg:py-20">
           {/* Decorative blurs */}
           <div
             aria-hidden
@@ -62,7 +63,7 @@ export function NewsletterCTA() {
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

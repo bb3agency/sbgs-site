@@ -53,7 +53,7 @@ export function CartWorkspace() {
           Your cart is empty
         </h2>
         <p className="mb-8 max-w-sm text-sm font-medium text-[#767676]">
-          Add some fresh, chemical-free products to your cart and come back here to complete your order.
+          Add some freshly made sweets and gift boxes to your cart and come back here to complete your order.
         </p>
         <Link
           href="/products"
@@ -413,7 +413,7 @@ export function CartWorkspace() {
         {/* Trust badges */}
         <div className="grid grid-cols-3 gap-2">
           {[
-            { emoji: "🌿", label: "Chemical Free" },
+            { emoji: "🧈", label: "Pure Ghee" },
             { emoji: "🚚", label: "Fast Delivery" },
             { emoji: "↩️", label: "Easy Returns" },
           ].map(({ emoji, label }) => (

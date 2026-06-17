@@ -1,6 +1,9 @@
+"use client";
+
 import type { Product } from "@/types/product";
 import { ProductCard } from "@/components/product/ProductCard";
 import { EmptyState } from "@/components/shared/EmptyState";
+import { Stagger, StaggerItem } from "@/components/shared/motion/Stagger";
 
 interface ProductGridProps {
   products: Product[];
@@ -17,10 +20,15 @@ export function ProductGrid({ products }: ProductGridProps) {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-      {products.map((product, i) => (
-        <ProductCard key={product.id} product={product} priority={i < 4} />
+    <Stagger
+      className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6"
+      stagger={0.05}
+    >
+      {products.map((product, idx) => (
+        <StaggerItem key={product.id} className="h-full" index={idx}>
+          <ProductCard product={product} priority={idx < 4} />
+        </StaggerItem>
       ))}
-    </div>
+    </Stagger>
   );
 }

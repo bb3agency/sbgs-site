@@ -7,7 +7,7 @@ export function GiftBoxesSection() {
       <div className="flex h-full w-full flex-col sm:flex-row">
         {/* Left Panel — Corporate Collections (Image bg, white text) */}
         <Link
-          href="/categories/corporate-gifting"
+          href="/products"
           className="group relative flex h-1/2 w-full sm:h-full sm:w-1/2 overflow-hidden"
         >
           <div className="absolute inset-0">
@@ -38,7 +38,7 @@ export function GiftBoxesSection() {
 
         {/* Right Panel — Wedding Collections (Cream bg, dark red text, medallion) */}
         <Link
-          href="/categories/wedding-collections"
+          href="/products"
           className="group relative flex h-1/2 w-full sm:h-full sm:w-1/2 overflow-hidden bg-[#FAF5EC]"
         >
           {/* Decorative medallion placeholder */}

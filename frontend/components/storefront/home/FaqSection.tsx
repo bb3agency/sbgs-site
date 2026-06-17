@@ -4,6 +4,8 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Plus, Minus, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Reveal } from "@/components/shared/motion/Reveal";
+import { Stagger, StaggerItem } from "@/components/shared/motion/Stagger";
 
 interface Faq {
   q: string;
@@ -43,7 +45,7 @@ export function FaqSection({ isCodEnabled = false }: FaqSectionProps) {
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
           {/* Sticky heading */}
           <div className="lg:col-span-5">
-            <div className="lg:sticky lg:top-32">
+            <Reveal className="lg:sticky lg:top-32">
               <span className="inline-flex w-fit items-center gap-2 rounded-full bg-[#f5d88e] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#7f1416]">
                 <span
                   className="size-1.5 rounded-full bg-[#d4a537]"
@@ -68,17 +70,18 @@ export function FaqSection({ isCodEnabled = false }: FaqSectionProps) {
                 <MessageCircle className="size-4" />
                 Chat with us on WhatsApp
               </Link>
-            </div>
+            </Reveal>
           </div>
 
           {/* Accordion */}
           <div className="lg:col-span-7">
-            <div className="flex flex-col gap-3">
+            <Stagger className="flex flex-col gap-3">
               {faqs.map((faq, idx) => {
                 const isOpen = openIndex === idx;
                 return (
-                  <div
+                  <StaggerItem
                     key={faq.q}
+                    index={idx}
                     className={cn(
                       "overflow-hidden rounded-2xl border bg-white transition-all duration-300",
                       isOpen
@@ -125,10 +128,10 @@ export function FaqSection({ isCodEnabled = false }: FaqSectionProps) {
                         </p>
                       </div>
                     </div>
-                  </div>
+                  </StaggerItem>
                 );
               })}
-            </div>
+            </Stagger>
           </div>
         </div>
       </div>

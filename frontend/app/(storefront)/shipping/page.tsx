@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { ChevronRight, Truck, MapPin, Clock, PackageCheck, AlertCircle, Leaf } from "lucide-react";
+import { ChevronRight, Truck, MapPin, Clock, PackageCheck, AlertCircle, ShieldCheck } from "lucide-react";
 import { APP_NAME } from "@/lib/constants";
 
 export const metadata = {
   title: `Shipping Policy — ${APP_NAME}`,
   description:
-    "Delivery areas, charges, timelines, and how we handle cold-chain dispatch for your chemical-free produce orders.",
+    "Delivery areas, charges, timelines, and how we pack and dispatch your sweets and gift boxes safely across India.",
 };
 
 const SECTIONS = [
@@ -13,7 +13,7 @@ const SECTIONS = [
     icon: MapPin,
     title: "1. Delivery Areas",
     content:
-      "We deliver certified farm-fresh, chemical-free produce to serviceable pincodes within Hyderabad and surrounding districts of Telangana, India. Enter your delivery pincode at checkout — we will instantly confirm whether we can reach you. We are actively expanding to new areas.",
+      "We deliver our freshly made sweets and gift boxes to serviceable pincodes across India. Enter your delivery pincode at checkout — we will instantly confirm whether we can reach you. We are actively expanding to new areas.",
   },
   {
     icon: Truck,
@@ -25,25 +25,25 @@ const SECTIONS = [
     icon: Clock,
     title: "3. Delivery Schedule & Lead Time",
     content:
-      "Orders are harvested and dispatched early morning to preserve cold-chain integrity. Once your order ships, you will receive a real-time tracking AWB via email or WhatsApp. Standard delivery takes 1–2 business days within Hyderabad. Delivery to surrounding areas may take up to 3 business days.",
+      "Orders are freshly prepared and dispatched promptly to preserve quality. Once your order ships, you will receive a real-time tracking AWB via email or WhatsApp. Standard delivery takes 3–5 working days across India, with same-day dispatch for orders placed before 1 PM in serviceable areas.",
   },
   {
     icon: PackageCheck,
     title: "4. Order Processing",
     content:
-      "Orders placed before 6 PM are typically processed and dispatched the following morning. Orders placed on Sundays or public holidays are processed the next working day. You will receive an order confirmation email immediately after placing your order.",
+      "Orders placed before 1 PM are typically processed and dispatched the same day. Orders placed on Sundays or public holidays are processed the next working day. You will receive an order confirmation email immediately after placing your order.",
   },
   {
-    icon: Leaf,
-    title: "5. Cold-Chain Handling",
+    icon: ShieldCheck,
+    title: "5. Packaging & Handling",
     content:
-      "All perishable produce is packed in insulated, eco-friendly packaging and dispatched using cold-chain couriers. We do not ship produce that has sat in a warehouse — your order is harvested within 48 hours of dispatch to ensure maximum freshness and nutritional value.",
+      "Every order is packed in hygienic, gift-ready packaging designed to keep your sweets safe and fresh in transit. We prepare in small batches and dispatch quickly, so your sweets arrive in the best possible condition.",
   },
   {
     icon: AlertCircle,
     title: "6. Failed Deliveries",
     content:
-      "If a delivery attempt is unsuccessful (no one available, locked premises), our courier will attempt re-delivery once. For perishable orders that cannot be delivered, we will contact you to arrange an alternative. We are not liable for spoilage caused by a missed delivery that was not reported to us within 24 hours.",
+      "If a delivery attempt is unsuccessful (no one available, locked premises), our courier will attempt re-delivery once. For orders that cannot be delivered, we will contact you to arrange an alternative. Please report any delivery issue to us within 24 hours of the delivery attempt.",
   },
 ];
 
@@ -107,17 +107,17 @@ export default function ShippingPolicyPage() {
               <strong className="text-[#7f1416]">Questions about your delivery?</strong>{" "}
               Contact us at{" "}
               <a
-                href="mailto:hello@srisaibabasweets.com"
+                href="mailto:hello@sbgsweets.com"
                 className="font-bold text-[#d4a537] hover:underline"
               >
-                hello@srisaibabasweets.com
+                hello@sbgsweets.com
               </a>{" "}
               or call{" "}
               <a
-                href="tel:+919440445006"
+                href="tel:+919876543210"
                 className="font-bold text-[#d4a537] hover:underline"
               >
-                +91 94404 45006
+                +91 98765 43210
               </a>
               .
             </p>

@@ -20,7 +20,7 @@ npm run dev
 
 Dev server: **http://localhost:3102** (also shown as Network URL, e.g. `http://192.168.1.4:3102`).
 
-`npm run dev` runs `scripts/ensure-backend-dev.mjs` automatically (`predev`). It probes `BACKEND_PROXY_URL` (default `http://127.0.0.1:3000`) and **exits with instructions** if the Fastify API is not reachable — avoiding broken `/api/v1/*` rewrites and `ECONNREFUSED` spam.
+`npm run dev` runs `scripts/ensure-backend-dev.mjs` automatically (`predev`). It probes `BACKEND_PROXY_URL` (default `http://127.0.0.1:3002`) and **exits with instructions** if the Fastify API is not reachable — avoiding broken `/api/v1/*` rewrites and `ECONNREFUSED` spam.
 
 Copy `frontend/.env.example` → `.env.local`. Production template: `.env.production.example` — `https://srisaibabasweets.com` API/storefront and `NEXT_PUBLIC_IMAGE_CDN_URL=https://cdn.srisaibabasweets.com` (Cloudflare R2; must match Ops `R2_PUBLIC_BASE_URL`). Brand logo: `public/images/sbgs-logo.png` — use `BRAND_LOGO_SRC` from `lib/constants.ts`. Ops/R2 setup: `docs/clients/sbgs/CLOUDFLARE_R2_MEDIA.md`.
 

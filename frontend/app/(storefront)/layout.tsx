@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Footer } from "@/components/layout/Footer";
-import { Header } from "@/components/layout/Header";
+import { HeaderV2 } from "@/components/layout/HeaderV2";
 import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
 import { StoreConfigProvider } from "@/components/providers/StoreConfigProvider";
 import { getStoreCategories } from "@/lib/categories";
@@ -18,7 +18,7 @@ export default async function StorefrontLayout({ children }: StorefrontLayoutPro
 
   return (
     <StoreConfigProvider config={storeConfig}>
-      <Header
+      <HeaderV2
         categories={categories}
         minOrderValuePaise={storeConfig.minOrderValuePaise}
       />
@@ -28,3 +28,4 @@ export default async function StorefrontLayout({ children }: StorefrontLayoutPro
     </StoreConfigProvider>
   );
 }
+// Cache invalidation

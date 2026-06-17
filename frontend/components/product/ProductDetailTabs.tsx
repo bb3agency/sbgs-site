@@ -160,9 +160,9 @@ export function ProductDetailTabs({
 
               <div className="flex items-start gap-6 py-3">
                 <dt className="w-36 shrink-0 text-xs font-bold uppercase tracking-wider text-[#999]">
-                  Certification
+                  Made With
                 </dt>
-                <dd className="text-sm text-[#555]">Chemical-free, Lab-tested</dd>
+                <dd className="text-sm text-[#555]">Pure ghee, Made fresh daily</dd>
               </div>
 
               <div className="flex items-start gap-6 py-3">

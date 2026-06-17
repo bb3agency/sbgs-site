@@ -110,7 +110,7 @@ Templates: [backend/nginx/](../../../backend/nginx/)
 |----------|-------|
 | Bucket | `sbgs-product-images` |
 | `R2_PUBLIC_BASE_URL` | `https://cdn.srisaibabasweets.com` |
-| `R2_ENDPOINT` | `https://2e87c8fb8842d3a372a5abc98b5cd6cf.r2.cloudflarestorage.com` |
+| `R2_ENDPOINT` | `https://39f5f8190886969434cc9b4f4c66ce41.r2.cloudflarestorage.com` |
 
 Credentials → Ops UI only (vault: [VPS_INPUTS.md](./VPS_INPUTS.md)). Frontend `NEXT_PUBLIC_IMAGE_CDN_URL=https://cdn.srisaibabasweets.com`.
 

@@ -19,9 +19,9 @@ Storefront and API terminate at Nginx on the VPS (`srisaibabasweets.com` → `12
 | Ops / env key | Value |
 |---------------|-------|
 | `MEDIA_STORAGE_PROVIDER` | `r2` |
-| `R2_ACCOUNT_ID` | `2e87c8fb8842d3a372a5abc98b5cd6cf` |
+| `R2_ACCOUNT_ID` | `39f5f8190886969434cc9b4f4c66ce41` |
 | `R2_BUCKET_NAME` | `sbgs-product-images` |
-| `R2_ENDPOINT` | `https://2e87c8fb8842d3a372a5abc98b5cd6cf.r2.cloudflarestorage.com` |
+| `R2_ENDPOINT` | `https://39f5f8190886969434cc9b4f4c66ce41.r2.cloudflarestorage.com` |
 | `R2_PUBLIC_BASE_URL` | `https://cdn.srisaibabasweets.com` |
 | `PUBLIC_STORE_URL` | `https://srisaibabasweets.com` |
 

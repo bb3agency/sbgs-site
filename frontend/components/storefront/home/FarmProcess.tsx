@@ -1,4 +1,7 @@
+"use client";
+
 import { Sprout, FlaskConical, Package, Truck, type LucideIcon } from "lucide-react";
+import { Stagger, StaggerItem } from "@/components/shared/motion/Stagger";
 
 interface Step {
   icon: LucideIcon;
@@ -83,9 +86,9 @@ export function FarmProcess({ isCodEnabled = false }: FarmProcessProps) {
             className="absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-transparent via-white/30 to-transparent lg:block"
           />
 
-          <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {steps.map(({ icon: Icon, step, title, description }) => (
-              <div key={step} className="relative">
+          <Stagger className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {steps.map(({ icon: Icon, step, title, description }, idx) => (
+              <StaggerItem key={step} className="relative" index={idx}>
                 {/* Step number badge */}
                 <div className="relative z-10 mb-6 flex size-14 items-center justify-center rounded-2xl bg-[#d4a537] text-white shadow-lg shadow-[#d4a537]/30">
                   <Icon className="size-6" aria-hidden />
@@ -100,9 +103,9 @@ export function FarmProcess({ isCodEnabled = false }: FarmProcessProps) {
                 <p className="mt-3 text-sm leading-relaxed text-white/75">
                   {description}
                 </p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
         </div>
       </div>
     </section>

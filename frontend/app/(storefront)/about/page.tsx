@@ -1,27 +1,27 @@
 import { getPublicStoreConfig } from "@/lib/storefront-settings";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronRight, Leaf, Heart, Shield, Users, Sprout, Truck, Star } from "lucide-react";
+import { ChevronRight, Sparkles, Shield, Users, Droplet, Truck, Star } from "lucide-react";
 import { APP_NAME } from "@/lib/constants";
 
 export const metadata = {
   title: `About Us — ${APP_NAME}`,
   description:
-    "We work directly with 120+ certified farmers across Telangana to bring you chemical-free, traceable produce. Every batch is lab-tested for 300+ pesticide residues.",
+    "A family legacy of pure ghee sweets made fresh daily. Traditional recipes, the finest ingredients, and premium gifting crafted with devotion.",
 };
 
 const VALUES = [
   {
-    icon: Leaf,
-    title: "100% Chemical Free",
+    icon: Droplet,
+    title: "100% Pure Ghee",
     description:
-      "Every product is grown without synthetic pesticides, herbicides, or chemical fertilisers. We test every batch in certified labs for 300+ pesticide residues before dispatch.",
+      "Every sweet is made with pure ghee and the finest ingredients — no compromise on quality, no shortcuts. Taste the difference in every bite.",
   },
   {
-    icon: Heart,
-    title: "Farmer First",
+    icon: Sparkles,
+    title: "Made Fresh Daily",
     description:
-      "We eliminate middlemen and pay farmers directly at fair prices — typically 30–40% above the market rate. Healthy farmers grow healthier food.",
+      "We prepare in small batches every single day so your sweets reach you at their absolute best — never mass-produced, never stale.",
   },
   {
     icon: Shield,
@@ -31,16 +31,16 @@ const VALUES = [
   },
   {
     icon: Users,
-    title: "Community Rooted",
+    title: "Rooted in Tradition",
     description:
-      "We partner with small family farms, cooperatives, and tribal farming communities — people who have practised natural farming for generations.",
+      "Traditional recipes passed down through generations, crafted with devotion — the same authentic taste families have loved for years.",
   },
 ];
 
 const BASE_STATS = [
-  { value: "120+", label: "Partner Farmers" },
-  { value: "300+", label: "Pesticide Tests per Batch" },
-  { value: "48 hrs", label: "Farm to Door" },
+  { value: "1M+", label: "Happy Customers" },
+  { value: "100%", label: "Pure Ghee" },
+  { value: "Pan-India", label: "Delivery" },
 ] as const;
 
 const REVIEWS_STAT = { value: "4.8 ★", label: "Average Rating" } as const;
@@ -94,34 +94,34 @@ export default async function AboutPage() {
                   Who we are
                 </p>
                 <h2 className="mb-4 font-heading text-2xl font-bold text-[#7f1416] sm:text-3xl">
-                  Farm-fresh chemical-free produce, direct to your doorstep
+                  Pure ghee sweets, made for your celebrations
                 </h2>
                 <div className="space-y-4 text-sm font-medium leading-relaxed text-[#767676]">
                   <p>
-                    Sri Sai Baba Ghee Sweets was founded on a single belief: every family deserves
-                    access to food grown the way nature intended — without chemicals, without
-                    shortcuts, and with full traceability from seed to table.
+                    Sri Sai Baba Ghee Sweets is a family legacy built on a single belief: every
+                    celebration deserves sweets made the traditional way — with pure ghee, the
+                    finest ingredients, and lots of devotion.
                   </p>
                   <p>
-                    We work directly with <strong className="text-[#7f1416]">120+ certified farmers</strong> across
-                    Telangana who have committed to chemical-free, native-seed farming. Their
-                    knowledge of the land, often passed down over generations, is irreplaceable.
-                    We give them a market; they give you real food.
+                    Our recipes are <strong className="text-[#7f1416]">passed down through generations</strong>,
+                    crafted by skilled artisans who take pride in every batch. We prepare fresh
+                    every day in small batches, so nothing sits on a shelf — you taste the sweets
+                    exactly as they were meant to be.
                   </p>
                   <p>
-                    Every batch is lab-tested for <strong className="text-[#7f1416]">300+ pesticide residues</strong> before
-                    it leaves the farm. If it does not pass, it does not ship — period. Orders
-                    are harvested and dispatched within 48 hours for peak freshness.
+                    From everyday treats to <strong className="text-[#7f1416]">premium festive gift boxes</strong>,
+                    every order is elegantly packed and delivered across India. Made with love,
+                    made for the moments that matter most.
                   </p>
                 </div>
               </div>
               <div className="relative overflow-hidden rounded-[20px] bg-[#faf5ec]">
                 <Image
-                  src="/images/product-placeholder.svg"
-                  alt="Sri Sai Baba Ghee Sweets — fresh chemical-free produce"
+                  src="/images/sweets/IMG_20260612_163129.jpg"
+                  alt="Sri Sai Baba Ghee Sweets — premium ghee sweets and gift box"
                   width={600}
                   height={480}
-                  className="mx-auto h-64 w-full object-contain p-8 lg:h-80"
+                  className="h-64 w-full object-cover lg:h-80"
                 />
               </div>
             </div>
@@ -178,14 +178,14 @@ export default async function AboutPage() {
               How it works
             </p>
             <h2 className="mb-8 font-heading text-2xl font-bold text-[#7f1416] sm:text-3xl">
-              From seed to your table
+              From kitchen to your celebration
             </h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {[
-                { icon: Sprout, step: "1", title: "Certified Farming", desc: "Partner farmers grow using native seeds and zero chemicals on certified plots." },
-                { icon: Star, step: "2", title: "Lab Testing", desc: "Every harvest is tested for 300+ pesticide residues before leaving the farm." },
-                { icon: Leaf, step: "3", title: "Fresh Harvest", desc: "We harvest within 48 hours of your order to ensure peak nutrition and freshness." },
-                { icon: Truck, step: "4", title: "Fast Delivery", desc: "Cold-chain delivery to your door — produce arrives as fresh as the morning harvest." },
+                { icon: Droplet, step: "1", title: "Finest Ingredients", desc: "We source pure ghee, premium dry fruits, and the finest ingredients for every recipe." },
+                { icon: Sparkles, step: "2", title: "Made Fresh Daily", desc: "Our artisans prepare sweets in small batches every day using traditional recipes." },
+                { icon: Star, step: "3", title: "Premium Packing", desc: "Every order is hygienically packed in elegant, gift-ready packaging." },
+                { icon: Truck, step: "4", title: "Pan-India Delivery", desc: "Carefully shipped to your door so your sweets arrive fresh and on time." },
               ].map(({ icon: Icon, step, title, desc }) => (
                 <div key={step} className="relative flex flex-col items-center text-center">
                   <div className="mb-4 flex size-14 items-center justify-center rounded-full bg-[#faf5ec]">
@@ -210,8 +210,8 @@ export default async function AboutPage() {
               Delivery areas
             </h2>
             <p className="mx-auto mb-6 max-w-lg text-sm leading-relaxed text-white/75">
-              We currently deliver across Hyderabad and the surrounding districts of Telangana.
-              Enter your pincode at checkout to check serviceability — we are expanding regularly.
+              We deliver our sweets and gift boxes across India. Enter your pincode at
+              checkout to check serviceability — we are expanding regularly.
             </p>
             <Link
               href="/products"

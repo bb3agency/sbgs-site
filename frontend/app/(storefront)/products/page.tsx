@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import { Leaf, SlidersHorizontal, ChevronRight, Sparkles } from "lucide-react";
+import { SlidersHorizontal, ChevronRight, Sparkles } from "lucide-react";
 import { ProductGrid } from "@/components/product/ProductGrid";
 import { PlpSortSelect } from "@/components/product/PlpSortSelect";
 import { StorefrontPagination } from "@/components/product/StorefrontPagination";
@@ -20,9 +20,9 @@ interface ProductsPageProps {
 }
 
 export const metadata = {
-  title: "Shop Chemical Free & Natural Products",
+  title: "Shop Pure Ghee Sweets & Gift Boxes",
   description:
-    "Browse our full range of chemical free and natural produce, staples, and everyday essentials.",
+    "Browse our full range of traditional sweets, ghee specials, dry fruit sweets, and premium festive gift boxes.",
 };
 
 const VALID_SORTS = new Set<StorefrontProductSort>([
@@ -72,8 +72,8 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
         <div className="relative mx-auto flex w-full max-w-[1440px] flex-col items-center justify-center px-4 text-center lg:px-8">
           {/* Label chip */}
           <span className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-widest text-[#f5d88e] backdrop-blur-sm">
-            <Leaf className="size-3" aria-hidden />
-            100% Natural
+            <Sparkles className="size-3" aria-hidden />
+            100% Pure Ghee
           </span>
 
           <h1 className="mb-3 font-heading text-3xl font-bold capitalize text-white sm:mb-4 sm:text-5xl md:text-6xl">
@@ -99,8 +99,8 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
             <div className="flex items-center gap-6 sm:gap-10">
               {[
                 { value: `${totalProducts}+`, label: "Products" },
-                { value: "100%", label: "Chemical Free" },
-                { value: "Farm", label: "Direct" },
+                { value: "100%", label: "Pure Ghee" },
+                { value: "Fresh", label: "Daily" },
               ].map(({ value, label }) => (
                 <div key={label} className="text-center">
                   <p className="text-xl font-extrabold text-white sm:text-2xl">{value}</p>
@@ -194,7 +194,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
         ) : (
           <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-[#f5d88e] bg-white px-4 py-28 text-center shadow-sm">
             <div className="mb-6 flex size-20 items-center justify-center rounded-full bg-gradient-to-br from-[#faf5ec] to-[#f5d88e]">
-              <Leaf className="size-10 text-[#d4a537]" aria-hidden />
+              <Sparkles className="size-10 text-[#d4a537]" aria-hidden />
             </div>
             <h2 className="mb-3 font-heading text-2xl font-bold text-[#7f1416]">
               {q ? "No products matched your search" : "No active products yet"}

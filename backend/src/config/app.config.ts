@@ -253,11 +253,11 @@ export function getAppConfig() {
   return {
     env: getNormalizedNodeEnv(),
     runtimeProfile: resolveRuntimeProfile(),
-    port: Number(process.env.PORT ?? 3000),
+    port: Number(process.env.PORT ?? 3002),
+    backendPort: Number(process.env.BACKEND_PORT ?? 3002),
     host: process.env.HOST ?? '0.0.0.0',
     apiPrefix: '/api/v1'
   };
 }
 
 export const appConfig = getAppConfig();
-

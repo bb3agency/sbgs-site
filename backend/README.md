@@ -139,7 +139,7 @@ REDIS_PASSWORD=yourredispassword       # <-- SET THIS (non-empty)
 REDIS_URL=redis://:yourredispassword@localhost:6379  # <-- SET THIS (password must match REDIS_PASSWORD)
 
 # ── App ──────────────────────────────────────────────────────────────────
-BACKEND_PORT=3000
+BACKEND_PORT=3002
 NODE_ENV=development
 
 # ── Bootstrap secrets (generate once, never rotate without a plan) ───────
@@ -209,7 +209,7 @@ This prevents first-clone worker/server boot failures such as `Database "ecom_te
 **Do not start frontend development until this passes.**
 
 ```bash
-curl http://localhost:3000/api/v1/health
+curl http://localhost:3002/api/v1/health
 # Expected: {"success":true,"data":{"status":"ok","db":"connected","redis":"connected"}}
 ```
 
@@ -451,7 +451,7 @@ The `npm run ci:reliability-gates` command runs the full quality pipeline:
 6. **Route Discipline** — Ensures all routes follow conventions; explicit exemptions are limited to public one-time invite consumption/setup endpoints (`POST /api/v1/admin/invites/consume`, `POST /api/v1/ops/invites/consume`, `POST /api/v1/admin/invites/setup/send-otp`). Ops-gated admin invite management routes (`/api/v1/ops/admin-invites*`) require no exemption — they are auto-detected as ops-guarded.
 7. **Serializer Exposure** — Prevents internal field leaks in API responses
 8. **Build** — Production TypeScript compilation
-9. **Admin Contract** — Validates admin permission registry integrity; this smoke requires a running backend at `BASE_URL` (default `http://127.0.0.1:3000`) with seeded/known admin credentials, so local `fetch failed` at this step means the environment is not running rather than a TypeScript/build defect
+9. **Admin Contract** — Validates admin permission registry integrity; this smoke requires a running backend at `BASE_URL` (default `http://127.0.0.1:3002`) with seeded/known admin credentials, so local `fetch failed` at this step means the environment is not running rather than a TypeScript/build defect
 10. **Endpoint Smoke** — Deep endpoint reachability check
 11. **Release Policy** — Validates release readiness state
 12. **Release Guard** — Final gate before deployment
@@ -525,7 +525,7 @@ npm run dev:e2e
 npm run dev:e2e:workers
 ```
 
-> Both scripts (`scripts/dev-up.cmd` and `scripts/dev-up-workers.cmd`) are idempotent and handle: auto-starting `ecom-postgres`/`ecom-redis` containers, waiting for Redis health, ensuring Prisma DB exists, running Prisma generate+migrations, killing stale Node processes on port 3000, and setting all noop/E2E env vars. They are the **permanent fix** for recurring local startup errors (`ECONNREFUSED`, `EADDRINUSE`, missing target DB).
+> Both scripts (`scripts/dev-up.cmd` and `scripts/dev-up-workers.cmd`) are idempotent and handle: auto-starting `ecom-postgres`/`ecom-redis` containers, waiting for Redis health, ensuring Prisma DB exists, running Prisma generate+migrations, killing stale Node processes on port 3002, and setting all noop/E2E env vars. They are the **permanent fix** for recurring local startup errors (`ECONNREFUSED`, `EADDRINUSE`, missing target DB).
 
 ### Terminal 3 — Frontend (monorepo)
 
@@ -534,7 +534,7 @@ cd ..\frontend
 npm run dev
 ```
 
-> Frontend `npm run dev` runs `scripts/ensure-backend-dev.mjs` first and exits if the API on `BACKEND_PROXY_URL` (default `127.0.0.1:3000`) is unreachable. See `frontend/README.md` and `docs/NEXTJS_FRONTEND_INTEGRATION_GUIDE.md` §1.0.1.
+> Frontend `npm run dev` runs `scripts/ensure-backend-dev.mjs` first and exits if the API on `BACKEND_PROXY_URL` (default `127.0.0.1:3002`) is unreachable. See `frontend/README.md` and `docs/NEXTJS_FRONTEND_INTEGRATION_GUIDE.md` §1.0.1.
 
 ### Postman setup
 

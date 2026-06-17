@@ -29,7 +29,7 @@ describe("api-base", () => {
   });
 
   it("always uses page origin in the browser (LAN/mobile safe)", () => {
-    process.env.NEXT_PUBLIC_API_BASE_URL = "http://localhost:3000/api/v1";
+    process.env.NEXT_PUBLIC_API_BASE_URL = "http://localhost:3002/api/v1";
     vi.stubGlobal("window", {
       location: { href: "http://10.39.179.140:3102/admin" },
     } as Window & typeof globalThis);
@@ -48,8 +48,8 @@ describe("api-base", () => {
 
   it("server resolver prefers INTERNAL_API_BASE_URL over public storefront URL", () => {
     process.env.NEXT_PUBLIC_API_BASE_URL = "http://localhost:3102/api/v1";
-    process.env.INTERNAL_API_BASE_URL = "http://127.0.0.1:3000/api/v1";
-    expect(getServerApiBaseUrl()).toBe("http://127.0.0.1:3000/api/v1");
+    process.env.INTERNAL_API_BASE_URL = "http://127.0.0.1:3002/api/v1";
+    expect(getServerApiBaseUrl()).toBe("http://127.0.0.1:3002/api/v1");
   });
 
   it("throws in production when NEXT_PUBLIC_API_BASE_URL is unset", () => {
@@ -61,6 +61,6 @@ describe("api-base", () => {
   it("uses localhost fallback only in development", () => {
     vi.stubEnv("NODE_ENV", "development");
     delete process.env.NEXT_PUBLIC_API_BASE_URL;
-    expect(getConfiguredPublicApiBaseUrl()).toBe("http://localhost:3000/api/v1");
+    expect(getConfiguredPublicApiBaseUrl()).toBe("http://localhost:3002/api/v1");
   });
 });

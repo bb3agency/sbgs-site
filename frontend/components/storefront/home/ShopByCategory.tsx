@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   Gift,
@@ -9,6 +11,8 @@ import {
   Heart,
   type LucideIcon,
 } from "lucide-react";
+import { OrnamentHeading } from "./OrnamentHeading";
+import { Stagger, StaggerItem } from "@/components/shared/motion/Stagger";
 
 interface CategoryTile {
   label: string;
@@ -30,29 +34,32 @@ const TILES: CategoryTile[] = [
 
 export function ShopByCategory() {
   return (
-    <section className="bg-[#fbf1e3]">
+    <section className="bg-[#e3e8d6]">
       <div className="mx-auto w-full max-w-[1440px] px-4 py-12 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
-        <h2 className="mb-8 font-heading text-2xl font-bold tracking-tight text-[#3a2218] sm:text-3xl">
-          Shop by Category
-        </h2>
-        <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 sm:gap-4 lg:grid-cols-7">
-          {TILES.map(({ label, icon: Icon, href, iconColor, iconBg }) => (
-            <Link
-              key={label}
-              href={href}
-              className="group flex flex-col items-center gap-3 rounded-2xl border border-[#efe8e4] bg-white p-4 text-center shadow-sm transition-all hover:-translate-y-1 hover:border-[#d4a537] hover:shadow-md sm:p-5"
-            >
-              <span
-                className={`flex size-12 items-center justify-center rounded-xl ${iconBg} ${iconColor} transition-transform group-hover:scale-110 sm:size-14`}
+        <OrnamentHeading
+          lead="Flavours for Every"
+          accent="Moment"
+          className="mb-10"
+        />
+        <Stagger className="grid grid-cols-3 gap-3 sm:grid-cols-4 sm:gap-4 lg:grid-cols-7">
+          {TILES.map(({ label, icon: Icon, href, iconColor, iconBg }, idx) => (
+            <StaggerItem key={label} index={idx}>
+              <Link
+                href={href}
+                className="group flex h-full flex-col items-center gap-3 rounded-2xl border border-[#efe8e4] bg-white p-4 text-center shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#d4a537] hover:shadow-lg sm:p-5"
               >
-                <Icon className="size-6 sm:size-7" strokeWidth={1.6} />
-              </span>
-              <span className="text-xs font-bold text-[#3a2218] sm:text-sm">
-                {label}
-              </span>
-            </Link>
+                <span
+                  className={`flex size-12 items-center justify-center rounded-xl ${iconBg} ${iconColor} transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 sm:size-14`}
+                >
+                  <Icon className="size-6 sm:size-7" strokeWidth={1.6} />
+                </span>
+                <span className="text-xs font-bold text-[#3a2218] sm:text-sm">
+                  {label}
+                </span>
+              </Link>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </div>
     </section>
   );

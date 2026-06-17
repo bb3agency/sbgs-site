@@ -11,7 +11,7 @@
 | Field | Value |
 |---|---|
 | Client name | Sri Sai Baba Ghee Sweets |
-| Backend API (direct / SSR) | `http://127.0.0.1:3000/api/v1` (`INTERNAL_API_BASE_URL`) |
+| Backend API (direct / SSR) | `http://127.0.0.1:3002/api/v1` (`INTERNAL_API_BASE_URL`) |
 | Browser API (local) | `http://localhost:3102/api/v1` (`NEXT_PUBLIC_API_BASE_URL` + Next rewrite) |
 | Storefront URL (local) | `http://localhost:3102` |
 | Razorpay test key ID | `rzp_test_xxx` (set in `.env.local` when available) |
@@ -142,8 +142,8 @@
 
 ```
 NEXT_PUBLIC_API_BASE_URL=http://localhost:3102/api/v1
-BACKEND_PROXY_URL=http://127.0.0.1:3000
-INTERNAL_API_BASE_URL=http://127.0.0.1:3000/api/v1
+BACKEND_PROXY_URL=http://127.0.0.1:3002
+INTERNAL_API_BASE_URL=http://127.0.0.1:3002/api/v1
 NEXT_PUBLIC_STORE_NAME=Sri Sai Baba Ghee Sweets
 NEXT_PUBLIC_STOREFRONT_URL=http://localhost:3102
 NEXT_PUBLIC_RAZORPAY_KEY_ID=(pending)
@@ -893,7 +893,7 @@ NEXT_PUBLIC_IMAGE_CDN_URL=https://cdn.srisaibabasweets.com
 **Operator notes (local dev):**
 
 1. Sign in on the **same host** you open on phone (e.g. `http://10.39.179.140:3102/admin/login`, not `localhost` cookie on LAN IP).
-2. Backend must run on `BACKEND_PROXY_URL` (default `127.0.0.1:3000`).
+2. Backend must run on `BACKEND_PROXY_URL` (default `127.0.0.1:3002`).
 3. Set `ALLOWED_DEV_ORIGINS` to the Network IP from `npm run dev`; restart frontend after `.env.local` changes.
 4. After large auth hook changes, delete `frontend/.next` and restart `npm run dev` (avoids HMR hook-order corruption).
 

@@ -33,7 +33,7 @@ interface HeaderProps {
   minOrderValuePaise?: number;
 }
 
-export function Header({ minOrderValuePaise = 0 }: HeaderProps) {
+export function HeaderV2({ minOrderValuePaise = 0 }: HeaderProps) {
   useSessionBootstrap();
   const setMobileMenuOpen = useUiStore((s) => s.setMobileMenuOpen);
 
@@ -138,39 +138,43 @@ export function Header({ minOrderValuePaise = 0 }: HeaderProps) {
         </div>
       </div>
 
-      {/* Category Navigation Row */}
+      {/* Category Navigation Row - Desktop */}
       <div className="hidden border-t border-[#efe8e4] bg-white lg:block">
-        <div className="mx-auto flex h-12 max-w-[1440px] items-center justify-between px-8">
+        <div className="mx-auto flex h-14 w-full max-w-[1440px] items-center px-8">
           <nav
-            className="flex items-center gap-7 text-sm font-bold text-[#7f1416]"
+            className="flex w-full items-center justify-between text-sm font-semibold text-[#1c3553]"
             aria-label="Store navigation"
           >
-            <Link href="/products" className="flex items-center gap-1.5 transition-colors hover:text-[#d4a537]">
-              <Candy className="size-4 text-[#d4a537]" /> Sweets <ChevronDown className="size-3.5" />
-            </Link>
-            <Link href="/products" className="flex items-center gap-1.5 transition-colors hover:text-[#d4a537]">
-              <Gift className="size-4 text-[#d4a537]" /> Festive Boxes
-            </Link>
-            <Link href="/products" className="flex items-center gap-1.5 transition-colors hover:text-[#d4a537]">
-              <Droplet className="size-4 text-[#d4a537]" /> Ghee Specials
-            </Link>
-            <Link href="/products" className="flex items-center gap-1.5 transition-colors hover:text-[#d4a537]">
-              <ShoppingBasket className="size-4 text-[#d4a537]" /> Dry Fruit Sweets
-            </Link>
-            <Link href="/products" className="flex items-center gap-1.5 transition-colors hover:text-[#d4a537]">
-              <Briefcase className="size-4 text-[#d4a537]" /> Corporate Gifting
-            </Link>
-            <Link href="/products" className="flex items-center gap-1.5 transition-colors hover:text-[#d4a537]">
-              <PartyPopper className="size-4 text-[#d4a537]" /> Party Packs
-            </Link>
+            <div className="flex items-center gap-8">
+              <Link href="/products" className="flex items-center gap-1.5 transition-colors hover:text-[#d4a537]">
+                Shop All <ChevronDown className="size-4" />
+              </Link>
+              <Link href="/products?category=hampers" className="flex items-center gap-1.5 transition-colors hover:text-[#d4a537]">
+                Hampers <ChevronDown className="size-4" />
+              </Link>
+              <Link href="/products?category=customised-gifting" className="flex items-center gap-1.5 transition-colors hover:text-[#d4a537]">
+                Customised Gifting <ChevronDown className="size-4" />
+              </Link>
+              <Link href="/products?category=mango-specials" className="flex items-center gap-1.5 transition-colors hover:text-[#d4a537]">
+                Mango Specials <ChevronDown className="size-4" />
+              </Link>
+            </div>
+            
+            <div className="flex items-center gap-8">
+              <Link href="/locations" className="transition-colors hover:text-[#d4a537]">
+                Our Stores
+              </Link>
+              <Link href="/about" className="transition-colors hover:text-[#d4a537]">
+                About Us
+              </Link>
+              <Link href="/sweets-library" className="transition-colors hover:text-[#d4a537]">
+                Sweets Library
+              </Link>
+              <Link href="/blog" className="transition-colors hover:text-[#d4a537]">
+                Blog
+              </Link>
+            </div>
           </nav>
-
-          <Link
-            href="/products?sort=popularity"
-            className="flex h-8 items-center gap-1.5 rounded-md bg-[#7f1416] px-4 text-xs font-bold text-white transition-colors hover:bg-[#651013]"
-          >
-            <Tag className="size-3.5" /> Offers
-          </Link>
         </div>
       </div>
     </header>
