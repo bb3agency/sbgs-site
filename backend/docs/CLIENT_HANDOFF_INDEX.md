@@ -18,6 +18,7 @@ Use this document as the primary entrypoint after development and go-live for cl
 6. `docs/THIRD_PARTY_INTEGRATIONS_SETUP_AND_KEY_MANAGEMENT_GUIDE.md` — provider keys, rotation, and incident drill policy.
 7. `docs/CLIENT_INTEGRATION_CREDENTIAL_REGISTER_TEMPLATE.md` — instantiate and maintain credential ownership trail.
 8. `docs/BACKEND_GO_LIVE_CHECKLIST.md` and `docs/FRONTEND_AI_GO_LIVE_CHECKLIST.md` — release evidence gates.
+9. `docs/PLATFORM_VERSIONING_AND_SYNC_GUIDE.md` — keeping multiple client sites on a versioned shared core while each keeps its own design + feature set: semver'd cores, changelog-as-propagation-recipe, `PLATFORM_VERSION` pinning, design-token contract, flag-based feature differences, and drift-enforcement CI gates. Builds on `CO_DEVELOPMENT_SYNC_GUIDE.md`.
 
 ## Delivery Records (Client-Specific Artifacts)
 
