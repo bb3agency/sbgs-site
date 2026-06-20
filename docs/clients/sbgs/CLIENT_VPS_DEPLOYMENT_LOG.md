@@ -22,7 +22,16 @@
 | Image CDN | `https://cdn.srisaibabasweets.com` (Cloudflare R2) |
 | DNS | Cloudflare (nameservers updated at Namecheap) |
 | Phase 5 (local) | 2026-05-23 |
-| Last updated | 2026-06-11 |
+| Last updated | 2026-06-20 |
+
+---
+
+## 2026-06-20 — Progress log
+
+- **Turnstile + Ops login fixed end-to-end.** Root causes were (1) DNS records for the apex/`www` were DNS-only instead of Proxied, and Bot Fight Mode was blocking the Turnstile challenge; (2) backend `TURNSTILE_SECRET_KEY` belonged to a different Cloudflare Turnstile widget than the frontend's site key, so Cloudflare's `siteverify` returned `invalid-input-secret` → backend mapped this to a 502 on `POST /api/v1/ops/auth/login/request-otp`. Fixed by issuing a secret from the same widget as the live site key and recreating (not restarting) the backend/workers containers — `env_file: .env` is only read at container creation. Full diagnosis + the still-open action item (recording the corrected secret) are in [VPS_INPUTS.md](./VPS_INPUTS.md).
+- **Runtime readiness profile locked in:** prepaid-only via Razorpay (no COD/noop), Cloudflare R2 for product media (`local` is blocked in production), no SMS provider (`SMS_PROVIDER=noop` is valid in production, unlike `PAYMENT_PROVIDER=noop`). Required keys for this profile are listed in [VPS_INPUTS.md](./VPS_INPUTS.md) § Runtime readiness — Ops UI saves for these are still pending (see Phase 8 below).
+- **Product image upload reliability fix landed** (commit `8dbd3a5`): admin image upload had three compounding bugs — a DTO-serialization 500 *after* successful upload, false-positive "declared MIME mismatch" 400s on legitimate images, and the nginx maintenance `auth_request` gate buffering/breaking larger multipart uploads. All three fixed; see `backend/CHANGELOG.md` / `frontend/CHANGELOG.md` `[Unreleased]` for the full propagation notes. **Action:** confirm the updated `nginx/client.conf.template` has been re-rendered on the live VPS config (`nginx -t && systemctl reload nginx`) — template changes don't auto-apply to already-deployed `/etc/nginx/sites-available/<domain>` files.
+- Manual `npm run build` should never be run directly on the VPS while PM2 is serving — it races with the live `.next` directory and causes "Failed to load chunk" errors. Use the CD pipeline (`phase10-frontend-deploy.sh` / GitHub Actions) instead.
 
 ---
 
@@ -52,7 +61,8 @@
 **Status:** `[ ]` blocked until live Resend
 
 - [ ] Run `phase8-ops-bootstrap.sh` or manual `ops:newuser`
-- [ ] Ops UI config save + container restart
+- [x] Ops login (Turnstile + OTP) verified working end-to-end (2026-06-20)
+- [ ] Ops UI config save for Runtime readiness profile (Razorpay webhook allowlist CIDR, R2 chain, `SMS_PROVIDER=noop`, `REPLAY_APPROVAL_TOKEN`) + container restart — see [VPS_INPUTS.md](./VPS_INPUTS.md) § Runtime readiness
 
 ---
 
