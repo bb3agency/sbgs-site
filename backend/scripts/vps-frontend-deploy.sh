@@ -41,7 +41,7 @@ resolve_storefront_port() {
       fi
     fi
   done
-  echo "3102"
+  echo "3101"
 }
 
 FRONTEND_PATH="${1:-}"
@@ -203,7 +203,7 @@ else
   echo "Run the one-time setup first:"
   echo "  pm2 start npm --name '$PM2_NAME' -- start -- -p <STOREFRONT_PORT>"
   echo "  pm2 save && pm2 startup"
-  echo "Attempting cold start (port from STOREFONT_PORT env or 3102)…"
+  echo "Attempting cold start (port from STOREFONT_PORT env or 3101)…"
   STOREFRONT_PORT=$(resolve_storefront_port "$FRONTEND_PATH")
   pm2 start npm --name "$PM2_NAME" -- start -- -p "$STOREFRONT_PORT"
   pm2 save
