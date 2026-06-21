@@ -27,10 +27,10 @@ export async function RelatedProductsSection({
   return (
     <section className="mt-6 rounded-[20px] bg-white px-5 py-7 shadow-sm sm:mt-8 sm:px-8 sm:py-9">
       <div className="mb-6">
-        <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-[#d4a537]">
+        <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-[#ec6e55]">
           {subtitle}
         </p>
-        <h2 className="font-heading text-xl font-bold text-[#7f1416] sm:text-2xl">
+        <h2 className="font-heading text-xl font-bold text-[#23403d] sm:text-2xl">
           {title}
         </h2>
       </div>

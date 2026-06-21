@@ -54,7 +54,7 @@ export function ShareProductButton({
         onClick={() => void handleShare()}
         aria-label="Share product"
         className={cn(
-          "flex size-9 items-center justify-center rounded-full border border-[#efe8e4] bg-white text-[#7f1416] shadow-sm transition-colors hover:border-[#d4a537] hover:text-[#d4a537]",
+          "flex size-9 items-center justify-center rounded-full border border-[#e8ede7] bg-white text-[#23403d] shadow-sm transition-colors hover:border-[#ec6e55] hover:text-[#ec6e55]",
           className,
         )}
       >
@@ -73,7 +73,7 @@ export function ShareProductButton({
       onClick={() => void handleShare()}
       aria-label="Share product"
       className={cn(
-        "inline-flex h-10 items-center gap-2 rounded-full border border-[#f5ebe0] bg-white px-4 text-sm font-semibold text-[#7f1416] shadow-sm transition-all hover:border-[#d4a537] hover:text-[#d4a537]",
+        "inline-flex h-10 items-center gap-2 rounded-full border border-[#e3ebe1] bg-white px-4 text-sm font-semibold text-[#23403d] shadow-sm transition-all hover:border-[#ec6e55] hover:text-[#ec6e55]",
         copied && "border-[#00aa63] text-[#00aa63]",
         className,
       )}

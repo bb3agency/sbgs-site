@@ -43,7 +43,7 @@ export function StorefrontPagination({
       <Link
         href={buildHref(basePath, prevPage, searchParams)}
         aria-disabled={page <= 1}
-        className={`inline-flex h-10 items-center gap-1 rounded-full border border-[#f5d88e] bg-white px-4 text-sm font-bold text-[#7f1416] transition-colors hover:border-[#7f1416] ${
+        className={`inline-flex h-10 items-center gap-1 rounded-full border border-[#dbe8d8] bg-white px-4 text-sm font-bold text-[#23403d] transition-colors hover:border-[#23403d] ${
           page <= 1 ? "pointer-events-none opacity-40" : ""
         }`}
       >
@@ -56,7 +56,7 @@ export function StorefrontPagination({
       <Link
         href={buildHref(basePath, nextPage, searchParams)}
         aria-disabled={page >= totalPages}
-        className={`inline-flex h-10 items-center gap-1 rounded-full border border-[#f5d88e] bg-white px-4 text-sm font-bold text-[#7f1416] transition-colors hover:border-[#7f1416] ${
+        className={`inline-flex h-10 items-center gap-1 rounded-full border border-[#dbe8d8] bg-white px-4 text-sm font-bold text-[#23403d] transition-colors hover:border-[#23403d] ${
           page >= totalPages ? "pointer-events-none opacity-40" : ""
         }`}
       >

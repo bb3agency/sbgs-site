@@ -42,13 +42,13 @@ export function ProductDetailTabs({
             className={cn(
               "relative shrink-0 px-5 py-4 text-sm font-semibold transition-colors sm:px-8",
               activeTab === tab.id
-                ? "text-[#7f1416]"
+                ? "text-[#23403d]"
                 : "text-[#999] hover:text-[#555]",
             )}
           >
             {tab.label}
             {activeTab === tab.id && (
-              <span className="absolute bottom-0 left-5 right-5 h-0.5 rounded-full bg-[#7f1416]" />
+              <span className="absolute bottom-0 left-5 right-5 h-0.5 rounded-full bg-[#23403d]" />
             )}
           </button>
         ))}
@@ -73,7 +73,7 @@ export function ProductDetailTabs({
                             key={j}
                             className="flex items-start gap-2 text-sm leading-relaxed text-[#555]"
                           >
-                            <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-[#d4a537]" aria-hidden />
+                            <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-[#ec6e55]" aria-hidden />
                             {line.replace(/^[-*•]\s*/, "")}
                           </li>
                         ))}
@@ -91,7 +91,7 @@ export function ProductDetailTabs({
                   if (isHeading && rest) {
                     return (
                       <div key={i}>
-                        <h3 className="mb-2 text-sm font-bold text-[#7f1416]">
+                        <h3 className="mb-2 text-sm font-bold text-[#23403d]">
                           {firstLine.replace(/:$/, "")}
                         </h3>
                         <p className="text-sm leading-relaxed text-[#555]">{rest}</p>
@@ -124,7 +124,7 @@ export function ProductDetailTabs({
                 <dd>
                   <Link
                     href={`/categories/${categorySlug}`}
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#7f1416] hover:text-[#d4a537]"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#23403d] hover:text-[#ec6e55]"
                   >
                     <Package className="size-3.5" aria-hidden />
                     {categoryName}
@@ -141,7 +141,7 @@ export function ProductDetailTabs({
                     {tags.map((tag) => (
                       <span
                         key={tag}
-                        className="inline-flex items-center gap-1 rounded-full bg-[#faf5ec] px-2.5 py-0.5 text-xs font-semibold text-[#7f1416]"
+                        className="inline-flex items-center gap-1 rounded-full bg-[#eff5ee] px-2.5 py-0.5 text-xs font-semibold text-[#23403d]"
                       >
                         <Tag className="size-2.5" aria-hidden />
                         {tag}
@@ -160,9 +160,9 @@ export function ProductDetailTabs({
 
               <div className="flex items-start gap-6 py-3">
                 <dt className="w-36 shrink-0 text-xs font-bold uppercase tracking-wider text-[#999]">
-                  Made With
+                  Certification
                 </dt>
-                <dd className="text-sm text-[#555]">Pure ghee, Made fresh daily</dd>
+                <dd className="text-sm text-[#555]">Chemical-free, Lab-tested</dd>
               </div>
 
               <div className="flex items-start gap-6 py-3">

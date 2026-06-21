@@ -27,7 +27,7 @@ function formatCategoryName(slug: string): string {
 export async function generateMetadata({ params }: CategoryProductsPageProps) {
   const { slug } = await params;
   const name = formatCategoryName(slug);
-  return { title: `${name} — Pure Ghee Sweets` };
+  return { title: `${name} — Chemical Free Products` };
 }
 
 export default async function CategoryProductsPage({
@@ -53,30 +53,30 @@ export default async function CategoryProductsPage({
   const totalPages = meta?.totalPages ?? 1;
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#faf5ec] pb-16">
-      <section className="relative overflow-hidden bg-[#f5d88e] py-10 md:py-16">
+    <div className="flex min-h-screen flex-col bg-[#eff5ee] pb-16">
+      <section className="relative overflow-hidden bg-[#dbe8d8] py-10 md:py-16">
         <div className="mx-auto w-full max-w-[1440px] px-4 lg:px-8">
           <nav
             className="mb-4 flex items-center gap-1.5 text-xs font-bold text-[#767676] sm:text-sm"
             aria-label="Breadcrumb"
           >
-            <Link href="/" className="hover:text-[#d4a537]">
+            <Link href="/" className="hover:text-[#ec6e55]">
               Home
             </Link>
             <ChevronRight className="size-3" />
-            <Link href="/products" className="hover:text-[#d4a537]">
+            <Link href="/products" className="hover:text-[#ec6e55]">
               Shop
             </Link>
             <ChevronRight className="size-3" />
-            <span className="text-[#d4a537]">{categoryName}</span>
+            <span className="text-[#ec6e55]">{categoryName}</span>
           </nav>
-          <p className="text-xs font-bold uppercase tracking-widest text-[#d4a537]">
-            Sweets Collection
+          <p className="text-xs font-bold uppercase tracking-widest text-[#ec6e55]">
+            Chemical Free Category
           </p>
-          <h1 className="mt-1 font-heading text-3xl font-bold text-[#7f1416] sm:text-4xl">
+          <h1 className="mt-1 font-heading text-3xl font-bold text-[#23403d] sm:text-4xl">
             {categoryName}
           </h1>
-          <p className="mt-2 text-sm font-medium text-[#7f1416]/75">
+          <p className="mt-2 text-sm font-medium text-[#23403d]/75">
             {total > 0
               ? `${total} active product${total !== 1 ? "s" : ""}`
               : "Products in this category will appear when marked Active in admin"}
@@ -96,9 +96,9 @@ export default async function CategoryProductsPage({
             />
           </>
         ) : (
-          <div className="flex flex-col items-center gap-4 rounded-2xl border border-dashed border-[#f5d88e] bg-white py-24 text-center">
-            <Leaf className="size-14 text-[#7f1416]/25" aria-hidden />
-            <p className="font-heading text-xl font-semibold text-[#7f1416]">
+          <div className="flex flex-col items-center gap-4 rounded-2xl border border-dashed border-[#c5dac2] bg-white py-24 text-center">
+            <Leaf className="size-14 text-[#23403d]/25" aria-hidden />
+            <p className="font-heading text-xl font-semibold text-[#23403d]">
               No products in this category yet
             </p>
             <p className="max-w-md text-sm text-[#767676]">
@@ -106,7 +106,7 @@ export default async function CategoryProductsPage({
             </p>
             <Link
               href="/products"
-              className="mt-2 inline-flex h-10 items-center justify-center rounded-full bg-[#7f1416] px-6 text-sm font-bold text-white transition-colors hover:bg-[#d4a537]"
+              className="mt-2 inline-flex h-10 items-center justify-center rounded-full bg-[#23403d] px-6 text-sm font-bold text-white transition-colors hover:bg-[#ec6e55]"
             >
               Browse all products
             </Link>

@@ -14,7 +14,7 @@ interface CartLineProductDetailsProps {
 
 export function CartLineProductDetails({
   item,
-  nameClassName = "truncate text-sm font-bold text-[#7f1416] sm:text-base",
+  nameClassName = "truncate text-sm font-bold text-[#23403d] sm:text-base",
   descriptionClassName = "mt-0.5 text-xs text-[#767676] line-clamp-2",
   variantClassName = "mt-0.5 text-xs font-medium text-[#767676]",
 }: CartLineProductDetailsProps) {

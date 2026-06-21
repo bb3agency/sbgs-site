@@ -105,8 +105,8 @@ export function ProductShareMenu({ productName, productUrl }: ProductShareMenuPr
         aria-expanded={open}
         aria-label="Share product"
         className={cn(
-          "inline-flex h-10 items-center gap-2 rounded-full border border-[#f5ebe0] bg-white px-4 text-sm font-semibold text-[#7f1416] shadow-sm transition-all hover:border-[#d4a537] hover:text-[#d4a537]",
-          open && "border-[#d4a537] text-[#d4a537]",
+          "inline-flex h-10 items-center gap-2 rounded-full border border-[#e3ebe1] bg-white px-4 text-sm font-semibold text-[#23403d] shadow-sm transition-all hover:border-[#ec6e55] hover:text-[#ec6e55]",
+          open && "border-[#ec6e55] text-[#ec6e55]",
         )}
       >
         <Share2 className="size-4" />
@@ -114,7 +114,7 @@ export function ProductShareMenu({ productName, productUrl }: ProductShareMenuPr
       </button>
 
       {open && (
-        <div className="absolute right-0 top-12 z-50 w-64 overflow-hidden rounded-2xl border border-[#f5ebe0] bg-white shadow-xl">
+        <div className="absolute right-0 top-12 z-50 w-64 overflow-hidden rounded-2xl border border-[#e3ebe1] bg-white shadow-xl">
           <div className="flex items-center justify-between border-b border-[#f0f0f0] px-4 py-3">
             <span className="text-xs font-bold uppercase tracking-wider text-[#767676]">Share via</span>
             <button
@@ -152,7 +152,7 @@ export function ProductShareMenu({ productName, productUrl }: ProductShareMenuPr
           </div>
 
           <div className="border-t border-[#f0f0f0] p-3">
-            <div className="flex items-center gap-2 rounded-xl border border-[#efe8e4] bg-[#fafafa] p-2">
+            <div className="flex items-center gap-2 rounded-xl border border-[#e8ede7] bg-[#fafafa] p-2">
               <span className="min-w-0 flex-1 truncate font-mono text-[10px] text-[#888]">
                 {productUrl}
               </span>
@@ -163,7 +163,7 @@ export function ProductShareMenu({ productName, productUrl }: ProductShareMenuPr
                   "flex shrink-0 items-center gap-1 rounded-lg px-2.5 py-1.5 text-[11px] font-bold transition-colors",
                   copied
                     ? "bg-[#00aa63] text-white"
-                    : "bg-[#7f1416] text-white hover:bg-[#d4a537]",
+                    : "bg-[#23403d] text-white hover:bg-[#ec6e55]",
                 )}
               >
                 {copied ? <Check className="size-3" /> : <Copy className="size-3" />}
