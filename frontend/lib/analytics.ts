@@ -1,13 +1,13 @@
 import { getBrowserApiBaseUrl } from "@/lib/api-base";
-import { createIdempotencyKey } from "@/lib/idempotency";
+import { STORAGE_PREFIX } from "@/lib/constants";
 
-const SESSION_KEY = "ro_analytics_sid";
+const SESSION_KEY = `${STORAGE_PREFIX}_analytics_sid`;
 
 function getSessionId(): string {
   if (typeof window === "undefined") return "ssr";
   let sid = localStorage.getItem(SESSION_KEY);
   if (!sid) {
-    sid = createIdempotencyKey();
+    sid = crypto.randomUUID();
     localStorage.setItem(SESSION_KEY, sid);
   }
   return sid;
