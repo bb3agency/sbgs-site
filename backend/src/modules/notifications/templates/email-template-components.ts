@@ -76,7 +76,7 @@ function Wrapper(...children: ReactElement[]): ReactElement {
                           fontSize: '20px', fontWeight: 700,
                           color: B.white, letterSpacing: '-0.3px'
                         }
-                      }, 'Sri Sai Baba Ghee Sweets'),
+                      }, 'Raghava Organics'),
                       el('p', {
                         style: { margin: '3px 0 0', fontSize: '12px', color: '#8ab5b2', letterSpacing: '0.5px', textTransform: 'uppercase' }
                       }, 'Pure · Natural · Organic')
@@ -110,13 +110,13 @@ function Wrapper(...children: ReactElement[]): ReactElement {
                 },
                   el('p', {
                     style: { margin: 0, fontSize: '12px', color: B.textMuted }
-                  }, '© 2026 Sri Sai Baba Ghee Sweets. All rights reserved.'),
+                  }, '© 2026 Raghava Organics. All rights reserved.'),
                   el('p', {
                     style: { margin: '6px 0 0', fontSize: '11px', color: B.textMuted }
-                  }, 'support@srisaibabasweets.com | srisaibabasweets.com'),
+                  }, 'support@raghavaorganics.com | raghavaorganics.com'),
                   el('p', {
                     style: { margin: '10px 0 0', fontSize: '11px', color: '#b0c4c2' }
-                  }, 'You are receiving this email because you have an account with Sri Sai Baba Ghee Sweets.')
+                  }, 'You are receiving this email because you have an account with Raghava Organics.')
                 )
               )
             )
@@ -377,7 +377,7 @@ export function OrderDeliveredEmail(orderId: string): ReactElement {
   return Wrapper(
     StatusBadge('Delivered', B.successGreen, B.successBg),
     Heading('Your order has been delivered!'),
-    Body(`Your order ${orderId} has been successfully delivered. We hope you love your Sri Sai Baba Ghee Sweets products!`),
+    Body(`Your order ${orderId} has been successfully delivered. We hope you love your Raghava Organics products!`),
     InfoBox(
       el('table', { width: '100%', cellPadding: 0, cellSpacing: 0 },
         el('tbody', null,
@@ -478,7 +478,7 @@ export function OtpVerificationEmail(otp: string): ReactElement {
     Heading('Your admin login code'),
     Body('Use the code below to complete your sign-in. This code is valid for 10 minutes and can only be used once.'),
     OtpCode(otp),
-    SecurityNote('Never share this code with anyone. The Sri Sai Baba Ghee Sweets team will never ask you for your login code. If you did not request this, secure your account immediately.'),
+    SecurityNote('Never share this code with anyone. The Raghava Organics team will never ask you for your login code. If you did not request this, secure your account immediately.'),
     Divider(),
     el('p', { style: { fontSize: '12px', color: B.textMuted, margin: 0, lineHeight: '1.6' } },
       'This is an automated security message. If you did not attempt to log in, please contact the platform operator immediately.'
@@ -518,7 +518,7 @@ export function AdminInviteSetupEmail(email: string, setupUrl: string, expiresAt
   return Wrapper(
     StatusBadge('Admin Invite', B.green, '#e8f0ef'),
     Heading('Merchant admin setup invite'),
-    Body(`You have been invited to set up a merchant admin account for Sri Sai Baba Ghee Sweets. Click the button below to create your account and set your password.`),
+    Body(`You have been invited to set up a merchant admin account for Raghava Organics. Click the button below to create your account and set your password.`),
     InfoBox(
       el('table', { width: '100%', cellPadding: 0, cellSpacing: 0 },
         el('tbody', null,

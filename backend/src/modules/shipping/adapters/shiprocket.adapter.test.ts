@@ -180,7 +180,7 @@ describe('ShiprocketAdapter', () => {
     const adapter = new ShiprocketAdapter({
       email: 'test@example.com',
       password: 'secret',
-      pickupLocation: 'SBGS Warehouse'
+      pickupLocation: 'Raghava Warehouse'
     });
     await adapter.createShipment({
       orderNumber: 'ORD-2026-00002',
@@ -201,7 +201,7 @@ describe('ShiprocketAdapter', () => {
     });
 
     const createBody = JSON.parse((fetchMock.mock.calls[1] as [string, RequestInit])[1].body as string);
-    expect(createBody.pickup_location).toBe('SBGS Warehouse');
+    expect(createBody.pickup_location).toBe('Raghava Warehouse');
   });
 
   it('sends payment_method COD in Shiprocket payload for COD orders', async () => {

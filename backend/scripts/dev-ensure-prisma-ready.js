@@ -92,7 +92,7 @@ function warnLikelyTemplateDatabaseReuse(databaseName) {
   if (looksLikeClientWorkspace && normalizedDb === 'ecom_template') {
     logger.warn('DATABASE_URL appears to use template database name in a client workspace.', {
       databaseName,
-      hint: 'Set DATABASE_URL to a client-specific DB name (for example: SBGS_organics) before first boot.'
+      hint: 'Set DATABASE_URL to a client-specific DB name (for example: raghava_organics) before first boot.'
     });
   }
 }

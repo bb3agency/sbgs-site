@@ -13,7 +13,7 @@ describe('validateRuntimeEnv', () => {
     JWT_SECRET: 'jwt-secret-value-32chars-minimum-xx',
     JWT_REFRESH_SECRET: 'jwt-refresh-secret-value-32chars-min',
     OPS_DB_ENCRYPTION_KEY: '0123456789abcdef0123456789abcdef',
-    DATABASE_URL: 'postgresql://u:p@127.0.0.1:5432/SBGS_organics',
+    DATABASE_URL: 'postgresql://u:p@127.0.0.1:5432/raghava_organics',
     REDIS_URL: 'redis://:password@127.0.0.1:6379',
     AUTH_DEV_BYPASS: 'false',
     TURNSTILE_SECRET_KEY: 'prod-turnstile-secret-key',

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Validates bootstrap .env for client workspaces (sbgs baseline).
+ * Validates bootstrap .env for client workspaces (raghava-organics baseline).
  * Usage: node scripts/verify-client-bootstrap-env.mjs
  */
 import { readFileSync, existsSync } from "node:fs";
@@ -48,7 +48,7 @@ const jwtRefresh = requireKey("JWT_REFRESH_SECRET");
 const opsKey = requireKey("OPS_DB_ENCRYPTION_KEY");
 
 if (clientId === "ecom" || clientId === "ecomtemplate") {
-  errors.push("CLIENT_ID must be a client slug (e.g. sbgs), not template default");
+  errors.push("CLIENT_ID must be a client slug (e.g. raghava-organics), not template default");
 }
 
 if (postgresDb.includes("-")) {
