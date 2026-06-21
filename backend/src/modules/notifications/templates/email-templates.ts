@@ -125,7 +125,7 @@ export async function renderNotificationEmail(template: string, data: Record<str
       {
         const otp = escapeHtml(data.otp ?? 'N/A');
       return {
-        subject: 'Your admin login code — Sri Sai Baba Ghee Sweets',
+        subject: 'Your admin login code — Raghava Organics',
         html: await render(OtpVerificationEmail(otp))
       };
       }
@@ -187,7 +187,7 @@ export async function renderNotificationEmail(template: string, data: Record<str
         const email = escapeHtml(data.email ?? 'N/A');
         const resetUrl = typeof data.resetUrl === 'string' ? data.resetUrl : 'N/A';
         return {
-          subject: 'Reset your Sri Sai Baba Ghee Sweets password',
+          subject: 'Reset your Raghava Organics password',
           html: await render(PasswordResetEmail(email, resetUrl))
         };
       }
@@ -197,7 +197,7 @@ export async function renderNotificationEmail(template: string, data: Record<str
         const setupUrl = escapeHtml(data.setupUrl ?? 'N/A');
         const expiresAt = escapeHtml(data.expiresAt ?? 'N/A');
         return {
-          subject: 'Your Sri Sai Baba Ghee Sweets ops account setup invite',
+          subject: 'Your Raghava Organics ops account setup invite',
           html: await render(OpsInviteSetupEmail(email, setupUrl, expiresAt))
         };
       }
@@ -207,7 +207,7 @@ export async function renderNotificationEmail(template: string, data: Record<str
         const setupUrl = escapeHtml(data.setupUrl ?? 'N/A');
         const expiresAt = escapeHtml(data.expiresAt ?? 'N/A');
         return {
-          subject: 'Your Sri Sai Baba Ghee Sweets merchant admin setup invite',
+          subject: 'Your Raghava Organics merchant admin setup invite',
           html: await render(AdminInviteSetupEmail(email, setupUrl, expiresAt))
         };
       }

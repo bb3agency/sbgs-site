@@ -19,7 +19,7 @@
  *
  * Usage on the VPS (run inside the workers container so REDIS_URL is available):
  *
- *   docker exec sbgs-workers node scripts/resume-paused-queues.js
+ *   docker exec raghava-organics-workers node scripts/resume-paused-queues.js
  *
  * Optional flags:
  *   --dry-run     Only report paused queues, do not resume.
