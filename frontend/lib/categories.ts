@@ -27,8 +27,8 @@ const CATEGORY_META_FALLBACKS: Record<string, { image: string; color: string }> 
 };
 
 const DEFAULT_META = {
-  image: "/images/sweets/IMG_20260612_163129.jpg",
-  color: "bg-[#faf5ec]",
+  image: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=160&h=160&fit=crop",
+  color: "bg-[#f5f5f5]",
 };
 
 export async function getStoreCategories(
