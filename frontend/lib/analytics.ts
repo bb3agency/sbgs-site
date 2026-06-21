@@ -1,4 +1,5 @@
 import { getBrowserApiBaseUrl } from "@/lib/api-base";
+import { createIdempotencyKey } from "@/lib/idempotency";
 
 const SESSION_KEY = "ro_analytics_sid";
 
@@ -6,7 +7,7 @@ function getSessionId(): string {
   if (typeof window === "undefined") return "ssr";
   let sid = localStorage.getItem(SESSION_KEY);
   if (!sid) {
-    sid = crypto.randomUUID();
+    sid = createIdempotencyKey();
     localStorage.setItem(SESSION_KEY, sid);
   }
   return sid;
