@@ -104,17 +104,17 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           className="mb-4 flex flex-wrap items-center gap-1.5 text-xs font-bold text-[#767676] sm:mb-8 sm:gap-2 sm:text-sm"
           aria-label="Breadcrumb"
         >
-          <Link href="/" className="transition-colors hover:text-[#ec6e55]">
+          <Link href="/" className="transition-colors hover:text-[#ec6e55] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#23403d] rounded">
             Home
           </Link>
           <ChevronRight className="size-3" />
-          <Link href="/products" className="transition-colors hover:text-[#ec6e55]">
+          <Link href="/products" className="transition-colors hover:text-[#ec6e55] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#23403d] rounded">
             Shop
           </Link>
           <ChevronRight className="size-3" />
           <Link
             href={`/categories/${product.category.slug}`}
-            className="transition-colors hover:text-[#ec6e55]"
+            className="transition-colors hover:text-[#ec6e55] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#23403d] rounded"
           >
             {product.category.name}
           </Link>

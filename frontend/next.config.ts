@@ -49,7 +49,7 @@ function parseDevOriginHost(entry: string): string | null {
 const backendProxyOrigin = (
   process.env.BACKEND_PROXY_URL ??
   process.env.INTERNAL_API_BASE_URL?.replace(/\/api\/v1\/?$/, "") ??
-  "http://127.0.0.1:3000"
+  "http://127.0.0.1:3002"
 ).replace(/\/$/, "");
 
 /**

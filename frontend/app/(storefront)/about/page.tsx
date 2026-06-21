@@ -121,6 +121,7 @@ export default async function AboutPage() {
                   alt="Raghava Organics — fresh chemical-free produce"
                   width={600}
                   height={480}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                   className="mx-auto h-64 w-full object-contain p-8 lg:h-80"
                 />
               </div>

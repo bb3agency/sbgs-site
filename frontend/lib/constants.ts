@@ -1,5 +1,5 @@
 export const APP_NAME =
-  process.env.NEXT_PUBLIC_STORE_NAME ?? "Sri Sai Baba Ghee Sweets";
+  process.env.NEXT_PUBLIC_STORE_NAME ?? "Your Store";
 
 /** Canonical brand logo served from Next.js `public/` (do not store at repo root). */
 export const BRAND_LOGO_SRC = "/images/sbgs-logo.png";

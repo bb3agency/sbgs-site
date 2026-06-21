@@ -48,7 +48,7 @@ export function Header({ categories, minOrderValuePaise = 0 }: HeaderProps) {
         <div className="flex items-center">
           <Link
             href="/"
-            className="flex shrink-0 items-center gap-1.5 sm:gap-2 font-heading text-lg sm:text-2xl font-bold tracking-tight text-[#23403d]"
+            className="flex shrink-0 items-center gap-1.5 sm:gap-2 font-heading text-lg sm:text-2xl font-bold tracking-tight text-[#23403d] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#23403d] rounded"
             aria-label={`${APP_NAME} home`}
           >
             <Image src={BRAND_LOGO_SRC} alt="Raghava Organics Logo" width={36} height={36} className="size-8 sm:size-9 shrink-0 object-contain" />
@@ -71,7 +71,7 @@ export function Header({ categories, minOrderValuePaise = 0 }: HeaderProps) {
             </div>
             <div className="flex flex-col">
               <span className="text-xs font-bold text-[#767676]">Call Us 24/7</span>
-              <a href="tel:+919440445006" className="text-sm font-bold text-[#23403d] hover:text-[#ec6e55]">+91 94404 45006</a>
+              <a href="tel:+919440445006" className="text-sm font-bold text-[#23403d] hover:text-[#ec6e55] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#23403d] rounded">+91 94404 45006</a>
             </div>
           </div>
           
@@ -79,9 +79,9 @@ export function Header({ categories, minOrderValuePaise = 0 }: HeaderProps) {
           
           <MainNav />
 
-          <button 
+          <button
             onClick={() => setMobileMenuOpen(true)}
-            className="flex size-9 sm:size-10 shrink-0 items-center justify-center rounded-full bg-[#eff5ee] text-[#23403d] lg:hidden" 
+            className="flex size-11 shrink-0 items-center justify-center rounded-full bg-[#eff5ee] text-[#23403d] lg:hidden focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#23403d]"
             aria-label="Open menu"
           >
             <Menu className="size-4 sm:size-5" />
@@ -92,7 +92,7 @@ export function Header({ categories, minOrderValuePaise = 0 }: HeaderProps) {
       {/* Navigation Row */}
       <div className="hidden border-t border-[#efe8e4] bg-white lg:block">
         <div className="mx-auto flex h-14 max-w-[1440px] items-center gap-8 px-8">
-          <Link href="/products" className="flex h-14 items-center gap-2 bg-[#23403d] px-6 text-sm font-bold text-white transition-colors hover:bg-[#1a302e]">
+          <Link href="/products" className="flex h-14 items-center gap-2 bg-[#23403d] px-6 text-sm font-bold text-white transition-colors hover:bg-[#1a302e] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#23403d]">
             <Menu className="size-4" /> Browse Categories
           </Link>
           
@@ -100,14 +100,14 @@ export function Header({ categories, minOrderValuePaise = 0 }: HeaderProps) {
             className="flex items-center gap-8 text-sm font-bold text-[#23403d]"
             aria-label="Store navigation"
           >
-            <Link href="/" className="transition-colors hover:text-[#ec6e55]">Home</Link>
-            <Link href="/products" className="transition-colors hover:text-[#ec6e55]">Shop</Link>
+            <Link href="/" className="transition-colors hover:text-[#ec6e55] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#23403d] rounded">Home</Link>
+            <Link href="/products" className="transition-colors hover:text-[#ec6e55] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#23403d] rounded">Shop</Link>
             {categories.slice(0, 3).map((cat) => (
-              <Link key={cat.slug} href={`/categories/${cat.slug}`} className="transition-colors hover:text-[#ec6e55]">
+              <Link key={cat.slug} href={`/categories/${cat.slug}`} className="transition-colors hover:text-[#ec6e55] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#23403d] rounded">
                 {cat.name}
               </Link>
             ))}
-            <Link href="/products?sort=popularity" className="flex items-center gap-1 text-[#ec6e55] transition-colors hover:text-[#23403d]">
+            <Link href="/products?sort=popularity" className="flex items-center gap-1 text-[#ec6e55] transition-colors hover:text-[#23403d] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#23403d] rounded">
               Special Offers <Leaf className="size-3" />
             </Link>
           </nav>

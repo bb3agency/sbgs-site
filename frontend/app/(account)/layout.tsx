@@ -21,7 +21,7 @@ export default function AccountLayout({ children }: AccountLayoutProps) {
               My Account
             </h1>
             <nav className="flex items-center gap-1.5 text-xs font-bold text-[#767676] sm:gap-2 sm:text-sm" aria-label="Breadcrumb">
-              <Link href="/" className="hover:text-[#ec6e55] transition-colors">Home</Link>
+              <Link href="/" className="hover:text-[#ec6e55] transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#23403d] rounded">Home</Link>
               <ChevronRight className="size-3" />
               <span className="text-[#ec6e55]">My Account</span>
             </nav>
@@ -35,9 +35,9 @@ export default function AccountLayout({ children }: AccountLayoutProps) {
         <section className="mx-auto w-full max-w-[1440px] px-4 pt-6 sm:pt-12 lg:px-8">
           <div className="grid gap-4 sm:gap-8 lg:grid-cols-[250px_1fr] lg:items-start">
             <nav className="flex flex-row lg:flex-col overflow-x-auto lg:overflow-x-visible gap-1.5 sm:gap-2 rounded-[20px] bg-white p-3 sm:p-4 lg:p-6 shadow-sm scrollbar-none" aria-label="Account">
-              <Link href="/dashboard" className="rounded-lg px-3 py-2.5 text-xs font-bold text-[#23403d] transition-colors hover:bg-[#faf3ef] hover:text-[#ec6e55] whitespace-nowrap flex-1 text-center lg:text-left sm:px-4 sm:py-3 sm:text-sm">Dashboard</Link>
-              <Link href="/orders" className="rounded-lg px-3 py-2.5 text-xs font-bold text-[#23403d] transition-colors hover:bg-[#faf3ef] hover:text-[#ec6e55] whitespace-nowrap flex-1 text-center lg:text-left sm:px-4 sm:py-3 sm:text-sm">Orders</Link>
-              <Link href="/settings" className="rounded-lg px-3 py-2.5 text-xs font-bold text-[#23403d] transition-colors hover:bg-[#faf3ef] hover:text-[#ec6e55] whitespace-nowrap flex-1 text-center lg:text-left sm:px-4 sm:py-3 sm:text-sm">Settings</Link>
+              <Link href="/dashboard" className="rounded-lg px-3 py-2.5 text-xs font-bold text-[#23403d] transition-colors hover:bg-[#faf3ef] hover:text-[#ec6e55] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#23403d] whitespace-nowrap flex-1 text-center lg:text-left sm:px-4 sm:py-3 sm:text-sm">Dashboard</Link>
+              <Link href="/orders" className="rounded-lg px-3 py-2.5 text-xs font-bold text-[#23403d] transition-colors hover:bg-[#faf3ef] hover:text-[#ec6e55] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#23403d] whitespace-nowrap flex-1 text-center lg:text-left sm:px-4 sm:py-3 sm:text-sm">Orders</Link>
+              <Link href="/settings" className="rounded-lg px-3 py-2.5 text-xs font-bold text-[#23403d] transition-colors hover:bg-[#faf3ef] hover:text-[#ec6e55] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#23403d] whitespace-nowrap flex-1 text-center lg:text-left sm:px-4 sm:py-3 sm:text-sm">Settings</Link>
             </nav>
             <div className="rounded-[20px] bg-white p-4 shadow-sm sm:p-6 lg:p-8">
               {children}

@@ -101,7 +101,7 @@ export default async function CheckoutPage() {
                   </div>
                   <div>
                     <p className="text-sm font-bold text-[#23403d]">Pay Online</p>
-                    <p className="mt-0.5 text-xs text-[#999]">UPI, Cards, Wallets, Net Banking via Razorpay</p>
+                    <p className="mt-0.5 text-xs text-muted-foreground">UPI, Cards, Wallets, Net Banking via Razorpay</p>
                   </div>
                 </div>
 
@@ -113,7 +113,7 @@ export default async function CheckoutPage() {
                     </div>
                     <div>
                       <p className="text-sm font-bold text-[#23403d]">Cash on Delivery</p>
-                      <p className="mt-0.5 text-xs text-[#999]">Pay in cash when your order arrives</p>
+                      <p className="mt-0.5 text-xs text-muted-foreground">Pay in cash when your order arrives</p>
                     </div>
                   </div>
                 ) : (
@@ -130,7 +130,7 @@ export default async function CheckoutPage() {
                   </div>
                   <div>
                     <p className="text-sm font-bold text-[#23403d]">Live Shipping Estimate</p>
-                    <p className="mt-0.5 text-xs text-[#999]">Calculated in real-time based on your pincode</p>
+                    <p className="mt-0.5 text-xs text-muted-foreground">Calculated in real-time based on your pincode</p>
                   </div>
                 </div>
 
@@ -142,7 +142,7 @@ export default async function CheckoutPage() {
                     </div>
                     <div>
                       <p className="text-sm font-bold text-[#23403d]">Minimum Order</p>
-                      <p className="mt-0.5 text-xs text-[#999]">
+                      <p className="mt-0.5 text-xs text-muted-foreground">
                         {formatPrice(storeConfig.minOrderValuePaise)} minimum cart value required
                       </p>
                     </div>
@@ -159,7 +159,7 @@ export default async function CheckoutPage() {
               </div>
               <div className="mt-3 flex justify-center gap-4">
                 {["UPI", "Visa", "Mastercard", "RuPay"].map((brand) => (
-                  <span key={brand} className="rounded-md border border-[#f0ece8] bg-[#faf8f5] px-2 py-1 text-[10px] font-bold text-[#999]">
+                  <span key={brand} className="rounded-md border border-border bg-secondary px-2 py-1 text-[10px] font-bold text-muted-foreground">
                     {brand}
                   </span>
                 ))}

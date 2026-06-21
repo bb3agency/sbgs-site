@@ -27,13 +27,13 @@ export function Footer({ categories }: FooterProps) {
               families across India for quality and purity.
             </p>
             <div className="flex gap-3">
-              <a href="https://facebook.com" className="flex size-10 items-center justify-center rounded-full bg-white text-sm font-bold text-[#23403d] shadow-sm transition-colors hover:bg-[#ec6e55] hover:text-white" aria-label="Facebook">
+              <a href="https://facebook.com" className="flex size-11 items-center justify-center rounded-full bg-white text-sm font-bold text-[#23403d] shadow-sm transition-colors hover:bg-[#ec6e55] hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#23403d]" aria-label="Facebook">
                 F
               </a>
-              <a href="https://instagram.com" className="flex size-10 items-center justify-center rounded-full bg-white text-sm font-bold text-[#23403d] shadow-sm transition-colors hover:bg-[#ec6e55] hover:text-white" aria-label="Instagram">
+              <a href="https://instagram.com" className="flex size-11 items-center justify-center rounded-full bg-white text-sm font-bold text-[#23403d] shadow-sm transition-colors hover:bg-[#ec6e55] hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#23403d]" aria-label="Instagram">
                 I
               </a>
-              <a href="https://twitter.com" className="flex size-10 items-center justify-center rounded-full bg-white text-sm font-bold text-[#23403d] shadow-sm transition-colors hover:bg-[#ec6e55] hover:text-white" aria-label="Twitter">
+              <a href="https://twitter.com" className="flex size-11 items-center justify-center rounded-full bg-white text-sm font-bold text-[#23403d] shadow-sm transition-colors hover:bg-[#ec6e55] hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#23403d]" aria-label="Twitter">
                 T
               </a>
             </div>
