@@ -1,7 +1,3 @@
----
-trigger: always_on
----
-
 # E-Commerce Frontend — Antigravity Development Rules
 
 > **Activation:** Always On
@@ -35,8 +31,8 @@ If `diff` output is non-empty, re-sync and commit the updated `.agents/rules/dev
 2. **Identify the current tier and next incomplete slice** from the Slice Tracker.
 3. **Confirm backend `.env` bootstrap keys are correctly configured** — BEFORE running any script, verify ALL of the following in the backend `.env`.
    > **Architecture note:** Provider API keys (Razorpay, Delhivery, Shiprocket, MSG91, Fast2SMS, Resend, Meta WhatsApp, etc.) are **NOT stored in `.env`** in production. They are stored encrypted in the `OpsConfigSecret` database table and loaded at runtime via the Ops config overlay. The `.env` file only contains **bootstrap keys** that must exist before the DB is reachable.
-   - `CLIENT_ID` is set to a client-specific slug (e.g. `sbgs`) — **not** `ecom` or empty. Docker container names are derived from this value (`<CLIENT_ID>-postgres`, `<CLIENT_ID>-redis`).
-   - `POSTGRES_DB` uses **underscores only** (e.g. `SBGS_organics`) — **hyphens are invalid in PostgreSQL DB names** and will cause container init or migration failures.
+   - `CLIENT_ID` is set to a client-specific slug (e.g. `your-client-slug`) — **not** `ecom` or empty. Docker container names are derived from this value (`<CLIENT_ID>-postgres`, `<CLIENT_ID>-redis`).
+   - `POSTGRES_DB` uses **underscores only** (e.g. `your_client_db`) — **hyphens are invalid in PostgreSQL DB names** and will cause container init or migration failures.
    - `POSTGRES_DB` and the DB name in `DATABASE_URL` **must match exactly** — mismatch means the bootstrap script creates the wrong DB.
    - `DATABASE_URL` is **not** `ecom_template` and matches the `POSTGRES_DB` value.
    - `REDIS_PASSWORD` is **non-empty** — blank value causes `ECONNABORTED`/`ECONNRESET` loops in ioredis on every reconnect attempt.
@@ -85,9 +81,9 @@ This is a **high-conversion e-commerce storefront** built as a headless frontend
 - **Public Variables:** For any environment variable that must be exposed to the browser (e.g., client components), ensure it is prefixed with `NEXT_PUBLIC_`.
 - **Private Variables:** Never prefix secret keys or server-only credentials with `NEXT_PUBLIC_`.
 - **Initial Setup:** BEFORE writing any code, ask the user the following questions in one message (do not start generating code until all are answered):
-  1. Backend API URL (local, e.g. `http://localhost:3002/api/v1`)
+  1. Backend API URL (local, e.g. `http://localhost:3001/api/v1`)
   2. Store name / brand name
-  3. Storefront local URL (e.g. `http://localhost:3102`)
+  3. Storefront local URL (e.g. `http://localhost:3101`)
   4. Razorpay **test** key ID (`rzp_test_xxx`) — public key only, never the secret
   5. Whether Resend email is active — confirm `NOTIFY_EMAIL_ENABLED=true` in backend `.env`. The `RESEND_API_KEY` itself is stored in the Ops DB config (not `.env`) and loaded at runtime.
   6. Which SMS provider is active — confirm `SMS_PROVIDER` in backend `.env` (`msg91`, `fast2sms`, or `noop`). The actual API key (`MSG91_AUTH_KEY` or `FAST2SMS_API_KEY`) is stored in Ops DB config, not `.env`.
@@ -101,7 +97,7 @@ This is a **high-conversion e-commerce storefront** built as a headless frontend
   10. Whether a `docs/FRONTEND_DEV_LOG.md` already exists in the frontend repo — if not, create one from the template in `../backend/docs/FRONTEND_DEV_LOG_TEMPLATE.md` before writing any code.
   11. **VPS deployment variables** (required if deploying via GitHub Actions CD to a self-hosted runner):
       - `CLIENT_ID` — the client slug used for PM2 process naming (e.g. `greengrocer`). Must match backend `CLIENT_ID`.
-      - `STOREFRONT_PORT` — the port PM2 starts Next.js on (e.g. `3102`). Must match Nginx `proxy_pass`.
+      - `STOREFRONT_PORT` — the port PM2 starts Next.js on (e.g. `3101`). Must match Nginx `proxy_pass`.
       These go in `.env.local` (or `.env.production.local`) on the VPS. They are read by `vps-frontend-deploy.sh` for `pm2 reload <client-id>-frontend` and the health check. Not needed in local `.env.local` for development.
       - On VPS first deploy, create runtime env from the tracked template: `cp .env.production.example .env.production.local`. Replace all `PRODUCTION_DOMAIN` placeholders before build.
   Then automatically generate the `.env.local` file with all collected values.
@@ -311,18 +307,108 @@ export default function ProductCard(props: any) { ... }
 
 ## 4.5 Security & Backend Integration Rules — MUST Follow
 
-### Content Security Policy (CSP) Headers
-When configuring Nginx or middleware, enforce these CSP rules:
+### Content Security Policy (CSP) Headers — Third-Party Integration Compliance
+
+**⚠️ CRITICAL:** CSP is enforced in `frontend/next.config.ts` in the `buildSecurityHeaders()` function. Every third-party service (payment gateway, analytics, CAPTCHA, CDN) requires explicit CSP allowlisting OR the browser silently blocks it.
+
+**Current CSP Configuration (frontend/next.config.ts):**
+
+```javascript
+// script-src: Controls which scripts can execute
+"script-src 'self' 'unsafe-inline' https://checkout.razorpay.com https://cdn.razorpay.com https://static.cloudflareinsights.com https://challenges.cloudflare.com"
+
+// frame-src: Controls which iframes can load
+"frame-src 'self' https://checkout.razorpay.com https://api.razorpay.com https://challenges.cloudflare.com"
+
+// connect-src: Controls fetch/WebSocket/etc to external services
+"connect-src 'self' https://api.razorpay.com https://lumberjack.razorpay.com https://cloudflareinsights.com"
+
+// Full policy with all directives in next.config.ts
 ```
-default-src 'self';
-connect-src 'self' https://api.yourdomain.com https://*.razorpay.com;
-script-src 'self' 'unsafe-inline' https://checkout.razorpay.com;
-style-src 'self' 'unsafe-inline';
-img-src 'self' https: data: blob:;
-frame-src https://checkout.razorpay.com;
-```
-- Never use `unsafe-eval` (prevents XSS via eval())
-- Never use wildcard `*` in production CSP
+
+**Currently Allowed Third-Party Services:**
+| Service | Purpose | CSP Directives | Status |
+|---------|---------|----------------|--------|
+| **Razorpay** | Payment gateway | `script-src`, `frame-src`, `connect-src` | ✅ Active |
+| **Cloudflare Turnstile** | CAPTCHA/bot prevention | `script-src`, `frame-src` | ✅ Active |
+| **Cloudflare Insights** | Analytics beacon | `script-src`, `connect-src` | ✅ Active |
+
+**How to Add a New Third-Party Integration:**
+
+1. **Identify what the service needs** (check service docs):
+   - Scripts loaded from CDN? → Add to `script-src`
+   - Iframes for UI? (payment, chat, video) → Add to `frame-src`
+   - Fetch/API calls? (analytics, webhooks, tracking) → Add to `connect-src`
+   - Stylesheets? → Add to `style-src`
+   - Images/videos? → Add to `img-src`
+   - Fonts from external CDN? → Add to `font-src`
+
+2. **Test locally** with CSP disabled temporarily (or use nonce patterns):
+   ```bash
+   # In next.config.ts, comment out the CSP headers() to test
+   # async headers() { return []; }
+   # Then: npm run build && npm run start
+   ```
+
+3. **Add the domain to frontend/next.config.ts**:
+   ```typescript
+   // Example: Adding Google Analytics
+   const connectSrc = [
+     "'self'",
+     apiPublicOrigin || "'self'",
+     "https://api.razorpay.com",
+     "https://lumberjack.razorpay.com",
+     "https://cloudflareinsights.com",
+     "https://www.google-analytics.com",  // ← Add here
+     "https://www.googletagmanager.com",  // ← Add here
+   ].filter(Boolean).join(" ");
+   
+   const csp = [
+     ...
+     "script-src 'self' 'unsafe-inline' https://checkout.razorpay.com https://cdn.razorpay.com https://static.cloudflareinsights.com https://challenges.cloudflare.com https://www.googletagmanager.com",  // ← Add here
+     ...
+   ].join("; ");
+   ```
+
+4. **Commit with CSP domain additions** (separate commit):
+   ```bash
+   git add frontend/next.config.ts
+   git commit -m "fix(csp): allow [Service Name] domains for [Feature Name]"
+   ```
+
+5. **Document in this CLAUDE.md** (update the table above) and link from the commit.
+
+6. **Test in production** (VPS):
+   ```bash
+   # After deployment, check browser DevTools Console for CSP violations:
+   # "Executing inline script violates CSP"
+   # "Framing ... violates CSP"
+   # "Connecting to ... violates CSP"
+   ```
+
+**CSP Violations Are Silent Failures:**
+- Blocked script → React never hydrates → Add to Cart broken, auth effects don't run
+- Blocked iframe → Payment modal never loads, chat widget frozen
+- Blocked fetch → Analytics drop silently, user notifications don't send
+
+Always check the **Network** tab (for failed resource loads) and **Console** tab (for CSP violation messages) when adding integrations.
+
+**Rules:**
+- ❌ Never use `unsafe-eval` (code injection risk)
+- ❌ Never use wildcard `*` in production CSP
+- ✅ Keep domains specific and minimal
+- ✅ Always test locally AND on VPS before assuming "it works"
+
+**Comprehensive CSP Documentation (June 2026):**
+After a production incident where CSP blocking React hydration scripts made the entire site appear broken, detailed documentation was created:
+
+| Document | Purpose | Audience |
+|----------|---------|----------|
+| `frontend/docs/CSP_QUICK_REFERENCE.md` | 5-step checklist for adding new integrations | Quick lookup for developers |
+| `frontend/docs/CSP_AND_THIRD_PARTY_INTEGRATION_GUIDE.md` | Full technical guide: incident analysis, debugging, current services, nonce patterns | Complete reference |
+| `frontend/docs/FRONTEND_DEV_LOG.md` §CSP | Development log entry with VPS testing checklist | Session startup |
+
+**When adding a new third-party service:** Start with `frontend/docs/CSP_QUICK_REFERENCE.md`. If you hit CSP violations, refer to the full guide's debugging section.
 
 ### XSS Prevention When Rendering Backend Content
 - **ALWAYS sanitize** user-generated content (reviews, product descriptions) before rendering
@@ -1185,8 +1271,8 @@ These backend characteristics affect frontend behavior understanding. No code ch
 NEXT_PUBLIC_API_BASE_URL=http://localhost:3000/api/v1
 
 # Site
-NEXT_PUBLIC_STOREFRONT_URL=http://localhost:3102
-NEXT_PUBLIC_STORE_NAME="Sri Sai Baba Ghee Sweets"
+NEXT_PUBLIC_STOREFRONT_URL=http://localhost:3101
+NEXT_PUBLIC_STORE_NAME="Acme Store"
 
 # Analytics (production only)
 NEXT_PUBLIC_GA_ID=
@@ -1458,9 +1544,11 @@ npx lighthouse-ci       # Core Web Vitals pass (if configured)
 
 ### Co-Development with Backend Template (mandatory)
 
-Canonical source: `CO_DEVELOPMENT_SYNC_GUIDE.md` (git mechanics) + `backend/docs/PLATFORM_VERSIONING_AND_SYNC_GUIDE.md` (the versioning + changelog + design-isolation + drift-enforcement layer: semver'd `backend-core`/`frontend-core`, `CHANGELOG.md` propagation blocks, `FEATURE_*`-flag feature differences, the `merge=ours` design layer, and the `check-core-drift` / `check-token-contract` gates).
+Canonical source: `CO_DEVELOPMENT_SYNC_GUIDE.md` (git mechanics of upstreaming) + `backend/docs/PLATFORM_VERSIONING_AND_SYNC_GUIDE.md` (the versioning + changelog + design-isolation + drift-enforcement layer on top).
 
-**Canonical change flow (automated — guide §12):** develop in any client (feature behind a `FEATURE_*` flag OFF) → cherry-pick the commits into the template → CHANGELOG + version bump + `git tag <core>-vX.Y.Z` + push. The tag fires `release-train.yml` (template) → each client's `core-sync.yml` runs `sync-core.mjs` (`npm run sync:core`), pulling only core files (design/client excluded) and opening a review PR you merge. The tag is the "ship to every client" trigger; nothing propagates before it. Existing clients (raghava, sbgs) sync via this automation, not `git merge`. Keys/secrets + new-client onboarding: guide §13/§13.1.
+**Platform versioning model (applies to every core change):** shared code is versioned as `backend-core` / `frontend-core` (semver; `backend/package.json` + `frontend/package.json` `version` are the source of truth, surfaced at `/health`). Each core change gets a `CHANGELOG.md` entry with a **Propagation** block (severity · layers · migration · flag · design impact · breaking · rollback) — that entry is what tells every client repo how to apply it. Per-client differences must stay OUT of core code: **design** lives in the token layer (`frontend/app/globals.css`, `lib/fonts.ts`, `lib/constants.ts`, `public/` — protected by `.gitattributes merge=ours`); **feature differences** live in `FEATURE_*` flags (ship new features OFF by default); **true one-offs** live in `src/modules/client/**` / `app/(client)/**`. `core-manifest.json` + `backend/scripts/check-core-drift.sh` forbid silent core forks; `frontend/design-tokens.contract.json` + `backend/scripts/check-token-contract.sh` guarantee new components theme correctly per client. When you change core: update the relevant `CHANGELOG.md`, bump the package.json `version`, and keep `PLATFORM_VERSION` + the tag in sync.
+
+**Canonical change flow (automated — guide §12):** develop in any client (commits/pushes stay on that client; feature behind a `FEATURE_*` flag OFF) → **cherry-pick** the commits into the template (`git fetch <client> && git cherry-pick <range>`; the template holds a git remote per client) → CHANGELOG + version bump + `git tag <core>-vX.Y.Z` + push. The tag fires `.github/workflows/release-train.yml` (template) which dispatches each client's `.github/workflows/core-sync.yml`, running `backend/scripts/sync-core.mjs` (`npm run sync:core`) to pull only core files (design/client/approved-divergence excluded) and open a review PR. You merge each PR → CD deploys. **The tag is the "ship to every client" trigger; nothing propagates before it.** Existing clients (raghava, sbgs — unrelated histories) receive changes via this automation, NOT `git merge`; only clients cloned from the template can `git merge` a tag. Required keys/secrets per repo + new-client onboarding are in guide §13/§13.1.
 
 When frontend implementation reveals a backend bug/improvement:
 - Classify change as **template-worthy** or **client-specific**.

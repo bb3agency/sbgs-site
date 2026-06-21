@@ -162,7 +162,7 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```env
 NODE_ENV=development
 CLIENT_ID=foodstore
-BACKEND_PORT=3002
+BACKEND_PORT=3001
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/foodstore_dev
 REDIS_URL=redis://:localpassword@localhost:6379
 REDIS_PASSWORD=localpassword
@@ -305,7 +305,7 @@ curl http://localhost:3000/api/v1/health
 # → { "success": true, "data": { "status": "ok", "db": "connected", "redis": "connected" } }
 ```
 
-> If you override `PORT` in `.env` (for example `PORT=3002` when Next.js runs on 3000), use that port in the health URL.
+> If you override `PORT` in `.env` (for example `PORT=3001` when Next.js runs on 3000), use that port in the health URL.
 
 ### 2.6 Run the Postman E2E simulation (no live credentials needed)
 
@@ -475,7 +475,7 @@ cd frontend
 ### 3.2 Frontend `.env.local`
 
 ```env
-NEXT_PUBLIC_API_BASE_URL=http://localhost:3002/api/v1
+NEXT_PUBLIC_API_BASE_URL=http://localhost:3001/api/v1
 NEXT_PUBLIC_STOREFRONT_URL=http://localhost:3000
 NEXT_PUBLIC_RAZORPAY_KEY_ID=rzp_test_xxxxx
 ```
@@ -780,7 +780,7 @@ Approve deployment only when all below are true:
 
 ```bash
 # Expose local backend for webhook callbacks
-ngrok http 3002
+ngrok http 3001
 # Update Razorpay webhook URL to https://<ngrok>/api/v1/payments/webhook
 ```
 
@@ -825,7 +825,7 @@ Capacity signals before onboarding each additional client:
 
 | Client # | Backend port | Frontend port |
 |----------|-------------|--------------|
-| 1 | 3002 | 3102 |
+| 1 | 3001 | 3101 |
 | 2 | 3002 | 3102 |
 | N | 3000+N | 3100+N |
 
@@ -859,7 +859,7 @@ nano .env
 # DATABASE_URL=postgresql://foodstore_user:password@host.docker.internal:5432/foodstore_prod
 # REDIS_URL=redis://:strong_redis_password@redis:6379
 # REDIS_PASSWORD=strong_redis_password
-# BACKEND_PORT=3002
+# BACKEND_PORT=3001
 # STOREFRONT_URL=https://foodstore.com
 # ADMIN_URL=https://foodstore.com
 # OPS_DB_ENCRYPTION_KEY=<unique 32-char hex>  ← NEVER reuse across clients
@@ -883,8 +883,8 @@ DATABASE_URL="$MIGRATE_DATABASE_URL" npx prisma migrate deploy --schema prisma/s
 
 # 7. Start backend Docker stack (VPS host-Postgres mode)
 docker compose -p <client-id> -f docker-compose.yml -f docker-compose.prod.yml up -d --build backend workers
-curl http://127.0.0.1:3002/api/v1/health  # verify db + redis connected
-curl http://127.0.0.1:3002/api/v1/health/ready  # Phase 7: informational; go-live requires status=ready and runtimeConfigMissingKeys=[]
+curl http://127.0.0.1:3001/api/v1/health  # verify db + redis connected
+curl http://127.0.0.1:3001/api/v1/health/ready  # Phase 7: informational; go-live requires status=ready and runtimeConfigMissingKeys=[]
 
 # 7.5 Install daily automated cleanup script (one-time per client — prevents disk space exhaustion)
 cd /var/www/<client-id>/backend
@@ -899,7 +899,7 @@ npm ci
 # Set production env vars in .env.local (CLIENT_ID, STOREFRONT_PORT, NEXT_PUBLIC_* keys)
 nano .env.local
 npm run build
-pm2 start npm --name "foodstore-frontend" -- start -- -p 3102
+pm2 start npm --name "foodstore-frontend" -- start -- -p 3101
 pm2 save          # persist process list (survives pm2 restarts)
 pm2 startup       # install boot hook — run the printed sudo command to survive reboots
 
@@ -915,7 +915,7 @@ sudo cp /var/www/foodstore/backend/nginx/maintenance.html \
 sudo nano /etc/nginx/sites-available/foodstore.com
 # Replace: server_name → foodstore.com
 # Replace: certificate paths → /etc/letsencrypt/live/foodstore.com/
-# Replace: proxy_pass ports → 3002 (backend), 3102 (frontend)
+# Replace: proxy_pass ports → 3001 (backend), 3101 (frontend)
 # Ensure your top-level nginx.conf http {} includes:
 #   include /etc/nginx/snippets/rate-zones.conf;
 sudo ln -s /etc/nginx/sites-available/foodstore.com /etc/nginx/sites-enabled/
@@ -2005,7 +2005,7 @@ Token: <SHIPROCKET_WEBHOOK_TOKEN>
 | `PORT` | No | `3000` | Container-internal port. Default: `3000`. |
 | `HOST` | No | `0.0.0.0` | Bind address. Default: `0.0.0.0`. |
 | `CLIENT_ID` | Yes | `foodstore` | Used in container names, OTEL service names, and invoice storage references. |
-| `BACKEND_PORT` | Yes | `3002` | Host-side port mapping in docker-compose `ports`. |
+| `BACKEND_PORT` | Yes | `3001` | Host-side port mapping in docker-compose `ports`. |
 | `API_PREFIX` | No | `/api/v1` | Route prefix for all API endpoints. Default: `/api/v1`. |
 | `LOG_LEVEL` | No | `info` | Pino log level: `fatal`, `error`, `warn`, `info`, `debug`, `trace`. |
 | `CART_RESERVATION_TTL_MINUTES` | No | `20` | How long a hot-SKU reservation holds stock. Default: `20`. |

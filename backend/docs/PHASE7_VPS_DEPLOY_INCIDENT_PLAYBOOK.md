@@ -34,7 +34,7 @@ The following must exist and be non-placeholder before first boot:
 
 - Bootstrap: `DATABASE_URL`, `REDIS_URL`, `OPS_DB_ENCRYPTION_KEY`
 - Auth/secrets: `JWT_SECRET`, `JWT_REFRESH_SECRET`, `OPS_COOKIE_SECRET`, `AUDIT_ANCHOR_SECRET`
-- Runtime routing: `NODE_ENV=production`, `PORT=3000`, `BACKEND_PORT=3002`
+- Runtime routing: `NODE_ENV=production`, `PORT=3000`, `BACKEND_PORT=3001`
 
 Runtime keys managed through Ops DB overlay are now allowed to be absent at startup. If absent, provider factories fail only at call-time with `CONFIG_NOT_READY`, and `/api/v1/health/ready` reports `runtimeConfigMissingKeys`.
 
@@ -199,7 +199,7 @@ Cause:
 - `assertAdminPolicyRegistryIntegrity()` scanned `src/modules` at runtime; production Docker images ship `dist/` only.
 
 Symptoms:
-- `docker compose ps` shows `sbgs-backend` as `Restarting (1)`.
+- `docker compose ps` shows `raghava-organics-backend` as `Restarting (1)`.
 - Logs repeat `Error: ENOENT: no such file or directory, scandir '/app/src/modules'` after ops overlay message.
 
 Fix:
@@ -222,7 +222,7 @@ Fix:
 - Pull backend with updated `extractGuardPermission()` in `admin-policy-registry.validation.ts`.
 - Rebuild backend image (same compose command as incident H).
 
-### K) Storefront 502 + API crash loop after Ops config save (May 2026, Sri Sai Baba Ghee Sweets)
+### K) Storefront 502 + API crash loop after Ops config save (May 2026, Raghava Organics)
 Cause:
 - Operator saved a partial set of overlay keys via Ops UI (e.g. `PAYMENT_PROVIDER=razorpay` and shipping credentials without the matching secrets).
 - After restart, the DB overlay applied those selectors but the matching secrets were still empty.
@@ -315,7 +315,7 @@ Preflight: `backend/docs/templates/scripts/phase7.5-nginx-tls-preflight.sh` (per
   - `runtimeConfigMissingKeys` is empty
 - No `Missing required env var` in backend/workers logs.
 - No Prisma init errors in logs.
-- No pending port collisions (`5432`, `3002`).
+- No pending port collisions (`5432`, `3001`).
 
 Do not proceed to Nginx/TLS, Ops bootstrap, or frontend deploy until this gate is green.
 

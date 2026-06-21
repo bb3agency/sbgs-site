@@ -11,10 +11,10 @@ Pair this with `docs/BACKEND_GO_LIVE_CHECKLIST.md` for final go-live sign-off. T
 - [ ] `NEXT_PUBLIC_STOREFRONT_URL` and `NEXT_PUBLIC_IMAGE_CDN_URL` are set in production (CDN must match Ops `R2_PUBLIC_BASE_URL`; SSR never embeds implicit `localhost` — see `lib/media-url.ts`).
 - [ ] Storefront uses **`GET /api/v1/store/config`** (via `StoreConfigProvider` / `lib/storefront-settings.ts`) for COD, min order, and module flags — not build-time `NEXT_PUBLIC_FEATURE_*` env vars.
 - [ ] Admin GST panels fetch `gstInvoicingEnabled` from `/store/config` (legacy `NEXT_PUBLIC_FEATURE_GST_INVOICING_ENABLED` is not authoritative).
-- [ ] Brand logo served from `frontend/public/images/sbgs-logo.png` via `BRAND_LOGO_SRC` in `lib/constants.ts` — no repo-root or duplicate `public/logo.png` paths.
+- [ ] Brand logo served from `frontend/public/images/raghava-organics-logo.png` via `BRAND_LOGO_SRC` in `lib/constants.ts` — no repo-root or duplicate `public/logo.png` paths.
 - [ ] No hardcoded API URLs in code.
 - [ ] No alternate env names (for example `NEXT_PUBLIC_API_URL`).
-- [ ] **Cookie auth / same-site:** Local dev uses `NEXT_PUBLIC_API_BASE_URL` on the **storefront origin** (e.g. `http://localhost:3102/api/v1`) with `BACKEND_PROXY_URL` + Next rewrite; `INTERNAL_API_BASE_URL` points at Fastify for SSR/tests. Production uses one public origin for UI + `/api/v1` (Nginx). After admin login, `refresh_token` cookie is on the UI origin (`Path=/api/v1`); hard refresh on `/admin` stays signed in (`AdminGuard` + `restore-auth-session.ts`). VPS: `TRUSTED_PROXY_ALLOWLIST_CIDR` set for stable client IP on refresh. See `NEXTJS_FRONTEND_INTEGRATION_GUIDE.md` §1.0.1–§1.0.2.
+- [ ] **Cookie auth / same-site:** Local dev uses `NEXT_PUBLIC_API_BASE_URL` on the **storefront origin** (e.g. `http://localhost:3101/api/v1`) with `BACKEND_PROXY_URL` + Next rewrite; `INTERNAL_API_BASE_URL` points at Fastify for SSR/tests. Production uses one public origin for UI + `/api/v1` (Nginx). After admin login, `refresh_token` cookie is on the UI origin (`Path=/api/v1`); hard refresh on `/admin` stays signed in (`AdminGuard` + `restore-auth-session.ts`). VPS: `TRUSTED_PROXY_ALLOWLIST_CIDR` set for stable client IP on refresh. See `NEXTJS_FRONTEND_INTEGRATION_GUIDE.md` §1.0.1–§1.0.2.
 - [ ] Production-like backend profile is understood:
   - `NODE_ENV=development` or `test` => development-like
   - Any other value (`production`, `staging`, `qa`, `uat`, custom, or unset) => production-like

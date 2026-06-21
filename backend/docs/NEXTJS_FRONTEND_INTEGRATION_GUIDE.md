@@ -60,23 +60,23 @@ Public, no auth. Returns only customer-safe fields:
 
 ### 1.0.1 Local development — same-site API (required for admin/customer session refresh)
 
-Do **not** point `NEXT_PUBLIC_API_BASE_URL` at `http://localhost:3000/api/v1` while the Next.js app runs on `http://localhost:3102` — the browser will not send `refresh_token` across ports and **admin refresh after page reload will fail**.
+Do **not** point `NEXT_PUBLIC_API_BASE_URL` at `http://localhost:3000/api/v1` while the Next.js app runs on `http://localhost:3101` — the browser will not send `refresh_token` across ports and **admin refresh after page reload will fail**.
 
 | Variable | Local value | Purpose |
 | --- | --- | --- |
-| `NEXT_PUBLIC_API_BASE_URL` | `http://localhost:3102/api/v1` | Browser + `apiClient` (same origin as storefront) |
+| `NEXT_PUBLIC_API_BASE_URL` | `http://localhost:3101/api/v1` | Browser + `apiClient` (same origin as storefront) |
 | `BACKEND_PROXY_URL` | `http://127.0.0.1:3000` | Next.js rewrite target (`frontend/next.config.ts`) |
 | `INTERNAL_API_BASE_URL` | `http://127.0.0.1:3000/api/v1` | SSR, server actions, Vitest integration tests |
 
 Implementation: `frontend/lib/api-base.ts` (auto-corrects legacy cross-port public URL in the browser) + `frontend/lib/restore-auth-session.ts` (deduped `POST /auth/refresh` on load). **`npm run dev` runs `scripts/ensure-backend-dev.mjs` first** — it probes `BACKEND_PROXY_URL/api/v1/health/live` and exits with start instructions if the Fastify API is down (prevents `ECONNREFUSED` proxy spam). Start backend via `backend/scripts/dev-up.cmd` or `cd backend && npm run dev` **before** the frontend. Restart `npm run dev` after changing env.
 
-**Mobile/LAN dev:** `next.config.ts` auto-adds non-internal IPv4 addresses to `allowedDevOrigins` (plus optional `ALLOWED_DEV_ORIGINS`). Sign in on the **same network URL** shown by `npm run dev` (e.g. `http://192.168.x.x:3102/admin/login`) — refresh cookies are host-scoped.
+**Mobile/LAN dev:** `next.config.ts` auto-adds non-internal IPv4 addresses to `allowedDevOrigins` (plus optional `ALLOWED_DEV_ORIGINS`). Sign in on the **same network URL** shown by `npm run dev` (e.g. `http://192.168.x.x:3101/admin/login`) — refresh cookies are host-scoped.
 
 Verification:
 
 1. `curl http://127.0.0.1:3000/api/v1/health` → ok  
-2. With Next on 3102: `curl http://localhost:3102/api/v1/health` → ok (rewrite)  
-3. Admin login → DevTools → Cookies on **`localhost:3102`** → `refresh_token` present  
+2. With Next on 3101: `curl http://localhost:3101/api/v1/health` → ok (rewrite)  
+3. Admin login → DevTools → Cookies on **`localhost:3101`** → `refresh_token` present  
 4. Hard refresh `/admin` → stays signed in  
 
 ### 1.1 Frontend AI implementation brief (mandatory)
@@ -600,7 +600,7 @@ Optional **`RISK_VELOCITY_ENABLED`** may throttle prepare per user/hour (`TRD.md
 
 All list endpoints: **`page`** (default **1**), **`limit`** (default **20**, max **100**), plus **`meta`** (`TRD.md` §4.7, constraint C-10). Drive infinite scroll / page controls from **`meta.total`** and **`meta.totalPages`**.
 
-### 7.1 Frontend list-response helpers (Sri Sai Baba Ghee Sweets)
+### 7.1 Frontend list-response helpers (Raghava Organics)
 
 Never call `.map()` / `.filter()` on a raw API response without confirming it is an array. Many routes return **`{ items, meta }`** (or flat `{ items, page, limit, total }` for a few admin routes).
 
@@ -667,7 +667,7 @@ Fetch **`GET /api/v1/store/config`** (§1.2). Fields `couponsEnabled`, `reviewsE
 
 Hide UI affordances when disabled; backend still returns safe defaults (e.g. empty review lists). For reviews specifically: homepage `TestimonialsSection` and PDP `ProductReviewsSection` both degrade gracefully to hidden/empty states when `reviewsEnabled === false` from store config.
 
-**Brand assets:** Use `BRAND_LOGO_SRC` from `frontend/lib/constants.ts` (`/images/sbgs-logo.png`) — do not reference repo-root logos or duplicate `public/logo.png`.
+**Brand assets:** Use `BRAND_LOGO_SRC` from `frontend/lib/constants.ts` (`/images/raghava-organics-logo.png`) — do not reference repo-root logos or duplicate `public/logo.png`.
 
 ---
 
@@ -834,7 +834,7 @@ Analytics/chart implementation should match TRD expectations (Recharts primitive
 - Never store tokens in `localStorage` or `sessionStorage`
 - Access tokens stay in memory (Zustand/Redux store) — lost on page refresh by design
 - **On page refresh:** `AdminAuthProvider` inside `AdminConsoleShell` (via `useAdminSessionRestore` → `restoreAuthSessionFromCookie()`) and `AccountGuard` (via `useAccountSessionRestore`) must each attempt **one** shared deduped `POST /api/v1/auth/refresh` before redirecting to login. The refresh token cookie survives page reload. React Strict Mode double-mounts must not fire two parallel refreshes (backend rotates refresh tokens; the second call would fail with `401`). Implementation: `frontend/lib/restore-auth-session.ts`, `frontend/hooks/use-auth-session-restore.ts`.
-- **Browser API base:** Client `fetch` must target **`window.location.origin + /api/v1`** (implemented in `frontend/lib/api-base.ts`) so refresh cookies work when testing on a LAN IP (e.g. `http://10.39.179.140:3102`), not `localhost` from `NEXT_PUBLIC_API_BASE_URL`.
+- **Browser API base:** Client `fetch` must target **`window.location.origin + /api/v1`** (implemented in `frontend/lib/api-base.ts`) so refresh cookies work when testing on a LAN IP (e.g. `http://10.39.179.140:3101`), not `localhost` from `NEXT_PUBLIC_API_BASE_URL`.
 - Refresh happens automatically via httpOnly cookie
 - For ops UI: cookie handling is automatic, no manual token management needed
 

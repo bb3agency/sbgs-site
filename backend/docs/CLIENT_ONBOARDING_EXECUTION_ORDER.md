@@ -317,7 +317,7 @@ Perform each dry-run as part of the vertical slice that builds the relevant fron
 2. Configure `.env.local` with local backend base URL (`NEXT_PUBLIC_API_BASE_URL` including `/api/v1`).
 3. Build slices in strict order: Foundation -> Ops -> Admin read -> Admin mutation -> Reliability -> Storefront.
 4. For each slice: lock contract -> typed client -> UI states -> real backend integration -> provider dry-run -> checklist ticks.
-5. Upstream reusable backend fixes via `CO_DEVELOPMENT_SYNC_GUIDE.md`; keep client-specific backend changes local.
+5. Upstream reusable backend fixes via `CO_DEVELOPMENT_SYNC_GUIDE.md`; keep client-specific backend changes local. For a NEW client, follow `docs/PLATFORM_VERSIONING_AND_SYNC_GUIDE.md` §13 (clone from template + apply design + wire keys) so it auto-receives core releases; the per-release flow is §12.
 
 **Evidence gate:**
 - All contracted frontend pages and admin views are built and integrated against the **local** backend (not mocked, not deferred).
@@ -431,7 +431,7 @@ Perform each dry-run as part of the vertical slice that builds the relevant fron
 
 3. **PostgreSQL 16 host service:** Confirm it is running on the host (not only in Docker). Containers reach it via `host.docker.internal`.
 
-4. **Firewall:** Ports 80 and 443 open inbound. Backend/storefront ports (3002–3099, 3102–3199) NOT exposed publicly — proxied only by Nginx.
+4. **Firewall:** Ports 80 and 443 open inbound. Backend/storefront ports (3001–3099, 3101–3199) NOT exposed publicly — proxied only by Nginx.
 
 5. **NTP / time sync:** Confirm `systemd-timesyncd` or equivalent is active.
    ```bash

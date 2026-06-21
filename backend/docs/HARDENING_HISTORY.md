@@ -54,7 +54,7 @@ Root cause / gaps addressed: (1) Storefront feature flags and COD/min-order were
 Root cause / gaps addressed: (1) Brand logo lived at repo root and in duplicate `public/logo.png` paths with inconsistent references. (2) Missing `STOREFRONT_URL` in production-like profiles could still boot and send password-reset emails with `localhost` links (`auth.service.ts` fallback). (3) SSR product image resolution could embed `localhost` when `NEXT_PUBLIC_STOREFRONT_URL` was unset. (4) `notifications.worker.ts` declared `onProviderSuccess` / `onProviderFailure` but never called them — systematic provider failure counters and alerts were dead code. (5) Stale `dist/src/modules` caused admin policy registry integrity test to fail for `DELETE /api/v1/admin/categories/:id/permanent`. (6) BullMQ plugin unit test mock lacked `.on()` after `guardRedisDuplicate` wiring. (7) Settings COD route test fixture omitted `mobileOtpSignupEnabled`, failing Fastify response validation.
 
 Changes applied:
-- **Brand logo:** Canonical asset at `frontend/public/images/sbgs-logo.png`; constant `BRAND_LOGO_SRC` in `frontend/lib/constants.ts`; all header/admin shell/mobile nav references updated; removed repo-root and `public/logo.png` duplicates.
+- **Brand logo:** Canonical asset at `frontend/public/images/raghava-organics-logo.png`; constant `BRAND_LOGO_SRC` in `frontend/lib/constants.ts`; all header/admin shell/mobile nav references updated; removed repo-root and `public/logo.png` duplicates.
 - **Backend boot guard:** `app.config.ts` fail-fast when `STOREFRONT_URL` is missing or placeholder in production-like profiles (password-reset email safety).
 - **Frontend SSR images:** `media-url.ts` — SSR builds absolute URLs only when `NEXT_PUBLIC_STOREFRONT_URL` is explicitly set; never falls back to `localhost` in production SSR HTML.
 - **Frontend env docs:** `NEXT_PUBLIC_FEATURE_GST_INVOICING_ENABLED` documented in `frontend/.env.example` and `.env.production.example` (admin `StoreSettingsPanel` GSTIN/FSSAI field visibility).
@@ -120,7 +120,7 @@ Changes applied: Updated `assertInvitePhoneAvailable` to skip the conflict check
 
 **Admin session persistence, idle timeout, and login/setup UX hardening — May 28, 2026:**
 
-Root cause (2026-05-28 cookie same-site): `NEXT_PUBLIC_API_BASE_URL` pointed at `localhost:3000` while the UI ran on `localhost:3102`, so `refresh_token` was never sent on reload. Fix: Next rewrite `/api/v1/*`, browser base on storefront origin (`lib/api-base.ts`), deduped refresh (`lib/restore-auth-session.ts`), dev refresh cookies without `Secure` (`auth-cookies.ts`).
+Root cause (2026-05-28 cookie same-site): `NEXT_PUBLIC_API_BASE_URL` pointed at `localhost:3000` while the UI ran on `localhost:3101`, so `refresh_token` was never sent on reload. Fix: Next rewrite `/api/v1/*`, browser base on storefront origin (`lib/api-base.ts`), deduped refresh (`lib/restore-auth-session.ts`), dev refresh cookies without `Secure` (`auth-cookies.ts`).
 
 **2026-06-03 — admin session restore (mobile/LAN dev):** Client showed infinite loading on `/admin` despite RSC `200`; `/admin/login` reload-looped or had a disabled submit button. Causes: `clearSession()` cleared restore `blocked` (infinite restore), failed restore redirected to `/admin/login` while already on login, shared `admin` restore runtime between login and shell, login reset raced in-flight refresh, OTP channel fetch disabled button, LAN HMR blocked without `allowedDevOrigins`. Fix: `admin` vs `admin-guest` audiences, `clearSession` vs `logoutLocalSession`, `redirectToAdminLoginIfNeeded`, `AdminGuestOnly` non-blocking UI, browser API = page origin, restore deadlines + admin skip `GET /users/me`. **Affects:** `frontend/hooks/use-auth-session-restore.ts`, `contexts/admin-auth-context.tsx`, `lib/api-base.ts`, `next.config.ts`.
 
@@ -193,7 +193,7 @@ Design principle codified: **Email is the default and only auto-active channel. 
 
 **OTP emails (and every other notification) silently stop after a system restart — `notifications` queue left paused by drain protocol, no recovery on worker boot — May 26, 2026:**
 
-Reported by an operator on the Sri Sai Baba Ghee Sweets VPS: after a routine ops `system-restart` action verified earlier in the day, every subsequent OTP request returned HTTP 200 from `POST /api/v1/ops/otp/request`, the `OpsOtpChallenge` row was created in Postgres with status `PENDING`, but no email ever arrived. SMS and other notification templates were equally affected. Workers were "up", health endpoint reported `db` and `redis` both `connected`, `RESEND_API_KEY` was present in both `sbgs-backend` and `sbgs-workers` envs (loaded from `.env` since this client has not migrated it into the Ops DB overlay), and there were zero error/warn log lines anywhere.
+Reported by an operator on the Raghava Organics VPS: after a routine ops `system-restart` action verified earlier in the day, every subsequent OTP request returned HTTP 200 from `POST /api/v1/ops/otp/request`, the `OpsOtpChallenge` row was created in Postgres with status `PENDING`, but no email ever arrived. SMS and other notification templates were equally affected. Workers were "up", health endpoint reported `db` and `redis` both `connected`, `RESEND_API_KEY` was present in both `raghava-organics-backend` and `raghava-organics-workers` envs (loaded from `.env` since this client has not migrated it into the Ops DB overlay), and there were zero error/warn log lines anywhere.
 
 The smoking gun was in the Redis state for the `notifications` queue:
 
@@ -230,7 +230,7 @@ Fix is three-layered:
    - `node scripts/resume-paused-queues.js --dry-run` — reports which queues are paused without touching them.
    - `node scripts/resume-paused-queues.js` — calls `Queue.resume()` on every paused queue, re-verifies, and prints a summary. Use this if the workers container itself cannot restart, or to confirm queue state after any restart/maintenance cycle. Reads `.env` from the parent directory if `REDIS_URL` is not already set, so it works both from inside the workers container and from a bare shell on the VPS host.
 
-3. **`backend/scripts/diagnose-paused-queues.sh` (call-site documented in this entry but not yet shipped as a separate file):** a 5-line one-liner the operator can paste — for queue in notifications order-processing shipping ...; do docker exec sbgs-redis sh -lc "redis-cli -a \$REDIS_PASSWORD --no-auth-warning HGET bull:$queue:meta paused"; done. Outputs `1` for paused queues, empty for healthy ones.
+3. **`backend/scripts/diagnose-paused-queues.sh` (call-site documented in this entry but not yet shipped as a separate file):** a 5-line one-liner the operator can paste — for queue in notifications order-processing shipping ...; do docker exec raghava-organics-redis sh -lc "redis-cli -a \$REDIS_PASSWORD --no-auth-warning HGET bull:$queue:meta paused"; done. Outputs `1` for paused queues, empty for healthy ones.
 
 Detection signature for regressions:
 
@@ -242,7 +242,7 @@ Detection signature for regressions:
 
 **Bare nginx 503 page during maintenance — two-hop `error_page` chain didn't honour `recursive_error_pages off;` — May 2026:**
 
-Sibling bug to the file-install issue below, found while troubleshooting Sri Sai Baba Ghee Sweets on the same day. After the static `maintenance.html` was correctly installed at `/etc/nginx/maintenance/maintenance.html` AND all duplicate server-name conflicts were cleaned out of `sites-enabled/`, hitting the storefront during active maintenance **still** returned nginx's compiled-in bare 503 page (206 bytes) instead of the branded page or the inline fallback.
+Sibling bug to the file-install issue below, found while troubleshooting Raghava Organics on the same day. After the static `maintenance.html` was correctly installed at `/etc/nginx/maintenance/maintenance.html` AND all duplicate server-name conflicts were cleaned out of `sites-enabled/`, hitting the storefront during active maintenance **still** returned nginx's compiled-in bare 503 page (206 bytes) instead of the branded page or the inline fallback.
 
 The gate flow was:
 
@@ -285,7 +285,7 @@ Both responses correctly carry `Cache-Control: no-store, no-cache, must-revalida
 
 **Bare nginx 503 page during maintenance — `maintenance.html` install bypassed silently — May 2026:**
 
-Operator on Sri Sai Baba Ghee Sweets triggered maintenance and the storefront returned the **bare Nginx 503 page** ("503 Service Temporarily Unavailable" + `nginx/1.28.3 (Ubuntu)` footer) instead of the branded "We'll be back shortly" page. The maintenance gate itself was working perfectly (auth_request 401 → `@maintenance_block` 503 → `error_page 502 503 /maintenance.html;`); the failure was one step deeper. Nginx tried to read `/etc/nginx/maintenance/maintenance.html`, found nothing on disk, and fell back to its compiled-in default page — which is the worst possible user experience for what should be a friendly downtime moment.
+Operator on Raghava Organics triggered maintenance and the storefront returned the **bare Nginx 503 page** ("503 Service Temporarily Unavailable" + `nginx/1.28.3 (Ubuntu)` footer) instead of the branded "We'll be back shortly" page. The maintenance gate itself was working perfectly (auth_request 401 → `@maintenance_block` 503 → `error_page 502 503 /maintenance.html;`); the failure was one step deeper. Nginx tried to read `/etc/nginx/maintenance/maintenance.html`, found nothing on disk, and fell back to its compiled-in default page — which is the worst possible user experience for what should be a friendly downtime moment.
 
 The root cause was a silent skip in `backend/scripts/vps-deploy.sh §3.5a`: the install step uses `sudo -n cp` (non-interactive sudo) so a CI runner without the matching sudoers grant prints a warning and continues. The warning was buried somewhere in a long deploy log and went unnoticed. On a fresh VPS where `/etc/nginx/maintenance/` had never existed, the file was just missing forever after.
 
@@ -317,7 +317,7 @@ Pre-2026-05-26 we had only layer 1. A single missed `sudo cp` in a fresh deploy 
 
 **Stuck-pending maintenance window — BullMQ-aware fast-promote replaces the 7-minute self-heal grace — May 2026:**
 
-Operator on Sri Sai Baba Ghee Sweets triggered maintenance and observed the storefront banner sit on "Finalising maintenance window. Wrapping up active transactions before the site goes offline. New checkouts are paused." for the full 5–7 minutes past the 2-minute pending window — total time from "set maintenance" to "Nginx blocks the storefront" was ~9 minutes, with **zero in-flight jobs or payments** for the worker to drain. Investigating revealed two compounding defects in the cutover machinery:
+Operator on Raghava Organics triggered maintenance and observed the storefront banner sit on "Finalising maintenance window. Wrapping up active transactions before the site goes offline. New checkouts are paused." for the full 5–7 minutes past the 2-minute pending window — total time from "set maintenance" to "Nginx blocks the storefront" was ~9 minutes, with **zero in-flight jobs or payments** for the worker to drain. Investigating revealed two compounding defects in the cutover machinery:
 
 1. **`setLoadShedModeDirect` silently no-op'd the `maintenance-activation` enqueue when `fastify.queues?.cartCleanup` was undefined.** The `if (cartCleanupQueue) { await cartCleanupQueue.add(...) }` block at `backend/src/modules/ops/ops.service.ts` line 1955 wrapped only the enqueue in a truthiness check — there was no `else` branch logging the missed enqueue, no technical-failure alert, nothing. The durable `MaintenanceState` row was written, the operator's API call returned success, the warning banner started ticking down, and the entire system then sat with no scheduled work to flip `phase=pending → 'active'`. Compare the same file's `scheduleRestart` (line 2350) which **throws** when the queue is missing — that was the contract we should have been enforcing for maintenance, too.
 
@@ -370,7 +370,7 @@ If those three confirm the silent-skip pattern, the cause is the BullMQ plugin f
 
 **Maintenance gate bypass — `if` inside `location` ran before `auth_request` populated its variable — May 2026:**
 
-Live verification on Sri Sai Baba Ghee Sweets surfaced the second structural bug in the maintenance gate from the same May 2026 work. After fixing the nginx template's `${CLIENT_DOMAIN}` substitution (entry below), the storefront still served `200 OK` from Next.js during active maintenance instead of `503` + `maintenance.html`. End-to-end debugging proved every component was healthy:
+Live verification on Raghava Organics surfaced the second structural bug in the maintenance gate from the same May 2026 work. After fixing the nginx template's `${CLIENT_DOMAIN}` substitution (entry below), the storefront still served `200 OK` from Next.js during active maintenance instead of `503` + `maintenance.html`. End-to-end debugging proved every component was healthy:
 
 - `MaintenanceState.phase = 'active'` in Postgres ✅
 - `GET /api/v1/maintenance/gate` from backend returned `200 OK` + `x-maintenance-active: 1` ✅
@@ -413,7 +413,7 @@ The expected output when maintenance is active is `HTTP/1.1 401 Unauthorized` + 
 
 **Nginx config template installed verbatim — `client1.com` placeholder reached production — May 2026:**
 
-The first end-to-end maintenance-mode test on Sri Sai Baba Ghee Sweets surfaced a long-standing structural bug in `backend/nginx/client.conf.template`. The template was authored as a fully-formed nginx config with `client1.com` and `3102`/`3002` literally hardcoded — the name "template" referred to the fact that operators were expected to manually edit those values for each client before installing. `vps-deploy.sh §3.5b` (added earlier in the same May 2026 session) then assumed the template was byte-installable and did `sudo cp $NGINX_TEMPLATE $NGINX_LIVE` directly. The first deploy that triggered the auto-sync path installed a config with literal `client1.com` referenced in four places:
+The first end-to-end maintenance-mode test on Raghava Organics surfaced a long-standing structural bug in `backend/nginx/client.conf.template`. The template was authored as a fully-formed nginx config with `client1.com` and `3101`/`3001` literally hardcoded — the name "template" referred to the fact that operators were expected to manually edit those values for each client before installing. `vps-deploy.sh §3.5b` (added earlier in the same May 2026 session) then assumed the template was byte-installable and did `sudo cp $NGINX_TEMPLATE $NGINX_LIVE` directly. The first deploy that triggered the auto-sync path installed a config with literal `client1.com` referenced in four places:
 
 ```
 ssl_certificate     /etc/letsencrypt/live/client1.com/fullchain.pem;
@@ -425,8 +425,8 @@ server_name client1.com www.client1.com;  (×2, in :80 and :443 blocks)
 
 **Changes:**
 
-1. **Parameterised `backend/nginx/client.conf.template`.** Replaced every `client1.com` (4 occurrences) with `${CLIENT_DOMAIN}`, every `127.0.0.1:3002` (11 occurrences) with `127.0.0.1:${BACKEND_PORT}`, and every `127.0.0.1:3102` (2 occurrences) with `127.0.0.1:${STOREFRONT_PORT}`. The file is now a true envsubst template — installing it verbatim deliberately fails so operators can't miss the rendering step. Top-of-file banner documents the three required variables, the exact `envsubst` invocation, and points at `vps-deploy.sh §3.5b` for the automated path. The `${BACKEND_PORT}` parameterisation also makes the template ready for multi-tenant VPS layouts where each client's backend binds a different host port.
-2. **Rewrote `backend/scripts/vps-deploy.sh` §3.5b to render via envsubst.** The auto-sync block now (a) resolves `CLIENT_DOMAIN` from `STOREFRONT_URL` in `.env`, (b) resolves `STOREFRONT_PORT` from `.env` (required), (c) resolves `BACKEND_PORT` from `.env` with a `3002` default (the stable docker-compose host mapping), (d) `envsubst`s the template into a tmpfile, (e) verifies the rendered file contains zero unsubstituted `${...}` placeholders and aborts the deploy if any remain, (f) diffs the *rendered* output against the live config, and (g) only then does `cp + nginx -t + systemctl reload`. Refuses to render if `CLIENT_DOMAIN` or `STOREFRONT_PORT` are missing — failing the deploy at the validate step rather than letting an unrenderable file reach nginx -t. First-deploy path (live config doesn't exist yet) is also covered.
+1. **Parameterised `backend/nginx/client.conf.template`.** Replaced every `client1.com` (4 occurrences) with `${CLIENT_DOMAIN}`, every `127.0.0.1:3001` (11 occurrences) with `127.0.0.1:${BACKEND_PORT}`, and every `127.0.0.1:3101` (2 occurrences) with `127.0.0.1:${STOREFRONT_PORT}`. The file is now a true envsubst template — installing it verbatim deliberately fails so operators can't miss the rendering step. Top-of-file banner documents the three required variables, the exact `envsubst` invocation, and points at `vps-deploy.sh §3.5b` for the automated path. The `${BACKEND_PORT}` parameterisation also makes the template ready for multi-tenant VPS layouts where each client's backend binds a different host port.
+2. **Rewrote `backend/scripts/vps-deploy.sh` §3.5b to render via envsubst.** The auto-sync block now (a) resolves `CLIENT_DOMAIN` from `STOREFRONT_URL` in `.env`, (b) resolves `STOREFRONT_PORT` from `.env` (required), (c) resolves `BACKEND_PORT` from `.env` with a `3001` default (the stable docker-compose host mapping), (d) `envsubst`s the template into a tmpfile, (e) verifies the rendered file contains zero unsubstituted `${...}` placeholders and aborts the deploy if any remain, (f) diffs the *rendered* output against the live config, and (g) only then does `cp + nginx -t + systemctl reload`. Refuses to render if `CLIENT_DOMAIN` or `STOREFRONT_PORT` are missing — failing the deploy at the validate step rather than letting an unrenderable file reach nginx -t. First-deploy path (live config doesn't exist yet) is also covered.
 3. **`backend/docs/CLIENT_VPS_SETUP_GUIDE.md §11.1` expanded** with a prominent "this template is not byte-installable" callout at the top, the explicit `envsubst` command for manual installs, and a corresponding update to the per-client setup steps (step 2 now describes the placeholders rather than telling operators to manually edit `server_name` + cert paths).
 4. **`backend/docs/CLIENT_VPS_SETUP_GUIDE.md §19.3` recovery procedure rewritten** to use `envsubst` for the manual nginx sync, with an inline sanity check that greps the rendered file for any remaining `${...}` strings so a missing env var can't slip through silently. Cross-references this hardening entry so the connection between the symptom (storefront not blocked despite `phase=active`) and the fix is one click away.
 5. **`backend/docs/CLIENT_VPS_SETUP_GUIDE.md §22 sudoers grants updated.** The auto-sync cp now sources from `/tmp/*.nginx.conf` (the rendered tmpfile) instead of from the repo path, so the NOPASSWD entry was widened to match `/tmp/*.nginx.conf` and `/tmp/tmp.*` sources. Still scoped to a specific dest (`/etc/nginx/sites-available/*.conf`), so the grant doesn't give the runner general nginx config write access.
@@ -456,12 +456,12 @@ The previous "Dead-container sweep + `--force-recreate --remove-orphans`" harden
 
 ```
 Container f6b1a3c38046  Stopping
-Container f6b1a3c38046_sbgs-backend  Recreate   ← rename of the ghost as a "backup"
+Container f6b1a3c38046_raghava-organics-backend  Recreate   ← rename of the ghost as a "backup"
 Container f6b1a3c38046  Error while Stopping                ← ghost can't actually stop (no runtime)
 Container f6b1a3c38046  Removed
-Container f6b1a3c38046_sbgs-backend  Recreated  ← new canonical container created
+Container f6b1a3c38046_raghava-organics-backend  Recreated  ← new canonical container created
 …
-Container sbgs-backend  Started                 ← new container live and healthy
+Container raghava-organics-backend  Started                 ← new container live and healthy
 Container f6b1a3c38046  Starting                            ← Compose tries to start the renamed-away ghost
 Error response from daemon: No such container: f6b1a3c38046…
 Error: Process completed with exit code 1.
@@ -729,7 +729,7 @@ Added `backend/scripts/diagnose-ops-otp.sh` — a single-shot triage script run 
 
 **Incremental Ops config save + boot tolerance for incomplete provider chains — May 2026:**
 
-During Phase 8 ops bootstrap on Sri Sai Baba Ghee Sweets, a chain of three issues blocked the storefront:
+During Phase 8 ops bootstrap on Raghava Organics, a chain of three issues blocked the storefront:
 
 1. Operator could not save 1–5 config keys at a time. `POST /api/v1/ops/config/save` validation called `computeRequiredOpsConfigKeys(process.env)` and listed every missing required key — even those that were not part of the save batch (e.g. `SMS_PROVIDER`, `RAZORPAY_WEBHOOK_SECRET`, `SHIPROCKET_PASSWORD`, `SHIPPING_WEBHOOK_ALLOWLIST_CIDR`).
 2. After a partial save + restart, `validateConditionalEnv` called `requireEnv` on the full Razorpay / Shiprocket / MSG91 dependency chain at boot. Because the provider selectors were set but the credentials were still pending, the API process exited with `Missing required env var: …`. Docker's restart policy re-launched the container; nginx returned `502 Bad Gateway` on `/api/v1/cart`, `/api/v1/health`, and every storefront request between restart attempts.
@@ -1321,7 +1321,7 @@ All core documentation synchronized with final security model:
 
 **Template-level hardening applied:**
 - Added strict startup incident runbook: `docs/PHASE7_VPS_DEPLOY_INCIDENT_PLAYBOOK.md`.
-- Updated deploy script `docs/clients/sbgs/scripts/phase7-backend-deploy.sh` to:
+- Updated deploy script `docs/clients/raghava-organics/scripts/phase7-backend-deploy.sh` to:
   - run `npm ci` first,
   - run `node scripts/verify-client-bootstrap-env.mjs` preflight,
   - run host-side migrate with runtime `DATABASE_URL` rewritten to `127.0.0.1`,

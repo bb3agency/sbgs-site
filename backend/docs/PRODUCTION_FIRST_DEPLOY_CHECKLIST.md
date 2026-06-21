@@ -99,7 +99,7 @@ Resend requires domain verification before you can send emails to arbitrary reci
 **In Resend Dashboard:**
 1. Go to [resend.com/domains](https://resend.com/domains)
 2. Click **Add Domain** button
-3. Enter your domain (e.g., `srisaibabasweets.com`) — **without** `www` or `https://`
+3. Enter your domain (e.g., `raghavaorganics.com`) — **without** `www` or `https://`
 4. Click **Add**
 5. You'll see a screen with **2 DNS records** to add:
    - **SPF Record** (TXT): Authorizes Resend to send email on your behalf
@@ -155,7 +155,7 @@ This setup lets Gmail send emails **through Resend's SMTP** using your verified 
 2. Go to the **Accounts and Import** tab
 3. In section **"Send mail as"**, click **"Add another email address"**
 4. A popup opens. Enter:
-   - **Name:** Your store name (e.g., `Sri Sai Baba Ghee Sweets`)
+   - **Name:** Your store name (e.g., `Raghava Organics`)
    - **Email address:** `support@yourdomain.com` (or `noreply@`, `hello@`, etc.)
    - **Treat as an alias:** ✅ Checked (recommended)
 5. Click **Next Step**
@@ -180,7 +180,7 @@ Select your business address when replying to customer inquiries.
 1. In Gmail, click **Compose**
 2. Click the **From** dropdown → select `support@yourdomain.com`
 3. Send a test email to another account you own
-4. Verify the recipient sees: `From: Sri Sai Baba Ghee Sweets <support@yourdomain.com>`
+4. Verify the recipient sees: `From: Raghava Organics <support@yourdomain.com>`
 5. Check that SPF and DKIM pass (in Gmail, click "Show original" on the received email)
 
 ---

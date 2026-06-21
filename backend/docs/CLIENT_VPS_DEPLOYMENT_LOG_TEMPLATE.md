@@ -43,7 +43,7 @@
 - [ ] `jq` installed
 - [ ] Non-root deploy user exists with sudo
 - [ ] Firewall: ports 80 and 443 open inbound
-- [ ] Firewall: backend/storefront ports (3002–3099, 3102–3199) NOT publicly exposed
+- [ ] Firewall: backend/storefront ports (3001–3099, 3101–3199) NOT publicly exposed
 - [ ] NTP / time sync active (`timedatectl status` shows synchronized)
 - [ ] Per-client directories created:
   - `/var/www/<client-id>/backend`

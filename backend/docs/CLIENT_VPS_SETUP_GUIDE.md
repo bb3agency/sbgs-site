@@ -4,6 +4,8 @@ This guide is the **deployment runbook** for hosting multiple isolated client st
 
 **Lifecycle:** This is a **Client-Main (Post-Development)** runbook. Use `docs/CLIENT_HANDOFF_INDEX.md` as the primary post-development entrypoint.
 
+> **Putting Cloudflare in front of the VPS? Read `docs/CLOUDFLARE_SHARED_VPS_DEPLOYMENT_GUIDE.md` alongside this one.** It is the battle-tested companion covering the exact Cloudflare TLS posture (`Full (strict)`, never `Flexible`), the certless-`default_server` **525** root cause, stray-`AAAA` pitfalls, origin-IP locking to Cloudflare ranges, the permanent default-server block, and a tightened per-client onboarding checklist. This guide is the base setup; that one is where the real-world Cloudflare gotchas live.
+
 This runbook begins after Phase 5 local gate clears. Frontend Phase 4 must already be completed in the mandatory order documented in `docs/NEXTJS_FRONTEND_INTEGRATION_GUIDE.md` §1.2: Foundation -> Ops control plane -> Admin read -> Admin mutation -> Reliability -> Storefront customer journey.
 
 ---
@@ -73,7 +75,7 @@ These are **operational thresholds**, not architecture changes. Canonical stack 
 
 | Client slot N | Backend host port | Typical storefront upstream port |
 | --- | --- | --- |
-| 1 | 3002 | 3102 |
+| 1 | 3001 | 3101 |
 | 2 | 3002 | 3102 |
 | N | 3000 + N | 3100 + N |
 
@@ -502,7 +504,7 @@ Evidence to archive before go-live:
 | **Site config file** | Add `/etc/nginx/sites-available/<domain.com>` (domain-based name) | Replace or delete other clients' files in `sites-enabled/` |
 | **Enable site** | `sudo ln -sf sites-available/<domain.com> sites-enabled/<domain.com>` | `sudo rm sites-enabled/default` unless you confirmed no other site uses it (`ls sites-enabled/`) |
 | **Rate-limit zones** | Install `snippets/rate-zones.conf` **once**; `include` it in `nginx.conf` `http {}` | Duplicate `limit_req_zone` lines in `nginx.conf` and the snippet (nginx reload will fail) |
-| **Ports** | Assign unique `BACKEND_PORT` / storefront port per client (§3); run `ss -tlnp` before deploy | Reuse another client's `3002`/`3102` (or their slot) |
+| **Ports** | Assign unique `BACKEND_PORT` / storefront port per client (§3); run `ss -tlnp` before deploy | Reuse another client's `3001`/`3101` (or their slot) |
 | **Redis** | Keep Redis on the Docker network only — deploy with `docker-compose.prod.yml` (`redis.ports: !reset []`) | Publish `6379` on `0.0.0.0` (only one client can bind host `6379`; local dev may use base compose port mapping) |
 | **TLS** | `certbot --nginx -d <this-domain> -d www.<this-domain>` per client | Assume one certificate covers all clients |
 | **Routing** | `server_name` matches **this** client's domain; `proxy_pass` to **this** client's loopback ports | Single catch-all `server {}` for all domains on one port |
@@ -522,7 +524,7 @@ bash docs/clients/<client-id>/scripts/phase7.5-nginx-tls-preflight.sh
 > **Important (May 2026):** `nginx/client.conf.template` is **not byte-installable** — it contains `${CLIENT_DOMAIN}`, `${STOREFRONT_PORT}`, and `${BACKEND_PORT}` placeholders that must be rendered with `envsubst` before installing. Copying the raw template verbatim will fail `nginx -t` with `cannot load certificate /etc/letsencrypt/live/${CLIENT_DOMAIN}/fullchain.pem`. The CD script (`backend/scripts/vps-deploy.sh` §3.5b) renders automatically on every deploy when `NGINX_AUTO_RELOAD=1`. For manual installs, render with:
 >
 > ```bash
-> export CLIENT_DOMAIN=<your-domain.com> STOREFRONT_PORT=3102 BACKEND_PORT=3002
+> export CLIENT_DOMAIN=<your-domain.com> STOREFRONT_PORT=3101 BACKEND_PORT=3001
 > envsubst '${CLIENT_DOMAIN} ${STOREFRONT_PORT} ${BACKEND_PORT}' \
 >   < nginx/client.conf.template \
 >   | sudo tee /etc/nginx/sites-available/${CLIENT_DOMAIN} >/dev/null
@@ -544,7 +546,7 @@ bash docs/clients/<client-id>/scripts/phase7.5-nginx-tls-preflight.sh
      sudo cp nginx/maintenance.html /etc/nginx/maintenance/maintenance.html
      ```
      The page auto-refreshes every 15 s and includes a `Retry-After: 15` header. It is served during the ~3–5 s restart window when a process restart is scheduled via `POST /api/v1/ops/system/restart`.
-2. The template uses placeholders for everything that varies per client: `${CLIENT_DOMAIN}` for `server_name` + certificate paths, `${STOREFRONT_PORT}` for the Next.js upstream (typically `3102`), and `${BACKEND_PORT}` for the Fastify upstream (defaults to `3002`). Render with `envsubst` (see top of this section). Webhook paths must proxy to the same backend without stripping body (next step).
+2. The template uses placeholders for everything that varies per client: `${CLIENT_DOMAIN}` for `server_name` + certificate paths, `${STOREFRONT_PORT}` for the Next.js upstream (typically `3101`), and `${BACKEND_PORT}` for the Fastify upstream (defaults to `3001`). Render with `envsubst` (see top of this section). Webhook paths must proxy to the same backend without stripping body (next step).
 3. **Webhook paths** must proxy to the **same** backend without stripping body: `location /api/` → backend. Webhook URLs for provider dashboards:
    - `https://<customer-domain>/api/v1/payments/webhook`
    - `https://<customer-domain>/api/v1/shipping/webhook`
@@ -779,22 +781,22 @@ Safety note: run `contract:admin` only against a controlled non-production targe
 **Symptom B — deploy exits 1 with phantom-start error.** A CD deploy log shows:
 
 ```
-Container sbgs-redis    Started
+Container raghava-organics-redis    Started
 Container f6b1a3c38046              Stopping
-Container f6b1a3c38046_sbgs-backend  Recreate   ← rename-as-backup pattern
+Container f6b1a3c38046_raghava-organics-backend  Recreate   ← rename-as-backup pattern
 Container 1b268e1da8d8              Stopping
-Container 1b268e1da8d8_sbgs-workers  Recreate
+Container 1b268e1da8d8_raghava-organics-workers  Recreate
 Container f6b1a3c38046              Error while Stopping
 Container f6b1a3c38046              Removed
 Container 1b268e1da8d8              Error while Stopping
 Container 1b268e1da8d8              Removed
-Container f6b1a3c38046_sbgs-backend  Recreated
-Container 1b268e1da8d8_sbgs-workers  Recreated
-Container sbgs-workers  Starting
-Container sbgs-backend  Starting
-Container sbgs-workers  Started
+Container f6b1a3c38046_raghava-organics-backend  Recreated
+Container 1b268e1da8d8_raghava-organics-workers  Recreated
+Container raghava-organics-workers  Starting
+Container raghava-organics-backend  Starting
+Container raghava-organics-workers  Started
 Container 1b268e1da8d8              Starting               ← Compose tries to start the ghost ID
-Container sbgs-backend  Started
+Container raghava-organics-backend  Started
 Container f6b1a3c38046              Starting               ← same
 Error response from daemon: No such container: 1b268e1da8d8…
 Error: Process completed with exit code 1.
@@ -840,7 +842,7 @@ cd /var/www/<client>/backend
 # Resolve placeholder values from .env (or set them explicitly).
 export CLIENT_DOMAIN="$(grep -E '^STOREFRONT_URL=' .env | head -1 | cut -d= -f2- | sed -E 's,^https?://,,;s,/.*$,,')"
 export STOREFRONT_PORT="$(grep -E '^STOREFRONT_PORT=' .env | head -1 | cut -d= -f2-)"
-export BACKEND_PORT="$(grep -E '^BACKEND_PORT=' .env | head -1 | cut -d= -f2- || echo 3002)"
+export BACKEND_PORT="$(grep -E '^BACKEND_PORT=' .env | head -1 | cut -d= -f2- || echo 3001)"
 
 # Render the template with substituted values, then install:
 envsubst '${CLIENT_DOMAIN} ${STOREFRONT_PORT} ${BACKEND_PORT}' \
@@ -891,7 +893,7 @@ After that, plain `docker compose up -d backend workers` Just Works — no `-f` 
 location / {
   auth_request /_maintenance_gate;
   error_page 401 = @maintenance_block;
-  proxy_pass http://127.0.0.1:3102;
+  proxy_pass http://127.0.0.1:3101;
 }
 
 # server-level — converts the auth_request 401 into a 503 that flows into
@@ -916,21 +918,21 @@ Two distinct failure modes can produce a degraded maintenance experience:
 **Triage on the VPS** (copy-paste, expects to run from `/var/www/<client>/backend`):
 
 ```bash
-cd /var/www/$(basename "$(pwd)" 2>/dev/null || echo sbgs)/backend 2>/dev/null || \
-  cd /var/www/sbgs/backend
+cd /var/www/$(basename "$(pwd)" 2>/dev/null || echo raghava-organics)/backend 2>/dev/null || \
+  cd /var/www/raghava-organics/backend
 
 echo "=== 1. Container state ==="
-docker ps -a --filter "label=com.docker.compose.project=sbgs" \
+docker ps -a --filter "label=com.docker.compose.project=raghava-organics" \
   --format "table {{.Names}}\t{{.Status}}\t{{.Image}}"
 
 echo
 echo "=== 2. Backend health (bypasses Nginx + gate) ==="
-curl -sS -m 5 http://127.0.0.1:3002/api/v1/health | head -200 || echo "BACKEND UNREACHABLE on :3002"
+curl -sS -m 5 http://127.0.0.1:3001/api/v1/health | head -200 || echo "BACKEND UNREACHABLE on :3001"
 
 echo
 echo "=== 3. Maintenance gate direct (HTTP status is the answer; 401 = blocked, 200 = allowed) ==="
 curl -sS -m 5 -D - -o /dev/null -H "X-Original-URI: /" \
-  http://127.0.0.1:3002/api/v1/maintenance/gate \
+  http://127.0.0.1:3001/api/v1/maintenance/gate \
   | grep -iE '^(HTTP|X-Maintenance-Active|date)'
 
 echo
@@ -948,19 +950,19 @@ DB_URL="$(grep -E '^DATABASE_URL=' .env | head -1 | cut -d= -f2- | sed 's/host\.
 PGPASSWORD="$(echo "$DB_URL" | sed -E 's,^postgres(ql)?://[^:]+:([^@]+)@.*,\2,')" \
   psql "$(echo "$DB_URL" | sed 's/host\.docker\.internal/127.0.0.1/')" \
   -c "SELECT mode, phase, \"pendingUntil\", \"activatedAt\", reason, \"setAt\" FROM \"MaintenanceState\";" 2>/dev/null \
-  || echo "(could not query DB directly — try via container: docker exec sbgs-backend npx prisma studio)"
+  || echo "(could not query DB directly — try via container: docker exec raghava-organics-backend npx prisma studio)"
 
 echo
 echo "=== 7. Quick backend log scan for gate errors ==="
-docker logs sbgs-backend --tail 200 2>&1 | grep -iE 'maintenance|gate|error' | tail -20
+docker logs raghava-organics-backend --tail 200 2>&1 | grep -iE 'maintenance|gate|error' | tail -20
 ```
 
 **Interpreting the output:**
 
-- **Step 2 fails / step 7 shows backend crashlooping** → backend is unhealthy. Look at the full `docker logs sbgs-backend` for the actual error (env mismatch, DB unreachable, migration not deployed, etc.). The gate route fails because the backend itself is failing. **Recovery:** fix the underlying issue; you may also need to `docker compose -p sbgs -f docker-compose.yml -f docker-compose.prod.yml restart backend`.
+- **Step 2 fails / step 7 shows backend crashlooping** → backend is unhealthy. Look at the full `docker logs raghava-organics-backend` for the actual error (env mismatch, DB unreachable, migration not deployed, etc.). The gate route fails because the backend itself is failing. **Recovery:** fix the underlying issue; you may also need to `docker compose -p raghava-organics -f docker-compose.yml -f docker-compose.prod.yml restart backend`.
 - **Step 3 returns `HTTP/1.1 401`** (with `X-Maintenance-Active: 1` for backward compat) → maintenance mode is active and Nginx **should** be serving the maintenance page. If the storefront still returns a bare 500, the cause is symptom B (missing `maintenance.html`) — install it (see §19.5 Recovery below). To exit maintenance mode, use the ops console: `POST /api/v1/ops/load-shed` with `mode: 'normal'` (OTP required).
-- **Step 3 returns `HTTP/1.1 200` with `X-Maintenance-Active: 0`** → gate is healthy, maintenance is OFF, yet storefront still 500. Look harder at step 5 (Nginx error log) — likely an `upstream timed out` on the proxy to port 3102 (frontend), or a missing upstream entirely. Check `docker ps` for the frontend / PM2 process and whether `STOREFRONT_PORT` matches the nginx `proxy_pass` port.
-- **Step 3 returns `HTTP/1.1 200` with `X-Maintenance-Active: 1`** → stale backend. This was the old gate contract (always 200) that we superseded on 2026-05-26. The running backend container is on a pre-fix image — rebuild with `docker compose -p sbgs build backend && docker compose -p sbgs up -d --force-recreate backend`. Until then Nginx will silently let traffic through during active maintenance.
+- **Step 3 returns `HTTP/1.1 200` with `X-Maintenance-Active: 0`** → gate is healthy, maintenance is OFF, yet storefront still 500. Look harder at step 5 (Nginx error log) — likely an `upstream timed out` on the proxy to port 3101 (frontend), or a missing upstream entirely. Check `docker ps` for the frontend / PM2 process and whether `STOREFRONT_PORT` matches the nginx `proxy_pass` port.
+- **Step 3 returns `HTTP/1.1 200` with `X-Maintenance-Active: 1`** → stale backend. This was the old gate contract (always 200) that we superseded on 2026-05-26. The running backend container is on a pre-fix image — rebuild with `docker compose -p raghava-organics build backend && docker compose -p raghava-organics up -d --force-recreate backend`. Until then Nginx will silently let traffic through during active maintenance.
 - **Step 3 returns 5xx or times out** → backend's gate handler itself is broken. Symptom A. Check step 7 for the actual error in the backend logs.
 - **Step 4 shows `ls: cannot access`** → `maintenance.html` is not installed on disk. Even if the gate is healthy right now, *any* future backend hiccup will surface as a bare 500 instead of the friendly page. **Install it now** (see Recovery below) — this is the fix that prevents this whole symptom from being incident-grade.
 
@@ -972,7 +974,7 @@ docker logs sbgs-backend --tail 200 2>&1 | grep -iE 'maintenance|gate|error' | t
 #    Use the helper script — it validates source, creates the directory, copies
 #    with the right permissions, and verifies the live nginx config references
 #    the page. Idempotent.
-cd /var/www/sbgs/backend
+cd /var/www/raghava-organics/backend
 sudo bash scripts/install-maintenance-page.sh
 
 # Or, equivalently, the underlying two commands the script wraps:
@@ -993,7 +995,7 @@ sudo bash scripts/install-maintenance-page.sh
 #      sudo sed -i.bak \
 #        -e 's,^\(\s*auth_request\s*/_maintenance_gate;\),# &,' \
 #        -e 's,^\(\s*error_page\s*401\s*=\s*@maintenance_block;\),# &,' \
-#        /etc/nginx/sites-available/sbgs.conf
+#        /etc/nginx/sites-available/raghava-organics.conf
 #      sudo nginx -t && sudo systemctl reload nginx
 #
 #    Pre-2026-05-26 configs used auth_request_set + if instead — if you find
@@ -1002,7 +1004,7 @@ sudo bash scripts/install-maintenance-page.sh
 #      -e 's,^\(\s*auth_request_set\s*\$maintenance_active.*\),# &,' \
 #      -e 's,^\(\s*if (\$maintenance_active = "1") { return 503; }\),# &,' \
 #
-#    To restore: `sudo cp /etc/nginx/sites-available/sbgs.conf.bak /etc/nginx/sites-available/sbgs.conf && sudo systemctl reload nginx`
+#    To restore: `sudo cp /etc/nginx/sites-available/raghava-organics.conf.bak /etc/nginx/sites-available/raghava-organics.conf && sudo systemctl reload nginx`
 #    NOTE: with the gate disabled the storefront will NOT serve the maintenance
 #    page even if maintenance mode is active in the DB. Re-enable as soon as the
 #    backend is healthy. Better: re-render client.conf.template via envsubst
@@ -1322,7 +1324,7 @@ Run once after the first manual frontend build:
 ```bash
 cd /var/www/<client-id>/frontend
 
-# Start the PM2 process (replace port with client's STOREFRONT_PORT, e.g. 3102)
+# Start the PM2 process (replace port with client's STOREFRONT_PORT, e.g. 3101)
 pm2 start npm --name "<client-id>-frontend" -- start -- -p <STOREFRONT_PORT>
 
 # Persist the process list (survives pm2 restarts)
@@ -1357,7 +1359,7 @@ The script reads `CLIENT_ID` and `STOREFRONT_PORT` from `.env.local` (or `.env.p
 
 ```env
 CLIENT_ID=foodstore
-STOREFRONT_PORT=3102
+STOREFRONT_PORT=3101
 ```
 
 Recommended bootstrap flow:
@@ -1433,9 +1435,9 @@ Multi-client VPS deployments accumulate disk space pressure from Docker images, 
 **Installer:** `backend/scripts/install-vps-cleanup.sh`
 
 The template is client-agnostic with placeholder variables:
-- `{{CLIENT_ID}}` — client identifier (e.g., `sbgs`)
-- `{{FRONTEND_PATH}}` — path to deployed frontend (e.g., `/var/www/sbgs`)
-- `{{PM2_PROCESS_NAME}}` — PM2 process name (e.g., `sbgs-frontend`)
+- `{{CLIENT_ID}}` — client identifier (e.g., `raghava-organics`)
+- `{{FRONTEND_PATH}}` — path to deployed frontend (e.g., `/var/www/raghava-organics`)
+- `{{PM2_PROCESS_NAME}}` — PM2 process name (e.g., `raghava-organics-frontend`)
 
 ### 12.2 What the cleanup script handles
 
@@ -1457,12 +1459,12 @@ Run during Phase 7 backend deploy or manually:
 ```bash
 # On VPS, from backend directory
 sudo ./scripts/install-vps-cleanup.sh \
-  "sbgs" \
-  "/var/www/sbgs" \
-  "sbgs-frontend"
+  "raghava-organics" \
+  "/var/www/raghava-organics" \
+  "raghava-organics-frontend"
 ```
 
-This creates `/etc/cron.daily/vps-cleanup-sbgs` which runs daily at 06:25 AM (system cron schedule).
+This creates `/etc/cron.daily/vps-cleanup-raghava-organics` which runs daily at 06:25 AM (system cron schedule).
 
 ### 12.4 Verification
 

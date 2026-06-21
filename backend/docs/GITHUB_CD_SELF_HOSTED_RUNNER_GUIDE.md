@@ -138,11 +138,11 @@ sudo ./svc.sh start
 sudo ./svc.sh status
 ```
 
-**Multi-client on one VPS:** client A → `~/actions-runner-greengrocer`, client B → `~/actions-runner-sbgs`. Each runner registers to **its own** GitHub repo; `VPS_RUNNER_LABEL` in each repo prevents cross-routing.
+**Multi-client on one VPS:** client A → `~/actions-runner-greengrocer`, client B → `~/actions-runner-raghava-organics`. Each runner registers to **its own** GitHub repo; `VPS_RUNNER_LABEL` in each repo prevents cross-routing.
 
 **Verify:** GitHub → Settings → Actions → Runners → **Idle** (green) for `<client-id>-vps`.
 
-**Multi-client VPS:** Each client repo gets its **own** runner registration and **unique** label (`greengrocer-vps`, `sbgs-vps`, …). Never share one generic runner across client repos without labels.
+**Multi-client VPS:** Each client repo gets its **own** runner registration and **unique** label (`greengrocer-vps`, `raghava-organics-vps`, …). Never share one generic runner across client repos without labels.
 
 ### Step B — GitHub repository configuration (client repo only)
 
@@ -153,15 +153,15 @@ sudo ./svc.sh status
 | Name | Example | Purpose |
 |------|---------|---------|
 | `VPS_DEPLOY_ENABLED` | `true` | Master switch — without this, deploy workflow is skipped |
-| `VPS_RUNNER_LABEL` | `sbgs-vps` | Must match runner `--labels` (prevents cross-client routing) |
+| `VPS_RUNNER_LABEL` | `raghava-organics-vps` | Must match runner `--labels` (prevents cross-client routing) |
 | `FRONTEND_DEPLOY_ENABLED` | `true` | Enable frontend job; omit for API-only clients |
 
 #### Secrets
 
 | Name | Example | Purpose |
 |------|---------|---------|
-| `VPS_CLIENT_PATH` | `/var/www/sbgs/backend` | Backend deploy script + Docker compose root |
-| `VPS_FRONTEND_PATH` | `/var/www/sbgs/frontend` | Next.js app root for PM2 |
+| `VPS_CLIENT_PATH` | `/var/www/raghava-organics/backend` | Backend deploy script + Docker compose root |
+| `VPS_FRONTEND_PATH` | `/var/www/raghava-organics/frontend` | Next.js app root for PM2 |
 
 ### Step C — First-time PM2 (frontend CD only)
 

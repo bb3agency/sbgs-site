@@ -6,7 +6,7 @@
 
 ## [2026-06-10] STOREFRONT_URL fail-fast at boot in production-like profiles
 
-**Context:** `auth.service.ts` uses `process.env.STOREFRONT_URL ?? 'http://localhost:3102'` when building password-reset links. A missing bootstrap value would silently send customers localhost URLs in production.
+**Context:** `auth.service.ts` uses `process.env.STOREFRONT_URL ?? 'http://localhost:3101'` when building password-reset links. A missing bootstrap value would silently send customers localhost URLs in production.
 
 **Decision:** In `app.config.ts`, production-like profiles (`NODE_ENV` not `development` or `test`) throw at boot if `STOREFRONT_URL` is absent or still a placeholder. CORS plugin already fail-fast for missing origins; this closes the email-link gap.
 
@@ -22,8 +22,8 @@
 **Context:** Logo file lived at repo root and in duplicate `frontend/public/logo.png` with hardcoded paths in header/admin components.
 
 **Decision:**
-1. Single asset: `frontend/public/images/sbgs-logo.png`.
-2. Export `BRAND_LOGO_SRC = "/images/sbgs-logo.png"` from `frontend/lib/constants.ts`.
+1. Single asset: `frontend/public/images/raghava-organics-logo.png`.
+2. Export `BRAND_LOGO_SRC = "/images/raghava-organics-logo.png"` from `frontend/lib/constants.ts`.
 3. All storefront header, mobile nav, and admin shell components import the constant — never hardcode paths or store logos at repo root.
 
 **Affected files:** `frontend/lib/constants.ts`, `frontend/components/layout/Header.tsx`, `MobileNav.tsx`, `AdminConsoleShell.tsx`, `ECOM_MASTER.md` §12.5.
@@ -93,7 +93,7 @@
 
 ## [2026-06-10] SSR product image URLs — no implicit localhost fallback
 
-**Context:** `resolveProductImageUrl()` could prefix relative `/api/v1/media/...` paths with `http://localhost:3102` during SSR when `NEXT_PUBLIC_IMAGE_CDN_URL` was unset, baking localhost into production HTML if env vars were missing at build time.
+**Context:** `resolveProductImageUrl()` could prefix relative `/api/v1/media/...` paths with `http://localhost:3101` during SSR when `NEXT_PUBLIC_IMAGE_CDN_URL` was unset, baking localhost into production HTML if env vars were missing at build time.
 
 **Decision:** SSR absolute-URL prefix applies only when `NEXT_PUBLIC_STOREFRONT_URL` is explicitly set. Otherwise return the relative path (browser resolves against page origin). Production must set `NEXT_PUBLIC_IMAGE_CDN_URL` to match Ops `R2_PUBLIC_BASE_URL`.
 
