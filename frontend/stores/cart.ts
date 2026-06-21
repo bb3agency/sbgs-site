@@ -29,7 +29,7 @@ export const useCartStore = create<CartState>()(
       clearPendingMerge: () => set({ pendingMerge: false }),
     }),
     {
-      name: "sbgs-cart",
+      name: "raghava-cart",
       version: 2,
       migrate: (persisted, version) => {
         if (version < 2) {

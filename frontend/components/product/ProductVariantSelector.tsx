@@ -36,7 +36,7 @@ export function ProductVariantSelector({
           />
         </div>
         {hasDiscount && selectedVariant?.compareAtPrice && (
-          <span className="rounded-full bg-[#d4a537] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
+          <span className="rounded-full bg-[#ec6e55] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
             Save{" "}
             {Math.round(
               (1 - selectedVariant.price / selectedVariant.compareAtPrice) *
@@ -50,7 +50,7 @@ export function ProductVariantSelector({
       {/* Variants */}
       {product.variants.length > 1 && (
         <div className="flex flex-col gap-3 pt-2">
-          <p className="text-xs font-bold uppercase tracking-wider text-[#7f1416]">
+          <p className="text-xs font-bold uppercase tracking-wider text-[#23403d]">
             Select Size
           </p>
           <div className="flex flex-wrap gap-2 sm:gap-3">
@@ -61,8 +61,8 @@ export function ProductVariantSelector({
                 onClick={() => setSelectedVariant(v)}
                 className={`rounded-full border-2 px-4 py-1.5 text-xs font-bold transition-all sm:px-5 sm:py-2 sm:text-sm ${
                   v.id === selectedVariant?.id
-                    ? "border-[#7f1416] bg-[#7f1416] text-white"
-                    : "border-[#efe8e4] text-[#767676] hover:border-[#7f1416] hover:text-[#7f1416]"
+                    ? "border-[#23403d] bg-[#23403d] text-white"
+                    : "border-[#efe8e4] text-[#767676] hover:border-[#23403d] hover:text-[#23403d]"
                 }`}
               >
                 {v.name}
@@ -77,18 +77,18 @@ export function ProductVariantSelector({
         <div id="pdp-atc-anchor" className="flex flex-col gap-3 pt-2 sm:flex-row sm:gap-4">
           <AddToCartButton
             variantId={selectedVariant.id}
-            className="flex h-12 flex-1 items-center justify-center rounded-full bg-[#faf5ec] text-sm font-bold text-[#7f1416] transition-colors hover:bg-[#f5d88e] sm:h-14"
+            className="flex h-12 flex-1 items-center justify-center rounded-full bg-[#eff5ee] text-sm font-bold text-[#23403d] transition-colors hover:bg-[#c5dac2] sm:h-14"
             label="Add to cart"
           />
           <AddToCartButton
             variantId={selectedVariant.id}
-            className="flex h-12 flex-1 items-center justify-center rounded-full bg-[#7f1416] text-sm font-bold text-white transition-colors hover:bg-[#d4a537] sm:h-14"
+            className="flex h-12 flex-1 items-center justify-center rounded-full bg-[#23403d] text-sm font-bold text-white transition-colors hover:bg-[#ec6e55] sm:h-14"
             label="Buy now"
             redirectTo="/checkout"
           />
         </div>
       ) : (
-        <p className="rounded-full bg-[#faf5ec] py-4 text-center text-sm font-bold text-[#767676]">
+        <p className="rounded-full bg-[#faf3ef] py-4 text-center text-sm font-bold text-[#767676]">
           Currently out of stock
         </p>
       )}

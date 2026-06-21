@@ -49,7 +49,7 @@ function parseDevOriginHost(entry: string): string | null {
 const backendProxyOrigin = (
   process.env.BACKEND_PROXY_URL ??
   process.env.INTERNAL_API_BASE_URL?.replace(/\/api\/v1\/?$/, "") ??
-  "http://127.0.0.1:3002"
+  "http://127.0.0.1:3000"
 ).replace(/\/$/, "");
 
 /**
@@ -115,7 +115,6 @@ function buildSecurityHeaders(): Array<{ key: string; value: string }> {
     "https://api.razorpay.com",
     "https://lumberjack.razorpay.com",
     "https://cloudflareinsights.com",
-    process.env.NODE_ENV !== "production" ? "ws: wss:" : "",
   ]
     .filter(Boolean)
     .join(" ");
@@ -123,9 +122,7 @@ function buildSecurityHeaders(): Array<{ key: string; value: string }> {
   const csp = [
     "default-src 'self'",
     `connect-src ${connectSrc}`,
-    `script-src 'self' 'unsafe-inline' ${
-      process.env.NODE_ENV !== "production" ? "'unsafe-eval'" : ""
-    } https://checkout.razorpay.com https://cdn.razorpay.com https://static.cloudflareinsights.com https://challenges.cloudflare.com`,
+    "script-src 'self' 'unsafe-inline' https://checkout.razorpay.com https://cdn.razorpay.com https://static.cloudflareinsights.com https://challenges.cloudflare.com",
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' https: data: blob:",
     "font-src 'self' data:",
@@ -134,10 +131,8 @@ function buildSecurityHeaders(): Array<{ key: string; value: string }> {
     "manifest-src 'self'",
     "base-uri 'self'",
     "form-action 'self'",
-    process.env.NODE_ENV === "production" ? "upgrade-insecure-requests" : "",
-  ]
-    .filter(Boolean)
-    .join("; ");
+    "upgrade-insecure-requests",
+  ].join("; ");
 
   return [
     { key: "Content-Security-Policy", value: csp },
@@ -164,10 +159,6 @@ function buildSecurityHeaders(): Array<{ key: string; value: string }> {
     // Cross-origin isolation (required for SharedArrayBuffer, improves isolation)
     { key: "Cross-Origin-Opener-Policy", value: "same-origin-allow-popups" },
     { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
-    // Force cache clearing to fix the poisoned dev cache loop
-    ...(process.env.NODE_ENV !== "production"
-      ? [{ key: "Clear-Site-Data", value: '"cache"' }]
-      : []),
   ];
 }
 
@@ -192,17 +183,13 @@ const nextConfig: NextConfig = {
         source: "/(.*)",
         headers: securityHeaders,
       },
-      ...(isProd
-        ? [
-            {
-              // Static assets: allow cross-origin reads (fonts, scripts, CSS)
-              source: "/_next/static/(.*)",
-              headers: [
-                { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
-              ],
-            },
-          ]
-        : []),
+      {
+        // Static assets: allow cross-origin reads (fonts, scripts, CSS)
+        source: "/_next/static/(.*)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
     ];
   },
   images: {

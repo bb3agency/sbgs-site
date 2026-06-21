@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
-import { Droplet, ShieldCheck, Truck, RotateCcw, ChevronRight } from "lucide-react";
+import { Leaf, ShieldCheck, Truck, RotateCcw, ChevronRight } from "lucide-react";
 import { apiClient } from "@/lib/api";
 import { mapProduct } from "@/lib/product-adapters";
 import { ProductGallery } from "@/components/product/ProductGallery";
@@ -82,7 +82,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     activeVariant.compareAtPrice > activeVariant.price;
 
   return (
-    <div className="min-h-screen bg-[#faf5ec] pb-24">
+    <div className="min-h-screen bg-[#eff5ee] pb-24">
       <ProductViewTracker productId={product.id} productName={product.name} />
 
       {/* Sticky bar — appears when CTA scrolls out of view */}
@@ -104,28 +104,28 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           className="mb-4 flex flex-wrap items-center gap-1.5 text-xs font-bold text-[#767676] sm:mb-8 sm:gap-2 sm:text-sm"
           aria-label="Breadcrumb"
         >
-          <Link href="/" className="transition-colors hover:text-[#d4a537]">
+          <Link href="/" className="transition-colors hover:text-[#ec6e55]">
             Home
           </Link>
           <ChevronRight className="size-3" />
-          <Link href="/products" className="transition-colors hover:text-[#d4a537]">
+          <Link href="/products" className="transition-colors hover:text-[#ec6e55]">
             Shop
           </Link>
           <ChevronRight className="size-3" />
           <Link
             href={`/categories/${product.category.slug}`}
-            className="transition-colors hover:text-[#d4a537]"
+            className="transition-colors hover:text-[#ec6e55]"
           >
             {product.category.name}
           </Link>
           <ChevronRight className="size-3" />
-          <span className="truncate text-[#d4a537]">{product.name}</span>
+          <span className="truncate text-[#ec6e55]">{product.name}</span>
         </nav>
 
         {/* ── Main product grid ─────────────────────────────────────────────── */}
         <div className="grid gap-6 rounded-[20px] bg-white p-4 shadow-sm sm:gap-10 sm:p-6 lg:grid-cols-[52%_48%] lg:p-12">
           {/* Gallery */}
-          <div className="rounded-[20px] bg-[#faf5ec] p-4 lg:p-8">
+          <div className="rounded-[20px] bg-[#faf3ef] p-4 lg:p-8">
             <ProductGallery images={product.images} productName={product.name} />
           </div>
 
@@ -134,13 +134,13 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             {/* Category */}
             <Link
               href={`/categories/${product.category.slug}`}
-              className="w-fit text-[11px] font-extrabold uppercase tracking-widest text-[#d4a537] hover:underline"
+              className="w-fit text-[11px] font-extrabold uppercase tracking-widest text-[#ec6e55] hover:underline"
             >
               {product.category.name}
             </Link>
 
             {/* Title */}
-            <h1 className="font-heading text-2xl font-bold leading-tight text-[#7f1416] sm:text-3xl md:text-4xl">
+            <h1 className="font-heading text-2xl font-bold leading-tight text-[#23403d] sm:text-3xl md:text-4xl">
               {product.name}
             </h1>
 
@@ -173,8 +173,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                   </>
                 ) : (
                   <>
-                    <span className="inline-block size-2 rounded-full bg-[#d4a537]" aria-hidden />
-                    <span className="text-[#d4a537]">Out of stock</span>
+                    <span className="inline-block size-2 rounded-full bg-[#ec6e55]" aria-hidden />
+                    <span className="text-[#ec6e55]">Out of stock</span>
                   </>
                 )}
               </div>
@@ -185,16 +185,16 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             <ProductVariantSelector product={product} defaultVariant={activeVariant} />
 
             {/* Trust signals */}
-            <div className="mt-2 grid grid-cols-2 gap-3 rounded-[20px] bg-[#faf5ec] p-4 sm:gap-4 sm:p-5">
+            <div className="mt-2 grid grid-cols-2 gap-3 rounded-[20px] bg-[#faf3ef] p-4 sm:gap-4 sm:p-5">
               {[
-                { icon: Droplet, text: "100% Pure Ghee" },
+                { icon: Leaf, text: "100% Chemical Free" },
                 { icon: Truck, text: "Free Delivery" },
                 { icon: RotateCcw, text: "Easy Returns" },
                 { icon: ShieldCheck, text: "Secure Pay" },
               ].map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-center gap-2 sm:gap-3">
-                  <Icon className="size-4 shrink-0 text-[#d4a537] sm:size-5" aria-hidden />
-                  <span className="text-xs font-bold text-[#7f1416] sm:text-sm">{text}</span>
+                  <Icon className="size-4 shrink-0 text-[#ec6e55] sm:size-5" aria-hidden />
+                  <span className="text-xs font-bold text-[#23403d] sm:text-sm">{text}</span>
                 </div>
               ))}
             </div>

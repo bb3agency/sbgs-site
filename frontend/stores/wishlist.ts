@@ -28,7 +28,7 @@ export const useWishlistStore = create<WishlistState>()(
       clear: () => set({ items: new Set<string>() }),
     }),
     {
-      name: "sbgs-wishlist",
+      name: "raghava-wishlist",
       storage: {
         getItem: (name) => {
           const str = localStorage.getItem(name);

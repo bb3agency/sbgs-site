@@ -32,7 +32,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
       {/* Main image */}
       <div
         className={cn(
-          "group relative aspect-square overflow-hidden rounded-2xl bg-[#faf5ec] ring-1 ring-black/[0.06] cursor-zoom-in",
+          "group relative aspect-square overflow-hidden rounded-2xl bg-[#faf8f5] ring-1 ring-black/[0.06] cursor-zoom-in",
           zoomed && "cursor-zoom-out",
         )}
         onClick={() => setZoomed((z) => !z)}
@@ -79,10 +79,10 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
               type="button"
               onClick={() => { setActive(idx); setZoomed(false); }}
               className={cn(
-                "relative size-16 shrink-0 overflow-hidden rounded-xl bg-[#faf5ec] ring-2 transition-all duration-200 sm:size-[72px]",
+                "relative size-16 shrink-0 overflow-hidden rounded-xl bg-[#faf8f5] ring-2 transition-all duration-200 sm:size-[72px]",
                 idx === active
-                  ? "ring-[#d4a537] shadow-md"
-                  : "ring-transparent opacity-60 hover:opacity-100 hover:ring-[#f5d88e]",
+                  ? "ring-[#ec6e55] shadow-md"
+                  : "ring-transparent opacity-60 hover:opacity-100 hover:ring-[#c5dac2]",
               )}
               aria-label={`View image ${idx + 1}`}
               aria-pressed={idx === active}

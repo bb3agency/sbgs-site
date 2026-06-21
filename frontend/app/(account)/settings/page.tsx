@@ -216,7 +216,7 @@ export default function AccountSettingsPage() {
         <h1 className="mb-4 font-heading text-xl font-semibold sm:text-2xl">Profile</h1>
         {error && <p className="mb-4 text-sm text-destructive">{error}</p>}
         {profileSuccess && (
-          <p className="mb-4 rounded-md bg-[#faf5ec] px-3 py-2 text-sm font-medium text-[#7f1416]">
+          <p className="mb-4 rounded-md bg-[#eff5ee] px-3 py-2 text-sm font-medium text-[#23403d]">
             Profile updated successfully.
           </p>
         )}
@@ -378,7 +378,7 @@ export default function AccountSettingsPage() {
                   <div className="flex items-center gap-2">
                     <p className="font-medium">{address.fullName}</p>
                     {address.isDefault && (
-                      <span className="rounded-full bg-[#faf5ec] px-2 py-0.5 text-[10px] font-bold text-[#7f1416]">
+                      <span className="rounded-full bg-[#eff5ee] px-2 py-0.5 text-[10px] font-bold text-[#23403d]">
                         Default
                       </span>
                     )}

@@ -45,7 +45,7 @@ function RegisterPageContent() {
   return (
     <div className="flex flex-col gap-6 p-5 sm:gap-8 sm:p-8 lg:p-12">
       <div className="text-center">
-        <h1 className="font-heading text-2xl font-bold text-[#7f1416] sm:text-3xl">
+        <h1 className="font-heading text-2xl font-bold text-[#23403d] sm:text-3xl">
           Create Account
         </h1>
         <p className="mt-3 text-sm font-medium text-[#767676]">
@@ -59,7 +59,7 @@ function RegisterPageContent() {
         {/* Show tabs only when mobile OTP signup is enabled by the merchant */}
         {mobileOtpEnabled && configLoaded && (
           <div
-            className="flex gap-2 rounded-full border border-[#efe8e4] bg-[#faf5ec] p-1.5"
+            className="flex gap-2 rounded-full border border-[#efe8e4] bg-[#faf3ef] p-1.5"
             role="tablist"
             aria-label="Sign-up method"
           >
@@ -69,8 +69,8 @@ function RegisterPageContent() {
               aria-selected={mode === "email"}
               className={`flex-1 h-10 rounded-full text-sm font-bold transition-colors ${
                 mode === "email"
-                  ? "bg-[#7f1416] text-white shadow-sm"
-                  : "text-[#767676] hover:text-[#7f1416]"
+                  ? "bg-[#23403d] text-white shadow-sm"
+                  : "text-[#767676] hover:text-[#23403d]"
               }`}
               onClick={() => setMode("email")}
             >
@@ -82,8 +82,8 @@ function RegisterPageContent() {
               aria-selected={mode === "otp"}
               className={`flex-1 h-10 rounded-full text-sm font-bold transition-colors ${
                 mode === "otp"
-                  ? "bg-[#7f1416] text-white shadow-sm"
-                  : "text-[#767676] hover:text-[#7f1416]"
+                  ? "bg-[#23403d] text-white shadow-sm"
+                  : "text-[#767676] hover:text-[#23403d]"
               }`}
               onClick={() => setMode("otp")}
             >
@@ -104,7 +104,7 @@ function RegisterPageContent() {
       <div className="border-t border-[#efe8e4] pt-6">
         <Link
           href={`/login${redirectTo !== "/dashboard" ? `?redirect=${encodeURIComponent(redirectTo)}` : ""}`}
-          className="block text-center text-sm font-bold text-[#7f1416] transition-colors hover:text-[#d4a537]"
+          className="block text-center text-sm font-bold text-[#23403d] transition-colors hover:text-[#ec6e55]"
         >
           Already have an account? Sign in
         </Link>
