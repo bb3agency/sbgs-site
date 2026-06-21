@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { User, LogOut, ShoppingCart, Heart } from "lucide-react";
+import { User, LogOut, ShoppingCart } from "lucide-react";
 import { useAuthStore } from "@/stores/auth";
 import { logoutSession } from "@/lib/auth-api";
 import { useCartStore } from "@/stores/cart";
@@ -27,7 +27,6 @@ export function MainNav() {
   const cartItems = useCartStore((s) => s.items);
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const cartTotal = cartItems.reduce((sum, item) => sum + item.lineTotal, 0);
-  const wishlistCount = useWishlistStore((s) => s.items).size;
 
   const isSignedIn = Boolean(accessToken);
   const isCheckingSession = sessionStatus === "checking" && !accessToken;
@@ -40,6 +39,7 @@ export function MainNav() {
     } finally {
       useAuthStore.getState().logoutLocalSession();
       clearCart();
+      useWishlistStore.getState().clear();
       router.push("/login");
     }
   };
@@ -48,7 +48,7 @@ export function MainNav() {
     <div className="flex shrink-0 items-center gap-3 sm:gap-6">
       {/* Account Menu */}
       <div className="group relative hidden lg:flex items-center gap-2 cursor-pointer">
-        <div className="flex size-9 items-center justify-center rounded-full bg-[#faf5ec] text-[#7f1416] transition-colors group-hover:bg-[#d4a537] group-hover:text-white sm:size-11">
+        <div className="flex size-9 items-center justify-center rounded-full bg-[#eff5ee] text-[#23403d] transition-colors group-hover:bg-[#ec6e55] group-hover:text-white sm:size-11">
           <User className="size-4 sm:size-5" />
         </div>
         
@@ -61,12 +61,12 @@ export function MainNav() {
           ) : isSignedIn ? (
             <>
               <span className="text-xs font-bold text-[#767676]">Hello, {user?.firstName || 'User'}</span>
-              <span className="text-sm font-bold text-[#7f1416]">My Account</span>
+              <span className="text-sm font-bold text-[#23403d]">My Account</span>
             </>
           ) : (
             <>
               <span className="text-xs font-bold text-[#767676]">Welcome</span>
-              <span className="text-sm font-bold text-[#7f1416]">Sign In / Register</span>
+              <span className="text-sm font-bold text-[#23403d]">Sign In / Register</span>
             </>
           )}
         </div>
@@ -78,19 +78,19 @@ export function MainNav() {
               <div className="px-5 py-3 text-sm text-[#767676]">Checking session…</div>
             ) : isSignedIn ? (
               <>
-                <Link href="/dashboard" className="flex items-center gap-3 px-5 py-3 text-sm font-bold text-[#7f1416] hover:bg-[#faf5ec] hover:text-[#d4a537]">
+                <Link href="/dashboard" className="flex items-center gap-3 px-5 py-3 text-sm font-bold text-[#23403d] hover:bg-[#faf3ef] hover:text-[#ec6e55]">
                   <User className="size-4" /> Dashboard
                 </Link>
-                <button onClick={onSignOut} className="flex items-center gap-3 px-5 py-3 text-left text-sm font-bold text-[#7f1416] hover:bg-[#faf5ec] hover:text-[#d4a537]">
+                <button onClick={onSignOut} className="flex items-center gap-3 px-5 py-3 text-left text-sm font-bold text-[#23403d] hover:bg-[#faf3ef] hover:text-[#ec6e55]">
                   <LogOut className="size-4" /> Sign Out
                 </button>
               </>
             ) : (
               <>
-                <Link href={`/login${authRedirect}`} className="flex items-center gap-3 px-5 py-3 text-sm font-bold text-[#7f1416] hover:bg-[#faf5ec] hover:text-[#d4a537]">
+                <Link href={`/login${authRedirect}`} className="flex items-center gap-3 px-5 py-3 text-sm font-bold text-[#23403d] hover:bg-[#faf3ef] hover:text-[#ec6e55]">
                   <LogOut className="size-4" /> Sign In
                 </Link>
-                <Link href={`/register${authRedirect}`} className="flex items-center gap-3 px-5 py-3 text-sm font-bold text-[#7f1416] hover:bg-[#faf5ec] hover:text-[#d4a537]">
+                <Link href={`/register${authRedirect}`} className="flex items-center gap-3 px-5 py-3 text-sm font-bold text-[#23403d] hover:bg-[#faf3ef] hover:text-[#ec6e55]">
                   <User className="size-4" /> Register
                 </Link>
               </>
@@ -99,32 +99,18 @@ export function MainNav() {
         </div>
       </div>
 
-      {/* Wishlist */}
-      <Link href="/dashboard" className="group flex items-center gap-3" aria-label="Wishlist">
-        <div className="relative flex size-9 items-center justify-center rounded-full bg-[#faf5ec] text-[#7f1416] transition-colors group-hover:bg-[#d4a537] group-hover:text-white sm:size-11">
-          <Heart className="size-4 sm:size-5" />
-          <span className="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-[#d4a537] text-[8px] font-bold leading-none text-white shadow-sm ring-2 ring-white transition-colors group-hover:bg-[#7f1416] sm:size-[18px] sm:text-[10px]">
-            {wishlistCount > 99 ? "99+" : wishlistCount}
-          </span>
-        </div>
-        <div className="hidden flex-col lg:flex">
-          <span className="text-xs font-bold text-[#767676]">Saved</span>
-          <span className="text-sm font-bold text-[#7f1416]">Wishlist</span>
-        </div>
-      </Link>
-
       {/* Mini Cart Trigger */}
       <Link href="/cart" className="group flex items-center gap-3">
-        <div className="relative flex size-9 items-center justify-center rounded-full bg-[#faf5ec] text-[#7f1416] transition-colors group-hover:bg-[#d4a537] group-hover:text-white sm:size-11">
+        <div className="relative flex size-9 items-center justify-center rounded-full bg-[#eff5ee] text-[#23403d] transition-colors group-hover:bg-[#ec6e55] group-hover:text-white sm:size-11">
           <ShoppingCart className="size-4 sm:size-5" />
-          <span className="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-[#d4a537] text-[8px] font-bold leading-none text-white shadow-sm ring-2 ring-white transition-colors group-hover:bg-[#7f1416] sm:size-[18px] sm:text-[10px]">
+          <span className="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-[#ec6e55] text-[8px] font-bold leading-none text-white shadow-sm ring-2 ring-white transition-colors group-hover:bg-[#23403d] sm:size-[18px] sm:text-[10px]">
             {cartCount > 99 ? "99+" : cartCount}
           </span>
         </div>
         
         <div className="hidden flex-col lg:flex">
           <span className="text-xs font-bold text-[#767676]">Your Cart</span>
-          <span className="text-sm font-bold text-[#d4a537]">
+          <span className="text-sm font-bold text-[#ec6e55]">
              <PriceDisplay pricePaise={cartTotal} />
           </span>
         </div>

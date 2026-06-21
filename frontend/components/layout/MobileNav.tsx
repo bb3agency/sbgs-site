@@ -20,6 +20,7 @@ import { useAuthStore } from "@/stores/auth";
 import { logoutSession } from "@/lib/auth-api";
 import { formatPrice } from "@/lib/format-price";
 import { useCartStore } from "@/stores/cart";
+import { useWishlistStore } from "@/stores/wishlist";
 import { useSessionBootstrap } from "@/hooks/use-session-bootstrap";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { StorefrontSearchDropdown } from "@/components/shared/StorefrontSearchDropdown";
@@ -74,6 +75,7 @@ export function MobileNav({ minOrderValuePaise = 0 }: MobileNavProps) {
     } finally {
       useAuthStore.getState().logoutLocalSession();
       clearCart();
+      useWishlistStore.getState().clear();
       close();
     }
   };
@@ -126,12 +128,12 @@ export function MobileNav({ minOrderValuePaise = 0 }: MobileNavProps) {
         <div className="flex items-center justify-between border-b border-[#efe8e4] px-5 py-4">
           <Link
             href="/"
-            className="flex items-center gap-2 font-heading text-lg font-bold tracking-tight text-[#7f1416]"
+            className="flex items-center gap-2 font-heading text-lg font-bold tracking-tight text-[#23403d]"
             onClick={close}
           >
             <Image
               src={BRAND_LOGO_SRC}
-              alt={APP_NAME}
+              alt={`${APP_NAME} logo`}
               width={28}
               height={28}
               className="size-7 object-contain"
@@ -140,7 +142,7 @@ export function MobileNav({ minOrderValuePaise = 0 }: MobileNavProps) {
           </Link>
           <button
             onClick={close}
-            className="rounded-full bg-[#faf5ec] p-2 text-[#7f1416] transition-colors hover:bg-[#d4a537] hover:text-white"
+            className="rounded-full bg-[#eff5ee] p-2 text-[#23403d] transition-colors hover:bg-[#ec6e55] hover:text-white"
             aria-label="Close menu"
           >
             <X className="size-4" />
@@ -151,7 +153,7 @@ export function MobileNav({ minOrderValuePaise = 0 }: MobileNavProps) {
         <div className="relative border-b border-[#efe8e4] px-4 py-3">
           <div className="relative flex items-center">
             {loading ? (
-              <Loader2 className="absolute left-3 size-4 animate-spin text-[#d4a537]" aria-hidden />
+              <Loader2 className="absolute left-3 size-4 animate-spin text-[#ec6e55]" aria-hidden />
             ) : (
               <Search className="absolute left-3 size-4 text-[#767676]" aria-hidden />
             )}
@@ -169,15 +171,15 @@ export function MobileNav({ minOrderValuePaise = 0 }: MobileNavProps) {
                   router.push(buildStorefrontSearchPath(normalized));
                 }
               }}
-              placeholder="Search for sweets, boxes, gifts..."
-              className="h-10 w-full rounded-full border border-[#efe8e4] bg-[#faf5ec] pl-9 pr-10 text-sm font-medium text-[#7f1416] placeholder:text-[#767676] focus:border-[#7f1416] focus:outline-none focus:ring-1 focus:ring-[#7f1416]"
+              placeholder="Search products and categories..."
+              className="h-10 w-full rounded-full border border-[#efe8e4] bg-[#faf3ef] pl-9 pr-10 text-sm font-medium text-[#23403d] placeholder:text-[#767676] focus:border-[#23403d] focus:outline-none focus:ring-1 focus:ring-[#23403d]"
               aria-label="Search products and categories"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 text-[#767676] hover:text-[#d4a537]"
+                className="absolute right-3 text-[#767676] hover:text-[#ec6e55]"
                 aria-label="Clear search"
               >
                 <X className="size-3.5" />
@@ -206,23 +208,23 @@ export function MobileNav({ minOrderValuePaise = 0 }: MobileNavProps) {
           <Link
             href="/"
             onClick={close}
-            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold text-[#7f1416] transition-colors hover:bg-[#faf5ec] hover:text-[#d4a537]"
+            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold text-[#23403d] transition-colors hover:bg-[#faf3ef] hover:text-[#ec6e55]"
           >
             <Store className="size-4" /> Home
           </Link>
           <Link
             href="/products"
             onClick={close}
-            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold text-[#7f1416] transition-colors hover:bg-[#faf5ec] hover:text-[#d4a537]"
+            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold text-[#23403d] transition-colors hover:bg-[#faf3ef] hover:text-[#ec6e55]"
           >
             <ShoppingBag className="size-4" /> All Products
           </Link>
           <Link
             href="/products?sort=popularity"
             onClick={close}
-            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold text-[#7f1416] transition-colors hover:bg-[#faf5ec] hover:text-[#d4a537]"
+            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold text-[#23403d] transition-colors hover:bg-[#faf3ef] hover:text-[#ec6e55]"
           >
-            <Tag className="size-4" /> Offers
+            <Tag className="size-4" /> Special Offers
           </Link>
 
           <div className="my-3 h-px w-full bg-[#efe8e4]" />
@@ -233,21 +235,21 @@ export function MobileNav({ minOrderValuePaise = 0 }: MobileNavProps) {
 
           {isCheckingSession ? (
             <div
-              className="flex items-center gap-3 rounded-xl bg-[#faf5ec] px-3 py-3 text-sm font-medium text-[#767676]"
+              className="flex items-center gap-3 rounded-xl bg-[#eff5ee] px-3 py-3 text-sm font-medium text-[#767676]"
               role="status"
               aria-live="polite"
             >
-              <Loader2 className="size-4 animate-spin text-[#7f1416]" aria-hidden />
+              <Loader2 className="size-4 animate-spin text-[#23403d]" aria-hidden />
               Restoring your session…
             </div>
           ) : isSignedIn ? (
             <>
-              <div className="mb-2 flex items-center gap-3 rounded-xl bg-[#faf5ec] px-3 py-2.5">
-                <div className="flex size-8 items-center justify-center rounded-full bg-[#7f1416] text-xs font-bold text-white">
+              <div className="mb-2 flex items-center gap-3 rounded-xl bg-[#eff5ee] px-3 py-2.5">
+                <div className="flex size-8 items-center justify-center rounded-full bg-[#23403d] text-xs font-bold text-white">
                   {(user?.firstName?.charAt(0) ?? user?.email?.charAt(0) ?? "U").toUpperCase()}
                 </div>
                 <div className="min-w-0">
-                  <p className="truncate text-sm font-bold text-[#7f1416]">
+                  <p className="truncate text-sm font-bold text-[#23403d]">
                     {user?.firstName
                       ? `${user.firstName}${user.lastName ? ` ${user.lastName}` : ""}`
                       : "My Account"}
@@ -260,13 +262,13 @@ export function MobileNav({ minOrderValuePaise = 0 }: MobileNavProps) {
               <Link
                 href="/dashboard"
                 onClick={close}
-                className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold text-[#7f1416] transition-colors hover:bg-[#faf5ec]"
+                className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold text-[#23403d] transition-colors hover:bg-[#faf3ef]"
               >
                 <User className="size-4" /> My Account
               </Link>
               <button
                 onClick={() => void onSignOut()}
-                className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-bold text-[#d4a537] transition-colors hover:bg-[#faf5ec]"
+                className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-bold text-[#ec6e55] transition-colors hover:bg-[#faf3ef]"
               >
                 <LogOut className="size-4" /> Sign Out
               </button>
@@ -276,14 +278,14 @@ export function MobileNav({ minOrderValuePaise = 0 }: MobileNavProps) {
               <Link
                 href={`/login${authRedirect}`}
                 onClick={close}
-                className="flex items-center justify-center gap-2 rounded-xl bg-[#7f1416] px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-[#d4a537]"
+                className="flex items-center justify-center gap-2 rounded-xl bg-[#23403d] px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-[#ec6e55]"
               >
                 <LogOut className="size-4" /> Sign In
               </Link>
               <Link
                 href={`/register${authRedirect}`}
                 onClick={close}
-                className="flex items-center justify-center gap-2 rounded-xl border-2 border-[#7f1416] px-4 py-3 text-sm font-bold text-[#7f1416] transition-colors hover:border-[#d4a537] hover:text-[#d4a537]"
+                className="flex items-center justify-center gap-2 rounded-xl border-2 border-[#23403d] px-4 py-3 text-sm font-bold text-[#23403d] transition-colors hover:border-[#ec6e55] hover:text-[#ec6e55]"
               >
                 <User className="size-4" /> Create Account
               </Link>
@@ -296,7 +298,7 @@ export function MobileNav({ minOrderValuePaise = 0 }: MobileNavProps) {
           <p className="text-center text-xs text-[#767676]">
             {minOrderValuePaise > 0
               ? `Minimum order value: ${formatPrice(minOrderValuePaise)}`
-              : "Pure ghee sweets · Made fresh daily"}
+              : "Farm-fresh chemical-free produce"}
           </p>
         </div>
       </div>

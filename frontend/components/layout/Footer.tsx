@@ -1,166 +1,134 @@
 import Link from "next/link";
-import Image from "next/image";
-import { MessageCircle } from "lucide-react";
-import { APP_NAME, BRAND_LOGO_SRC } from "@/lib/constants";
-import { NewsletterForm } from "@/components/layout/NewsletterForm";
+import { Leaf, MapPin, Phone, Mail } from "lucide-react";
+import { APP_NAME } from "@/lib/constants";
 import type { CategoryWithMeta } from "@/lib/categories";
 
 interface FooterProps {
   categories: CategoryWithMeta[];
 }
 
-interface FooterColumn {
-  title: string;
-  links: Array<{ label: string; href: string }>;
-}
-
-const COLUMNS: FooterColumn[] = [
-  {
-    title: "Shop",
-    links: [
-      { label: "All Sweets", href: "/products" },
-      { label: "Festive Boxes", href: "/products" },
-      { label: "Ghee Specials", href: "/products" },
-      { label: "Dry Fruit Sweets", href: "/products" },
-      { label: "Party Packs", href: "/products" },
-      { label: "Gift Cards", href: "/products" },
-    ],
-  },
-  {
-    title: "Customer Service",
-    links: [
-      { label: "Track Order", href: "/orders" },
-      { label: "Returns & Refunds", href: "/returns" },
-      { label: "Shipping Policy", href: "/shipping" },
-      { label: "Cancellation Policy", href: "/returns" },
-      { label: "FAQs", href: "/about" },
-      { label: "Contact Us", href: "/about" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { label: "About Us", href: "/about" },
-      { label: "Our Story", href: "/about" },
-      { label: "Careers", href: "/about" },
-      { label: "Store Locator", href: "/locations" },
-      { label: "Blog", href: "/about" },
-      { label: "Corporate Orders", href: "/products" },
-    ],
-  },
-  {
-    title: "Policies",
-    links: [
-      { label: "Terms & Conditions", href: "/terms" },
-      { label: "Privacy Policy", href: "/privacy" },
-      { label: "Refund Policy", href: "/returns" },
-      { label: "Shipping Policy", href: "/shipping" },
-      { label: "Cookie Policy", href: "/privacy" },
-    ],
-  },
-];
-
-const SOCIALS: Array<{ label: string; href: string; text?: string; icon?: typeof MessageCircle }> = [
-  { label: "Facebook", href: "https://facebook.com", text: "f" },
-  { label: "Instagram", href: "https://instagram.com", text: "in" },
-  { label: "YouTube", href: "https://youtube.com", text: "yt" },
-  { label: "WhatsApp", href: "https://wa.me/919876543210", icon: MessageCircle },
-];
-
-const PAYMENTS = ["Razorpay", "VISA", "Mastercard", "UPI"];
-
-export function Footer(_props: FooterProps) {
+export function Footer({ categories }: FooterProps) {
   return (
-    <footer className="bg-[#5c0e16] text-[#f3e6da]">
-      <div className="mx-auto w-full max-w-[1440px] px-4 py-12 sm:py-14 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
-          {/* Brand */}
-          <div className="lg:col-span-3">
+    <footer className="border-t border-[#efe8e4] bg-[#faf3ef] text-[#23403d]">
+      <div className="mx-auto w-full max-w-[1440px] px-4 py-10 sm:py-16 lg:px-8">
+        <div className="grid gap-8 sm:grid-cols-2 sm:gap-12 lg:grid-cols-4 lg:gap-8">
+          {/* Brand column */}
+          <div className="flex flex-col gap-6">
             <Link
               href="/"
-              className="flex items-center gap-2 font-heading text-xl font-bold tracking-tight text-white"
+              className="flex items-center gap-2 font-heading text-2xl font-bold tracking-tight text-[#23403d]"
               aria-label={`${APP_NAME} home`}
             >
-              <Image
-                src={BRAND_LOGO_SRC}
-                alt={`${APP_NAME} logo`}
-                width={36}
-                height={36}
-                className="size-9 object-contain"
-              />
-              <span>{APP_NAME}</span>
+              <Leaf className="size-6 text-[#ec6e55]" aria-hidden />
+              {APP_NAME}
             </Link>
-            <p className="mt-4 text-sm leading-relaxed text-[#d4a537]">
-              Bringing sweetness to your celebrations since years. Made with pure
-              ghee. Made with love.
+            <p className="text-sm font-medium leading-relaxed text-[#767676]">
+              Farm-fresh chemical free produce delivered to your door. Trusted by
+              families across India for quality and purity.
             </p>
-            <div className="mt-5 flex gap-3">
-              {SOCIALS.map(({ label, href, text, icon: Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="flex size-9 items-center justify-center rounded-full bg-white/10 text-sm font-bold text-white transition-colors hover:bg-[#d4a537] hover:text-[#5c0e16]"
-                >
-                  {Icon ? <Icon className="size-4" /> : text}
-                </a>
-              ))}
+            <div className="flex gap-3">
+              <a href="https://facebook.com" className="flex size-10 items-center justify-center rounded-full bg-white text-sm font-bold text-[#23403d] shadow-sm transition-colors hover:bg-[#ec6e55] hover:text-white" aria-label="Facebook">
+                F
+              </a>
+              <a href="https://instagram.com" className="flex size-10 items-center justify-center rounded-full bg-white text-sm font-bold text-[#23403d] shadow-sm transition-colors hover:bg-[#ec6e55] hover:text-white" aria-label="Instagram">
+                I
+              </a>
+              <a href="https://twitter.com" className="flex size-10 items-center justify-center rounded-full bg-white text-sm font-bold text-[#23403d] shadow-sm transition-colors hover:bg-[#ec6e55] hover:text-white" aria-label="Twitter">
+                T
+              </a>
             </div>
           </div>
 
-          {/* Link columns */}
-          {COLUMNS.map((col) => (
-            <div key={col.title} className="lg:col-span-2">
-              <h3 className="font-heading text-sm font-bold uppercase tracking-wide text-[#d4a537]">
-                {col.title}
-              </h3>
-              <ul className="mt-4 space-y-2.5 text-sm text-[#e7d2c4]">
-                {col.links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="transition-colors hover:text-white"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
-          {/* Newsletter */}
-          <div className="lg:col-span-3">
-            <h3 className="font-heading text-sm font-bold uppercase tracking-wide text-[#d4a537]">
-              Newsletter
+          {/* Quick links */}
+          <div>
+            <h3 className="mb-4 font-heading text-base font-bold text-[#23403d] sm:mb-6 sm:text-lg">
+              Quick Links
             </h3>
-            <p className="mt-4 text-sm text-[#e7d2c4]">
-              Stay updated with offers and new arrivals
-            </p>
-            <NewsletterForm />
-            <div className="mt-5 flex flex-wrap gap-2">
-              {PAYMENTS.map((p) => (
-                <span
-                  key={p}
-                  className="rounded-md bg-white px-2.5 py-1 text-[11px] font-bold text-[#5c0e16]"
-                >
-                  {p}
-                </span>
+            <ul className="space-y-3 text-sm font-bold text-[#767676] sm:space-y-4">
+              <li>
+                <Link href="/products" className="transition-colors hover:text-[#ec6e55]">
+                  Shop All
+                </Link>
+              </li>
+              {categories.slice(0, 3).map((cat) => (
+                <li key={cat.slug}>
+                  <Link
+                    href={`/categories/${cat.slug}`}
+                    className="transition-colors hover:text-[#ec6e55]"
+                  >
+                    {cat.name}
+                  </Link>
+                </li>
               ))}
-            </div>
+              <li>
+                <Link href="/products?sort=popularity" className="transition-colors hover:text-[#ec6e55]">
+                  Special Offers
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Policies */}
+          <div>
+            <h3 className="mb-6 font-heading text-lg font-bold text-[#23403d]">
+              Policies
+            </h3>
+            <ul className="space-y-4 text-sm font-bold text-[#767676]">
+              {[
+                { label: "About Us", href: "/about" },
+                { label: "Privacy Policy", href: "/privacy" },
+                { label: "Terms & Conditions", href: "/terms" },
+                { label: "Shipping Policy", href: "/shipping" },
+                { label: "Return Policy", href: "/returns" },
+              ].map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="transition-colors hover:text-[#ec6e55]"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="mb-6 font-heading text-lg font-bold text-[#23403d]">
+              Contact Us
+            </h3>
+            <ul className="space-y-4 text-sm font-bold text-[#767676]">
+              <li className="flex items-start gap-3">
+                <MapPin className="mt-0.5 size-5 shrink-0 text-[#ec6e55]" aria-hidden />
+                <span>Raghava Organics, Hyderabad, Telangana, India</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Phone className="size-5 shrink-0 text-[#ec6e55]" aria-hidden />
+                <a href="tel:+919440445006" className="transition-colors hover:text-[#ec6e55]">
+                  +91 94404 45006
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <Mail className="size-5 shrink-0 text-[#ec6e55]" aria-hidden />
+                <a href="mailto:hello@raghavaorganics.com" className="transition-colors hover:text-[#ec6e55]">
+                  hello@raghavaorganics.com
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-[#e7d2c4] sm:flex-row">
-          <p>
-            &copy; {new Date().getFullYear()} {APP_NAME}. All Rights Reserved.
-          </p>
-          <p className="flex items-center gap-1">
-            Made with <span className="text-[#d4a537]">&hearts;</span> in India
-          </p>
+        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-[#efe8e4] pt-6 text-xs font-medium text-[#767676] sm:mt-16 sm:flex-row sm:gap-4 sm:pt-8 sm:text-sm">
+          <p>&copy; {new Date().getFullYear()} {APP_NAME}. All rights reserved.</p>
+          <div className="flex items-center gap-2">
+            <span className="flex items-center gap-1"><Leaf className="size-3 text-[#ec6e55]" /> 100% Chemical Free</span>
+            <span className="hidden sm:inline">&bull;</span>
+            <span className="hidden sm:flex items-center gap-1">Pesticide Free</span>
+            <span className="hidden sm:inline">&bull;</span>
+            <span className="hidden sm:flex items-center gap-1">Farm to Table</span>
+          </div>
         </div>
       </div>
     </footer>
