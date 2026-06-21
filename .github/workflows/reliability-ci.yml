@@ -49,7 +49,7 @@ jobs:
       NODE_ENV: test
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/ecom_test?schema=public
       REDIS_URL: redis://localhost:6379
-      BASE_URL: http://127.0.0.1:3002
+      BASE_URL: http://127.0.0.1:3000
       JWT_SECRET: ci-access-secret
       JWT_ACCESS_SECRET: ci-access-secret
       JWT_REFRESH_SECRET: ci-refresh-secret
@@ -157,13 +157,13 @@ jobs:
           trap 'kill "$APP_PID" || true' EXIT
 
           for i in {1..30}; do
-            if curl -fsS http://127.0.0.1:3002/api/v1/health/live >/dev/null; then
+            if curl -fsS http://127.0.0.1:3000/api/v1/health/live >/dev/null; then
               break
             fi
             sleep 2
           done
 
-          if ! curl -fsS http://127.0.0.1:3002/api/v1/health/live >/dev/null; then
+          if ! curl -fsS http://127.0.0.1:3000/api/v1/health/live >/dev/null; then
             echo "::error::Backend did not become live in time."
             cat /tmp/backend.log || true
             exit 1
