@@ -1,0 +1,6 @@
+# This client's own identifiers — allowed in core (only OTHER clients leaking in is contamination).
+srisaibabasweets
+Sri Sai Baba
+Sai Baba Ghee
+ghee sweets
+sbgs

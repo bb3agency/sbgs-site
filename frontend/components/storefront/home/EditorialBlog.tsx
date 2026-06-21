@@ -49,7 +49,7 @@ export function EditorialBlog() {
           <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 sm:grid-cols-2 lg:gap-12">
             {posts.map((post, idx) => (
               <article key={idx} className="group flex flex-col">
-                <Link href="/products" className="mb-6 block overflow-hidden bg-white aspect-[4/3]">
+                <Link href={`/blog/${post.slug}`} className="mb-6 block overflow-hidden bg-white aspect-[4/3]">
                   <Image 
                     src={post.image}
                     alt={post.title}
@@ -59,15 +59,15 @@ export function EditorialBlog() {
                   />
                 </Link>
                 <div className="text-left">
-                  <span className="mb-2 block text-xs font-bold uppercase tracking-widest text-[#D4A537] font-sans">
+                  <span className="mb-2 block text-xs font-bold uppercase tracking-widest text-[#D4A537] font-['Montserrat']">
                     {post.date}
                   </span>
-                  <Link href="/products">
+                  <Link href={`/blog/${post.slug}`}>
                     <h3 className="mb-3 font-serif text-2xl font-bold leading-snug text-[#7F1416] transition-colors group-hover:text-[#D4A537]">
                       {post.title}
                     </h3>
                   </Link>
-                  <p className="text-sm leading-relaxed text-[#7F1416]/70 font-sans">
+                  <p className="text-sm leading-relaxed text-[#7F1416]/70 font-['Montserrat']">
                     {post.excerpt}
                   </p>
                 </div>
@@ -83,7 +83,7 @@ export function EditorialBlog() {
         
         {/* View All */}
         <div className="mt-12 text-center">
-          <Link href="/products" className="inline-block border-b-2 border-[#7F1416]/30 pb-1 text-sm font-bold uppercase tracking-[0.15em] text-[#7F1416] transition-colors hover:border-[#7F1416] font-sans">
+          <Link href="/blog" className="inline-block border-b-2 border-[#7F1416]/30 pb-1 text-sm font-bold uppercase tracking-[0.15em] text-[#7F1416] transition-colors hover:border-[#7F1416] font-['Montserrat']">
             View All Posts
           </Link>
         </div>

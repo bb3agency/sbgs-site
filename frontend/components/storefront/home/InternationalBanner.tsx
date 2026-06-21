@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Reveal } from "@/components/shared/motion/Reveal";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
 export function InternationalBanner() {
   return (
@@ -14,7 +15,7 @@ export function InternationalBanner() {
         </svg>
       </div>
 
-      <Reveal className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col items-center justify-between gap-6 px-4 py-12 sm:flex-row sm:px-6 sm:py-16 lg:px-8">
+      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col items-center justify-between gap-6 px-4 py-12 sm:flex-row sm:px-6 sm:py-16 lg:px-8">
         <div className="flex items-center gap-6">
           {/* Icon */}
           <div className="flex size-14 items-center justify-center rounded-full bg-[#FAF5EC]/10 text-[#FAF5EC]">
@@ -28,19 +29,19 @@ export function InternationalBanner() {
             <h2 className="font-serif text-2xl font-normal leading-[1.2] text-[#FAF5EC] sm:text-3xl">
               From You, to <em className="italic">Anywhere</em> in the World
             </h2>
-            <p className="mt-2 text-sm font-sans uppercase tracking-wider text-[#FAF5EC]/80">
+            <p className="mt-2 text-sm font-['Montserrat'] uppercase tracking-wider text-[#FAF5EC]/80">
               Love knows no borders — delivering worldwide
             </p>
           </div>
         </div>
 
         <Link
-          href="/products"
-          className="shrink-0 bg-[#FAF5EC] px-8 py-3.5 text-sm font-bold uppercase tracking-[0.15em] text-[#7F1416] transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-xl font-sans"
+          href="/international"
+          className="shrink-0 bg-[#FAF5EC] px-8 py-3.5 text-sm font-bold uppercase tracking-[0.15em] text-[#7F1416] transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-xl font-['Montserrat']"
         >
           Ship Internationally
         </Link>
-      </Reveal>
+      </div>
     </section>
   );
 }

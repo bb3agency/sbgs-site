@@ -49,32 +49,32 @@ const SECTIONS = [
 
 export default function ShippingPolicyPage() {
   return (
-    <div className="flex flex-col bg-[#eff5ee] min-h-screen pb-16">
+    <div className="flex flex-col bg-[#faf5ec] min-h-screen pb-16">
       {/* ── Page Header Banner ──────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-[#dbe8d8] py-10 md:py-20">
+      <section className="relative overflow-hidden bg-[#f5d88e] py-10 md:py-20">
         <div className="mx-auto flex w-full max-w-[1440px] flex-col items-center justify-center px-4 text-center lg:px-8">
-          <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#ec6e55]">
+          <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#d4a537]">
             Policies
           </p>
-          <h1 className="mb-3 font-heading text-3xl font-bold text-[#23403d] sm:mb-4 sm:text-4xl md:text-5xl">
+          <h1 className="mb-3 font-heading text-3xl font-bold text-[#7f1416] sm:mb-4 sm:text-4xl md:text-5xl">
             Shipping Policy
           </h1>
           <nav
             className="flex items-center gap-1.5 text-xs font-bold text-[#767676] sm:gap-2 sm:text-sm"
             aria-label="Breadcrumb"
           >
-            <Link href="/" className="transition-colors hover:text-[#ec6e55]">
+            <Link href="/" className="transition-colors hover:text-[#d4a537]">
               Home
             </Link>
             <ChevronRight className="size-3" />
-            <span className="text-[#ec6e55]">Shipping Policy</span>
+            <span className="text-[#d4a537]">Shipping Policy</span>
           </nav>
-          <p className="mt-3 text-xs font-medium text-[#23403d]/60">
+          <p className="mt-3 text-xs font-medium text-[#7f1416]/60">
             Last updated: June 2026
           </p>
         </div>
         <div
-          className="absolute -bottom-16 -right-16 size-64 rounded-full bg-[#c5dac2] opacity-40 blur-3xl"
+          className="absolute -bottom-16 -right-16 size-64 rounded-full bg-[#f5d88e] opacity-40 blur-3xl"
           aria-hidden
         />
         <div
@@ -89,11 +89,11 @@ export default function ShippingPolicyPage() {
           <div className="grid gap-8">
             {SECTIONS.map(({ icon: Icon, title, content }) => (
               <div key={title} className="flex gap-4 sm:gap-6">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#eff5ee] mt-0.5">
-                  <Icon className="size-5 text-[#ec6e55]" aria-hidden />
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#faf5ec] mt-0.5">
+                  <Icon className="size-5 text-[#d4a537]" aria-hidden />
                 </div>
                 <div>
-                  <h2 className="mb-2 font-heading text-lg font-bold text-[#23403d]">
+                  <h2 className="mb-2 font-heading text-lg font-bold text-[#7f1416]">
                     {title}
                   </h2>
                   <p className="text-sm leading-relaxed text-[#767676]">{content}</p>
@@ -102,20 +102,20 @@ export default function ShippingPolicyPage() {
             ))}
           </div>
 
-          <div className="mt-10 rounded-[16px] border border-[#e3ebe1] bg-[#faf9f7] p-5 sm:p-6">
+          <div className="mt-10 rounded-[16px] border border-[#f5ebe0] bg-[#faf5ec] p-5 sm:p-6">
             <p className="text-sm font-medium text-[#767676]">
-              <strong className="text-[#23403d]">Questions about your delivery?</strong>{" "}
+              <strong className="text-[#7f1416]">Questions about your delivery?</strong>{" "}
               Contact us at{" "}
               <a
-                href="mailto:hello@raghavaorganics.com"
-                className="font-bold text-[#ec6e55] hover:underline"
+                href="mailto:hello@srisaibabasweets.com"
+                className="font-bold text-[#d4a537] hover:underline"
               >
-                hello@raghavaorganics.com
+                hello@srisaibabasweets.com
               </a>{" "}
               or call{" "}
               <a
                 href="tel:+919440445006"
-                className="font-bold text-[#ec6e55] hover:underline"
+                className="font-bold text-[#d4a537] hover:underline"
               >
                 +91 94404 45006
               </a>

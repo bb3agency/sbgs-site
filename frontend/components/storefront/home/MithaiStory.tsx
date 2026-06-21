@@ -1,8 +1,6 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { Stagger, StaggerItem } from "@/components/shared/motion/Stagger";
+import { ArrowRight } from "lucide-react";
 
 export function MithaiStory() {
   return (
@@ -23,46 +21,38 @@ export function MithaiStory() {
 
       {/* Content overlay — centered text, Dadu's "A Sweetness Perfected Over Time" style */}
       <div className="relative z-10 flex min-h-[85vh] items-center justify-center px-4 sm:px-6 lg:px-8">
-        <Stagger className="mx-auto max-w-[600px] text-center" stagger={0.15}>
-          <StaggerItem>
-            <h2
-              className="mb-0 font-heading text-4xl font-medium leading-[1.2] sm:text-5xl lg:text-[48px]"
-              style={{ color: "#F9F3E7" }}
-            >
-              A Sweetness
-            </h2>
-          </StaggerItem>
+        <div className="mx-auto max-w-[600px] text-center">
+          <h2
+            className="mb-0 font-heading text-4xl font-medium leading-[1.2] sm:text-5xl lg:text-[48px]"
+            style={{ color: "#F9F3E7" }}
+          >
+            A Sweetness
+          </h2>
 
-          <StaggerItem index={1}>
-            <h3
-              className="mt-2 mb-8 font-serif text-3xl italic font-normal sm:text-4xl lg:text-[40px]"
-              style={{ color: "#F9F3E7" }}
-            >
-              Perfected Over Time
-            </h3>
-          </StaggerItem>
+          <h3
+            className="mt-2 mb-8 font-serif text-3xl italic font-normal sm:text-4xl lg:text-[40px]"
+            style={{ color: "#F9F3E7" }}
+          >
+            Perfected Over Time
+          </h3>
 
-          <StaggerItem index={2}>
-            <p
-              className="mb-8 text-base leading-[1.6] font-['Montserrat'] sm:text-lg"
-              style={{ color: "#F9F3E7" }}
-            >
-              Inside each Sri Sai Baba sweet box, the legacy of mithai craftsmanship comes
-              to life. Years of expertise unfolds in delicate textures and rich
-              flavours — all inspired by one family&apos;s pursuit of the perfect ghee
-              sweet over three decades.
-            </p>
-          </StaggerItem>
+          <p
+            className="mb-8 text-base leading-[1.6] font-['Montserrat'] sm:text-lg"
+            style={{ color: "#F9F3E7" }}
+          >
+            Inside each Sri Sai Baba sweet box, the legacy of mithai craftsmanship comes
+            to life. Years of expertise unfolds in delicate textures and rich
+            flavours — all inspired by one family&apos;s pursuit of the perfect ghee
+            sweet over three decades.
+          </p>
 
-          <StaggerItem>
-            <Link
-              href="/about"
-              className="inline-block border border-[#FAF5EC] bg-transparent px-8 py-3 text-sm font-bold uppercase tracking-[0.15em] text-[#FAF5EC] transition-all duration-300 hover:bg-[#FAF5EC] hover:text-[#7F1416] font-['Montserrat']"
-            >
-              Read Our Story
-            </Link>
-          </StaggerItem>
-        </Stagger>
+          <Link
+            href="/about"
+            className="inline-block border border-[#FAF5EC] bg-transparent px-8 py-3 text-sm font-bold uppercase tracking-[0.15em] text-[#FAF5EC] transition-all duration-300 hover:bg-[#FAF5EC] hover:text-[#7F1416] font-['Montserrat']"
+          >
+            Read Our Story
+          </Link>
+        </div>
       </div>
     </section>
   );

@@ -8,7 +8,6 @@ import {
   Truck,
   Lock,
 } from "lucide-react";
-import { Parallax } from "@/components/shared/motion/Parallax";
 
 const HERO_STATS = [
   {
@@ -64,12 +63,10 @@ export function HeroSection() {
               Tradition of purity · Promise of quality
             </span>
 
-            <h1 className="mt-5 font-heading text-4xl font-medium leading-[1.08] tracking-tight text-[#7f1416] sm:text-5xl md:text-6xl lg:text-[64px]">
-              <em className="italic font-semibold">Pure Ghee</em> Goodness,
-              <br />
-              Made for{" "}
+            <h1 className="mt-5 font-heading text-4xl font-bold leading-[1.05] tracking-tight text-[#7f1416] sm:text-5xl md:text-6xl lg:text-[68px]">
+              Pure Ghee Goodness,{" "}
               <span className="relative inline-block">
-                <em className="relative z-10 italic font-semibold">Celebrations</em>
+                <span className="relative z-10">Made for</span>
                 <svg
                   aria-hidden
                   viewBox="0 0 300 14"
@@ -84,7 +81,8 @@ export function HeroSection() {
                     strokeLinecap="round"
                   />
                 </svg>
-              </span>
+              </span>{" "}
+              Celebrations.
             </h1>
 
             <p className="mt-5 max-w-xl text-base leading-relaxed text-[#8c7b6b] sm:text-lg">
@@ -145,16 +143,14 @@ export function HeroSection() {
           {/* Right: editorial visual stack */}
           <div className="relative lg:col-span-5">
             <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[32px] bg-[#f5d88e] shadow-[0_30px_80px_-30px_rgba(35,64,61,0.4)]">
-              <Parallax className="absolute inset-0" amount={36}>
-                <Image
-                  src="/images/sweets/IMG_20260612_163129.jpg"
-                  alt="Premium gift box of traditional ghee sweets by Sri Sai Baba Ghee Sweets"
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 450px"
-                  className="scale-110 object-cover"
-                />
-              </Parallax>
+              <Image
+                src="/images/sweets/IMG_20260612_163129.jpg"
+                alt="Premium gift box of traditional ghee sweets by Sri Sai Baba Ghee Sweets"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 450px"
+                className="object-cover"
+              />
               <div
                 aria-hidden
                 className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#7f1416]/60 to-transparent"

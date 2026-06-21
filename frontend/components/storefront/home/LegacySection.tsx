@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { ScrollText, Sprout, HeartHandshake } from "lucide-react";
 import { APP_NAME } from "@/lib/constants";
-import { Parallax } from "@/components/shared/motion/Parallax";
 
 const POINTS = [
   { title: "Traditional Recipes", desc: "Passed down for generations", icon: ScrollText },
@@ -17,15 +16,13 @@ export function LegacySection() {
           {/* Image */}
           <div className="lg:col-span-4">
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-[#efe8e4] shadow-sm">
-              <Parallax className="absolute inset-0" amount={30}>
-                <Image
-                  src="/images/sweets/IMG_20260612_180122.jpg"
-                  alt="Sweet makers preparing fresh sweets in the kitchen"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 33vw"
-                  className="scale-110 object-cover"
-                />
-              </Parallax>
+              <Image
+                src="/images/sweets/IMG_20260612_180122.jpg"
+                alt="Sweet makers preparing fresh sweets in the kitchen"
+                fill
+                sizes="(max-width: 1024px) 100vw, 33vw"
+                className="object-cover"
+              />
             </div>
           </div>
 

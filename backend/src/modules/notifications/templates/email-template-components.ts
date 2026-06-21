@@ -1,5 +1,11 @@
 import { createElement, type ReactElement } from 'react';
 
+// ─── Store identity (configurable via env) ────────────────────────────────────
+const STORE_NAME = process.env.STORE_NAME ?? 'Sri Sai Baba Ghee Sweets';
+const STORE_DOMAIN = process.env.STOREFRONT_URL?.replace(/^https?:\/\//, '') ?? 'srisaibabasweets.com';
+const STORE_SUPPORT_EMAIL = `support@${STORE_DOMAIN}`;
+const STORE_TAGLINE = 'Pure Ghee. Handcrafted Sweets. Timeless Tradition.';
+
 // ─── Brand tokens ─────────────────────────────────────────────────────────────
 const B = {
   green: '#23403d',
@@ -76,10 +82,10 @@ function Wrapper(...children: ReactElement[]): ReactElement {
                           fontSize: '20px', fontWeight: 700,
                           color: B.white, letterSpacing: '-0.3px'
                         }
-                      }, 'Raghava Organics'),
+                      }, STORE_NAME),
                       el('p', {
                         style: { margin: '3px 0 0', fontSize: '12px', color: '#8ab5b2', letterSpacing: '0.5px', textTransform: 'uppercase' }
-                      }, 'Pure · Natural · Organic')
+                      }, STORE_TAGLINE)
                     )
                   ))
                 )
@@ -110,13 +116,13 @@ function Wrapper(...children: ReactElement[]): ReactElement {
                 },
                   el('p', {
                     style: { margin: 0, fontSize: '12px', color: B.textMuted }
-                  }, '© 2026 Raghava Organics. All rights reserved.'),
+                  }, `© ${new Date().getFullYear()} ${STORE_NAME}. All rights reserved.`),
                   el('p', {
                     style: { margin: '6px 0 0', fontSize: '11px', color: B.textMuted }
-                  }, 'support@raghavaorganics.com | raghavaorganics.com'),
+                  }, `${STORE_SUPPORT_EMAIL} | ${STORE_DOMAIN}`),
                   el('p', {
                     style: { margin: '10px 0 0', fontSize: '11px', color: '#b0c4c2' }
-                  }, 'You are receiving this email because you have an account with Raghava Organics.')
+                  }, `You are receiving this email because you have an account with ${STORE_NAME}.`)
                 )
               )
             )
@@ -377,7 +383,7 @@ export function OrderDeliveredEmail(orderId: string): ReactElement {
   return Wrapper(
     StatusBadge('Delivered', B.successGreen, B.successBg),
     Heading('Your order has been delivered!'),
-    Body(`Your order ${orderId} has been successfully delivered. We hope you love your Raghava Organics products!`),
+    Body(`Your order ${orderId} has been successfully delivered. We hope you love your ${STORE_NAME} products!`),
     InfoBox(
       el('table', { width: '100%', cellPadding: 0, cellSpacing: 0 },
         el('tbody', null,
@@ -478,7 +484,7 @@ export function OtpVerificationEmail(otp: string): ReactElement {
     Heading('Your admin login code'),
     Body('Use the code below to complete your sign-in. This code is valid for 10 minutes and can only be used once.'),
     OtpCode(otp),
-    SecurityNote('Never share this code with anyone. The Raghava Organics team will never ask you for your login code. If you did not request this, secure your account immediately.'),
+    SecurityNote(`Never share this code with anyone. The ${STORE_NAME} team will never ask you for your login code. If you did not request this, secure your account immediately.`),
     Divider(),
     el('p', { style: { fontSize: '12px', color: B.textMuted, margin: 0, lineHeight: '1.6' } },
       'This is an automated security message. If you did not attempt to log in, please contact the platform operator immediately.'
@@ -518,7 +524,7 @@ export function AdminInviteSetupEmail(email: string, setupUrl: string, expiresAt
   return Wrapper(
     StatusBadge('Admin Invite', B.green, '#e8f0ef'),
     Heading('Merchant admin setup invite'),
-    Body(`You have been invited to set up a merchant admin account for Raghava Organics. Click the button below to create your account and set your password.`),
+    Body(`You have been invited to set up a merchant admin account for ${STORE_NAME}. Click the button below to create your account and set your password.`),
     InfoBox(
       el('table', { width: '100%', cellPadding: 0, cellSpacing: 0 },
         el('tbody', null,

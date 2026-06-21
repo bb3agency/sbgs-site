@@ -1,5 +1,3 @@
-"use client";
-
 import { Users, Star, MapPin, MessageSquare } from "lucide-react";
 import {
   clampReviewRating,
@@ -7,8 +5,6 @@ import {
   formatReviewerName,
 } from "@/lib/review-display";
 import type { StorefrontReview } from "@/lib/storefront-reviews";
-import { OrnamentHeading } from "./OrnamentHeading";
-import { Stagger, StaggerItem } from "@/components/shared/motion/Stagger";
 
 interface SocialProofSectionProps {
   reviews: StorefrontReview[];
@@ -84,11 +80,9 @@ export function SocialProofSection({ reviews }: SocialProofSectionProps) {
   return (
     <section className="bg-white">
       <div className="mx-auto w-full max-w-[1440px] px-4 py-12 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
-        <OrnamentHeading
-          lead="Loved by Thousands,"
-          accent="Trusted by Millions"
-          className="mb-10"
-        />
+        <h2 className="mb-10 text-center font-heading text-2xl font-bold tracking-tight text-[#7f1416] sm:text-3xl">
+          Loved by Thousands. Trusted by Millions.
+        </h2>
 
         <div className="grid gap-8 lg:grid-cols-12 lg:items-start lg:gap-10">
           {/* Stats */}
@@ -105,13 +99,11 @@ export function SocialProofSection({ reviews }: SocialProofSectionProps) {
           </div>
 
           {/* Testimonials */}
-          <Stagger className="grid gap-4 sm:grid-cols-3 lg:col-span-7">
-            {testimonials.map((t, idx) => (
-              <StaggerItem
-                as="article"
+          <div className="grid gap-4 sm:grid-cols-3 lg:col-span-7">
+            {testimonials.map((t) => (
+              <article
                 key={t.name + t.quote.slice(0, 12)}
-                index={idx}
-                className="flex flex-col gap-3 rounded-2xl border border-[#efe8e4] bg-[#faf7f2] p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#d4a537] hover:shadow-lg"
+                className="flex flex-col gap-3 rounded-2xl border border-[#efe8e4] bg-[#faf7f2] p-5 shadow-sm"
               >
                 <Stars count={t.rating} />
                 <p className="flex-1 text-sm leading-relaxed text-[#3a2218]">
@@ -126,9 +118,9 @@ export function SocialProofSection({ reviews }: SocialProofSectionProps) {
                     <p className="text-[11px] text-[#767676]">Verified Buyer</p>
                   </div>
                 </div>
-              </StaggerItem>
+              </article>
             ))}
-          </Stagger>
+          </div>
 
           {/* As Featured In */}
           <div className="lg:col-span-3">
