@@ -135,6 +135,7 @@ Automates propagation end-to-end: **tag a core release in the template → every
 - Variable `RELEASE_TRAIN_ENABLED = true`
 - Variable `CLIENT_REPOS = bb3agency/raghava-organics-site bb3agency/sbgs-site` (space-separated)
 - Secret `CROSS_REPO_PAT` = a PAT with **`actions: write` + `contents: read` on every client repo** (lets it dispatch their `core-sync`).
+- ⚠️ **GitHub Actions MUST stay ENABLED in the template repo** (Settings → Actions → General → "Allow all actions"). `release-train` runs *here* — if Actions is off, a pushed tag is silently dropped and nothing fans out. To quiet template-side noise, **disable the individual workflows that don't belong in the template** instead of repo-wide Actions: `gh workflow disable "Reliability CI" -R <template>`, same for `"Deploy to VPS"` and `"Diagnostic Logs"`. Leave `release-train` (and `core-sync`) enabled. `release-train` only fires on `*-core-v*` tags, so normal template pushes stay silent anyway.
 
 **Each client repo** — Settings → Secrets and variables → Actions:
 - Variable `TEMPLATE_REPO = bb3agency/ecom-platform-template`
@@ -155,6 +156,8 @@ Manual fallback (no automation, or a client without the workflow): `node backend
 ### 9.4 Silent-failure modes (READ THIS)
 The system is PR-gated, so the worst case is "a sync silently doesn't happen," not "a bad change auto-deploys." Known traps:
 
+- **Actions disabled in the template → nothing fires (we hit this).** If GitHub Actions is turned OFF for the template repo, a pushed `*-core-v*` tag is silently dropped — `release-train` never runs, no PRs appear, and `gh run list` shows "no runs found." → Keep Actions ENABLED in the template; quiet noise by disabling individual workflows (`gh workflow disable "Reliability CI"` etc.), never repo-wide Actions. Verify with `gh api repos/<org>/<template>/actions/permissions` → `{"enabled":true}`.
+- **Tagging in a CLIENT repo does nothing.** The fan-out trigger is a tag pushed to the **template** (where `release-train` lives). A tag on raghava/sbgs is inert. → Always tag in the template; never tag the client. A pushed tag whose event happened while Actions was off must be re-fired via `gh workflow run release-train.yml -R <template> -f tag=<tag>` (re-pushing the same tag name does not re-emit the event).
 - **Core file DELETIONS / renames don't propagate.** `git checkout <tag> -- <paths>` only adds/updates files present in the tag; a file you *removed* in core stays in the client. → For releases that delete/rename core files, note it in the CHANGELOG and remove them by hand in each client.
 - **PRs opened with `GITHUB_TOKEN` don't trigger the client's CI.** If `CORE_SYNC_PAT` is unset, the PR opens but the client's `reliability-ci` won't run on it → a broken sync can look mergeable. → Always set `CORE_SYNC_PAT`. The workflow prints a `::warning::` when it's missing.
 - **A client missing `core-sync.yml` is skipped with only a warning.** `release-train` logs `::warning::` and continues; that client just never gets a PR. → Confirm every `CLIENT_REPOS` entry actually has the workflow on its default branch.
@@ -219,11 +222,12 @@ PHASE C — fan out                                        ← automated
 # Keep core changes and design changes in SEPARATE commits (clean cherry-pick later).
 ```
 
-**Phase B — promote to the template** (one-time: `git remote add raghava <url>` / `git remote add sbgs <url>` in the template)
+**Phase B — promote to the template** (one-time per client: add a remote NAMED EXACTLY like the repo, e.g. `git remote add raghava-organics-site https://github.com/bb3agency/raghava-organics-site.git`)
 ```bash
 cd <template>
-git fetch raghava
+git fetch raghava-organics-site             # the remote name == the GitHub repo name
 git cherry-pick <firstSha>^..<lastSha>      # bring the feature's commits in (design hunks are kept-ours)
+#   NOTE: the commits must already be PUSHED to the client's GitHub (a local-only commit can't be fetched).
 # edit CHANGELOG.md  (Propagation block: note FEATURE_X + any NEW design token)
 # bump version: feature = MINOR (0.1.1 → 0.2.0) in backend/package.json + PLATFORM_VERSION (+ frontend if touched)
 git add -A && git commit -m "feat: <feature> behind FEATURE_X (core 0.2.0)"
@@ -258,7 +262,7 @@ git push -u origin main
 **4. Register it for automation:**
 - Add `bb3agency/<new-client>-site` to the template repo's `CLIENT_REPOS` variable.
 - Configure the per-client secrets/variables (table in §13.1).
-- Add it as a remote in the template for cherry-pick promotes: `git remote add <new-client> https://github.com/bb3agency/<new-client>-site.git`.
+- Add it as a remote in the template for cherry-pick promotes, naming the remote exactly like the repo: `git remote add <new-client>-site https://github.com/bb3agency/<new-client>-site.git`.
 
 **5. Set up CD** (self-hosted runner + `VPS_RUNNER_LABEL`, per `GITHUB_CD_SELF_HOSTED_RUNNER_GUIDE.md`) so a merged sync PR deploys.
 
@@ -270,9 +274,10 @@ git push -u origin main
 | `RELEASE_TRAIN_ENABLED` | Variable | `true` | Master switch for the fan-out automation. |
 | `CLIENT_REPOS` | Variable | space-separated `owner/repo` of ALL clients | Who receives sync PRs. Append each new client. |
 | `CROSS_REPO_PAT` | Secret | PAT — **Actions: write + Metadata: read** on every client repo | Lets the train dispatch each client's `core-sync`. |
+| _Actions enabled_ | Setting | Settings → Actions → General → **Allow all actions** | **Required** — `release-train` runs here. Disable noisy *individual* workflows (Reliability CI / Deploy / Diagnostic), not repo-wide Actions. |
 
 Plus, in the template's local checkout, one git remote per client (for cherry-pick promotes):
-`git remote add <client> https://github.com/bb3agency/<client>-site.git`
+`git remote add <client>-site https://github.com/bb3agency/<client>-site.git` (remote name == repo name; current: `raghava-organics-site`, `sbgs-site`)
 
 **Each client repo** — Settings → Secrets and variables → Actions:
 | Name | Kind | Value / scope | Purpose |
