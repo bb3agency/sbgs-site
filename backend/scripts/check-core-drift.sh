@@ -71,11 +71,6 @@ fi
 BE_TAG="backend-core-v${be_ver}"
 FE_TAG="frontend-core-v${fe_ver}"
 
-# Manifest uses `dir/**` and `dir/*.ext` globs; raw `**` is interpreted
-# inconsistently by git across platforms (Windows git silently misses it → false
-# "clean"; Ubuntu git matches), so check_layer normalizes each path below:
-# `dir/**` → bare `dir` (recursive by default); `*.ext`/glob → `:(glob)`; plain → literal.
-#
 # Diff EACH layer's paths against ITS OWN tag. Tags are full-repo snapshots, so a
 # combined pathspec diffed against both tags cross-checks frontend files against
 # the backend tag (and vice-versa) → false positives whenever the two layers are
@@ -88,23 +83,11 @@ check_layer() {
     skip_or_fail "pinned tag $tag not found on $TEMPLATE_REMOTE (is the template tagged & pushed?)"
   fi
 
-  local pathspec=() p
+  local pathspec=()
   mapfile -t inc < <(jq -r ".${layer_key}.include[]" "$MANIFEST")
   mapfile -t exc < <(jq -r ".${layer_key}.exclude[]" "$MANIFEST")
-  for p in "${inc[@]}"; do
-    case "$p" in
-      */**) pathspec+=("${p%/**}") ;;
-      *\**) pathspec+=(":(glob)$p") ;;
-      *)    pathspec+=("$p") ;;
-    esac
-  done
-  for p in "${exc[@]}"; do
-    case "$p" in
-      */**) pathspec+=(":(exclude)${p%/**}") ;;
-      *\**) pathspec+=(":(exclude,glob)$p") ;;
-      *)    pathspec+=(":(exclude)$p") ;;
-    esac
-  done
+  pathspec=("${inc[@]}")
+  for e in "${exc[@]}"; do pathspec+=(":(exclude)$e"); done
   for a in "${ALLOW[@]}"; do [ -n "$a" ] && pathspec+=(":(exclude)$a"); done
 
   echo "── Diffing ${layer_key} files against $tag ──"
