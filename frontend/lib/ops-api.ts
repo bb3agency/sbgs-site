@@ -12,7 +12,7 @@ const OPS_BASE_URL = (() => {
   const configured = process.env.NEXT_PUBLIC_API_BASE_URL?.trim();
   if (configured) return configured.replace(/\/$/, "");
   if (process.env.NODE_ENV === "development") {
-    return "http://localhost:3002/api/v1";
+    return "http://localhost:3000/api/v1";
   }
   throw new Error("INTERNAL_API_BASE_URL or NEXT_PUBLIC_API_BASE_URL is required for ops metrics.");
 })();
