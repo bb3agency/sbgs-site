@@ -18,7 +18,7 @@ export function getConfiguredPublicApiBaseUrl(): string {
     return normalizeBase(configured);
   }
   if (process.env.NODE_ENV === "development") {
-    return normalizeBase("http://localhost:3002/api/v1");
+    return normalizeBase("http://localhost:3000/api/v1");
   }
   throw new Error(
     "NEXT_PUBLIC_API_BASE_URL is required in production builds. Set it in .env.production.local before npm run build.",
@@ -36,7 +36,7 @@ export function getInternalApiBaseUrl(): string {
 /**
  * Base URL for browser `fetch` (client components, credentials: include).
  * Always uses the current page origin so refresh cookies and Next `/api/v1` rewrites
- * work on LAN/mobile hosts (e.g. `http://10.x.x.x:3102`), not `localhost` from env.
+ * work on LAN/mobile hosts (e.g. `http://10.x.x.x:3101`), not `localhost` from env.
  */
 export function getBrowserApiBaseUrl(): string {
   if (typeof window === "undefined") {

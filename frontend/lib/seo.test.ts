@@ -12,10 +12,10 @@ describe("seo", () => {
   });
 
   it("builds absolute URLs from storefront origin", () => {
-    vi.stubEnv("NEXT_PUBLIC_STOREFRONT_URL", "https://srisaibabasweets.com/");
-    expect(getSiteUrl()).toBe("https://srisaibabasweets.com");
+    vi.stubEnv("NEXT_PUBLIC_STOREFRONT_URL", "https://raghavaorganics.com/");
+    expect(getSiteUrl()).toBe("https://raghavaorganics.com");
     expect(absoluteUrl("/products/foo")).toBe(
-      "https://srisaibabasweets.com/products/foo",
+      "https://raghavaorganics.com/products/foo",
     );
   });
 
@@ -28,13 +28,13 @@ describe("seo", () => {
 
   it("blocks indexing on localhost even in production mode", () => {
     vi.stubEnv("NODE_ENV", "production");
-    vi.stubEnv("NEXT_PUBLIC_STOREFRONT_URL", "http://localhost:3102");
+    vi.stubEnv("NEXT_PUBLIC_STOREFRONT_URL", "http://localhost:3101");
     expect(isProductionIndexableSite()).toBe(false);
   });
 
   it("allows indexing on production storefront host", () => {
     vi.stubEnv("NODE_ENV", "production");
-    vi.stubEnv("NEXT_PUBLIC_STOREFRONT_URL", "https://srisaibabasweets.com");
+    vi.stubEnv("NEXT_PUBLIC_STOREFRONT_URL", "https://raghavaorganics.com");
     expect(isProductionIndexableSite()).toBe(true);
   });
 });
