@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MessageCircle } from "lucide-react";
 import { APP_NAME, BRAND_LOGO_SRC } from "@/lib/constants";
-import { NewsletterForm } from "@/components/layout/NewsletterForm";
+import { NewsletterForm } from "@/components/client/NewsletterForm";
 import type { CategoryWithMeta } from "@/lib/categories";
 
 interface FooterProps {
