@@ -1431,3 +1431,22 @@ In a new tab, Zustand starts empty (`accessToken = null`). `useSessionBootstrap`
 - Storefront order detail — "Track on DELHIVERY" → "Track on Delhivery"
 - `types/admin-order.ts` + `lib/admin-api.ts` — `provider` fields typed as `ShippingProviderEnum` instead of `string`; `shiprocketShipmentId` kept as optional (Shiprocket-specific)
 
+---
+
+## 2026-07-01 — WhatsApp notifications + guest cart fix (backend-core 0.1.19–0.1.21)
+
+**Scope:** Core platform changes synced from `ecom-platform-template` and auto-deployed to prod. Two areas: Meta WhatsApp notifications and a long-standing guest-cart bug.
+
+### Guest cart — root cause & fix (be-core 0.1.20 + 0.1.21)
+
+- **Symptom:** guest cart never persisted — items added while logged-out vanished on the next page load, and the post-login merge found nothing.
+- **Root cause (backend):** `CartService.resolveOrCreateCart` created each new guest cart with a *fresh random* `sessionToken` instead of the token the route supplies (and writes to the `cart_session` cookie). So the cookie token never matched a row — every request minted a new empty cart. Fixed by keying the created cart to the supplied token via `upsert` on `sessionToken` (race-safe). 0.1.21 hardens it: a blank/whitespace `cart_session` cookie is normalized (`sessionToken?.trim() || undefined`) so it can't be stored as `''` (which would collide all blank-cookie guests onto one shared cart).
+- **Frontend (already correct):** `AddToCartButton` persists to `POST /cart/items`; `useCartSync` reads `GET /cart`; login → `mergeGuestCartAfterAuth` → `POST /cart/merge` (additive). No frontend change needed.
+
+### Meta WhatsApp notifications (be-core 0.1.19)
+
+- New `whatsapp-template-registry.ts` maps internal template names → approved lowercase Meta template names + ordered positional `{{1}}..{{n}}` params (previously the adapter sent the PascalCase name and alphabetically-sorted params → every send failed Meta validation).
+- **Not configured for SBGS** — available as a core feature. To enable: fill `docs/clients/sbgs/VPS_INPUTS.template.md` §Meta WhatsApp, create the 6 UTILITY templates per `backend/docs/WHATSAPP_TEMPLATE_REGISTRY.md`, save creds in Ops Config (not `.env`), verify the webhook at `https://<domain>/api/v1/notifications/webhook/meta-whatsapp` (apex), then set the relevant `primaryChannels` to `WHATSAPP`.
+
+**Fleet state:** all three repos (template + raghava + sbgs) at backend-core 0.1.21 / frontend-core 0.1.12.
+
