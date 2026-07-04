@@ -159,7 +159,7 @@ extra_hosts:
 
 | Client Slot | Backend Port | Storefront Port |
 |---|---|---|
-| Client 1 | 3002 | 3102 |
+| Client 1 | 3001 | 3101 |
 | Client 2 | 3002 | 3102 |
 | Client N | 3000 + N | 3100 + N |
 
@@ -226,7 +226,7 @@ server {
   listen 443 ssl;
   server_name client1.com www.client1.com;
   location / {
-    proxy_pass http://127.0.0.1:3102;
+    proxy_pass http://127.0.0.1:3101;
   }
 }
 ```
@@ -1315,8 +1315,8 @@ fastify.register(cors, {
 | Cart/user-session flows (`/cart*`, `/wishlist*`, `/users/me*`) | 90 per minute (route profile) |
 | Checkout/payment mutations (`/orders`, `/orders/:id/cancel`, `/payments/initiate`, `/payments/verify`) | 30 per minute (route profile) |
 | Webhook ingress (`/payments/webhook`, `/shipping/webhook`) | 400 per minute (dedicated profile) |
-| Admin read routes (`/api/v1/admin/*` reads) | 60 per minute (route profile) |
-| Admin write routes (`/api/v1/admin/*` mutations) | 40 per minute (route profile) |
+| Admin read routes (`/api/v1/admin/*` reads) | 180 per minute (route profile) |
+| Admin write routes (`/api/v1/admin/*` mutations) | 120 per minute (route profile) |
 | Health | 30 per minute |
 
 ### 11.4 Environment Variable Validation
