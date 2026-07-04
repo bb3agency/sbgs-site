@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { MessageCircle } from "lucide-react";
+// Brand glyphs: lucide-react ships no brand icons — react-icons is the one
+// sanctioned exception, used ONLY for social brand logos (tree-shaken imports).
+import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa6";
+import { useStoreConfig } from "@/components/providers/StoreConfigProvider";
 import { APP_NAME, BRAND_LOGO_SRC } from "@/lib/constants";
 import { NewsletterForm } from "@/components/client/NewsletterForm";
 import type { CategoryWithMeta } from "@/lib/categories";
@@ -60,16 +65,26 @@ const COLUMNS: FooterColumn[] = [
   },
 ];
 
-const SOCIALS: Array<{ label: string; href: string; text?: string; icon?: typeof MessageCircle }> = [
-  { label: "Facebook", href: "https://facebook.com", text: "f" },
-  { label: "Instagram", href: "https://instagram.com", text: "in" },
-  { label: "YouTube", href: "https://youtube.com", text: "yt" },
-  { label: "WhatsApp", href: "https://wa.me/919876543210", icon: MessageCircle },
-];
-
 const PAYMENTS = ["Razorpay", "VISA", "Mastercard", "UPI"];
 
 export function Footer(_props: FooterProps) {
+  // Merchant-managed social links (Admin → Settings → Store, via GET /store/config).
+  // WhatsApp derives from the store contact phone — no separate setting. Icons
+  // render only when their target is configured, so there are no dead links.
+  const config = useStoreConfig();
+  const facebookUrl = config.facebookUrl?.trim() || "";
+  const instagramUrl = config.instagramUrl?.trim() || "";
+  const whatsappDigits = (config.contactPhone ?? "").replace(/\D/g, "");
+  // wa.me needs a country code; default bare 10-digit Indian numbers to +91.
+  const whatsappHref = whatsappDigits
+    ? `https://wa.me/${whatsappDigits.length === 10 ? `91${whatsappDigits}` : whatsappDigits}`
+    : "";
+  const socials = [
+    { label: "Facebook", href: facebookUrl, icon: <FaFacebookF className="size-4" aria-hidden /> },
+    { label: "Instagram", href: instagramUrl, icon: <FaInstagram className="size-4" aria-hidden /> },
+    { label: "WhatsApp", href: whatsappHref, icon: <FaWhatsapp className="size-4" aria-hidden /> },
+  ].filter((s) => s.href);
+
   return (
     <footer className="bg-[#5c0e16] text-[#f3e6da]">
       <div className="mx-auto w-full max-w-[1440px] px-4 py-12 sm:py-14 lg:px-8">
@@ -94,20 +109,22 @@ export function Footer(_props: FooterProps) {
               Bringing sweetness to your celebrations since years. Made with pure
               ghee. Made with love.
             </p>
-            <div className="mt-5 flex gap-3">
-              {SOCIALS.map(({ label, href, text, icon: Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="flex size-9 items-center justify-center rounded-full bg-white/10 text-sm font-bold text-white transition-colors hover:bg-[#d4a537] hover:text-[#5c0e16]"
-                >
-                  {Icon ? <Icon className="size-4" /> : text}
-                </a>
-              ))}
-            </div>
+            {socials.length > 0 ? (
+              <div className="mt-5 flex gap-3">
+                {socials.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="flex size-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-[#d4a537] hover:text-[#5c0e16]"
+                  >
+                    {social.icon}
+                  </a>
+                ))}
+              </div>
+            ) : null}
           </div>
 
           {/* Link columns */}
