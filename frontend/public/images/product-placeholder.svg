@@ -1,12 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Product image placeholder">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Sri Sai Baba Ghee Sweets">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f4faf2"/>
-      <stop offset="100%" stop-color="#e8f0e6"/>
+      <stop offset="0%" stop-color="#faf3e3"/>
+      <stop offset="100%" stop-color="#f2e6cf"/>
     </linearGradient>
+    <radialGradient id="sweet" cx="38%" cy="34%" r="70%">
+      <stop offset="0%" stop-color="#f0c060"/>
+      <stop offset="60%" stop-color="#e9b84c"/>
+      <stop offset="100%" stop-color="#c8912f"/>
+    </radialGradient>
+    <radialGradient id="bowl" cx="50%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#d9a24a"/>
+      <stop offset="100%" stop-color="#a9762c"/>
+    </radialGradient>
   </defs>
+
   <rect width="400" height="400" fill="url(#bg)"/>
-  <circle cx="200" cy="170" r="72" fill="#dbe8d8" opacity="0.65"/>
-  <path d="M200 118c-18 0-32 14-32 32s14 32 32 32 32-14 32-32-14-32-32-32zm0 88c-40 0-72 18-72 40v18h144v-18c0-22-32-40-72-40z" fill="#23403d" opacity="0.18"/>
-  <text x="200" y="320" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" fill="#767676">No image yet</text>
+
+  <!-- decorative corner motifs -->
+  <g fill="#e9b84c" opacity="0.18">
+    <path d="M40 40 l10 0 0 10 -10 0 z"/>
+    <path d="M360 40 l-10 0 0 10 10 0 z"/>
+    <path d="M40 360 l10 0 0 -10 -10 0 z"/>
+    <path d="M360 360 l-10 0 0 -10 10 0 z"/>
+  </g>
+
+  <!-- brass bowl -->
+  <ellipse cx="200" cy="252" rx="120" ry="34" fill="#8a5a24" opacity="0.25"/>
+  <path d="M92 232 a108 40 0 0 0 216 0 v6 a108 46 0 0 1 -216 0 z" fill="url(#bowl)"/>
+  <ellipse cx="200" cy="232" rx="108" ry="40" fill="#c8912f"/>
+  <ellipse cx="200" cy="228" rx="100" ry="34" fill="#b5822a"/>
+
+  <!-- laddus -->
+  <g stroke="#a9762c" stroke-width="2">
+    <circle cx="160" cy="206" r="40" fill="url(#sweet)"/>
+    <circle cx="238" cy="208" r="38" fill="url(#sweet)"/>
+    <circle cx="200" cy="170" r="42" fill="url(#sweet)"/>
+  </g>
+  <!-- pistachio garnish -->
+  <g fill="#5a7d3a">
+    <ellipse cx="200" cy="150" rx="7" ry="4"/>
+    <ellipse cx="160" cy="188" rx="6" ry="3.5"/>
+    <ellipse cx="238" cy="192" rx="6" ry="3.5"/>
+  </g>
+
+  <text x="200" y="330" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="24" fill="#5a1e1e" font-weight="600">Sri Sai Baba</text>
+  <text x="200" y="356" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" letter-spacing="3" fill="#b5822a">GHEE SWEETS</text>
 </svg>
