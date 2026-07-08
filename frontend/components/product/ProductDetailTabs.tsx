@@ -27,9 +27,9 @@ export function ProductDetailTabs({
   const paragraphs = description.split(/\n{2,}/).filter(Boolean);
 
   return (
-    <div className="mt-6 rounded-[20px] bg-white shadow-sm sm:mt-8">
+    <div className="mt-6 rounded-[20px] bg-card shadow-sm sm:mt-8">
       {/* Tab bar */}
-      <div className="flex gap-0 overflow-x-auto border-b border-[#f0f0f0] scrollbar-hide">
+      <div className="flex gap-0 overflow-x-auto border-b border-border scrollbar-hide">
         {(
           [
             { id: "description" as TabId, label: "Description" },
@@ -43,13 +43,13 @@ export function ProductDetailTabs({
             className={cn(
               "relative shrink-0 px-5 py-4 text-sm font-semibold transition-colors sm:px-8",
               activeTab === tab.id
-                ? "text-[#23403d]"
-                : "text-[#999] hover:text-[#555]",
+                ? "text-foreground"
+                : "text-muted-foreground hover:text-foreground/80",
             )}
           >
             {tab.label}
             {activeTab === tab.id && (
-              <span className="absolute bottom-0 left-5 right-5 h-0.5 rounded-full bg-[#23403d]" />
+              <span className="absolute bottom-0 left-5 right-5 h-0.5 rounded-full bg-brand-maroon" />
             )}
           </button>
         ))}
@@ -72,9 +72,9 @@ export function ProductDetailTabs({
                         {lines.map((line, j) => (
                           <li
                             key={j}
-                            className="flex items-start gap-2 text-sm leading-relaxed text-[#555]"
+                            className="flex items-start gap-2 text-sm leading-relaxed text-foreground/80"
                           >
-                            <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-[#ec6e55]" aria-hidden />
+                            <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-brand-maroon" aria-hidden />
                             {line.replace(/^[-*•]\s*/, "")}
                           </li>
                         ))}
@@ -92,23 +92,23 @@ export function ProductDetailTabs({
                   if (isHeading && rest) {
                     return (
                       <div key={i}>
-                        <h3 className="mb-2 text-sm font-bold text-[#23403d]">
+                        <h3 className="mb-2 text-sm font-bold text-foreground">
                           {firstLine.replace(/:$/, "")}
                         </h3>
-                        <p className="text-sm leading-relaxed text-[#555]">{rest}</p>
+                        <p className="text-sm leading-relaxed text-foreground/80">{rest}</p>
                       </div>
                     );
                   }
 
                   return (
-                    <p key={i} className="text-sm leading-relaxed text-[#555]">
+                    <p key={i} className="text-sm leading-relaxed text-foreground/80">
                       {para}
                     </p>
                   );
                 })}
               </div>
             ) : (
-              <p className="text-sm leading-relaxed text-[#555]">
+              <p className="text-sm leading-relaxed text-foreground/80">
                 {description || "No description available."}
               </p>
             )}
@@ -117,15 +117,15 @@ export function ProductDetailTabs({
 
         {activeTab === "additional" && (
           <div className="max-w-2xl">
-            <dl className="divide-y divide-[#f0f0f0]">
+            <dl className="divide-y divide-secondary">
               <div className="flex items-start gap-6 py-3">
-                <dt className="w-36 shrink-0 text-xs font-bold uppercase tracking-wider text-[#999]">
+                <dt className="w-36 shrink-0 text-xs font-bold uppercase tracking-wider text-muted-foreground">
                   Category
                 </dt>
                 <dd>
                   <Link
                     href={`/categories/${categorySlug}`}
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#23403d] hover:text-[#ec6e55]"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-brand-maroon"
                   >
                     <Package className="size-3.5" aria-hidden />
                     {categoryName}
@@ -135,14 +135,14 @@ export function ProductDetailTabs({
 
               {tags.length > 0 && (
                 <div className="flex items-start gap-6 py-3">
-                  <dt className="w-36 shrink-0 text-xs font-bold uppercase tracking-wider text-[#999]">
+                  <dt className="w-36 shrink-0 text-xs font-bold uppercase tracking-wider text-muted-foreground">
                     Tags
                   </dt>
                   <dd className="flex flex-wrap gap-1.5">
                     {tags.map((tag) => (
                       <span
                         key={tag}
-                        className="inline-flex items-center gap-1 rounded-full bg-[#eff5ee] px-2.5 py-0.5 text-xs font-semibold text-[#23403d]"
+                        className="inline-flex items-center gap-1 rounded-full bg-secondary px-2.5 py-0.5 text-xs font-semibold text-foreground"
                       >
                         <Tag className="size-2.5" aria-hidden />
                         {tag}
@@ -153,17 +153,17 @@ export function ProductDetailTabs({
               )}
 
               <div className="flex items-start gap-6 py-3">
-                <dt className="w-36 shrink-0 text-xs font-bold uppercase tracking-wider text-[#999]">
+                <dt className="w-36 shrink-0 text-xs font-bold uppercase tracking-wider text-muted-foreground">
                   Certification
                 </dt>
-                <dd className="text-sm text-[#555]">{PRODUCT_CERTIFICATION_DEFAULT}</dd>
+                <dd className="text-sm text-foreground/80">{PRODUCT_CERTIFICATION_DEFAULT}</dd>
               </div>
 
               <div className="flex items-start gap-6 py-3">
-                <dt className="w-36 shrink-0 text-xs font-bold uppercase tracking-wider text-[#999]">
+                <dt className="w-36 shrink-0 text-xs font-bold uppercase tracking-wider text-muted-foreground">
                   Storage
                 </dt>
-                <dd className="text-sm text-[#555]">
+                <dd className="text-sm text-foreground/80">
                   Store in a cool, dry place. Refrigerate after opening.
                 </dd>
               </div>

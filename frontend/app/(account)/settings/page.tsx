@@ -26,7 +26,7 @@ type ProfileFormData = z.infer<typeof profileSchema>;
 type PhoneFormData = z.infer<typeof phoneSchema>;
 
 const inputClass =
-  "flex h-10 w-full rounded-lg border border-[#efe8e4] bg-white px-3 py-1 text-sm text-[#23403d] transition-colors placeholder:text-[#767676]/60 focus-visible:border-[#23403d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#23403d]/15";
+  "flex h-10 w-full rounded-lg border border-border bg-card px-3 py-1 text-sm text-foreground transition-colors placeholder:text-muted-foreground/60 focus-visible:border-brand-maroon focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-maroon/15";
 
 function SectionCard({
   icon,
@@ -40,14 +40,14 @@ function SectionCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border border-[#efe8e4] bg-white p-4 sm:p-6">
+    <div className="rounded-2xl border border-border bg-card p-4 sm:p-6">
       <div className="mb-4 flex items-start gap-3">
-        <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-[#eff5ee] text-[#23403d]">
+        <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-secondary text-foreground">
           {icon}
         </div>
         <div>
-          <h2 className="font-heading text-base font-bold text-[#23403d] sm:text-lg">{title}</h2>
-          <p className="text-xs text-[#767676] sm:text-sm">{description}</p>
+          <h2 className="font-heading text-base font-bold text-foreground sm:text-lg">{title}</h2>
+          <p className="text-xs text-muted-foreground sm:text-sm">{description}</p>
         </div>
       </div>
       {children}
@@ -149,8 +149,8 @@ export default function AccountSettingsPage() {
   return (
     <section className="flex flex-col gap-5 sm:gap-6">
       <div>
-        <h1 className="font-heading text-xl font-bold text-[#23403d] sm:text-2xl">Settings</h1>
-        <p className="mt-1 text-sm text-[#767676]">Manage your personal details and sign-in options.</p>
+        <h1 className="font-heading text-xl font-bold text-foreground sm:text-2xl">Settings</h1>
+        <p className="mt-1 text-sm text-muted-foreground">Manage your personal details and sign-in options.</p>
       </div>
 
       {/* ── Profile ─────────────────────────────────────────────────────── */}
@@ -162,7 +162,7 @@ export default function AccountSettingsPage() {
         <form onSubmit={profileForm.handleSubmit(onProfileSubmit)} className="grid gap-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="grid gap-1.5">
-              <label className="text-xs font-bold text-[#23403d]" htmlFor="profile-first-name">
+              <label className="text-xs font-bold text-foreground" htmlFor="profile-first-name">
                 First Name
               </label>
               <input id="profile-first-name" {...profileForm.register("firstName")} className={inputClass} />
@@ -171,13 +171,13 @@ export default function AccountSettingsPage() {
               )}
             </div>
             <div className="grid gap-1.5">
-              <label className="text-xs font-bold text-[#23403d]" htmlFor="profile-last-name">
+              <label className="text-xs font-bold text-foreground" htmlFor="profile-last-name">
                 Last Name
               </label>
               <input id="profile-last-name" {...profileForm.register("lastName")} className={inputClass} />
             </div>
             <div className="grid gap-1.5 sm:col-span-2">
-              <label className="text-xs font-bold text-[#23403d]" htmlFor="profile-email">
+              <label className="text-xs font-bold text-foreground" htmlFor="profile-email">
                 Email
               </label>
               <input id="profile-email" type="email" {...profileForm.register("email")} className={inputClass} />
@@ -187,7 +187,7 @@ export default function AccountSettingsPage() {
             </div>
           </div>
           <div className="flex justify-end">
-            <Button type="submit" size="sm" className="bg-[#23403d] hover:bg-[#1a302e]" disabled={profileBusy}>
+            <Button type="submit" size="sm" className="bg-brand-maroon hover:bg-brand-maroon-dark" disabled={profileBusy}>
               {profileBusy ? (
                 <>
                   <Loader2 className="size-4 animate-spin" aria-hidden /> Saving…
@@ -209,10 +209,10 @@ export default function AccountSettingsPage() {
         {currentPhone && !editingPhone ? (
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-2.5">
-              <ShieldCheck className="size-4 shrink-0 text-[#23403d]" aria-hidden />
+              <ShieldCheck className="size-4 shrink-0 text-foreground" aria-hidden />
               <div>
-                <p className="text-sm font-bold text-[#23403d]">{currentPhone}</p>
-                <p className="text-xs text-[#767676]">You can sign in with an OTP sent to this number.</p>
+                <p className="text-sm font-bold text-foreground">{currentPhone}</p>
+                <p className="text-xs text-muted-foreground">You can sign in with an OTP sent to this number.</p>
               </div>
             </div>
             <div className="flex gap-2">
@@ -241,13 +241,13 @@ export default function AccountSettingsPage() {
         ) : (
           <form onSubmit={phoneForm.handleSubmit(onPhoneSubmit)} className="grid gap-3">
             {!currentPhone && (
-              <p className="text-sm text-[#767676]">
+              <p className="text-sm text-muted-foreground">
                 No mobile number on your account yet. Add one to enable OTP sign-in and receive
                 delivery updates.
               </p>
             )}
             <div className="grid gap-1.5 sm:max-w-sm">
-              <label className="text-xs font-bold text-[#23403d]" htmlFor="settings-phone">
+              <label className="text-xs font-bold text-foreground" htmlFor="settings-phone">
                 Mobile Number
               </label>
               <input
@@ -262,7 +262,7 @@ export default function AccountSettingsPage() {
               {phoneErrors.phone && <p className="text-xs text-destructive">{phoneErrors.phone.message}</p>}
             </div>
             <div className="flex gap-2">
-              <Button type="submit" size="sm" className="bg-[#23403d] hover:bg-[#1a302e]" disabled={phoneBusy}>
+              <Button type="submit" size="sm" className="bg-brand-maroon hover:bg-brand-maroon-dark" disabled={phoneBusy}>
                 {phoneBusy ? (
                   <>
                     <Loader2 className="size-4 animate-spin" aria-hidden /> Saving…
@@ -286,18 +286,18 @@ export default function AccountSettingsPage() {
       {/* ── Addresses shortcut ──────────────────────────────────────────── */}
       <Link
         href="/addresses"
-        className="group flex items-center justify-between rounded-2xl border border-[#efe8e4] bg-white p-4 transition-colors hover:border-[#23403d]/30 hover:bg-[#eff5ee]/40 sm:p-5"
+        className="group flex items-center justify-between rounded-2xl border border-border bg-card p-4 transition-colors hover:border-brand-maroon/30 hover:bg-secondary/40 sm:p-5"
       >
         <div className="flex items-center gap-3">
-          <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-[#eff5ee] text-[#23403d]">
+          <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-secondary text-foreground">
             <MapPin className="size-5" aria-hidden />
           </div>
           <div>
-            <p className="font-heading text-base font-bold text-[#23403d]">Saved Addresses</p>
-            <p className="text-xs text-[#767676] sm:text-sm">Manage delivery addresses used at checkout.</p>
+            <p className="font-heading text-base font-bold text-foreground">Saved Addresses</p>
+            <p className="text-xs text-muted-foreground sm:text-sm">Manage delivery addresses used at checkout.</p>
           </div>
         </div>
-        <ChevronRight className="size-5 text-[#767676] transition-transform group-hover:translate-x-0.5" aria-hidden />
+        <ChevronRight className="size-5 text-muted-foreground transition-transform group-hover:translate-x-0.5" aria-hidden />
       </Link>
     </section>
   );

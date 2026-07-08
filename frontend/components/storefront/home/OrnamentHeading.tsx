@@ -32,8 +32,8 @@ export function OrnamentHeading({
   tone = "maroon",
   className,
 }: OrnamentHeadingProps) {
-  const titleColor = tone === "cream" ? "text-[#faf5ec]" : "text-[#7f1416]";
-  const flourishColor = tone === "cream" ? "text-[#f5d88e]/60" : "text-[#d4a537]/60";
+  const titleColor = tone === "cream" ? "text-brand-cream" : "text-brand-maroon";
+  const flourishColor = tone === "cream" ? "text-brand-gold/60" : "text-brand-gold/60";
 
   return (
     <div className={cn("flex flex-col items-center text-center", className)}>
@@ -50,7 +50,7 @@ export function OrnamentHeading({
         <p
           className={cn(
             "mt-3 max-w-2xl text-sm leading-relaxed",
-            tone === "cream" ? "text-[#faf5ec]/80" : "text-[#8c7b6b]",
+            tone === "cream" ? "text-brand-cream/80" : "text-muted-foreground",
           )}
         >
           {subtitle}

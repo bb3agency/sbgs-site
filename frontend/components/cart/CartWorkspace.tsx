@@ -43,19 +43,19 @@ export function CartWorkspace() {
 
   if (items.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-3xl bg-white px-4 py-28 text-center shadow-sm ring-1 ring-black/[0.04]">
-        <div className="mb-6 flex size-24 items-center justify-center rounded-full bg-gradient-to-br from-[#eff5ee] to-[#dbe8d8]">
-          <ShoppingCart className="size-12 text-[#ec6e55]" aria-hidden />
+      <div className="flex flex-col items-center justify-center rounded-3xl bg-card px-4 py-28 text-center shadow-sm ring-1 ring-black/[0.04]">
+        <div className="mb-6 flex size-24 items-center justify-center rounded-full bg-gradient-to-br from-secondary to-secondary">
+          <ShoppingCart className="size-12 text-brand-maroon" aria-hidden />
         </div>
-        <h2 className="mb-2 font-heading text-2xl font-bold text-[#23403d]">
+        <h2 className="mb-2 font-heading text-2xl font-bold text-foreground">
           Your cart is empty
         </h2>
-        <p className="mb-8 max-w-sm text-sm font-medium text-[#767676]">
+        <p className="mb-8 max-w-sm text-sm font-medium text-muted-foreground">
           {CART_EMPTY_BLURB}
         </p>
         <Link
           href="/products"
-          className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#23403d] px-8 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-[#ec6e55] hover:shadow-lg"
+          className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-brand-maroon px-8 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-brand-maroon hover:shadow-lg"
         >
           <Sparkles className="size-4" aria-hidden />
           Browse Products
@@ -108,14 +108,14 @@ export function CartWorkspace() {
         {/* Header row */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <ShoppingBag className="size-5 text-[#23403d]" aria-hidden />
-            <h2 className="font-heading text-lg font-bold text-[#23403d]">
+            <ShoppingBag className="size-5 text-foreground" aria-hidden />
+            <h2 className="font-heading text-lg font-bold text-foreground">
               Cart ({items.length} item{items.length !== 1 ? "s" : ""})
             </h2>
           </div>
           <button
             type="button"
-            className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold text-[#999] transition-colors hover:bg-red-50 hover:text-red-500"
+            className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold text-muted-foreground transition-colors hover:bg-red-50 hover:text-red-500"
             onClick={handleClear}
           >
             <Trash2 className="size-3.5" /> Clear all
@@ -130,12 +130,12 @@ export function CartWorkspace() {
             return (
               <article
                 key={item.id}
-                className={`flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/[0.04] transition-opacity sm:gap-5 sm:p-5 ${isLoading ? "opacity-50 pointer-events-none" : ""}`}
+                className={`flex items-center gap-4 rounded-2xl bg-card p-4 shadow-sm ring-1 ring-black/[0.04] transition-opacity sm:gap-5 sm:p-5 ${isLoading ? "opacity-50 pointer-events-none" : ""}`}
               >
                 {/* Image */}
                 <Link
                   href={item.product?.slug ? `/products/${item.product.slug}` : "#"}
-                  className="relative size-20 shrink-0 overflow-hidden rounded-xl bg-[#faf8f5] sm:size-24"
+                  className="relative size-20 shrink-0 overflow-hidden rounded-xl bg-brand-cream sm:size-24"
                 >
                   <Image
                     src={getCartLineImageUrl(item)}
@@ -149,26 +149,26 @@ export function CartWorkspace() {
                 {/* Info */}
                 <div className="min-w-0 flex-1">
                   <CartLineProductDetails item={item} />
-                  <p className="mt-0.5 text-sm font-bold text-[#ec6e55]">
-                    {formatPrice(item.variant.price)} <span className="text-xs font-medium text-[#999]">each</span>
+                  <p className="mt-0.5 text-sm font-bold text-brand-maroon">
+                    {formatPrice(item.variant.price)} <span className="text-xs font-medium text-muted-foreground">each</span>
                   </p>
 
                   {/* Quantity stepper — visible on mobile */}
                   <div className="mt-3 flex items-center justify-between sm:hidden">
-                    <div className="flex h-9 items-center rounded-full border border-[#efe8e4] bg-[#faf8f5]">
+                    <div className="flex h-9 items-center rounded-full border border-border bg-brand-cream">
                       <button
                         type="button"
-                        className="flex size-9 items-center justify-center rounded-full text-[#555] transition-all hover:bg-white hover:text-[#23403d] disabled:opacity-30"
+                        className="flex size-9 items-center justify-center rounded-full text-foreground/80 transition-all hover:bg-white hover:text-foreground disabled:opacity-30"
                         onClick={() => handleQuantity(item.id, Math.max(1, item.quantity - 1))}
                         disabled={isLoading || item.quantity <= 1}
                         aria-label="Decrease quantity"
                       >
                         <Minus className="size-3" />
                       </button>
-                      <span className="w-8 text-center text-sm font-bold text-[#23403d]">{item.quantity}</span>
+                      <span className="w-8 text-center text-sm font-bold text-foreground">{item.quantity}</span>
                       <button
                         type="button"
-                        className="flex size-9 items-center justify-center rounded-full text-[#555] transition-all hover:bg-white hover:text-[#23403d] disabled:opacity-30"
+                        className="flex size-9 items-center justify-center rounded-full text-foreground/80 transition-all hover:bg-white hover:text-foreground disabled:opacity-30"
                         onClick={() => handleQuantity(item.id, item.quantity + 1)}
                         disabled={isLoading}
                         aria-label="Increase quantity"
@@ -176,26 +176,26 @@ export function CartWorkspace() {
                         <Plus className="size-3" />
                       </button>
                     </div>
-                    <p className="font-bold text-[#23403d]">{formatPrice(item.lineTotal)}</p>
+                    <p className="font-bold text-foreground">{formatPrice(item.lineTotal)}</p>
                   </div>
                 </div>
 
                 {/* Quantity stepper — desktop */}
                 <div className="hidden sm:flex sm:items-center sm:gap-1">
-                  <div className="flex h-10 items-center rounded-full border border-[#efe8e4] bg-[#faf8f5] px-1">
+                  <div className="flex h-10 items-center rounded-full border border-border bg-brand-cream px-1">
                     <button
                       type="button"
-                      className="flex size-8 items-center justify-center rounded-full text-[#555] transition-all hover:bg-white hover:text-[#23403d] disabled:opacity-30"
+                      className="flex size-8 items-center justify-center rounded-full text-foreground/80 transition-all hover:bg-white hover:text-foreground disabled:opacity-30"
                       onClick={() => handleQuantity(item.id, Math.max(1, item.quantity - 1))}
                       disabled={isLoading || item.quantity <= 1}
                       aria-label="Decrease quantity"
                     >
                       <Minus className="size-3" />
                     </button>
-                    <span className="w-8 text-center text-sm font-bold text-[#23403d]">{item.quantity}</span>
+                    <span className="w-8 text-center text-sm font-bold text-foreground">{item.quantity}</span>
                     <button
                       type="button"
-                      className="flex size-8 items-center justify-center rounded-full text-[#555] transition-all hover:bg-white hover:text-[#23403d] disabled:opacity-30"
+                      className="flex size-8 items-center justify-center rounded-full text-foreground/80 transition-all hover:bg-white hover:text-foreground disabled:opacity-30"
                       onClick={() => handleQuantity(item.id, item.quantity + 1)}
                       disabled={isLoading}
                       aria-label="Increase quantity"
@@ -207,10 +207,10 @@ export function CartWorkspace() {
 
                 {/* Line total + remove — desktop */}
                 <div className="hidden flex-col items-end gap-2 sm:flex">
-                  <p className="text-base font-extrabold text-[#23403d]">{formatPrice(item.lineTotal)}</p>
+                  <p className="text-base font-extrabold text-foreground">{formatPrice(item.lineTotal)}</p>
                   <button
                     type="button"
-                    className="flex size-7 items-center justify-center rounded-full text-[#ccc] transition-colors hover:bg-red-50 hover:text-red-500 disabled:opacity-40"
+                    className="flex size-7 items-center justify-center rounded-full text-muted-foreground/60 transition-colors hover:bg-red-50 hover:text-red-500 disabled:opacity-40"
                     onClick={() => handleRemove(item.id)}
                     disabled={isLoading}
                     aria-label={`Remove ${productName}`}
@@ -222,7 +222,7 @@ export function CartWorkspace() {
                 {/* Remove — mobile only */}
                 <button
                   type="button"
-                  className="flex size-8 shrink-0 items-center justify-center rounded-full text-[#ccc] transition-colors hover:bg-red-50 hover:text-red-500 disabled:opacity-40 sm:hidden"
+                  className="flex size-8 shrink-0 items-center justify-center rounded-full text-muted-foreground/60 transition-colors hover:bg-red-50 hover:text-red-500 disabled:opacity-40 sm:hidden"
                   onClick={() => handleRemove(item.id)}
                   disabled={isLoading}
                   aria-label={`Remove ${productName}`}
@@ -245,7 +245,7 @@ export function CartWorkspace() {
         <div className="pt-1">
           <Link
             href="/products"
-            className="inline-flex h-10 items-center gap-2 rounded-full border border-[#e8ede7] bg-white px-5 text-xs font-bold text-[#23403d] transition-all hover:border-[#23403d] hover:shadow-sm"
+            className="inline-flex h-10 items-center gap-2 rounded-full border border-border bg-card px-5 text-xs font-bold text-foreground transition-all hover:border-brand-maroon hover:shadow-sm"
           >
             ← Continue Shopping
           </Link>
@@ -254,10 +254,10 @@ export function CartWorkspace() {
 
       {/* ── Order Summary ────────────────────────────────────────────────── */}
       <aside className="flex min-w-0 flex-col gap-4 lg:sticky lg:top-24">
-        <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/[0.04]">
+        <div className="overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-black/[0.04]">
           {/* Header */}
-          <div className="border-b border-[#f0ece8] bg-gradient-to-r from-[#faf8f5] to-white px-5 py-4 sm:px-6">
-            <h2 className="font-heading text-lg font-bold text-[#23403d]">Order Summary</h2>
+          <div className="border-b border-border bg-gradient-to-r from-brand-cream to-white px-5 py-4 sm:px-6">
+            <h2 className="font-heading text-lg font-bold text-foreground">Order Summary</h2>
           </div>
 
           <div className="flex flex-col gap-0 px-5 py-5 sm:px-6">
@@ -268,33 +268,33 @@ export function CartWorkspace() {
             {/* Line items */}
             <div className="flex flex-col gap-3 text-sm">
               <div className="flex items-center justify-between">
-                <span className="font-medium text-[#767676]">Subtotal</span>
-                <span className="font-bold text-[#23403d]">{formatPrice(summary.subtotal)}</span>
+                <span className="font-medium text-muted-foreground">Subtotal</span>
+                <span className="font-bold text-foreground">{formatPrice(summary.subtotal)}</span>
               </div>
 
               {summary.discountAmount > 0 && (
                 <div className="flex items-center justify-between">
-                  <span className="font-medium text-[#00aa63]">Discount</span>
-                  <span className="font-bold text-[#00aa63]">−{formatPrice(summary.discountAmount)}</span>
+                  <span className="font-medium text-brand-green">Discount</span>
+                  <span className="font-bold text-brand-green">−{formatPrice(summary.discountAmount)}</span>
                 </div>
               )}
 
               <div className="flex items-center justify-between">
-                <span className="font-medium text-[#767676]">Shipping</span>
-                <span className="text-xs font-semibold text-[#999]">Calculated at checkout</span>
+                <span className="font-medium text-muted-foreground">Shipping</span>
+                <span className="text-xs font-semibold text-muted-foreground">Calculated at checkout</span>
               </div>
 
               {effectiveMinOrderPaise > 0 && (
-                <div className="flex items-center justify-between border-t border-dashed border-[#f0ece8] pt-3">
-                  <span className="text-xs font-medium text-[#999]">Min. order</span>
-                  <span className="text-xs font-bold text-[#23403d]">{formatPrice(effectiveMinOrderPaise)}</span>
+                <div className="flex items-center justify-between border-t border-dashed border-border pt-3">
+                  <span className="text-xs font-medium text-muted-foreground">Min. order</span>
+                  <span className="text-xs font-bold text-foreground">{formatPrice(effectiveMinOrderPaise)}</span>
                 </div>
               )}
 
               {/* Total */}
-              <div className="flex items-center justify-between rounded-xl bg-[#faf8f5] px-4 py-3">
-                <span className="font-heading text-base font-bold text-[#23403d]">Total</span>
-                <span className="font-heading text-2xl font-extrabold text-[#ec6e55]">{formatPrice(summary.total)}</span>
+              <div className="flex items-center justify-between rounded-xl bg-brand-cream px-4 py-3">
+                <span className="font-heading text-base font-bold text-foreground">Total</span>
+                <span className="font-heading text-2xl font-extrabold text-brand-maroon">{formatPrice(summary.total)}</span>
               </div>
             </div>
 
@@ -306,7 +306,7 @@ export function CartWorkspace() {
                     <AlertTriangle className="mt-0.5 size-4 shrink-0 text-amber-500" aria-hidden />
                     <p className="text-xs font-medium text-amber-800">Store settings unavailable. Refresh the page.</p>
                   </div>
-                  <button disabled className="flex h-13 w-full cursor-not-allowed items-center justify-center gap-2 rounded-full bg-[#23403d]/30 text-sm font-bold text-white">
+                  <button disabled className="flex h-13 w-full cursor-not-allowed items-center justify-center gap-2 rounded-full bg-brand-maroon/30 text-sm font-bold text-white">
                     Proceed to checkout <ArrowRight className="size-4" aria-hidden />
                   </button>
                 </div>
@@ -318,21 +318,21 @@ export function CartWorkspace() {
                       Add {formatPrice(effectiveMinOrderPaise - summary.subtotal)} more to reach the {formatPrice(effectiveMinOrderPaise)} minimum.
                     </p>
                   </div>
-                  <button disabled aria-disabled="true" className="flex h-13 w-full cursor-not-allowed items-center justify-center gap-2 rounded-full bg-[#23403d]/30 text-sm font-bold text-white">
+                  <button disabled aria-disabled="true" className="flex h-13 w-full cursor-not-allowed items-center justify-center gap-2 rounded-full bg-brand-maroon/30 text-sm font-bold text-white">
                     Proceed to checkout <ArrowRight className="size-4" aria-hidden />
                   </button>
                 </div>
               ) : (
                 <Link
                   href={accessToken ? "/checkout" : "/login?redirect=/checkout"}
-                  className="flex h-13 w-full items-center justify-center gap-2 rounded-full bg-[#23403d] text-sm font-bold text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-[#ec6e55] hover:shadow-lg"
+                  className="flex h-13 w-full items-center justify-center gap-2 rounded-full bg-brand-maroon text-sm font-bold text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-brand-maroon hover:shadow-lg"
                 >
                   Proceed to checkout <ArrowRight className="size-4" />
                 </Link>
               )}
             </div>
 
-            <p className="mt-4 text-center text-[11px] font-medium text-[#bbb]">
+            <p className="mt-4 text-center text-[11px] font-medium text-muted-foreground/70">
               🔒 Secure &amp; encrypted checkout
             </p>
           </div>
@@ -345,9 +345,9 @@ export function CartWorkspace() {
             { emoji: "🚚", label: "Fast Delivery" },
             { emoji: "↩️", label: "Easy Returns" },
           ].map(({ emoji, label }) => (
-            <div key={label} className="flex flex-col items-center gap-1 rounded-xl bg-white px-2 py-3 text-center ring-1 ring-black/[0.04]">
+            <div key={label} className="flex flex-col items-center gap-1 rounded-xl bg-card px-2 py-3 text-center ring-1 ring-black/[0.04]">
               <span className="text-lg" aria-hidden>{emoji}</span>
-              <span className="text-[10px] font-semibold text-[#767676]">{label}</span>
+              <span className="text-[10px] font-semibold text-muted-foreground">{label}</span>
             </div>
           ))}
         </div>

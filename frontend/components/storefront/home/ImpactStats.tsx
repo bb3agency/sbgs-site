@@ -11,9 +11,9 @@ const IMPACT = [
 
 export function ImpactStats() {
   return (
-    <section className="bg-[#faf5ec]">
+    <section className="bg-brand-cream">
       <div className="mx-auto w-full max-w-[1440px] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
-        <div className="relative overflow-hidden rounded-[32px] bg-white shadow-[0_30px_80px_-40px_rgba(35,64,61,0.3)]">
+        <div className="relative overflow-hidden rounded-[32px] bg-card shadow-[0_30px_80px_-40px_rgba(35,64,61,0.3)]">
           <div className="grid grid-cols-1 lg:grid-cols-12">
             {/* Image */}
             <div className="relative aspect-[16/10] lg:col-span-5 lg:aspect-auto">
@@ -37,16 +37,16 @@ export function ImpactStats() {
             {/* Stats */}
             <div className="lg:col-span-7">
               <div className="p-6 sm:p-10 lg:p-14">
-                <span className="inline-flex w-fit items-center gap-2 rounded-full bg-[#f5d88e] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#7f1416]">
-                  <Leaf className="size-3 text-[#d4a537]" aria-hidden />
+                <span className="inline-flex w-fit items-center gap-2 rounded-full bg-brand-gold/20 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-brand-maroon">
+                  <Leaf className="size-3 text-brand-gold" aria-hidden />
                   Real impact
                 </span>
 
-                <h2 className="mt-4 font-heading text-3xl font-bold leading-[1.1] tracking-tight text-[#7f1416] sm:text-4xl">
+                <h2 className="mt-4 font-heading text-3xl font-bold leading-[1.1] tracking-tight text-brand-maroon sm:text-4xl">
                   Every order moves the needle.
                 </h2>
 
-                <p className="mt-4 max-w-xl text-base leading-relaxed text-[#8c7b6b]">
+                <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
                   We measure success not by units shipped, but by the farmers
                   we&apos;ve helped transition off chemicals and the families
                   we&apos;ve fed with food they can trust.
@@ -54,11 +54,11 @@ export function ImpactStats() {
 
                 <div className="mt-8 grid grid-cols-2 gap-6 sm:gap-8">
                   {IMPACT.map((item) => (
-                    <div key={item.label} className="border-l-2 border-[#d4a537] pl-4">
-                      <p className="font-heading text-3xl font-bold text-[#7f1416] sm:text-4xl">
+                    <div key={item.label} className="border-l-2 border-brand-gold pl-4">
+                      <p className="font-heading text-3xl font-bold text-brand-maroon sm:text-4xl">
                         {item.value}
                       </p>
-                      <p className="mt-1 text-xs font-medium leading-snug text-[#767676] sm:text-sm">
+                      <p className="mt-1 text-xs font-medium leading-snug text-muted-foreground sm:text-sm">
                         {item.label}
                       </p>
                     </div>
@@ -68,7 +68,7 @@ export function ImpactStats() {
                 <div className="mt-10">
                   <Link
                     href="/about"
-                    className="group inline-flex h-12 items-center gap-2 rounded-full bg-[#7f1416] px-6 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-[#651013] hover:shadow-lg"
+                    className="group inline-flex h-12 items-center gap-2 rounded-full bg-brand-maroon px-6 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-brand-maroon-dark hover:shadow-lg"
                   >
                     Meet our farmers
                     <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />

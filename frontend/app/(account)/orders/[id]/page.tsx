@@ -48,13 +48,13 @@ function DetailCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border border-[#efe8e4] bg-white p-4 sm:p-6">
+    <div className="rounded-2xl border border-border bg-card p-4 sm:p-6">
       <div className="mb-4 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
-          <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-[#eff5ee] text-[#23403d]">
+          <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-secondary text-foreground">
             {icon}
           </div>
-          <h2 className="font-heading text-base font-bold text-[#23403d] sm:text-lg">{title}</h2>
+          <h2 className="font-heading text-base font-bold text-foreground sm:text-lg">{title}</h2>
         </div>
         {action}
       </div>
@@ -72,7 +72,7 @@ function OrderItemRow({ item }: { item: OrderLineItem }) {
 
   const content = (
     <>
-      <div className="relative size-14 shrink-0 overflow-hidden rounded-xl border border-[#efe8e4] bg-[#faf3ef] sm:size-16">
+      <div className="relative size-14 shrink-0 overflow-hidden rounded-xl border border-border bg-brand-cream sm:size-16">
         <Image
           src={item.imageUrl || PLACEHOLDER_IMAGE}
           alt={item.productName}
@@ -82,18 +82,18 @@ function OrderItemRow({ item }: { item: OrderLineItem }) {
         />
       </div>
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-bold text-[#23403d]">
+        <p className="truncate text-sm font-bold text-foreground">
           {item.productName}
           {canLink && (
-            <ExternalLink className="ml-1.5 inline size-3 text-[#767676] opacity-0 transition-opacity group-hover/item:opacity-100" aria-hidden />
+            <ExternalLink className="ml-1.5 inline size-3 text-muted-foreground opacity-0 transition-opacity group-hover/item:opacity-100" aria-hidden />
           )}
         </p>
-        <p className="truncate text-xs text-[#767676]">{item.variantName}</p>
-        <p className="mt-0.5 text-xs text-[#767676]">
+        <p className="truncate text-xs text-muted-foreground">{item.variantName}</p>
+        <p className="mt-0.5 text-xs text-muted-foreground">
           {item.quantity} × {formatPrice(item.unitPrice)}
         </p>
       </div>
-      <p className="shrink-0 text-sm font-bold text-[#23403d]">{formatPrice(item.totalPrice)}</p>
+      <p className="shrink-0 text-sm font-bold text-foreground">{formatPrice(item.totalPrice)}</p>
     </>
   );
 
@@ -101,7 +101,7 @@ function OrderItemRow({ item }: { item: OrderLineItem }) {
     return (
       <Link
         href={href}
-        className="group/item flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-[#faf3ef]/70 sm:gap-4"
+        className="group/item flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-brand-cream/70 sm:gap-4"
         aria-label={`View ${item.productName} (${item.variantName}) on the store`}
       >
         {content}
@@ -251,9 +251,9 @@ export default function AccountOrderDetailPage() {
   if (!order) {
     return (
       <div className="flex flex-col gap-4">
-        <div className="h-24 animate-pulse rounded-2xl border border-[#efe8e4] bg-[#eff5ee]" />
-        <div className="h-48 animate-pulse rounded-2xl border border-[#efe8e4] bg-[#eff5ee]" />
-        <div className="h-64 animate-pulse rounded-2xl border border-[#efe8e4] bg-[#eff5ee]" />
+        <div className="h-24 animate-pulse rounded-2xl border border-border bg-secondary" />
+        <div className="h-48 animate-pulse rounded-2xl border border-border bg-secondary" />
+        <div className="h-64 animate-pulse rounded-2xl border border-border bg-secondary" />
       </div>
     );
   }
@@ -276,10 +276,10 @@ export default function AccountOrderDetailPage() {
   return (
     <section className="flex flex-col gap-4 sm:gap-5">
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <div className="rounded-2xl border border-[#efe8e4] bg-white p-4 sm:p-6">
+      <div className="rounded-2xl border border-border bg-card p-4 sm:p-6">
         <Link
           href="/orders"
-          className="mb-3 inline-flex items-center gap-1.5 text-xs font-bold text-[#767676] transition-colors hover:text-[#ec6e55]"
+          className="mb-3 inline-flex items-center gap-1.5 text-xs font-bold text-muted-foreground transition-colors hover:text-brand-maroon"
         >
           <ArrowLeft className="size-3.5" aria-hidden />
           Back to orders
@@ -287,7 +287,7 @@ export default function AccountOrderDetailPage() {
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <div className="flex flex-wrap items-center gap-2.5">
-              <h1 className="font-heading text-xl font-bold text-[#23403d] sm:text-2xl">
+              <h1 className="font-heading text-xl font-bold text-foreground sm:text-2xl">
                 {order.orderNumber}
               </h1>
               <span
@@ -296,7 +296,7 @@ export default function AccountOrderDetailPage() {
                 {orderStatusLabel(order.status)}
               </span>
             </div>
-            <p className="mt-1 text-sm text-[#767676]">
+            <p className="mt-1 text-sm text-muted-foreground">
               Placed {formatOrderDate(order.createdAt ?? "")} · {formatPaymentModeLabel(order.paymentMode)}
             </p>
           </div>
@@ -322,7 +322,7 @@ export default function AccountOrderDetailPage() {
               <Button
                 variant="default"
                 size="sm"
-                className="bg-[#23403d] hover:bg-[#1a302e]"
+                className="bg-brand-maroon hover:bg-brand-maroon-dark"
                 disabled={busyAction !== null}
                 onClick={() => handleRetryPayment()}
               >
@@ -353,7 +353,7 @@ export default function AccountOrderDetailPage() {
 
       {/* ── Items ──────────────────────────────────────────────────────── */}
       <DetailCard icon={<Package className="size-4" aria-hidden />} title={`Items (${items.length})`}>
-        <div className="flex flex-col divide-y divide-[#f5efe9]">
+        <div className="flex flex-col divide-y divide-border">
           {items.map((item) => (
             <OrderItemRow key={item.id} item={item} />
           ))}
@@ -368,7 +368,7 @@ export default function AccountOrderDetailPage() {
           order.invoice?.hasPdf ? (
             <button
               type="button"
-              className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-[#efe8e4] px-3 text-xs font-bold text-[#23403d] transition-colors hover:bg-[#faf3ef] disabled:opacity-50"
+              className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-border px-3 text-xs font-bold text-foreground transition-colors hover:bg-brand-cream disabled:opacity-50"
               disabled={downloadingInvoice}
               onClick={() => void handleDownloadInvoice()}
             >
@@ -383,8 +383,8 @@ export default function AccountOrderDetailPage() {
         }
       >
         {order.invoice ? (
-          <p className="mb-3 text-xs text-[#767676]">
-            Invoice <span className="font-mono font-bold text-[#23403d]">{order.invoice.invoiceNumber}</span>
+          <p className="mb-3 text-xs text-muted-foreground">
+            Invoice <span className="font-mono font-bold text-foreground">{order.invoice.invoiceNumber}</span>
             {" · "}issued {formatOrderDate(order.invoice.issuedAt)}
           </p>
         ) : null}
@@ -394,29 +394,29 @@ export default function AccountOrderDetailPage() {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[340px] text-sm">
             <thead>
-              <tr className="border-b border-[#efe8e4] text-left text-[11px] font-bold uppercase tracking-wider text-[#767676]">
+              <tr className="border-b border-border text-left text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
                 <th scope="col" className="py-2.5 pr-2 font-bold">Item</th>
                 <th scope="col" className="px-2 py-2.5 text-center font-bold">Qty</th>
                 <th scope="col" className="hidden px-2 py-2.5 text-right font-bold sm:table-cell">Unit Price</th>
                 <th scope="col" className="py-2.5 pl-2 text-right font-bold">Amount</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#f5efe9]">
+            <tbody className="divide-y divide-border">
               {items.map((item) => (
                 <tr key={item.id}>
                   <td className="py-3 pr-2">
-                    <p className="font-medium text-[#23403d]">{item.productName}</p>
-                    <p className="text-xs text-[#767676]">
+                    <p className="font-medium text-foreground">{item.productName}</p>
+                    <p className="text-xs text-muted-foreground">
                       {item.variantName} · SKU {item.sku}
                       {/* Unit price folds into the item cell on mobile (hidden column). */}
                       <span className="sm:hidden"> · {formatPrice(item.unitPrice)} each</span>
                     </p>
                   </td>
-                  <td className="px-2 py-3 text-center text-[#23403d]">{item.quantity}</td>
-                  <td className="hidden px-2 py-3 text-right text-[#23403d] sm:table-cell">
+                  <td className="px-2 py-3 text-center text-foreground">{item.quantity}</td>
+                  <td className="hidden px-2 py-3 text-right text-foreground sm:table-cell">
                     {formatPrice(item.unitPrice)}
                   </td>
-                  <td className="py-3 pl-2 text-right font-medium text-[#23403d]">
+                  <td className="py-3 pl-2 text-right font-medium text-foreground">
                     {formatPrice(item.totalPrice)}
                   </td>
                 </tr>
@@ -426,33 +426,33 @@ export default function AccountOrderDetailPage() {
         </div>
 
         {/* Totals — static block, never horizontally clipped. */}
-        <div className="mt-3 flex flex-col gap-1.5 border-t border-[#efe8e4] pt-3 text-sm">
+        <div className="mt-3 flex flex-col gap-1.5 border-t border-border pt-3 text-sm">
           <div className="flex items-center justify-between gap-3">
-            <span className="text-[#767676]">Subtotal</span>
-            <span className="font-medium text-[#23403d]">{formatPrice(order.subtotal)}</span>
+            <span className="text-muted-foreground">Subtotal</span>
+            <span className="font-medium text-foreground">{formatPrice(order.subtotal)}</span>
           </div>
           {order.discountAmount > 0 && (
             <div className="flex items-center justify-between gap-3">
-              <span className="text-[#767676]">
+              <span className="text-muted-foreground">
                 Discount
                 {order.couponCode ? (
-                  <span className="ml-1.5 rounded-full bg-[#eff5ee] px-2 py-0.5 font-mono text-[10px] font-bold text-[#23403d]">
+                  <span className="ml-1.5 rounded-full bg-secondary px-2 py-0.5 font-mono text-[10px] font-bold text-foreground">
                     {order.couponCode}
                   </span>
                 ) : null}
               </span>
-              <span className="font-medium text-[#00aa63]">-{formatPrice(order.discountAmount)}</span>
+              <span className="font-medium text-brand-green">-{formatPrice(order.discountAmount)}</span>
             </div>
           )}
           <div className="flex items-center justify-between gap-3">
-            <span className="text-[#767676]">Shipping</span>
-            <span className="font-medium text-[#23403d]">
+            <span className="text-muted-foreground">Shipping</span>
+            <span className="font-medium text-foreground">
               {order.shippingCharge > 0 ? formatPrice(order.shippingCharge) : "Free"}
             </span>
           </div>
-          <div className="mt-1 flex items-center justify-between gap-3 border-t border-[#efe8e4] pt-2.5">
-            <span className="font-heading text-base font-bold text-[#23403d]">Total</span>
-            <span className="font-heading text-base font-bold text-[#ec6e55]">
+          <div className="mt-1 flex items-center justify-between gap-3 border-t border-border pt-2.5">
+            <span className="font-heading text-base font-bold text-foreground">Total</span>
+            <span className="font-heading text-base font-bold text-brand-maroon">
               {formatPrice(order.total)}
             </span>
           </div>
@@ -462,8 +462,8 @@ export default function AccountOrderDetailPage() {
       {/* ── Shipping address ───────────────────────────────────────────── */}
       {addr ? (
         <DetailCard icon={<MapPin className="size-4" aria-hidden />} title="Shipping Address">
-          <address className="text-sm not-italic leading-relaxed text-[#767676]">
-            <p className="font-bold text-[#23403d]">{addr.fullName}</p>
+          <address className="text-sm not-italic leading-relaxed text-muted-foreground">
+            <p className="font-bold text-foreground">{addr.fullName}</p>
             <p>{addr.phone}</p>
             <p>
               {addr.line1}
@@ -480,9 +480,9 @@ export default function AccountOrderDetailPage() {
 
       {/* Existing return request status — visible whatever the toggle says. */}
       {latestReturn ? (
-        <div className="rounded-2xl border border-[#efe8e4] bg-white p-4 sm:p-5">
+        <div className="rounded-2xl border border-border bg-card p-4 sm:p-5">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <h2 className="font-heading text-base font-bold text-[#23403d]">Return Request</h2>
+            <h2 className="font-heading text-base font-bold text-foreground">Return Request</h2>
             <span
               className={`inline-flex rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide ring-1 ${
                 latestReturn.status === "REJECTED"
@@ -495,20 +495,20 @@ export default function AccountOrderDetailPage() {
               {orderStatusLabel(latestReturn.status)}
             </span>
           </div>
-          <p className="mt-2 text-sm text-[#767676]">
+          <p className="mt-2 text-sm text-muted-foreground">
             Filed {formatOrderDate(latestReturn.createdAt)} — “{latestReturn.reason}”
           </p>
           {latestReturn.adminNote ? (
-            <p className="mt-2 rounded-lg bg-[#faf3ef]/70 px-3 py-2 text-xs text-[#767676]">
-              <span className="font-bold text-[#23403d]">Store note:</span> {latestReturn.adminNote}
+            <p className="mt-2 rounded-lg bg-brand-cream/70 px-3 py-2 text-xs text-muted-foreground">
+              <span className="font-bold text-foreground">Store note:</span> {latestReturn.adminNote}
             </p>
           ) : null}
         </div>
       ) : null}
 
       {canRequestReturn && !showReturnForm && (
-        <div className="rounded-2xl border border-[#efe8e4] bg-white p-4 text-center sm:p-5">
-          <p className="mb-3 text-sm text-[#767676]">Is there an issue with your items?</p>
+        <div className="rounded-2xl border border-border bg-card p-4 text-center sm:p-5">
+          <p className="mb-3 text-sm text-muted-foreground">Is there an issue with your items?</p>
           <Button variant="outline" size="sm" onClick={() => setShowReturnForm(true)}>
             Request a Return / Replacement
           </Button>
@@ -518,10 +518,10 @@ export default function AccountOrderDetailPage() {
       {canRequestReturn && showReturnForm && (
         <form
           onSubmit={handleReturnSubmit}
-          className="grid gap-4 rounded-2xl border border-[#ec6e55]/30 bg-[#faf3ef]/40 p-4 sm:p-5"
+          className="grid gap-4 rounded-2xl border border-brand-maroon/30 bg-brand-cream/40 p-4 sm:p-5"
         >
-          <h2 className="font-heading text-lg font-bold text-[#23403d]">Request a Return</h2>
-          <p className="mb-2 text-xs text-[#767676]">
+          <h2 className="font-heading text-lg font-bold text-foreground">Request a Return</h2>
+          <p className="mb-2 text-xs text-muted-foreground">
             Select the items you would like to return and specify the details.
           </p>
 
@@ -529,12 +529,12 @@ export default function AccountOrderDetailPage() {
             {order.items?.map((item) => {
               const config = returnItems[item.id] || { selected: false, quantity: item.quantity, reason: "" };
               return (
-                <div key={item.id} className="grid gap-2 rounded-xl border border-[#efe8e4] bg-white p-3 text-sm">
+                <div key={item.id} className="grid gap-2 rounded-xl border border-border bg-card p-3 text-sm">
                   <div className="flex items-start gap-3">
                     <input
                       type="checkbox"
                       id={`check-${item.id}`}
-                      className="mt-1 h-4 w-4 rounded border-gray-300 text-[#ec6e55] focus:ring-[#ec6e55]"
+                      className="mt-1 h-4 w-4 rounded border-gray-300 text-brand-maroon focus:ring-brand-maroon"
                       checked={config.selected}
                       onChange={(e) =>
                         setReturnItems({
@@ -623,19 +623,19 @@ export default function AccountOrderDetailPage() {
         <DetailCard icon={<Truck className="size-4" aria-hidden />} title="Tracking">
           <div className="text-sm">
             <p className="mb-1.5">
-              <span className="font-bold text-[#23403d]">AWB:</span>{" "}
-              <span className="font-mono text-[#767676]">{order.shipment.awb}</span>
+              <span className="font-bold text-foreground">AWB:</span>{" "}
+              <span className="font-mono text-muted-foreground">{order.shipment.awb}</span>
             </p>
             <p className="mb-3">
-              <span className="font-bold text-[#23403d]">Status:</span>{" "}
-              <span className="text-[#767676]">{order.shipment.status}</span>
+              <span className="font-bold text-foreground">Status:</span>{" "}
+              <span className="text-muted-foreground">{order.shipment.status}</span>
             </p>
             {order.shipment.trackingUrl && (
               <a
                 href={order.shipment.trackingUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-bold text-[#ec6e55] hover:underline"
+                className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-maroon hover:underline"
               >
                 Track on {shippingProviderLabel(order.shipment?.provider ?? "")}
                 <ExternalLink className="size-3.5" aria-hidden />
@@ -643,20 +643,20 @@ export default function AccountOrderDetailPage() {
             )}
           </div>
           {order.shipment.events?.length > 0 && (
-            <div className="mt-4 border-t border-[#efe8e4] pt-4">
-              <h3 className="mb-3 text-sm font-bold text-[#23403d]">Tracking History</h3>
-              <ol className="relative ml-1.5 flex flex-col gap-4 border-l border-[#efe8e4] pl-4">
+            <div className="mt-4 border-t border-border pt-4">
+              <h3 className="mb-3 text-sm font-bold text-foreground">Tracking History</h3>
+              <ol className="relative ml-1.5 flex flex-col gap-4 border-l border-border pl-4">
                 {order.shipment.events.map((event, i) => (
                   <li key={i} className="relative text-xs">
                     <span
                       className={`absolute -left-[21.5px] top-1 size-2.5 rounded-full ring-2 ring-white ${
-                        i === 0 ? "bg-[#ec6e55]" : "bg-[#c5dac2]"
+                        i === 0 ? "bg-brand-maroon" : "bg-secondary"
                       }`}
                       aria-hidden
                     />
-                    <p className="font-bold text-[#23403d]">{event.status}</p>
-                    <p className="text-[#767676]">{event.description}</p>
-                    <p className="mt-0.5 text-[#767676]/80">
+                    <p className="font-bold text-foreground">{event.status}</p>
+                    <p className="text-muted-foreground">{event.description}</p>
+                    <p className="mt-0.5 text-muted-foreground/80">
                       {new Date(event.occurredAt).toLocaleString()} {event.location ? `· ${event.location}` : ""}
                     </p>
                   </li>

@@ -25,15 +25,15 @@ export async function FeaturedProducts() {
             cta={{ label: "Browse catalogue", href: "/products" }}
             className="mb-10"
           />
-          <div className="flex flex-col items-center gap-4 rounded-3xl border border-dashed border-[#f5d88e] bg-[#faf5ec] py-20 text-center">
-            <div className="flex size-16 items-center justify-center rounded-2xl bg-[#f5d88e] text-[#7f1416]">
+          <div className="flex flex-col items-center gap-4 rounded-3xl border border-dashed border-brand-gold/40 bg-brand-cream py-20 text-center">
+            <div className="flex size-16 items-center justify-center rounded-2xl bg-brand-gold/20 text-brand-maroon">
               <Sparkles className="size-7" aria-hidden />
             </div>
             <div className="max-w-sm">
-              <p className="font-heading text-lg font-bold text-[#7f1416]">
+              <p className="font-heading text-lg font-bold text-brand-maroon">
                 Fresh batches arriving soon
               </p>
-              <p className="mt-2 text-sm text-[#767676]">
+              <p className="mt-2 text-sm text-muted-foreground">
                 Active products published from the admin catalogue will appear
                 here automatically.
               </p>

@@ -64,12 +64,12 @@ export function BestsellerCard({ product, priority = false, badge }: BestsellerC
   };
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#efe8e4] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
       {/* Image */}
       <div className="relative">
         <Link
           href={`/products/${product.slug}`}
-          className="relative block aspect-square overflow-hidden bg-[#faf5ec]"
+          className="relative block aspect-square overflow-hidden bg-brand-cream"
           aria-label={product.name}
         >
           <Image
@@ -83,7 +83,7 @@ export function BestsellerCard({ product, priority = false, badge }: BestsellerC
         </Link>
 
         {badge ? (
-          <span className="absolute left-2.5 top-2.5 z-10 rounded-full bg-[#d4a537] px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-wide text-[#7f1416] shadow-sm">
+          <span className="absolute left-2.5 top-2.5 z-10 rounded-full bg-brand-gold px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-wide text-brand-maroon shadow-sm">
             {badge}
           </span>
         ) : null}
@@ -94,8 +94,8 @@ export function BestsellerCard({ product, priority = false, badge }: BestsellerC
             onClick={handleWishlistToggle}
             disabled={loading}
             className={cn(
-              "absolute right-2.5 top-2.5 z-10 flex size-8 items-center justify-center rounded-full bg-white/90 text-[#7f1416] shadow-md backdrop-blur-sm transition-all hover:scale-110 hover:bg-[#d4a537] hover:text-white",
-              inWishlist && "bg-[#7f1416] text-white",
+              "absolute right-2.5 top-2.5 z-10 flex size-8 items-center justify-center rounded-full bg-card/90 text-brand-maroon shadow-md backdrop-blur-sm transition-all hover:scale-110 hover:bg-brand-gold hover:text-white",
+              inWishlist && "bg-brand-maroon text-white",
               loading && "opacity-60",
             )}
             aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
@@ -109,22 +109,22 @@ export function BestsellerCard({ product, priority = false, badge }: BestsellerC
       <div className="flex flex-1 flex-col p-3.5">
         <div className="flex items-start justify-between gap-2">
           <Link href={`/products/${product.slug}`} className="min-w-0">
-            <h3 className="truncate text-sm font-bold text-[#3a2218] transition-colors group-hover:text-[#7f1416]">
+            <h3 className="truncate text-sm font-bold text-foreground transition-colors group-hover:text-brand-maroon">
               {product.name}
             </h3>
           </Link>
           {product.reviewCount > 0 ? (
-            <span className="flex shrink-0 items-center gap-0.5 text-[11px] font-bold text-[#3a2218]">
-              <Star className="size-3 fill-[#d4a537] text-[#d4a537]" aria-hidden />
+            <span className="flex shrink-0 items-center gap-0.5 text-[11px] font-bold text-foreground">
+              <Star className="size-3 fill-brand-gold text-brand-gold" aria-hidden />
               {product.rating.toFixed(1)}
-              <span className="font-medium text-[#767676]">
+              <span className="font-medium text-muted-foreground">
                 ({product.reviewCount > 999 ? `${(product.reviewCount / 1000).toFixed(1)}k` : product.reviewCount})
               </span>
             </span>
           ) : null}
         </div>
 
-        <p className="mt-1.5 text-sm font-extrabold text-[#7f1416]">
+        <p className="mt-1.5 text-sm font-extrabold text-brand-maroon">
           From {formatPrice(selected?.price ?? 0)}
         </p>
 
@@ -139,8 +139,8 @@ export function BestsellerCard({ product, priority = false, badge }: BestsellerC
                 className={cn(
                   "rounded-md border px-2.5 py-1 text-[11px] font-semibold transition-colors",
                   v.id === selectedId
-                    ? "border-[#7f1416] bg-[#faf5ec] text-[#7f1416]"
-                    : "border-[#efe8e4] bg-white text-[#767676] hover:border-[#d4a537]",
+                    ? "border-brand-maroon bg-brand-cream text-brand-maroon"
+                    : "border-border bg-card text-muted-foreground hover:border-brand-gold",
                 )}
                 aria-pressed={v.id === selectedId}
               >
@@ -158,12 +158,12 @@ export function BestsellerCard({ product, priority = false, badge }: BestsellerC
               variantId={selected.id}
               label="Add"
               icon={<Plus className="size-4" />}
-              className="inline-flex h-10 w-full items-center justify-center gap-1.5 rounded-lg bg-[#7f1416] text-sm font-bold text-white transition-colors hover:bg-[#651013] disabled:opacity-60"
+              className="inline-flex h-10 w-full items-center justify-center gap-1.5 rounded-lg bg-brand-maroon text-sm font-bold text-white transition-colors hover:bg-brand-maroon-dark disabled:opacity-60"
             />
           ) : (
             <Link
               href={`/products/${product.slug}`}
-              className="inline-flex h-10 w-full items-center justify-center rounded-lg border border-[#efe8e4] bg-[#faf5ec] text-sm font-bold text-[#767676] transition-colors hover:border-[#7f1416] hover:text-[#7f1416]"
+              className="inline-flex h-10 w-full items-center justify-center rounded-lg border border-border bg-brand-cream text-sm font-bold text-muted-foreground transition-colors hover:border-brand-maroon hover:text-brand-maroon"
             >
               View
             </Link>

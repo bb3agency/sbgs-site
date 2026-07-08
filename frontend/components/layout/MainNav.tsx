@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { User, LogOut } from "lucide-react";
+import { User, LogOut, LayoutDashboard, Heart } from "lucide-react";
 import { useAuthStore } from "@/stores/auth";
 import { logoutSession } from "@/lib/auth-api";
 import { useCartStore } from "@/stores/cart";
 import { useWishlistStore } from "@/stores/wishlist";
+import { useStoreConfig } from "@/components/providers/StoreConfigProvider";
 import { useCartSync } from "@/hooks/use-cart-sync";
 import { useWishlistSync } from "@/hooks/use-wishlist-sync";
 import { useSessionBootstrap } from "@/hooks/use-session-bootstrap";
@@ -23,6 +24,7 @@ export function MainNav() {
   const accessToken = useAuthStore((s) => s.accessToken);
   const sessionStatus = useAuthStore((s) => s.storefrontSessionStatus);
   const clearCart = useCartStore((s) => s.clearCart);
+  const { wishlistEnabled } = useStoreConfig();
 
   const isSignedIn = Boolean(accessToken);
   const isCheckingSession = sessionStatus === "checking" && !accessToken;
@@ -41,53 +43,65 @@ export function MainNav() {
   };
 
   return (
-    <div className="flex shrink-0 items-center gap-3 sm:gap-6">
-      {/* Account Menu */}
-      <div className="group relative hidden lg:flex items-center gap-2 cursor-pointer">
-        <div className="flex size-9 items-center justify-center rounded-full bg-[#eff5ee] text-[#23403d] transition-colors group-hover:bg-[#ec6e55] group-hover:text-white sm:size-11">
-          <User className="size-4 sm:size-5" />
-        </div>
-        
-        <div className="hidden flex-col lg:flex">
-          {isCheckingSession ? (
-            <>
-              <span className="h-3 w-16 animate-pulse rounded bg-[#efe8e4]" aria-hidden />
-              <span className="mt-1 h-4 w-20 animate-pulse rounded bg-[#efe8e4]" aria-hidden />
-            </>
-          ) : isSignedIn ? (
-            <>
-              <span className="text-xs font-bold text-[#767676]">Hello, {user?.firstName || 'User'}</span>
-              <span className="text-sm font-bold text-[#23403d]">My Account</span>
-            </>
-          ) : (
-            <>
-              <span className="text-xs font-bold text-[#767676]">Welcome</span>
-              <span className="text-sm font-bold text-[#23403d]">Sign In / Register</span>
-            </>
-          )}
-        </div>
+    <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
+      {/* Account menu — icon button with hover dropdown */}
+      <div className="group relative hidden lg:block">
+        <button
+          type="button"
+          className="flex size-10 items-center justify-center rounded-full text-foreground transition-colors hover:bg-secondary"
+          aria-label={isSignedIn ? `Account menu for ${user?.firstName || "user"}` : "Sign in or register"}
+          aria-haspopup="menu"
+        >
+          <User className="size-5" aria-hidden />
+        </button>
 
-        {/* Dropdown Menu */}
-        <div className="absolute right-0 top-full pt-4 opacity-0 invisible transition-all group-hover:opacity-100 group-hover:visible z-50">
-          <div className="flex w-48 flex-col overflow-hidden rounded-xl border border-[#efe8e4] bg-white shadow-xl">
+        {/* Dropdown */}
+        <div className="invisible absolute right-0 top-full z-50 pt-3 opacity-0 transition-all group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+          <div className="flex w-52 flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-xl">
             {isCheckingSession ? (
-              <div className="px-5 py-3 text-sm text-[#767676]">Checking session…</div>
+              <div className="px-5 py-3 text-sm text-muted-foreground">Checking session…</div>
             ) : isSignedIn ? (
               <>
-                <Link href="/dashboard" className="flex items-center gap-3 px-5 py-3 text-sm font-bold text-[#23403d] hover:bg-[#faf3ef] hover:text-[#ec6e55]">
-                  <User className="size-4" /> Dashboard
+                <div className="border-b border-border px-5 py-3">
+                  <p className="text-xs font-medium text-muted-foreground">Hello,</p>
+                  <p className="truncate text-sm font-semibold text-foreground">
+                    {user?.firstName || "My Account"}
+                  </p>
+                </div>
+                <Link
+                  href="/dashboard"
+                  className="flex items-center gap-3 px-5 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary hover:text-brand-maroon"
+                >
+                  <LayoutDashboard className="size-4" aria-hidden /> Dashboard
                 </Link>
-                <button onClick={onSignOut} className="flex items-center gap-3 px-5 py-3 text-left text-sm font-bold text-[#23403d] hover:bg-[#faf3ef] hover:text-[#ec6e55]">
-                  <LogOut className="size-4" /> Sign Out
+                {wishlistEnabled ? (
+                  <Link
+                    href="/wishlist"
+                    className="flex items-center gap-3 px-5 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary hover:text-brand-maroon"
+                  >
+                    <Heart className="size-4" aria-hidden /> Wishlist
+                  </Link>
+                ) : null}
+                <button
+                  onClick={onSignOut}
+                  className="flex items-center gap-3 px-5 py-3 text-left text-sm font-medium text-foreground transition-colors hover:bg-secondary hover:text-brand-maroon"
+                >
+                  <LogOut className="size-4" aria-hidden /> Sign Out
                 </button>
               </>
             ) : (
               <>
-                <Link href={`/login${authRedirect}`} className="flex items-center gap-3 px-5 py-3 text-sm font-bold text-[#23403d] hover:bg-[#faf3ef] hover:text-[#ec6e55]">
-                  <LogOut className="size-4" /> Sign In
+                <Link
+                  href={`/login${authRedirect}`}
+                  className="flex items-center gap-3 px-5 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary hover:text-brand-maroon"
+                >
+                  <LogOut className="size-4" aria-hidden /> Sign In
                 </Link>
-                <Link href={`/register${authRedirect}`} className="flex items-center gap-3 px-5 py-3 text-sm font-bold text-[#23403d] hover:bg-[#faf3ef] hover:text-[#ec6e55]">
-                  <User className="size-4" /> Register
+                <Link
+                  href={`/register${authRedirect}`}
+                  className="flex items-center gap-3 px-5 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary hover:text-brand-maroon"
+                >
+                  <User className="size-4" aria-hidden /> Register
                 </Link>
               </>
             )}
@@ -95,7 +109,7 @@ export function MainNav() {
         </div>
       </div>
 
-      {/* Mini Cart — click opens a dropdown right below the icon (items + Go to Cart). */}
+      {/* Mini cart — click opens a dropdown right below the icon (items + Go to Cart). */}
       <CartDropdown />
     </div>
   );

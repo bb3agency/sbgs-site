@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { interFont } from "@/lib/fonts";
+import { bodyFont, headingFont } from "@/lib/fonts";
 import { APP_NAME, BRAND_LOGO_SRC } from "@/lib/constants";
 import { getSiteUrl } from "@/lib/seo";
 import { MaintenanceBanner } from "@/components/maintenance/MaintenanceBanner";
@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${interFont.variable} h-full antialiased`}
+      className={`${bodyFont.variable} ${headingFont.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans overflow-x-hidden" suppressHydrationWarning>

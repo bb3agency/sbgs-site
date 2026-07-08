@@ -1,14 +1,16 @@
 import Link from "next/link";
-import { Quote, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import {
   clampReviewRating,
-  formatReviewDate,
   formatReviewerInitials,
   formatReviewerName,
 } from "@/lib/review-display";
 import { fetchStorefrontRecentReviews } from "@/lib/storefront-reviews";
-import { SectionHeading } from "./SectionHeading";
 
+/**
+ * "Loved by Thousands" — real approved customer reviews rendered in the
+ * reference testimonial card style (stars, quote, avatar initials + name).
+ */
 export async function TestimonialsSection() {
   const { reviews } = await fetchStorefrontRecentReviews(3);
 
@@ -17,81 +19,62 @@ export async function TestimonialsSection() {
   }
 
   return (
-    <section className="bg-[#faf5ec]">
-      <div className="mx-auto w-full max-w-[1440px] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
-        <SectionHeading
-          eyebrow="From verified buyers"
-          title="Trusted by families who actually read the label."
-          description="Real reviews from customers — shown only after our team approves them in admin."
-          align="center"
-          className="mx-auto mb-12 max-w-3xl text-center lg:mb-16"
-        />
+    <section className="mx-auto w-full px-4 py-16 sm:py-24 sm:px-6 lg:px-10">
+      <h2 className="mb-12 text-center font-heading text-4xl font-semibold text-foreground sm:text-5xl">
+        Loved by Thousands
+      </h2>
 
-        <div className="grid gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {reviews.map((review) => {
-            const name = formatReviewerName(review.author);
-            const initials = formatReviewerInitials(review.author);
-            const reviewDate = formatReviewDate(review.createdAt);
-            const productLabel = review.productName ?? "Verified purchase";
-            const stars = clampReviewRating(review.rating);
-            const quote = review.body?.trim() ?? "";
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {reviews.map((review) => {
+          const name = formatReviewerName(review.author);
+          const initials = formatReviewerInitials(review.author);
+          const productLabel = review.productName ?? "Verified purchase";
+          const stars = clampReviewRating(review.rating);
+          const quote = review.body?.trim() ?? "";
 
-            return (
-              <article
-                key={review.id}
-                className="group relative flex flex-col gap-5 rounded-3xl border border-[#7f1416]/8 bg-white p-6 shadow-[0_12px_30px_-18px_rgba(35,64,61,0.2)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-22px_rgba(35,64,61,0.28)] sm:p-7"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex size-11 items-center justify-center rounded-2xl bg-[#f5d88e] text-[#7f1416]">
-                    <Quote className="size-5" aria-hidden />
-                  </div>
-                  {stars > 0 ? (
-                    <div
-                      className="flex items-center gap-0.5"
-                      aria-label={`${stars} out of 5 stars`}
-                    >
-                      {Array.from({ length: stars }).map((_, i) => (
-                        <Star
-                          key={i}
-                          className="size-4 fill-[#d4a537] text-[#d4a537]"
-                          aria-hidden
-                        />
-                      ))}
-                    </div>
-                  ) : null}
+          return (
+            <article
+              key={review.id}
+              className="flex h-full flex-col gap-6 rounded-2xl bg-card p-8"
+            >
+              {stars > 0 ? (
+                <div
+                  className="flex gap-0.5 text-brand-gold"
+                  aria-label={`${stars} out of 5 stars`}
+                >
+                  {Array.from({ length: stars }).map((_, i) => (
+                    <Star key={i} className="size-[18px] fill-current" aria-hidden />
+                  ))}
                 </div>
+              ) : null}
 
-                <p className="flex-1 text-base leading-relaxed text-[#7f1416]">
-                  &ldquo;{quote}&rdquo;
-                </p>
+              <p className="flex-1 italic leading-relaxed text-foreground/90">
+                &ldquo;{quote}&rdquo;
+              </p>
 
-                <div className="flex items-center gap-3 border-t border-[#efe8e4] pt-5">
-                  <div className="flex size-11 items-center justify-center rounded-full bg-gradient-to-br from-[#f5d88e] to-[#f5d88e] font-heading text-base font-bold text-[#7f1416]">
-                    {initials}
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-bold text-[#7f1416]">
-                      {name}
-                    </p>
-                    <p className="truncate text-xs text-[#767676]">
-                      {reviewDate ? `${reviewDate} · ` : ""}
-                      {review.productSlug ? (
-                        <Link
-                          href={`/products/${review.productSlug}`}
-                          className="font-medium text-[#7f1416] underline-offset-2 hover:text-[#d4a537] hover:underline"
-                        >
-                          {productLabel}
-                        </Link>
-                      ) : (
-                        productLabel
-                      )}
-                    </p>
-                  </div>
+              <div className="mt-auto flex items-center gap-4">
+                <div className="flex size-12 items-center justify-center rounded-full bg-brand-gold-light font-heading text-lg font-semibold text-brand-maroon">
+                  {initials}
                 </div>
-              </article>
-            );
-          })}
-        </div>
+                <div className="min-w-0">
+                  <h3 className="truncate text-sm font-semibold text-foreground">{name}</h3>
+                  <p className="truncate text-xs text-muted-foreground">
+                    {review.productSlug ? (
+                      <Link
+                        href={`/products/${review.productSlug}`}
+                        className="transition-colors hover:text-brand-maroon"
+                      >
+                        {productLabel}
+                      </Link>
+                    ) : (
+                      productLabel
+                    )}
+                  </p>
+                </div>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );

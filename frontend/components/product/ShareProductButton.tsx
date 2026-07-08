@@ -54,12 +54,12 @@ export function ShareProductButton({
         onClick={() => void handleShare()}
         aria-label="Share product"
         className={cn(
-          "flex size-9 items-center justify-center rounded-full border border-[#e8ede7] bg-white text-[#23403d] shadow-sm transition-colors hover:border-[#ec6e55] hover:text-[#ec6e55]",
+          "flex size-9 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm transition-colors hover:border-brand-maroon hover:text-brand-maroon",
           className,
         )}
       >
         {copied ? (
-          <Check className="size-4 text-[#00aa63]" />
+          <Check className="size-4 text-brand-green" />
         ) : (
           <Share2 className="size-4" />
         )}
@@ -73,8 +73,8 @@ export function ShareProductButton({
       onClick={() => void handleShare()}
       aria-label="Share product"
       className={cn(
-        "inline-flex h-10 items-center gap-2 rounded-full border border-[#e3ebe1] bg-white px-4 text-sm font-semibold text-[#23403d] shadow-sm transition-all hover:border-[#ec6e55] hover:text-[#ec6e55]",
-        copied && "border-[#00aa63] text-[#00aa63]",
+        "inline-flex h-10 items-center gap-2 rounded-full border border-secondary bg-card px-4 text-sm font-semibold text-foreground shadow-sm transition-all hover:border-brand-maroon hover:text-brand-maroon",
+        copied && "border-brand-green text-brand-green",
         className,
       )}
     >

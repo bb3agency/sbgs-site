@@ -7,9 +7,22 @@
 @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
-    --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-    --font-heading: var(--font-playfair), Georgia, "Times New Roman", serif;
-    --font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
+    --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    --font-heading: var(--font-display), Georgia, "Times New Roman", serif;
+    --font-serif: var(--font-display), Georgia, "Times New Roman", serif;
+    /* Brand palette utilities (bg-brand-maroon, text-brand-gold, …) */
+    --color-brand-maroon: var(--brand-maroon);
+    --color-brand-maroon-dark: var(--brand-maroon-dark);
+    --color-brand-green: var(--brand-green);
+    --color-brand-gold: var(--brand-gold);
+    --color-brand-gold-light: var(--brand-gold-light);
+    --color-brand-cream: var(--brand-cream);
+    --color-text-cream: var(--text-cream);
+    --color-cat-olive: var(--cat-olive);
+    --color-cat-amber: var(--cat-amber);
+    --color-cat-maroon: var(--cat-maroon);
+    --color-cat-brown: var(--cat-brown);
+    --color-cat-rust: var(--cat-rust);
     --font-mono:
         ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
         "Liberation Mono", monospace;
@@ -52,50 +65,65 @@
 }
 
 :root {
-    /* Sri Sai Baba Ghee Sweets — heritage maroon & ghee gold palette */
-    /* Background: warm ivory #faf5ec */
-    --background: oklch(0.974 0.014 82);
-    /* Foreground: dark cocoa #3a2218 */
-    --foreground: oklch(0.27 0.04 50);
-    /* Card: near-white warm */
-    --card: oklch(0.99 0.006 82);
-    --card-foreground: oklch(0.27 0.04 50);
-    --popover: oklch(0.99 0.006 82);
-    --popover-foreground: oklch(0.27 0.04 50);
-    /* Primary: deep maroon #7f1416 */
-    --primary: oklch(0.4 0.145 25);
-    --primary-foreground: oklch(0.985 0.01 85);
+    /* Sri Sai Baba Ghee Sweets — 2026 redesign: deep maroon, emerald green,
+       honey gold on warm cream (reference: refernce-site/src/index.css) */
+    --brand-maroon: #5a1e1e;
+    --brand-maroon-dark: #4a1818;
+    --brand-green: #1d5c3f;
+    --brand-gold: #e9b84c;
+    --brand-gold-light: #f0c060;
+    --brand-cream: #f7f0e4;
+    --text-cream: #fdfbf7;
+    /* Category label tints (homepage/category tiles) */
+    --cat-olive: #64704b;
+    --cat-amber: #b97c3a;
+    --cat-maroon: #6f2626;
+    --cat-brown: #854e26;
+    --cat-rust: #a23d26;
+
+    /* Background: warm cream #f7f0e4 */
+    --background: var(--brand-cream);
+    /* Foreground: dark cocoa #3e2723 */
+    --foreground: #3e2723;
+    /* Card: warm near-white #fcf7ee */
+    --card: #fcf7ee;
+    --card-foreground: #3e2723;
+    --popover: #fcf7ee;
+    --popover-foreground: #3e2723;
+    /* Primary: deep maroon */
+    --primary: var(--brand-maroon);
+    --primary-foreground: var(--text-cream);
     /* Secondary: warm light surface */
-    --secondary: oklch(0.955 0.013 80);
-    --secondary-foreground: oklch(0.4 0.145 25);
-    /* Muted: warm cocoa-gray */
-    --muted: oklch(0.955 0.013 80);
-    --muted-foreground: oklch(0.52 0.025 55);
-    /* Accent: ghee gold #d4a537 */
-    --accent: oklch(0.74 0.115 82);
-    --accent-foreground: oklch(0.27 0.04 50);
+    --secondary: #f0e7d6;
+    --secondary-foreground: var(--brand-maroon);
+    /* Muted: warm parchment / warm taupe text #8d7966 */
+    --muted: #f0e7d6;
+    --muted-foreground: #8d7966;
+    /* Accent: honey gold */
+    --accent: var(--brand-gold);
+    --accent-foreground: #3e2723;
     --destructive: oklch(0.577 0.245 27.325);
-    /* Borders: warm light #efe8e4 */
-    --border: oklch(0.924 0.012 70);
-    --input: oklch(0.924 0.012 70);
-    --ring: oklch(0.4 0.145 25);
+    /* Borders: translucent maroon over cream ≈ #e9ddca */
+    --border: #e9ddca;
+    --input: #e9ddca;
+    --ring: var(--brand-maroon);
     /* Charts */
-    --chart-1: oklch(0.4 0.145 25);
-    --chart-2: oklch(0.74 0.115 82);
-    --chart-3: oklch(0.55 0.06 150);
-    --chart-4: oklch(0.65 0.1 60);
-    --chart-5: oklch(0.82 0.07 80);
-    /* Radius: 10px to match design */
-    --radius: 0.625rem;
+    --chart-1: #5a1e1e;
+    --chart-2: #e9b84c;
+    --chart-3: #1d5c3f;
+    --chart-4: #b97c3a;
+    --chart-5: #f0c060;
+    /* Radius: 16px base (reference --radius-md; lg≈22px via *1.4) */
+    --radius: 1rem;
     /* Sidebar (ops console) */
-    --sidebar: oklch(0.955 0.013 80);
-    --sidebar-foreground: oklch(0.27 0.04 50);
-    --sidebar-primary: oklch(0.4 0.145 25);
-    --sidebar-primary-foreground: oklch(0.985 0.01 85);
-    --sidebar-accent: oklch(0.924 0.012 70);
-    --sidebar-accent-foreground: oklch(0.4 0.145 25);
-    --sidebar-border: oklch(0.924 0.012 70);
-    --sidebar-ring: oklch(0.4 0.145 25);
+    --sidebar: #f0e7d6;
+    --sidebar-foreground: #3e2723;
+    --sidebar-primary: var(--brand-maroon);
+    --sidebar-primary-foreground: var(--text-cream);
+    --sidebar-accent: #e9ddca;
+    --sidebar-accent-foreground: var(--brand-maroon);
+    --sidebar-border: #e9ddca;
+    --sidebar-ring: var(--brand-maroon);
 }
 
 .dark {
@@ -163,8 +191,8 @@
 
 /* Ops control plane — scoped via .dark.ops-console on the shell root (see OpsConsoleShell) */
 .ops-console {
-    --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-    --font-heading: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    --font-heading: var(--font-body), ui-sans-serif, system-ui, sans-serif;
     max-width: 100%;
 }
 
@@ -176,8 +204,8 @@ body:has(.admin-console) {
 
 /* Admin console — scoped via .admin-console to completely override the Tasty Daily theme */
 .admin-console {
-    --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-    --font-heading: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    --font-heading: var(--font-body), ui-sans-serif, system-ui, sans-serif;
 
     --background: oklch(
         0.985 0.002 240

@@ -131,12 +131,12 @@ export function SignupPhoneForm({ onSuccess }: SignupPhoneFormProps) {
 
   return (
     <form onSubmit={submit} className="grid gap-5">
-      <p className="text-sm font-medium text-[#767676]">
+      <p className="text-sm font-medium text-muted-foreground">
         Enter your mobile number. A one-time code will be sent via WhatsApp.
       </p>
 
       <div className="grid gap-1.5">
-        <label htmlFor="phone" className="text-sm font-bold text-[#7f1416]">
+        <label htmlFor="phone" className="text-sm font-bold text-brand-maroon">
           Mobile Number <span className="font-normal text-red-500">*</span>
         </label>
         <input
@@ -144,7 +144,7 @@ export function SignupPhoneForm({ onSuccess }: SignupPhoneFormProps) {
           type="tel"
           autoComplete="tel"
           placeholder="9876543210"
-          className="h-12 w-full rounded-full border border-[#efe8e4] bg-[#faf5ec] px-4 text-sm font-medium text-[#7f1416] placeholder:text-[#767676] focus:border-[#7f1416] focus:outline-none focus:ring-1 focus:ring-[#7f1416]"
+          className="h-12 w-full rounded-full border border-border bg-brand-cream px-4 text-sm font-medium text-brand-maroon placeholder:text-muted-foreground focus:border-brand-maroon focus:outline-none focus:ring-1 focus:ring-brand-maroon"
           {...form.register("phone")}
         />
         {form.formState.errors.phone && (
@@ -154,43 +154,43 @@ export function SignupPhoneForm({ onSuccess }: SignupPhoneFormProps) {
 
       <div className="grid gap-4 md:grid-cols-2">
         <div className="grid gap-1.5">
-          <label htmlFor="otp-firstName" className="text-sm font-bold text-[#7f1416]">
-            First Name <span className="font-normal text-[#767676]">(optional)</span>
+          <label htmlFor="otp-firstName" className="text-sm font-bold text-brand-maroon">
+            First Name <span className="font-normal text-muted-foreground">(optional)</span>
           </label>
           <input
             id="otp-firstName"
             type="text"
             placeholder="Ravi"
             autoComplete="given-name"
-            className="h-12 w-full rounded-full border border-[#efe8e4] bg-[#faf5ec] px-4 text-sm font-medium text-[#7f1416] placeholder:text-[#767676] focus:border-[#7f1416] focus:outline-none focus:ring-1 focus:ring-[#7f1416]"
+            className="h-12 w-full rounded-full border border-border bg-brand-cream px-4 text-sm font-medium text-brand-maroon placeholder:text-muted-foreground focus:border-brand-maroon focus:outline-none focus:ring-1 focus:ring-brand-maroon"
             {...form.register("firstName")}
           />
         </div>
         <div className="grid gap-1.5">
-          <label htmlFor="otp-lastName" className="text-sm font-bold text-[#7f1416]">
-            Last Name <span className="font-normal text-[#767676]">(optional)</span>
+          <label htmlFor="otp-lastName" className="text-sm font-bold text-brand-maroon">
+            Last Name <span className="font-normal text-muted-foreground">(optional)</span>
           </label>
           <input
             id="otp-lastName"
             type="text"
             placeholder="Kumar"
             autoComplete="family-name"
-            className="h-12 w-full rounded-full border border-[#efe8e4] bg-[#faf5ec] px-4 text-sm font-medium text-[#7f1416] placeholder:text-[#767676] focus:border-[#7f1416] focus:outline-none focus:ring-1 focus:ring-[#7f1416]"
+            className="h-12 w-full rounded-full border border-border bg-brand-cream px-4 text-sm font-medium text-brand-maroon placeholder:text-muted-foreground focus:border-brand-maroon focus:outline-none focus:ring-1 focus:ring-brand-maroon"
             {...form.register("lastName")}
           />
         </div>
       </div>
 
       <div className="grid gap-1.5">
-        <label htmlFor="signup-email" className="text-sm font-bold text-[#7f1416]">
+        <label htmlFor="signup-email" className="text-sm font-bold text-brand-maroon">
           Email{" "}
-          <span className="font-normal text-[#767676]">(optional)</span>
+          <span className="font-normal text-muted-foreground">(optional)</span>
         </label>
         <input
           id="signup-email"
           type="email"
           autoComplete="email"
-          className="h-12 w-full rounded-full border border-[#efe8e4] bg-[#faf5ec] px-4 text-sm font-medium text-[#7f1416] placeholder:text-[#767676] focus:border-[#7f1416] focus:outline-none focus:ring-1 focus:ring-[#7f1416]"
+          className="h-12 w-full rounded-full border border-border bg-brand-cream px-4 text-sm font-medium text-brand-maroon placeholder:text-muted-foreground focus:border-brand-maroon focus:outline-none focus:ring-1 focus:ring-brand-maroon"
           {...form.register("email")}
         />
         {form.formState.errors.email && (
@@ -211,7 +211,7 @@ export function SignupPhoneForm({ onSuccess }: SignupPhoneFormProps) {
       <div className="flex items-center gap-3">
         <button
           type="button"
-          className="h-12 flex-1 rounded-full border-2 border-[#efe8e4] bg-white px-6 text-sm font-bold text-[#7f1416] transition-colors hover:border-[#7f1416] disabled:cursor-not-allowed disabled:opacity-60"
+          className="h-12 flex-1 rounded-full border-2 border-border bg-card px-6 text-sm font-bold text-brand-maroon transition-colors hover:border-brand-maroon disabled:cursor-not-allowed disabled:opacity-60"
           onClick={() => void send()}
           disabled={
             form.formState.isSubmitting ||
@@ -226,7 +226,7 @@ export function SignupPhoneForm({ onSuccess }: SignupPhoneFormProps) {
             type="button"
             onClick={() => void handleResend()}
             disabled={resendCooldown > 0 || resending || (turnstileRequired && !turnstileReady)}
-            className="flex items-center gap-1.5 text-xs font-bold text-[#d4a537] transition-colors hover:text-[#7f1416] disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex items-center gap-1.5 text-xs font-bold text-brand-gold transition-colors hover:text-brand-maroon disabled:cursor-not-allowed disabled:opacity-50"
           >
             <RefreshCw className="size-3" aria-hidden />
             {resending ? "Resending…" : resendCooldown > 0 ? `${resendCooldown}s` : "Resend"}
@@ -234,17 +234,17 @@ export function SignupPhoneForm({ onSuccess }: SignupPhoneFormProps) {
         )}
       </div>
 
-      {otpInfo && <p className="text-xs font-bold text-[#00aa63]">{otpInfo}</p>}
+      {otpInfo && <p className="text-xs font-bold text-brand-green">{otpInfo}</p>}
 
       <div className="grid gap-1.5">
-        <label htmlFor="signup-otp" className="text-sm font-bold text-[#7f1416]">OTP</label>
+        <label htmlFor="signup-otp" className="text-sm font-bold text-brand-maroon">OTP</label>
         <input
           id="signup-otp"
           type="text"
           inputMode="numeric"
           autoComplete="one-time-code"
           maxLength={6}
-          className="h-12 w-full rounded-full border border-[#efe8e4] bg-[#faf5ec] px-4 text-center text-lg font-bold tracking-[0.5em] text-[#7f1416] focus:border-[#7f1416] focus:outline-none focus:ring-1 focus:ring-[#7f1416]"
+          className="h-12 w-full rounded-full border border-border bg-brand-cream px-4 text-center text-lg font-bold tracking-[0.5em] text-brand-maroon focus:border-brand-maroon focus:outline-none focus:ring-1 focus:ring-brand-maroon"
           {...form.register("otp")}
         />
         {form.formState.errors.otp && (
@@ -256,7 +256,7 @@ export function SignupPhoneForm({ onSuccess }: SignupPhoneFormProps) {
 
       <button
         type="submit"
-        className="mt-2 h-12 w-full rounded-full bg-[#7f1416] px-8 text-sm font-bold text-white transition-transform hover:-translate-y-1 hover:bg-[#d4a537] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+        className="mt-2 h-12 w-full rounded-full bg-brand-maroon px-8 text-sm font-bold text-white transition-transform hover:-translate-y-1 hover:bg-brand-gold hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
         disabled={form.formState.isSubmitting}
       >
         {form.formState.isSubmitting ? "Creating account…" : "Create account"}

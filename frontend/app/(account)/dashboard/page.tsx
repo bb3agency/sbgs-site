@@ -69,14 +69,14 @@ export default function AccountDashboardPage() {
   return (
     <div className="flex flex-col gap-6 sm:gap-8">
       {/* Welcome card */}
-      <div className="relative overflow-hidden rounded-2xl bg-[#23403d] px-6 py-7 sm:px-8 sm:py-8">
+      <div className="relative overflow-hidden rounded-2xl bg-brand-maroon px-6 py-7 sm:px-8 sm:py-8">
         {/* Decorative blur orbs */}
-        <div className="pointer-events-none absolute -right-10 -top-10 size-40 rounded-full bg-[#ec6e55] opacity-20 blur-3xl" aria-hidden />
-        <div className="pointer-events-none absolute -bottom-8 left-10 size-32 rounded-full bg-[#c5dac2] opacity-20 blur-3xl" aria-hidden />
+        <div className="pointer-events-none absolute -right-10 -top-10 size-40 rounded-full bg-brand-maroon opacity-20 blur-3xl" aria-hidden />
+        <div className="pointer-events-none absolute -bottom-8 left-10 size-32 rounded-full bg-secondary opacity-20 blur-3xl" aria-hidden />
 
         <div className="relative flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
-            <div className="flex size-14 shrink-0 items-center justify-center rounded-full bg-white/10 text-white">
+            <div className="flex size-14 shrink-0 items-center justify-center rounded-full bg-card/10 text-white">
               <Leaf className="size-7" />
             </div>
             <div>
@@ -98,7 +98,7 @@ export default function AccountDashboardPage() {
 
           <Link
             href="/"
-            className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-white/10 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#ec6e55] sm:px-5"
+            className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-card/10 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-brand-maroon sm:px-5"
           >
             <Home className="size-4" />
             Back to Shop
@@ -108,7 +108,7 @@ export default function AccountDashboardPage() {
 
       {/* Quick links */}
       <div>
-        <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-[#767676]">
+        <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">
           Quick access
         </h3>
         <div className="grid gap-3 sm:grid-cols-3">
@@ -116,41 +116,41 @@ export default function AccountDashboardPage() {
             <Link
               key={label}
               href={href}
-              className="group flex items-start gap-4 rounded-2xl border border-[#efe8e4] bg-[#faf3ef] p-4 transition-all hover:border-[#ec6e55] hover:shadow-md sm:p-5"
+              className="group flex items-start gap-4 rounded-2xl border border-border bg-brand-cream p-4 transition-all hover:border-brand-maroon hover:shadow-md sm:p-5"
             >
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-white text-[#23403d] shadow-sm transition-colors group-hover:bg-[#ec6e55] group-hover:text-white">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-card text-foreground shadow-sm transition-colors group-hover:bg-brand-maroon group-hover:text-white">
                 <Icon className="size-5" />
               </div>
               <div className="min-w-0">
-                <p className="font-bold text-[#23403d]">{label}</p>
-                <p className="mt-0.5 text-xs text-[#767676]">{description}</p>
+                <p className="font-bold text-foreground">{label}</p>
+                <p className="mt-0.5 text-xs text-muted-foreground">{description}</p>
               </div>
-              <ChevronRight className="ml-auto mt-1 size-4 shrink-0 text-[#767676] transition-colors group-hover:text-[#ec6e55]" />
+              <ChevronRight className="ml-auto mt-1 size-4 shrink-0 text-muted-foreground transition-colors group-hover:text-brand-maroon" />
             </Link>
           ))}
         </div>
       </div>
 
       {/* Recent orders teaser */}
-      <div className="rounded-2xl border border-[#efe8e4] bg-[#faf3ef] p-5 sm:p-6">
+      <div className="rounded-2xl border border-border bg-brand-cream p-5 sm:p-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <ShoppingBag className="size-5 text-[#ec6e55]" />
-            <h3 className="font-bold text-[#23403d]">Order History</h3>
+            <ShoppingBag className="size-5 text-brand-maroon" />
+            <h3 className="font-bold text-foreground">Order History</h3>
           </div>
           <Link
             href="/orders"
-            className="text-xs font-bold text-[#ec6e55] hover:underline"
+            className="text-xs font-bold text-brand-maroon hover:underline"
           >
             View all
           </Link>
         </div>
-        <p className="mt-3 text-sm text-[#767676]">
+        <p className="mt-3 text-sm text-muted-foreground">
           Check the status of recent orders, manage returns, and discover similar products.
         </p>
         <Link
           href="/orders"
-          className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#23403d] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#ec6e55]"
+          className="mt-4 inline-flex items-center gap-2 rounded-xl bg-brand-maroon px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-brand-maroon"
         >
           <Package className="size-4" />
           View my orders

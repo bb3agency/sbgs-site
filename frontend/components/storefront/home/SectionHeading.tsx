@@ -31,16 +31,16 @@ export function SectionHeading({
     >
       <div className={cn("flex flex-col gap-2 sm:gap-3", alignCls)}>
         {eyebrow ? (
-          <span className="inline-flex w-fit items-center gap-2 rounded-full bg-[#f5d88e] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#7f1416]">
-            <span className="size-1.5 rounded-full bg-[#d4a537]" aria-hidden />
+          <span className="inline-flex w-fit items-center gap-2 rounded-full bg-brand-gold/20 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-brand-maroon">
+            <span className="size-1.5 rounded-full bg-brand-gold" aria-hidden />
             {eyebrow}
           </span>
         ) : null}
-        <h2 className="max-w-2xl font-heading text-3xl font-bold leading-[1.1] tracking-tight text-[#7f1416] sm:text-4xl lg:text-5xl">
+        <h2 className="max-w-2xl font-heading text-3xl font-bold leading-[1.1] tracking-tight text-brand-maroon sm:text-4xl lg:text-5xl">
           {title}
         </h2>
         {description ? (
-          <p className="max-w-2xl text-sm leading-relaxed text-[#8c7b6b] sm:text-base">
+          <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
             {description}
           </p>
         ) : null}
@@ -49,7 +49,7 @@ export function SectionHeading({
       {cta ? (
         <Link
           href={cta.href}
-          className="group inline-flex h-11 w-fit items-center gap-2 rounded-full border border-[#7f1416]/15 bg-white px-5 text-sm font-bold text-[#7f1416] shadow-sm transition-all hover:border-[#7f1416] hover:bg-[#7f1416] hover:text-white"
+          className="group inline-flex h-11 w-fit items-center gap-2 rounded-full border border-brand-maroon/15 bg-card px-5 text-sm font-bold text-brand-maroon shadow-sm transition-all hover:border-brand-maroon hover:bg-brand-maroon hover:text-white"
         >
           {cta.label}
           <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />

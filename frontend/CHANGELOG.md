@@ -12,6 +12,14 @@ Each entry MUST carry the **Propagation** block.
 
 ## [Unreleased]
 
+### Added
+- **Customer wishlist page (intended: frontend-core 0.1.38, requires backend-core >= 0.1.62).** New `app/(account)/wishlist/page.tsx` renders saved products with the standard `ProductCard` — driven by the enriched `GET /wishlist` (card-ready products). Un-hearting a card removes it instantly (the page filters by the wishlist store's id set). Empty / loading / error / feature-disabled states included. A **Wishlist** entry now appears in the account sidebar (`AccountNav`), the header account dropdown (`MainNav`), and the mobile drawer (`MobileNav`) — all gated on the `wishlistEnabled` store-config flag. `lib/wishlist-api.ts`: list `WishlistItem.product` is now the full `Product`; add-to-wishlist keeps a minimal `WishlistItemSummary`.
+
+**Propagation:**
+- Severity: NORMAL · Layers: frontend (`app/(account)/wishlist/page.tsx`, `components/layout/{AccountNav,MainNav,MobileNav}.tsx`, `lib/wishlist-api.ts`) · Requires backend-core: >= 0.1.62
+- Flag: gated by `wishlistEnabled` (StoreSettings) · Design impact: none (uses existing tokens + core `ProductCard`)
+- Breaking: NO · Rollback: remove the wishlist page + the three nav entries and revert the `wishlist-api` type
+
 ## [0.1.37] — 2026-07-07
 
 ### Added

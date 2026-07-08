@@ -90,27 +90,27 @@ export function AdminIdleTimeoutModal() {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#7f1416]/60 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-brand-maroon/60 backdrop-blur-sm"
       role="alertdialog"
       aria-modal="true"
       aria-labelledby="idle-title"
       aria-describedby="idle-desc"
     >
-      <div className="mx-4 w-full max-w-sm rounded-xl border border-[#efe8e4] bg-white p-6 shadow-2xl">
+      <div className="mx-4 w-full max-w-sm rounded-xl border border-border bg-card p-6 shadow-2xl">
         <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-amber-100">
           <Timer className="h-5 w-5 text-amber-600" />
         </div>
 
         <h2
           id="idle-title"
-          className="font-heading text-lg font-semibold text-[#7f1416]"
+          className="font-heading text-lg font-semibold text-brand-maroon"
         >
           Session timeout warning
         </h2>
         <p id="idle-desc" className="mt-2 text-sm text-[#769b97]">
           You have been inactive for a while. Your admin session will expire
           automatically in{" "}
-          <span className="font-semibold text-[#d4a537]">{timeLabel}</span>.
+          <span className="font-semibold text-brand-gold">{timeLabel}</span>.
         </p>
 
         <div className="mt-6 flex flex-col gap-2">
@@ -118,7 +118,7 @@ export function AdminIdleTimeoutModal() {
             type="button"
             disabled={extending}
             onClick={() => void handleExtend()}
-            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-[#7f1416] px-4 text-sm font-medium text-white transition-colors hover:bg-[#651013] disabled:opacity-60"
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-brand-maroon px-4 text-sm font-medium text-white transition-colors hover:bg-brand-maroon-dark disabled:opacity-60"
           >
             <RefreshCw
               className={`h-4 w-4 ${extending ? "animate-spin" : ""}`}
@@ -128,7 +128,7 @@ export function AdminIdleTimeoutModal() {
           <button
             type="button"
             onClick={handleLogout}
-            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-[#efe8e4] px-4 text-sm font-medium text-[#7f1416] transition-colors hover:bg-[#faf5ec]"
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-border px-4 text-sm font-medium text-brand-maroon transition-colors hover:bg-brand-cream"
           >
             <LogOut className="h-4 w-4" />
             Sign out now

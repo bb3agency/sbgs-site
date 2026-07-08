@@ -63,13 +63,13 @@ export function EmailRegisterForm({ onSuccess }: EmailRegisterFormProps) {
     <form onSubmit={handleSubmit} className="grid gap-5">
       <div className="grid gap-4 md:grid-cols-2">
         <div className="grid gap-1.5">
-          <label htmlFor="firstName" className="text-sm font-bold text-[#7f1416]">
+          <label htmlFor="firstName" className="text-sm font-bold text-brand-maroon">
             First Name
           </label>
           <input
             id="firstName"
             type="text"
-            className="h-12 w-full rounded-full border border-[#efe8e4] bg-[#faf5ec] px-4 text-sm font-medium text-[#7f1416] placeholder:text-[#767676] focus:border-[#7f1416] focus:outline-none focus:ring-1 focus:ring-[#7f1416]"
+            className="h-12 w-full rounded-full border border-border bg-brand-cream px-4 text-sm font-medium text-brand-maroon placeholder:text-muted-foreground focus:border-brand-maroon focus:outline-none focus:ring-1 focus:ring-brand-maroon"
             {...form.register("firstName")}
           />
           <p className="text-xs font-bold text-red-500">
@@ -78,13 +78,13 @@ export function EmailRegisterForm({ onSuccess }: EmailRegisterFormProps) {
         </div>
 
         <div className="grid gap-1.5">
-          <label htmlFor="lastName" className="text-sm font-bold text-[#7f1416]">
+          <label htmlFor="lastName" className="text-sm font-bold text-brand-maroon">
             Last Name
           </label>
           <input
             id="lastName"
             type="text"
-            className="h-12 w-full rounded-full border border-[#efe8e4] bg-[#faf5ec] px-4 text-sm font-medium text-[#7f1416] placeholder:text-[#767676] focus:border-[#7f1416] focus:outline-none focus:ring-1 focus:ring-[#7f1416]"
+            className="h-12 w-full rounded-full border border-border bg-brand-cream px-4 text-sm font-medium text-brand-maroon placeholder:text-muted-foreground focus:border-brand-maroon focus:outline-none focus:ring-1 focus:ring-brand-maroon"
             {...form.register("lastName")}
           />
           <p className="text-xs font-bold text-red-500">
@@ -94,44 +94,44 @@ export function EmailRegisterForm({ onSuccess }: EmailRegisterFormProps) {
       </div>
 
       <div className="grid gap-1.5">
-        <label htmlFor="phone-reg" className="text-sm font-bold text-[#7f1416]">
+        <label htmlFor="phone-reg" className="text-sm font-bold text-brand-maroon">
           Phone Number{" "}
-          <span className="font-normal text-[#767676]">(optional)</span>
+          <span className="font-normal text-muted-foreground">(optional)</span>
         </label>
         <input
           id="phone-reg"
           type="tel"
           autoComplete="tel"
           placeholder="9876543210"
-          className="h-12 w-full rounded-full border border-[#efe8e4] bg-[#faf5ec] px-4 text-sm font-medium text-[#7f1416] placeholder:text-[#767676] focus:border-[#7f1416] focus:outline-none focus:ring-1 focus:ring-[#7f1416]"
+          className="h-12 w-full rounded-full border border-border bg-brand-cream px-4 text-sm font-medium text-brand-maroon placeholder:text-muted-foreground focus:border-brand-maroon focus:outline-none focus:ring-1 focus:ring-brand-maroon"
           {...form.register("phone")}
         />
         <p className="text-xs font-bold text-red-500">{form.formState.errors.phone?.message}</p>
       </div>
 
       <div className="grid gap-1.5">
-        <label htmlFor="email-reg" className="text-sm font-bold text-[#7f1416]">
+        <label htmlFor="email-reg" className="text-sm font-bold text-brand-maroon">
           Email
         </label>
         <input
           id="email-reg"
           type="email"
           autoComplete="email"
-          className="h-12 w-full rounded-full border border-[#efe8e4] bg-[#faf5ec] px-4 text-sm font-medium text-[#7f1416] placeholder:text-[#767676] focus:border-[#7f1416] focus:outline-none focus:ring-1 focus:ring-[#7f1416]"
+          className="h-12 w-full rounded-full border border-border bg-brand-cream px-4 text-sm font-medium text-brand-maroon placeholder:text-muted-foreground focus:border-brand-maroon focus:outline-none focus:ring-1 focus:ring-brand-maroon"
           {...form.register("email")}
         />
         <p className="text-xs font-bold text-red-500">{form.formState.errors.email?.message}</p>
       </div>
 
       <div className="grid gap-1.5">
-        <label htmlFor="password-reg" className="text-sm font-bold text-[#7f1416]">
+        <label htmlFor="password-reg" className="text-sm font-bold text-brand-maroon">
           Password
         </label>
         <input
           id="password-reg"
           type="password"
           autoComplete="new-password"
-          className="h-12 w-full rounded-full border border-[#efe8e4] bg-[#faf5ec] px-4 text-sm font-medium text-[#7f1416] placeholder:text-[#767676] focus:border-[#7f1416] focus:outline-none focus:ring-1 focus:ring-[#7f1416]"
+          className="h-12 w-full rounded-full border border-border bg-brand-cream px-4 text-sm font-medium text-brand-maroon placeholder:text-muted-foreground focus:border-brand-maroon focus:outline-none focus:ring-1 focus:ring-brand-maroon"
           {...form.register("password")}
         />
         <p className="text-xs font-bold text-red-500">
@@ -149,12 +149,12 @@ export function EmailRegisterForm({ onSuccess }: EmailRegisterFormProps) {
         </p>
       ) : null}
 
-      {info && !error ? <p className="text-xs font-bold text-[#00aa63]">{info}</p> : null}
+      {info && !error ? <p className="text-xs font-bold text-brand-green">{info}</p> : null}
       <AuthErrorBanner message={error} />
 
       <button
         type="submit"
-        className="mt-2 h-12 w-full rounded-full bg-[#7f1416] px-8 text-sm font-bold text-white transition-transform hover:-translate-y-1 hover:bg-[#d4a537] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+        className="mt-2 h-12 w-full rounded-full bg-brand-maroon px-8 text-sm font-bold text-white transition-transform hover:-translate-y-1 hover:bg-brand-gold hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
         disabled={form.formState.isSubmitting || (turnstileRequired && !turnstileReady)}
       >
         {form.formState.isSubmitting ? "Processing..." : "Create account"}

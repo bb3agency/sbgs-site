@@ -59,7 +59,7 @@ export function OrderReviewPrompt({ orderId, orderStatus }: OrderReviewPromptPro
   return (
     <div className="grid gap-4 rounded-lg border border-border p-4">
       <div>
-        <h2 className="font-heading text-lg font-semibold text-[#23403d]">Rate your purchase</h2>
+        <h2 className="font-heading text-lg font-semibold text-foreground">Rate your purchase</h2>
         <p className="text-sm text-muted-foreground">
           Your feedback helps other shoppers. Reviews appear after approval.
         </p>
@@ -90,9 +90,9 @@ function ProductReviewRow({
 
   if (done) {
     return (
-      <div className="flex items-center justify-between rounded-md border border-[#dbe8d8] bg-[#eff5ee] px-3 py-2 text-sm">
-        <span className="font-medium text-[#23403d]">{product.productName}</span>
-        <span className="text-xs font-semibold text-[#00aa63]">Review submitted ✓</span>
+      <div className="flex items-center justify-between rounded-md border border-border bg-secondary px-3 py-2 text-sm">
+        <span className="font-medium text-foreground">{product.productName}</span>
+        <span className="text-xs font-semibold text-brand-green">Review submitted ✓</span>
       </div>
     );
   }
@@ -126,7 +126,7 @@ function ProductReviewRow({
 
   return (
     <div className="grid gap-2 rounded-md border border-border p-3">
-      <p className="text-sm font-medium text-[#23403d]">{product.productName}</p>
+      <p className="text-sm font-medium text-foreground">{product.productName}</p>
       <div
         className="flex items-center gap-0.5"
         role="radiogroup"
@@ -143,10 +143,10 @@ function ProductReviewRow({
             onFocus={() => setHover(value)}
             onBlur={() => setHover(0)}
             onClick={() => setRating(value)}
-            className="rounded p-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec6e55]"
+            className="rounded p-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-maroon"
           >
             <Star
-              className={`size-6 ${value <= activeStars ? "fill-[#ec6e55] text-[#ec6e55]" : "text-[#d8cfc9]"}`}
+              className={`size-6 ${value <= activeStars ? "fill-brand-gold text-brand-maroon" : "border"}`}
               aria-hidden
             />
           </button>
@@ -170,7 +170,7 @@ function ProductReviewRow({
           type="button"
           disabled={submitting || rating < 1}
           onClick={handleSubmit}
-          className="h-9 rounded-full bg-[#23403d] px-5 text-xs font-bold text-white transition-colors hover:bg-[#ec6e55] disabled:cursor-not-allowed disabled:opacity-50"
+          className="h-9 rounded-full bg-brand-maroon px-5 text-xs font-bold text-white transition-colors hover:bg-brand-maroon disabled:cursor-not-allowed disabled:opacity-50"
         >
           {submitting ? "Submitting…" : "Submit review"}
         </button>

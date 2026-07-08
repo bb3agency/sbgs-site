@@ -41,14 +41,14 @@ export function AdminGuard({ children }: AdminGuardProps) {
     return (
       <AdminSessionRestoreGate
         label="Restoring admin session…"
-        className="flex min-h-[100dvh] flex-col items-center justify-center gap-4 bg-[#faf5ec] px-4 pb-[max(1rem,env(safe-area-inset-bottom))]"
+        className="flex min-h-[100dvh] flex-col items-center justify-center gap-4 bg-brand-cream px-4 pb-[max(1rem,env(safe-area-inset-bottom))]"
       />
     );
   }
 
   if (status === "failed") {
     return (
-      <div className="flex min-h-[100dvh] items-center justify-center bg-[#faf5ec] px-4">
+      <div className="flex min-h-[100dvh] items-center justify-center bg-brand-cream px-4">
         <AdminLoadingBlock label="Redirecting to sign in…" />
       </div>
     );
@@ -58,7 +58,7 @@ export function AdminGuard({ children }: AdminGuardProps) {
     return (
       <AdminSessionRestoreGate
         label="Checking permissions…"
-        className="flex min-h-[100dvh] flex-col items-center justify-center gap-4 bg-[#faf5ec] px-4 pb-[max(1rem,env(safe-area-inset-bottom))]"
+        className="flex min-h-[100dvh] flex-col items-center justify-center gap-4 bg-brand-cream px-4 pb-[max(1rem,env(safe-area-inset-bottom))]"
       />
     );
   }

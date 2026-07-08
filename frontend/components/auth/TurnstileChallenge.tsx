@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getTurnstileSiteKey, isTurnstileConfigured } from "@/lib/turnstile-config";
 
 const TURNSTILE_SCRIPT_SRC =
@@ -79,18 +79,27 @@ export function TurnstileChallenge({
   onLoadError,
   className,
 }: TurnstileChallengeProps) {
-  const siteKey = isTurnstileConfigured() ? getTurnstileSiteKey() : null;
   const containerRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string | null>(null);
   const onTokenChangeRef = useRef(onTokenChange);
+  // Resolve siteKey on client only to avoid SSR/CSR mismatch
+  const [siteKey, setSiteKey] = useState<string | null>(null);
 
   useEffect(() => {
     onTokenChangeRef.current = onTokenChange;
   });
 
+  // Determine siteKey after mount (client-only) so SSR always renders null
+  useEffect(() => {
+    const key = isTurnstileConfigured() ? getTurnstileSiteKey() : null;
+    setSiteKey(key);
+    if (!key) {
+      onTokenChangeRef.current(null);
+    }
+  }, []);
+
   useEffect(() => {
     if (!siteKey) {
-      onTokenChangeRef.current(null);
       return;
     }
 

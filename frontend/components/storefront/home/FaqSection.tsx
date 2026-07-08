@@ -44,17 +44,17 @@ export function FaqSection({ isCodEnabled = false }: FaqSectionProps) {
           {/* Sticky heading */}
           <div className="lg:col-span-5">
             <div className="lg:sticky lg:top-32">
-              <span className="inline-flex w-fit items-center gap-2 rounded-full bg-[#f5d88e] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#7f1416]">
+              <span className="inline-flex w-fit items-center gap-2 rounded-full bg-brand-gold/20 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-brand-maroon">
                 <span
-                  className="size-1.5 rounded-full bg-[#d4a537]"
+                  className="size-1.5 rounded-full bg-brand-gold"
                   aria-hidden
                 />
                 Questions, answered
               </span>
-              <h2 className="mt-4 font-heading text-3xl font-bold leading-[1.1] tracking-tight text-[#7f1416] sm:text-4xl lg:text-5xl">
+              <h2 className="mt-4 font-heading text-3xl font-bold leading-[1.1] tracking-tight text-brand-maroon sm:text-4xl lg:text-5xl">
                 Everything you wanted to ask before you order.
               </h2>
-              <p className="mt-4 max-w-md text-base leading-relaxed text-[#8c7b6b]">
+              <p className="mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
                 We&apos;ve answered the ones we get most. If yours isn&apos;t
                 here, our team replies on WhatsApp within an hour.
               </p>
@@ -63,7 +63,7 @@ export function FaqSection({ isCodEnabled = false }: FaqSectionProps) {
                 href="https://wa.me/919876543210"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex h-12 items-center gap-2 rounded-full bg-[#7f1416] px-6 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-[#651013] hover:shadow-lg"
+                className="mt-6 inline-flex h-12 items-center gap-2 rounded-full bg-brand-maroon px-6 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-brand-maroon-dark hover:shadow-lg"
               >
                 <MessageCircle className="size-4" />
                 Chat with us on WhatsApp
@@ -80,27 +80,27 @@ export function FaqSection({ isCodEnabled = false }: FaqSectionProps) {
                   <div
                     key={faq.q}
                     className={cn(
-                      "overflow-hidden rounded-2xl border bg-white transition-all duration-300",
+                      "overflow-hidden rounded-2xl border bg-card transition-all duration-300",
                       isOpen
-                        ? "border-[#7f1416]/20 shadow-[0_12px_30px_-18px_rgba(35,64,61,0.25)]"
-                        : "border-[#efe8e4]",
+                        ? "border-brand-maroon/20 shadow-[0_12px_30px_-18px_rgba(35,64,61,0.25)]"
+                        : "border-border",
                     )}
                   >
                     <button
                       type="button"
                       onClick={() => setOpenIndex(isOpen ? null : idx)}
-                      className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left transition-colors hover:bg-[#faf5ec] sm:px-6 sm:py-6"
+                      className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left transition-colors hover:bg-brand-cream sm:px-6 sm:py-6"
                       aria-expanded={isOpen}
                     >
-                      <span className="text-base font-bold text-[#7f1416] sm:text-lg">
+                      <span className="text-base font-bold text-brand-maroon sm:text-lg">
                         {faq.q}
                       </span>
                       <span
                         className={cn(
                           "flex size-9 shrink-0 items-center justify-center rounded-full transition-colors",
                           isOpen
-                            ? "bg-[#7f1416] text-white"
-                            : "bg-[#faf5ec] text-[#7f1416]",
+                            ? "bg-brand-maroon text-white"
+                            : "bg-brand-cream text-brand-maroon",
                         )}
                         aria-hidden
                       >
@@ -120,7 +120,7 @@ export function FaqSection({ isCodEnabled = false }: FaqSectionProps) {
                       )}
                     >
                       <div className="overflow-hidden">
-                        <p className="px-5 pb-6 text-sm leading-relaxed text-[#8c7b6b] sm:px-6 sm:text-[15px]">
+                        <p className="px-5 pb-6 text-sm leading-relaxed text-muted-foreground sm:px-6 sm:text-[15px]">
                           {faq.a}
                         </p>
                       </div>

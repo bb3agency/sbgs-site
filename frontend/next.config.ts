@@ -122,7 +122,7 @@ function buildSecurityHeaders(): Array<{ key: string; value: string }> {
   const csp = [
     "default-src 'self'",
     `connect-src ${connectSrc}`,
-    "script-src 'self' 'unsafe-inline' https://checkout.razorpay.com https://cdn.razorpay.com https://static.cloudflareinsights.com https://challenges.cloudflare.com",
+    `script-src 'self' 'unsafe-inline'${isProd ? "" : " 'unsafe-eval'"} https://checkout.razorpay.com https://cdn.razorpay.com https://static.cloudflareinsights.com https://challenges.cloudflare.com`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' https: data: blob:",
     "font-src 'self' data:",
@@ -131,7 +131,7 @@ function buildSecurityHeaders(): Array<{ key: string; value: string }> {
     "manifest-src 'self'",
     "base-uri 'self'",
     "form-action 'self'",
-    "upgrade-insecure-requests",
+    ...(isProd ? ["upgrade-insecure-requests"] : []),
   ].join("; ");
 
   return [

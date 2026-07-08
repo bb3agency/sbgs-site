@@ -31,7 +31,7 @@ export function PoliciesSection() {
 
   return (
     <section className="mx-auto max-w-[1280px] px-4 py-10 sm:px-6 lg:px-8">
-      <h2 className="mb-8 text-center font-serif text-2xl font-bold text-[#3a2218] sm:text-3xl">
+      <h2 className="mb-8 text-center font-serif text-2xl font-bold text-foreground sm:text-3xl">
         Our Policies
       </h2>
       <div className="grid gap-6 sm:grid-cols-3 sm:gap-8">
@@ -40,10 +40,10 @@ export function PoliciesSection() {
             <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-[#f5ebe0]">
               <Icon className="size-5 text-[#6B1D2A]" />
             </div>
-            <h3 className="mb-2 text-sm font-bold text-[#3a2218] sm:text-base underline underline-offset-2 decoration-[#6B1D2A]">
+            <h3 className="mb-2 text-sm font-bold text-foreground sm:text-base underline underline-offset-2 decoration-[#6B1D2A]">
               {title}
             </h3>
-            <p className="mb-3 text-xs leading-relaxed text-[#8c7b6b] sm:text-sm">
+            <p className="mb-3 text-xs leading-relaxed text-muted-foreground sm:text-sm">
               {description}
             </p>
             <Link

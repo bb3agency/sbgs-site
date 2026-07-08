@@ -30,7 +30,7 @@ const addressSchema = z.object({
 type AddressFormData = z.infer<typeof addressSchema>;
 
 const inputClass =
-  "flex h-10 w-full rounded-lg border border-[#efe8e4] bg-white px-3 py-1 text-sm text-[#23403d] transition-colors placeholder:text-[#767676]/60 focus-visible:border-[#23403d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#23403d]/15";
+  "flex h-10 w-full rounded-lg border border-border bg-card px-3 py-1 text-sm text-foreground transition-colors placeholder:text-muted-foreground/60 focus-visible:border-brand-maroon focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-maroon/15";
 
 export default function AccountAddressesPage() {
   const accessToken = useAuthStore((s) => s.accessToken);
@@ -160,7 +160,7 @@ export default function AccountAddressesPage() {
     options?: { span2?: boolean; maxLength?: number; inputMode?: "tel" | "numeric" },
   ) => (
     <div className={`grid gap-1.5 ${options?.span2 ? "sm:col-span-2" : ""}`}>
-      <label className="text-xs font-bold text-[#23403d]" htmlFor={`addr-${name}`}>
+      <label className="text-xs font-bold text-foreground" htmlFor={`addr-${name}`}>
         {label}
       </label>
       <input
@@ -179,17 +179,17 @@ export default function AccountAddressesPage() {
       {/* Header */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="font-heading text-xl font-bold text-[#23403d] sm:text-2xl">
+          <h1 className="font-heading text-xl font-bold text-foreground sm:text-2xl">
             Saved Addresses
           </h1>
-          <p className="mt-1 text-sm text-[#767676]">
+          <p className="mt-1 text-sm text-muted-foreground">
             Delivery addresses used at checkout. Your default is preselected.
           </p>
         </div>
         {!showForm && (
           <Button
             size="sm"
-            className="gap-1.5 bg-[#23403d] hover:bg-[#1a302e]"
+            className="gap-1.5 bg-brand-maroon hover:bg-brand-maroon-dark"
             disabled={busy}
             onClick={() => {
               setEditingId(null);
@@ -209,9 +209,9 @@ export default function AccountAddressesPage() {
       {showForm && (
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="grid gap-4 rounded-2xl border border-[#efe8e4] bg-[#faf3ef]/60 p-4 sm:p-5"
+          className="grid gap-4 rounded-2xl border border-border bg-brand-cream/60 p-4 sm:p-5"
         >
-          <h2 className="text-sm font-bold text-[#23403d]">
+          <h2 className="text-sm font-bold text-foreground">
             {editingId ? "Edit address" : "Add a new address"}
           </h2>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -227,7 +227,7 @@ export default function AccountAddressesPage() {
             <Button type="button" variant="outline" size="sm" onClick={closeForm} disabled={busy}>
               Cancel
             </Button>
-            <Button type="submit" size="sm" className="bg-[#23403d] hover:bg-[#1a302e]" disabled={busy}>
+            <Button type="submit" size="sm" className="bg-brand-maroon hover:bg-brand-maroon-dark" disabled={busy}>
               {busy ? (
                 <>
                   <Loader2 className="size-4 animate-spin" aria-hidden /> Saving…
@@ -246,16 +246,16 @@ export default function AccountAddressesPage() {
       {loading ? (
         <div className="grid gap-3 sm:grid-cols-2">
           {[1, 2].map((i) => (
-            <div key={i} className="h-36 animate-pulse rounded-2xl border border-[#efe8e4] bg-[#eff5ee]" />
+            <div key={i} className="h-36 animate-pulse rounded-2xl border border-border bg-secondary" />
           ))}
         </div>
       ) : addresses.length === 0 && !showForm ? (
-        <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-[#efe8e4] py-12 text-center">
-          <div className="flex size-12 items-center justify-center rounded-full bg-[#eff5ee] text-[#23403d]">
+        <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border py-12 text-center">
+          <div className="flex size-12 items-center justify-center rounded-full bg-secondary text-foreground">
             <MapPin className="size-6" aria-hidden />
           </div>
-          <p className="text-sm font-medium text-[#23403d]">No saved addresses yet</p>
-          <p className="max-w-xs text-xs text-[#767676]">
+          <p className="text-sm font-medium text-foreground">No saved addresses yet</p>
+          <p className="max-w-xs text-xs text-muted-foreground">
             Add a delivery address to speed through checkout next time.
           </p>
         </div>
@@ -265,19 +265,19 @@ export default function AccountAddressesPage() {
             <article
               key={address.id}
               className={`relative flex flex-col gap-2 rounded-2xl border p-4 text-sm transition-colors ${
-                address.isDefault ? "border-[#23403d]/30 bg-[#eff5ee]/50" : "border-[#efe8e4] bg-white"
+                address.isDefault ? "border-brand-maroon/30 bg-secondary/50" : "border-border bg-card"
               }`}
             >
               <div className="flex items-start justify-between gap-2">
-                <p className="font-bold text-[#23403d]">{address.fullName}</p>
+                <p className="font-bold text-foreground">{address.fullName}</p>
                 {address.isDefault && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-[#23403d] px-2 py-0.5 text-[10px] font-bold text-white">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-brand-maroon px-2 py-0.5 text-[10px] font-bold text-white">
                     <Star className="size-2.5 fill-current" aria-hidden />
                     Default
                   </span>
                 )}
               </div>
-              <div className="text-[#767676]">
+              <div className="text-muted-foreground">
                 <p>{address.line1}</p>
                 {address.line2 && <p>{address.line2}</p>}
                 <p>

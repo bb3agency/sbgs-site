@@ -43,11 +43,11 @@ export function StorefrontSearchDropdown({
     return (
       <div
         className={cn(
-          "flex items-center justify-center rounded-2xl border border-[#efe8e4] bg-white py-8 shadow-xl",
+          "flex items-center justify-center rounded-2xl border border-border bg-card py-8 shadow-xl",
           className,
         )}
       >
-        <Loader2 className="size-5 animate-spin text-[#d4a537]" aria-hidden />
+        <Loader2 className="size-5 animate-spin text-brand-gold" aria-hidden />
         <span className="sr-only">Searching catalog</span>
       </div>
     );
@@ -61,17 +61,17 @@ export function StorefrontSearchDropdown({
     return (
       <div
         className={cn(
-          "rounded-2xl border border-[#efe8e4] bg-white px-4 py-6 text-center shadow-xl",
+          "rounded-2xl border border-border bg-card px-4 py-6 text-center shadow-xl",
           className,
         )}
       >
-        <p className="text-sm font-medium text-[#767676]">
+        <p className="text-sm font-medium text-muted-foreground">
           No products or categories found for &ldquo;{trimmed}&rdquo;
         </p>
         <Link
           href={searchHref}
           onClick={onNavigate}
-          className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-[#d4a537] hover:text-[#7f1416]"
+          className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-brand-gold hover:text-brand-maroon"
         >
           View search page <ArrowRight className="size-3.5" />
         </Link>
@@ -82,7 +82,7 @@ export function StorefrontSearchDropdown({
   return (
     <div
       className={cn(
-        "max-h-[min(24rem,70vh)] overflow-y-auto rounded-2xl border border-[#efe8e4] bg-white shadow-xl",
+        "max-h-[min(24rem,70vh)] overflow-y-auto rounded-2xl border border-border bg-card shadow-xl",
         className,
       )}
       role="listbox"
@@ -90,14 +90,14 @@ export function StorefrontSearchDropdown({
     >
       {results.categories.length > 0 ? (
         <section>
-          <div className="flex items-center justify-between border-b border-[#efe8e4] px-4 py-2">
-            <p className="text-xs font-bold uppercase tracking-wide text-[#767676]">
+          <div className="flex items-center justify-between border-b border-border px-4 py-2">
+            <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
               Categories
             </p>
             <Link
               href={searchHref}
               onClick={onNavigate}
-              className="inline-flex items-center gap-0.5 text-[10px] font-bold text-[#d4a537] hover:text-[#7f1416]"
+              className="inline-flex items-center gap-0.5 text-[10px] font-bold text-brand-gold hover:text-brand-maroon"
             >
               View all <ArrowRight className="size-3" />
             </Link>
@@ -110,7 +110,7 @@ export function StorefrontSearchDropdown({
                   <Link
                     href={`/categories/${category.slug}`}
                     onClick={onNavigate}
-                    className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-[#faf5ec]"
+                    className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-brand-cream"
                     role="option"
                   >
                     {image ? (
@@ -122,19 +122,19 @@ export function StorefrontSearchDropdown({
                         className="size-10 shrink-0 rounded-lg object-cover"
                       />
                     ) : (
-                      <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-[#faf5ec]">
-                        <FolderOpen className="size-4 text-[#7f1416]" />
+                      <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-brand-cream">
+                        <FolderOpen className="size-4 text-brand-maroon" />
                       </div>
                     )}
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-bold text-[#7f1416]">
+                      <p className="truncate text-sm font-bold text-brand-maroon">
                         {category.name}
                       </p>
-                      <p className="text-xs font-medium text-[#767676]">
+                      <p className="text-xs font-medium text-muted-foreground">
                         Browse category
                       </p>
                     </div>
-                    <ChevronRight className="size-4 shrink-0 text-[#767676]" />
+                    <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
                   </Link>
                 </li>
               );
@@ -145,14 +145,14 @@ export function StorefrontSearchDropdown({
 
       {results.products.length > 0 ? (
         <section>
-          <div className="flex items-center justify-between border-b border-[#efe8e4] px-4 py-2">
-            <p className="text-xs font-bold uppercase tracking-wide text-[#767676]">
+          <div className="flex items-center justify-between border-b border-border px-4 py-2">
+            <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
               Products
             </p>
             <Link
               href={searchHref}
               onClick={onNavigate}
-              className="inline-flex items-center gap-0.5 text-[10px] font-bold text-[#d4a537] hover:text-[#7f1416]"
+              className="inline-flex items-center gap-0.5 text-[10px] font-bold text-brand-gold hover:text-brand-maroon"
             >
               View all <ArrowRight className="size-3" />
             </Link>
@@ -166,7 +166,7 @@ export function StorefrontSearchDropdown({
                   <Link
                     href={`/products/${product.slug}`}
                     onClick={onNavigate}
-                    className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-[#faf5ec]"
+                    className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-brand-cream"
                     role="option"
                   >
                     {image ? (
@@ -178,28 +178,28 @@ export function StorefrontSearchDropdown({
                         className="size-10 shrink-0 rounded-lg object-cover"
                       />
                     ) : (
-                      <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-[#faf5ec]">
-                        <Package className="size-4 text-[#7f1416]" />
+                      <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-brand-cream">
+                        <Package className="size-4 text-brand-maroon" />
                       </div>
                     )}
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-bold text-[#7f1416]">
+                      <p className="truncate text-sm font-bold text-brand-maroon">
                         {product.name}
                       </p>
-                      <p className="truncate text-xs font-medium text-[#767676]">
+                      <p className="truncate text-xs font-medium text-muted-foreground">
                         {product.category.name}
                         {price > 0 ? (
                           <>
                             {" "}
                             ·{" "}
-                            <span className="inline text-[#d4a537]">
+                            <span className="inline text-brand-gold">
                               <PriceDisplay pricePaise={price} />
                             </span>
                           </>
                         ) : null}
                       </p>
                     </div>
-                    <ChevronRight className="size-4 shrink-0 text-[#767676]" />
+                    <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
                   </Link>
                 </li>
               );
@@ -212,7 +212,7 @@ export function StorefrontSearchDropdown({
         <Link
           href={searchHref}
           onClick={onNavigate}
-          className="flex items-center justify-center gap-2 border-t border-[#efe8e4] py-3 text-xs font-bold text-[#d4a537] transition-colors hover:bg-[#faf5ec] hover:text-[#7f1416]"
+          className="flex items-center justify-center gap-2 border-t border-border py-3 text-xs font-bold text-brand-gold transition-colors hover:bg-brand-cream hover:text-brand-maroon"
         >
           See all {results.productTotal} product results
           <ChevronRight className="size-3.5" />

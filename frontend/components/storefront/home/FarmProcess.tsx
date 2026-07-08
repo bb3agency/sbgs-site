@@ -49,21 +49,21 @@ interface FarmProcessProps {
 export function FarmProcess({ isCodEnabled = false }: FarmProcessProps) {
   const steps = [...STEPS, buildDeliveryStep(isCodEnabled)];
   return (
-    <section className="relative overflow-hidden bg-[#7f1416] text-white">
+    <section className="relative overflow-hidden bg-brand-maroon text-white">
       {/* Decorative pattern */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-32 top-20 size-[420px] rounded-full bg-[#d4a537] opacity-10 blur-3xl"
+        className="pointer-events-none absolute -left-32 top-20 size-[420px] rounded-full bg-brand-gold opacity-10 blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-40 bottom-0 size-[480px] rounded-full bg-[#f5d88e] opacity-10 blur-3xl"
+        className="pointer-events-none absolute -right-40 bottom-0 size-[480px] rounded-full bg-brand-gold/20 opacity-10 blur-3xl"
       />
 
       <div className="relative mx-auto w-full max-w-[1440px] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
         <div className="mx-auto mb-12 max-w-3xl text-center lg:mb-16">
-          <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
-            <span className="size-1.5 rounded-full bg-[#d4a537]" aria-hidden />
+          <span className="inline-flex w-fit items-center gap-2 rounded-full bg-card/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
+            <span className="size-1.5 rounded-full bg-brand-gold" aria-hidden />
             How it works
           </span>
           <h2 className="mt-4 font-heading text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl lg:text-5xl">
@@ -87,11 +87,11 @@ export function FarmProcess({ isCodEnabled = false }: FarmProcessProps) {
             {steps.map(({ icon: Icon, step, title, description }) => (
               <div key={step} className="relative">
                 {/* Step number badge */}
-                <div className="relative z-10 mb-6 flex size-14 items-center justify-center rounded-2xl bg-[#d4a537] text-white shadow-lg shadow-[#d4a537]/30">
+                <div className="relative z-10 mb-6 flex size-14 items-center justify-center rounded-2xl bg-brand-gold text-white shadow-lg shadow-brand-gold/30">
                   <Icon className="size-6" aria-hidden />
                 </div>
 
-                <p className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#f5d88e]">
+                <p className="font-mono text-[11px] font-bold uppercase tracking-wider text-brand-gold">
                   {step}
                 </p>
                 <h3 className="mt-2 font-heading text-xl font-bold leading-tight text-white">

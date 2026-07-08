@@ -54,9 +54,16 @@ function TurnstileField({
   onLoadError: (message: string) => void;
   loadError: string | null;
 }) {
-  if (!isTurnstileConfigured()) {
+  const [configured, setConfigured] = useState(false);
+
+  useEffect(() => {
+    setConfigured(isTurnstileConfigured());
+  }, []);
+
+  if (!configured) {
     return null;
   }
+  
   return (
     <>
       <TurnstileChallenge

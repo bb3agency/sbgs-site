@@ -31,7 +31,7 @@ export function BestsellerCarousel({ products }: BestsellerCarouselProps) {
       <button
         type="button"
         onClick={() => scroll("left")}
-        className="absolute -left-3 top-1/2 z-10 hidden size-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#efe8e4] bg-white text-[#7f1416] shadow-md transition-colors hover:border-[#d4a537] hover:text-[#d4a537] md:flex"
+        className="absolute -left-3 top-1/2 z-10 hidden size-9 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-card text-brand-maroon shadow-md transition-colors hover:border-brand-gold hover:text-brand-gold md:flex"
         aria-label="Scroll left"
       >
         <ChevronLeft className="size-4" />
@@ -39,7 +39,7 @@ export function BestsellerCarousel({ products }: BestsellerCarouselProps) {
       <button
         type="button"
         onClick={() => scroll("right")}
-        className="absolute -right-3 top-1/2 z-10 hidden size-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#efe8e4] bg-white text-[#7f1416] shadow-md transition-colors hover:border-[#d4a537] hover:text-[#d4a537] md:flex"
+        className="absolute -right-3 top-1/2 z-10 hidden size-9 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-card text-brand-maroon shadow-md transition-colors hover:border-brand-gold hover:text-brand-gold md:flex"
         aria-label="Scroll right"
       >
         <ChevronRight className="size-4" />

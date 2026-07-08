@@ -7,10 +7,10 @@ export function FreeDeliveryMarquee() {
     <div className="overflow-hidden border-y border-[#ece3d8] bg-[#FDF8F3] py-4">
       <div className="animate-marquee flex whitespace-nowrap">
         {Array.from({ length: 10 }).map((_, i) => (
-          <span key={i} className="mx-6 flex items-center gap-3 text-lg font-bold uppercase tracking-widest text-[#3a2218] sm:text-xl">
+          <span key={i} className="mx-6 flex items-center gap-3 text-lg font-bold uppercase tracking-widest text-foreground sm:text-xl">
             {text}
             <span className="text-[#6B1D2A]">●</span>
-            <span className="text-[#D4A537]">●</span>
+            <span className="text-brand-gold">●</span>
           </span>
         ))}
       </div>
