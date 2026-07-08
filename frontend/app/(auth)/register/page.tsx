@@ -45,7 +45,7 @@ function RegisterPageContent() {
   return (
     <div className="flex flex-col gap-6 p-5 sm:gap-8 sm:p-8 lg:p-12">
       <div className="text-center">
-        <h1 className="font-heading text-2xl font-bold text-foreground sm:text-3xl">
+        <h1 className="font-heading text-2xl font-bold text-primary sm:text-3xl">
           Create Account
         </h1>
         <p className="mt-3 text-sm font-medium text-muted-foreground">
@@ -59,7 +59,7 @@ function RegisterPageContent() {
         {/* Show tabs only when mobile OTP signup is enabled by the merchant */}
         {mobileOtpEnabled && configLoaded && (
           <div
-            className="flex gap-2 rounded-full border border-border bg-brand-cream p-1.5"
+            className="flex gap-2 rounded-full border border-border bg-muted p-1.5"
             role="tablist"
             aria-label="Sign-up method"
           >
@@ -69,8 +69,8 @@ function RegisterPageContent() {
               aria-selected={mode === "email"}
               className={`flex-1 h-10 rounded-full text-sm font-bold transition-colors ${
                 mode === "email"
-                  ? "bg-brand-maroon text-white shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "bg-primary text-white shadow-sm"
+                  : "text-muted-foreground hover:text-primary"
               }`}
               onClick={() => setMode("email")}
             >
@@ -82,8 +82,8 @@ function RegisterPageContent() {
               aria-selected={mode === "otp"}
               className={`flex-1 h-10 rounded-full text-sm font-bold transition-colors ${
                 mode === "otp"
-                  ? "bg-brand-maroon text-white shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "bg-primary text-white shadow-sm"
+                  : "text-muted-foreground hover:text-primary"
               }`}
               onClick={() => setMode("otp")}
             >
@@ -104,7 +104,7 @@ function RegisterPageContent() {
       <div className="border-t border-border pt-6">
         <Link
           href={`/login${redirectTo !== "/dashboard" ? `?redirect=${encodeURIComponent(redirectTo)}` : ""}`}
-          className="block text-center text-sm font-bold text-foreground transition-colors hover:text-brand-maroon"
+          className="block text-center text-sm font-bold text-primary transition-colors hover:text-accent"
         >
           Already have an account? Sign in
         </Link>

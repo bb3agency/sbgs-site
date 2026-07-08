@@ -293,7 +293,7 @@ export function CheckoutForm() {
       <div className="rounded-[20px] bg-card p-8 shadow-sm text-center">
         <div className="mb-4 flex justify-center">
           <div className="flex size-16 items-center justify-center rounded-full bg-secondary">
-            <ShoppingBag className="size-8 text-foreground" aria-hidden />
+            <ShoppingBag className="size-8 text-primary" aria-hidden />
           </div>
         </div>
         <p className="mb-6 text-sm font-medium text-muted-foreground">
@@ -301,7 +301,7 @@ export function CheckoutForm() {
         </p>
         <Link
           href="/login?redirect=/checkout"
-          className="inline-flex h-12 items-center justify-center rounded-full bg-brand-maroon px-8 text-sm font-bold text-white transition-colors hover:bg-brand-maroon"
+          className="inline-flex h-12 items-center justify-center rounded-full bg-primary px-8 text-sm font-bold text-white transition-colors hover:bg-accent"
         >
           Sign in to continue
         </Link>
@@ -528,8 +528,8 @@ export function CheckoutForm() {
     }
   });
 
-  const inputCls = "h-11 w-full rounded-xl border border-border bg-brand-cream px-4 text-sm font-medium text-foreground placeholder:text-muted-foreground/70 transition-colors focus:border-brand-maroon focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-maroon/10 sm:h-12";
-  const labelCls = "block text-xs font-bold uppercase tracking-wide text-foreground/80";
+  const inputCls = "h-11 w-full rounded-xl border border-border bg-muted px-4 text-sm font-medium text-primary placeholder:text-muted-foreground transition-colors focus:border-primary focus:bg-card focus:outline-none focus:ring-2 focus:ring-primary/10 sm:h-12";
+  const labelCls = "block text-xs font-bold uppercase tracking-wide text-muted-foreground";
   const fieldCls = "grid gap-1.5";
 
   return (
@@ -538,9 +538,9 @@ export function CheckoutForm() {
       {/* ── Cart Item Cards ───────────────────────────────────────────── */}
       {cartItems.length > 0 && (
         <div className="overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-black/[0.04]">
-          <div className="flex items-center gap-2 border-b border-border bg-brand-cream px-5 py-3.5">
-            <ShoppingBag className="size-4 text-foreground" aria-hidden />
-            <span className="text-sm font-bold text-foreground">
+          <div className="flex items-center gap-2 border-b border-border bg-muted px-5 py-3.5">
+            <ShoppingBag className="size-4 text-primary" aria-hidden />
+            <span className="text-sm font-bold text-primary">
               Your items ({cartItems.length})
             </span>
           </div>
@@ -548,7 +548,7 @@ export function CheckoutForm() {
           <div className="divide-y divide-border">
             {cartItems.map((item) => (
               <div key={item.id} className="flex items-center gap-3 px-5 py-3.5">
-                <div className="relative size-14 shrink-0 overflow-hidden rounded-xl bg-brand-cream">
+                <div className="relative size-14 shrink-0 overflow-hidden rounded-xl bg-muted">
                   <Image
                     src={getCartLineImageUrl(item)}
                     alt={getCartLineImageAlt(item)}
@@ -556,42 +556,42 @@ export function CheckoutForm() {
                     className="object-cover"
                     sizes="56px"
                   />
-                  <span className="absolute -right-1 -top-1 flex size-5 items-center justify-center rounded-full bg-brand-maroon text-[10px] font-bold text-white">
+                  <span className="absolute -right-1 -top-1 flex size-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white">
                     {item.quantity}
                   </span>
                 </div>
                 <div className="min-w-0 flex-1">
                   <CartLineProductDetails
                     item={item}
-                    nameClassName="truncate text-xs font-bold text-foreground sm:text-sm"
+                    nameClassName="truncate text-xs font-bold text-primary sm:text-sm"
                     descriptionClassName="text-[10px] text-muted-foreground line-clamp-1"
                   />
                 </div>
-                <span className="shrink-0 text-sm font-extrabold text-brand-maroon">
+                <span className="shrink-0 text-sm font-extrabold text-accent">
                   {formatPrice(item.priceSnapshot * item.quantity)}
                 </span>
               </div>
             ))}
           </div>
 
-          <div className="border-t border-border bg-brand-cream px-5 py-3 space-y-1.5">
+          <div className="border-t border-border bg-muted px-5 py-3 space-y-1.5">
             <div className="flex justify-between text-xs text-muted-foreground">
               <span>Subtotal</span>
-              <span className="font-semibold text-foreground">{formatPrice(cartSubtotal)}</span>
+              <span className="font-semibold text-primary">{formatPrice(cartSubtotal)}</span>
             </div>
             {cartDiscount > 0 && (
-              <div className="flex justify-between text-xs text-brand-green">
+              <div className="flex justify-between text-xs text-success">
                 <span className="flex items-center gap-1"><Tag className="size-3" aria-hidden /> Discount</span>
                 <span className="font-bold">−{formatPrice(cartDiscount)}</span>
               </div>
             )}
             {freeShippingCouponApplied && cartDiscount === 0 && (
-              <div className="flex justify-between text-xs text-brand-green">
+              <div className="flex justify-between text-xs text-success">
                 <span className="flex items-center gap-1"><Tag className="size-3" aria-hidden /> Coupon</span>
                 <span className="font-bold">Free shipping</span>
               </div>
             )}
-            <div className="flex justify-between border-t border-border pt-1.5 text-sm font-bold text-foreground">
+            <div className="flex justify-between border-t border-border pt-1.5 text-sm font-bold text-primary">
               <span>Total</span>
               <span>{formatPrice(cartPayableTotal)}</span>
             </div>
@@ -618,9 +618,9 @@ export function CheckoutForm() {
 
       {/* ── Shipping Details ─────────────────────────────────────────── */}
       <div className="overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-black/[0.04]">
-        <div className="border-b border-border bg-brand-cream px-5 py-3.5">
-          <h2 className="flex items-center gap-2 text-sm font-bold text-foreground">
-            <MapPin className="size-4 text-brand-maroon" aria-hidden />
+        <div className="border-b border-border bg-muted px-5 py-3.5">
+          <h2 className="flex items-center gap-2 text-sm font-bold text-primary">
+            <MapPin className="size-4 text-accent" aria-hidden />
             Shipping Details
           </h2>
         </div>
@@ -638,8 +638,8 @@ export function CheckoutForm() {
                     onClick={() => selectSavedAddress(addr)}
                     className={`rounded-xl border px-3 py-2 text-xs font-medium transition-all text-left ${
                       selectedAddressId === addr.id
-                        ? "border-brand-maroon bg-brand-maroon text-white shadow-sm"
-                        : "border-border bg-brand-cream text-foreground hover:border-brand-maroon"
+                        ? "border-primary bg-primary text-white shadow-sm"
+                        : "border-border bg-muted text-primary hover:border-primary"
                     }`}
                   >
                     {addr.fullName} — {addr.line1}, {addr.city}
@@ -647,9 +647,9 @@ export function CheckoutForm() {
                   </button>
                 ))}
               </div>
-              <p className="text-xs text-muted-foreground/70">
+              <p className="text-xs text-muted-foreground">
                 Manage in{" "}
-                <Link href="/settings" className="font-bold text-brand-maroon underline">
+                <Link href="/settings" className="font-bold text-accent underline">
                   account settings
                 </Link>
                 .
@@ -684,7 +684,7 @@ export function CheckoutForm() {
 
           <div className={fieldCls}>
             <label className={labelCls} htmlFor="line2">
-              Address line 2 <span className="font-normal normal-case text-muted-foreground/70">(optional)</span>
+              Address line 2 <span className="font-normal normal-case text-muted-foreground">(optional)</span>
             </label>
             <input id="line2" className={inputCls} placeholder="Landmark, apartment, etc." {...registerAddressField("line2")} />
           </div>
@@ -705,8 +705,8 @@ export function CheckoutForm() {
           </div>
 
           {!selectedAddressId && (
-            <label className="flex cursor-pointer items-center gap-2.5 text-sm font-medium text-foreground/80">
-              <input type="checkbox" className="size-4 accent-brand-maroon" {...form.register("saveAddress")} />
+            <label className="flex cursor-pointer items-center gap-2.5 text-sm font-medium text-muted-foreground">
+              <input type="checkbox" className="size-4 accent-accent" {...form.register("saveAddress")} />
               Save this address for future orders
             </label>
           )}
@@ -715,28 +715,28 @@ export function CheckoutForm() {
 
       {/* ── Payment Method ────────────────────────────────────────────── */}
       <div className="overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-black/[0.04]">
-        <div className="border-b border-border bg-brand-cream px-5 py-3.5">
-          <h2 className="flex items-center gap-2 text-sm font-bold text-foreground">
-            <span className="flex size-5 items-center justify-center rounded-full bg-brand-maroon text-[10px] font-extrabold text-white">2</span>
+        <div className="border-b border-border bg-muted px-5 py-3.5">
+          <h2 className="flex items-center gap-2 text-sm font-bold text-primary">
+            <span className="flex size-5 items-center justify-center rounded-full bg-accent text-[10px] font-extrabold text-white">2</span>
             Payment Method
           </h2>
         </div>
 
         <fieldset className="grid gap-3 p-5">
           <legend className="sr-only">Payment Method</legend>
-          <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-border bg-brand-cream px-4 py-3.5 text-sm font-bold text-foreground transition-all has-[:checked]:border-brand-maroon has-[:checked]:bg-white has-[:checked]:shadow-sm">
-            <input type="radio" value="PREPAID" className="size-4 accent-brand-maroon" {...form.register("paymentMode")} />
+          <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-border bg-muted px-4 py-3.5 text-sm font-bold text-primary transition-all has-[:checked]:border-primary has-[:checked]:bg-card has-[:checked]:shadow-sm">
+            <input type="radio" value="PREPAID" className="size-4 accent-accent" {...form.register("paymentMode")} />
             <span>Pay Online</span>
-            <span className="ml-auto rounded-full bg-secondary px-2 py-0.5 text-[10px] font-bold text-foreground">UPI · Cards · Wallets</span>
+            <span className="ml-auto rounded-full bg-secondary px-2 py-0.5 text-[10px] font-bold text-primary">UPI · Cards · Wallets</span>
           </label>
           {isCodEnabled ? (
-            <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-border bg-brand-cream px-4 py-3.5 text-sm font-bold text-foreground transition-all has-[:checked]:border-brand-maroon has-[:checked]:bg-white has-[:checked]:shadow-sm">
-              <input type="radio" value="COD" className="size-4 accent-brand-maroon" {...form.register("paymentMode")} />
+            <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-border bg-muted px-4 py-3.5 text-sm font-bold text-primary transition-all has-[:checked]:border-primary has-[:checked]:bg-card has-[:checked]:shadow-sm">
+              <input type="radio" value="COD" className="size-4 accent-accent" {...form.register("paymentMode")} />
               <span>Cash on Delivery</span>
-              <span className="ml-auto rounded-full bg-secondary px-2 py-0.5 text-[10px] font-bold text-foreground">Pay on arrival</span>
+              <span className="ml-auto rounded-full bg-secondary px-2 py-0.5 text-[10px] font-bold text-primary">Pay on arrival</span>
             </label>
           ) : (
-            <p className="rounded-xl border border-border bg-brand-cream px-4 py-3 text-xs font-medium text-muted-foreground/70">
+            <p className="rounded-xl border border-border bg-muted px-4 py-3 text-xs font-medium text-muted-foreground">
               Cash on Delivery is currently disabled.
             </p>
           )}
@@ -746,21 +746,21 @@ export function CheckoutForm() {
       {/* ── Coupon ────────────────────────────────────────────────────── */}
       {couponsEnabled ? (
         <div className="overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-black/[0.04]">
-          <div className="border-b border-border bg-brand-cream px-5 py-3.5">
-            <h2 className="flex items-center gap-2 text-sm font-bold text-foreground">
-              <Tag className="size-4 text-brand-maroon" aria-hidden />
+          <div className="border-b border-border bg-muted px-5 py-3.5">
+            <h2 className="flex items-center gap-2 text-sm font-bold text-primary">
+              <Tag className="size-4 text-accent" aria-hidden />
               Promo Code
             </h2>
           </div>
           <div className="p-5">
             {hasAppliedCoupon ? (
               <div className="flex items-center justify-between rounded-xl bg-secondary px-4 py-3">
-                <span className="text-sm font-bold text-brand-green">{appliedCouponLabel ?? "Coupon applied"}</span>
+                <span className="text-sm font-bold text-success">{appliedCouponLabel ?? "Coupon applied"}</span>
                 <button
                   type="button"
                   onClick={() => void handleRemoveCoupon()}
                   disabled={couponLoading}
-                  className="text-xs font-bold text-brand-maroon hover:underline disabled:opacity-60"
+                  className="text-xs font-bold text-accent hover:underline disabled:opacity-60"
                 >
                   Remove
                 </button>
@@ -773,34 +773,34 @@ export function CheckoutForm() {
                   value={couponCode}
                   onChange={(e) => { setCouponCode(e.target.value.toUpperCase()); setCouponError(null); }}
                   disabled={couponLoading}
-                  className="flex-1 rounded-xl border border-border bg-brand-cream px-4 py-2.5 text-sm font-bold uppercase placeholder:font-normal placeholder:normal-case placeholder:text-muted-foreground/70 focus:border-brand-maroon focus:bg-white focus:outline-none disabled:opacity-60"
+                  className="flex-1 rounded-xl border border-border bg-muted px-4 py-2.5 text-sm font-bold uppercase placeholder:font-normal placeholder:normal-case placeholder:text-muted-foreground focus:border-primary focus:bg-card focus:outline-none disabled:opacity-60"
                 />
                 <button
                   type="button"
                   onClick={() => void handleApplyCoupon()}
                   disabled={couponLoading || !couponCode.trim()}
-                  className="rounded-xl bg-brand-maroon px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-brand-maroon disabled:cursor-not-allowed disabled:opacity-60"
+                  className="rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {couponLoading ? "…" : "Apply"}
                 </button>
               </div>
             )}
-            {couponError && <p className="mt-2 text-xs font-medium text-brand-maroon">{couponError}</p>}
+            {couponError && <p className="mt-2 text-xs font-medium text-accent">{couponError}</p>}
           </div>
         </div>
       ) : null}
 
       {/* ── Order Notes ───────────────────────────────────────────────── */}
       <div className="overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-black/[0.04]">
-        <div className="border-b border-border bg-brand-cream px-5 py-3.5">
-          <label className="text-sm font-bold text-foreground" htmlFor="notes">
-            Order Notes <span className="font-normal text-muted-foreground/70">(optional)</span>
+        <div className="border-b border-border bg-muted px-5 py-3.5">
+          <label className="text-sm font-bold text-primary" htmlFor="notes">
+            Order Notes <span className="font-normal text-muted-foreground">(optional)</span>
           </label>
         </div>
         <div className="p-5">
           <textarea
             id="notes"
-            className="min-h-[80px] w-full rounded-xl border border-border bg-brand-cream px-4 py-3 text-sm font-medium text-foreground placeholder:text-muted-foreground/70 focus:border-brand-maroon focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-maroon/10"
+            className="min-h-[80px] w-full rounded-xl border border-border bg-muted px-4 py-3 text-sm font-medium text-primary placeholder:text-muted-foreground focus:border-primary focus:bg-card focus:outline-none focus:ring-2 focus:ring-primary/10"
             placeholder="Special delivery instructions, preferred delivery time, etc."
             {...form.register("notes")}
           />
@@ -809,32 +809,32 @@ export function CheckoutForm() {
 
       {/* ── Order Summary ─────────────────────────────────────────────── */}
       <div className="overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-black/[0.04]">
-        <div className="border-b border-border bg-brand-cream px-5 py-3.5">
-          <h2 className="flex items-center gap-2 text-sm font-bold text-foreground">
-            <Truck className="size-4 text-brand-maroon" aria-hidden />
+        <div className="border-b border-border bg-muted px-5 py-3.5">
+          <h2 className="flex items-center gap-2 text-sm font-bold text-primary">
+            <Truck className="size-4 text-accent" aria-hidden />
             Order Total
           </h2>
         </div>
         <div className="grid gap-2.5 p-5 text-sm">
           <div className="flex justify-between">
             <span className="text-muted-foreground">Subtotal</span>
-            <span className="font-semibold text-foreground">{formatPrice(cartSubtotal)}</span>
+            <span className="font-semibold text-primary">{formatPrice(cartSubtotal)}</span>
           </div>
           {cartDiscount > 0 && (
-            <div className="flex justify-between text-brand-green">
+            <div className="flex justify-between text-success">
               <span>Discount</span>
               <span className="font-bold">−{formatPrice(cartDiscount)}</span>
             </div>
           )}
           {freeShippingCouponApplied && cartDiscount === 0 && (
-            <div className="flex justify-between text-brand-green">
+            <div className="flex justify-between text-success">
               <span>Coupon</span>
               <span className="font-bold">Free shipping</span>
             </div>
           )}
           <div className="flex items-center justify-between">
             <span className="text-muted-foreground">Shipping</span>
-            <span className={`font-semibold ${shippingQuoteLoading ? "animate-pulse text-muted-foreground/70" : "text-foreground"}`}>
+            <span className={`font-semibold ${shippingQuoteLoading ? "animate-pulse text-muted-foreground" : "text-primary"}`}>
               {shippingQuoteLoading
                 ? "Calculating…"
                 : shippingQuoteError
@@ -843,7 +843,7 @@ export function CheckoutForm() {
                     ? hasShippingQuote
                       ? shippingCharge === 0 ? "Free" : formatPrice(shippingCharge)
                       : "—"
-                    : <span className="text-xs text-muted-foreground/70">Enter pincode</span>}
+                    : <span className="text-xs text-muted-foreground">Enter pincode</span>}
             </span>
           </div>
           {shippingQuoteError && (
@@ -854,14 +854,14 @@ export function CheckoutForm() {
               Estimated delivery: {shippingQuote.estimatedDays} day{shippingQuote.estimatedDays !== 1 ? "s" : ""}
             </p>
           )}
-          <div className="flex items-center justify-between rounded-xl bg-brand-cream px-4 py-3">
-            <span className="font-heading font-bold text-foreground">
+          <div className="flex items-center justify-between rounded-xl bg-muted px-4 py-3">
+            <span className="font-heading font-bold text-primary">
               {hasShippingQuote ? "Estimated total" : "Cart total"}
             </span>
-            <span className="font-heading text-xl font-extrabold text-brand-maroon">{formatPrice(estimatedPayableTotal)}</span>
+            <span className="font-heading text-xl font-extrabold text-accent">{formatPrice(estimatedPayableTotal)}</span>
           </div>
           {!hasShippingQuote && pincode?.length !== 6 && (
-            <p className="text-xs text-muted-foreground/70">Enter a valid pincode to preview shipping cost.</p>
+            <p className="text-xs text-muted-foreground">Enter a valid pincode to preview shipping cost.</p>
           )}
         </div>
       </div>
@@ -869,7 +869,7 @@ export function CheckoutForm() {
       {/* ── Place Order ───────────────────────────────────────────────── */}
       <button
         type="submit"
-        className="h-14 w-full rounded-2xl bg-brand-maroon text-base font-extrabold text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-brand-maroon hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+        className="h-14 w-full rounded-2xl bg-primary text-base font-extrabold text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-accent hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
         disabled={submitting || checkoutBlocked}
       >
         {submitting

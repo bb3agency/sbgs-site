@@ -153,7 +153,7 @@ function PaymentContent() {
     return (
       <p className="text-sm text-muted-foreground">
         This order uses Cash on Delivery.{" "}
-        <a href={`/orders/${order.id}`} className="underline text-foreground">
+        <a href={`/orders/${order.id}`} className="underline text-primary">
           View order details
         </a>
       </p>
@@ -163,11 +163,11 @@ function PaymentContent() {
   if (!canRetry) {
     return (
       <div className="mx-auto max-w-md rounded-2xl border border-border bg-card p-6 shadow-sm">
-        <h1 className="mb-4 font-heading text-2xl font-bold text-foreground">Payment unavailable</h1>
+        <h1 className="mb-4 font-heading text-2xl font-bold text-primary">Payment unavailable</h1>
         <p className="text-sm text-muted-foreground">
-          This order is in <span className="font-semibold text-foreground">{order.status}</span> status and cannot accept payment here.
+          This order is in <span className="font-semibold text-primary">{order.status}</span> status and cannot accept payment here.
         </p>
-        <a href={`/orders/${order.id}`} className="mt-4 inline-block text-sm underline text-foreground">
+        <a href={`/orders/${order.id}`} className="mt-4 inline-block text-sm underline text-primary">
           View order details
         </a>
       </div>
@@ -176,18 +176,18 @@ function PaymentContent() {
 
   return (
     <div className="mx-auto max-w-md rounded-2xl border border-border bg-card p-6 shadow-sm">
-      <h1 className="mb-4 font-heading text-2xl font-bold text-foreground">Complete Payment</h1>
+      <h1 className="mb-4 font-heading text-2xl font-bold text-primary">Complete Payment</h1>
       <p className="mb-6 text-sm text-muted-foreground">
-        Please complete your payment of <span className="font-bold text-foreground">{formatPrice(order.total)}</span> for Order <span className="font-mono font-bold text-foreground">{order.orderNumber}</span>.
+        Please complete your payment of <span className="font-bold text-primary">{formatPrice(order.total)}</span> for Order <span className="font-mono font-bold text-primary">{order.orderNumber}</span>.
       </p>
 
       {error && <p className="mb-4 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">{error}</p>}
-      {statusMessage && <p className="mb-4 rounded-md bg-secondary px-3 py-2 text-sm text-foreground">{statusMessage}</p>}
+      {statusMessage && <p className="mb-4 rounded-md bg-secondary px-3 py-2 text-sm text-primary">{statusMessage}</p>}
 
       <Button
         onClick={handlePay}
         disabled={busy}
-        className="w-full h-12 rounded-full bg-brand-maroon font-bold text-white transition-colors hover:bg-brand-maroon"
+        className="w-full h-12 rounded-full bg-primary font-bold text-white transition-colors hover:bg-accent"
       >
         {busy ? "Opening Gateway..." : "Pay Now"}
       </Button>
