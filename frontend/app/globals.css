@@ -45,6 +45,7 @@
     --color-destructive: var(--destructive);
     --color-accent-foreground: var(--accent-foreground);
     --color-accent: var(--accent);
+    --color-success: var(--success);
     --color-muted-foreground: var(--muted-foreground);
     --color-muted: var(--muted);
     --color-secondary-foreground: var(--secondary-foreground);
@@ -102,6 +103,8 @@
     /* Accent: honey gold */
     --accent: var(--brand-gold);
     --accent-foreground: #3e2723;
+    /* Success: brand green (order/OTP confirmation text) */
+    --success: var(--brand-green);
     --destructive: oklch(0.577 0.245 27.325);
     /* Borders: translucent maroon over cream ≈ #e9ddca */
     --border: #e9ddca;
@@ -141,6 +144,7 @@
     --muted-foreground: oklch(0.708 0 0);
     --accent: oklch(0.269 0 0);
     --accent-foreground: oklch(0.985 0 0);
+    --success: oklch(0.72 0.15 158);
     --destructive: oklch(0.704 0.191 22.216);
     --border: oklch(1 0 0 / 10%);
     --input: oklch(1 0 0 / 15%);
