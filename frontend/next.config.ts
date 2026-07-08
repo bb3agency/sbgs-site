@@ -99,7 +99,9 @@ const apiPublicOrigin = process.env.NEXT_PUBLIC_API_BASE_URL
  * Security headers applied to every route in production.
  *
  * CSP policy:
- *  - No unsafe-eval (blocks code injection via eval)
+ *  - No unsafe-eval in production (blocks code injection via eval); dev only,
+ *    to support the Next.js dev runtime / React Refresh
+ *  - upgrade-insecure-requests only in production (localhost dev is http)
  *  - script-src: self + Razorpay checkout script
  *  - frame-src: self + Razorpay checkout iframe
  *  - connect-src: self + API origin + Razorpay
