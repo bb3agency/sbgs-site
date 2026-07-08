@@ -2,9 +2,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function ProductCardSkeleton() {
   return (
-    <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/[0.04]">
+    <div className="flex flex-col overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-black/[0.04]">
       {/* Image — matches new 4:3 aspect */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#f5f0eb]">
+      <div className="relative aspect-square w-full overflow-hidden bg-secondary">
         <Skeleton className="absolute inset-0 rounded-none" />
       </div>
 

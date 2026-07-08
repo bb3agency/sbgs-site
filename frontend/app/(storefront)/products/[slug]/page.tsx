@@ -43,8 +43,8 @@ export async function generateMetadata({ params }: ProductDetailPageProps) {
 
 function RelatedSkeleton() {
   return (
-    <div className="mt-6 rounded-[20px] bg-white px-5 py-7 shadow-sm sm:mt-8 sm:px-8 sm:py-9">
-      <div className="mb-6 h-7 w-48 animate-pulse rounded-lg bg-[#f0f0f0]" />
+    <div className="mt-6 rounded-[20px] bg-card px-5 py-7 shadow-sm sm:mt-8 sm:px-8 sm:py-9">
+      <div className="mb-6 h-7 w-48 animate-pulse rounded-lg bg-secondary" />
       <div className="flex gap-4 overflow-hidden">
         {Array.from({ length: 5 }).map((_, i) => (
           <div key={i} className="w-[200px] shrink-0">
@@ -82,7 +82,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     activeVariant.compareAtPrice > activeVariant.price;
 
   return (
-    <div className="min-h-screen bg-[#eff5ee] pb-24">
+    <div className="min-h-screen bg-secondary pb-24">
       <ProductViewTracker productId={product.id} productName={product.name} />
 
       {/* Sticky bar — appears when CTA scrolls out of view */}
@@ -101,34 +101,34 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
       <div className="mx-auto max-w-[1440px] px-4 py-4 sm:py-8 lg:px-8">
         {/* Breadcrumb */}
         <nav
-          className="mb-4 flex flex-wrap items-center gap-1.5 text-xs font-bold text-[#767676] sm:mb-8 sm:gap-2 sm:text-sm"
+          className="mb-4 flex flex-wrap items-center gap-1.5 text-xs font-bold text-muted-foreground sm:mb-8 sm:gap-2 sm:text-sm"
           aria-label="Breadcrumb"
         >
-          <Link href="/" className="transition-colors hover:text-[#ec6e55]">
+          <Link href="/" className="transition-colors hover:text-brand-maroon">
             Home
           </Link>
           <ChevronRight className="size-3" />
-          <Link href="/products" className="transition-colors hover:text-[#ec6e55]">
+          <Link href="/products" className="transition-colors hover:text-brand-maroon">
             Shop
           </Link>
           <ChevronRight className="size-3" />
           <Link
             href={`/categories/${product.category.slug}`}
-            className="transition-colors hover:text-[#ec6e55]"
+            className="transition-colors hover:text-brand-maroon"
           >
             {product.category.name}
           </Link>
           <ChevronRight className="size-3" />
-          <span className="truncate text-[#ec6e55]">{product.name}</span>
+          <span className="truncate text-brand-maroon">{product.name}</span>
         </nav>
 
         {/* ── Main product grid ─────────────────────────────────────────────── */}
-        <div className="grid gap-6 rounded-[20px] bg-white p-4 shadow-sm sm:gap-10 sm:p-6 lg:grid-cols-[52%_48%] lg:p-12">
+        <div className="grid gap-6 rounded-[20px] bg-card p-4 shadow-sm sm:gap-10 sm:p-6 lg:grid-cols-[52%_48%] lg:p-12">
           {/* Gallery — min-w-0 lets the thumbnail strip's overflow-x-auto actually shrink and
               scroll: grid items default to min-width:auto, so without it the strip's intrinsic
               width inflates the column past the viewport on mobile (the overflow is then
               clipped by the body's overflow-x-hidden instead of scrolling). */}
-          <div className="min-w-0 rounded-[20px] bg-[#faf3ef] p-4 lg:p-8">
+          <div className="min-w-0 rounded-[20px] bg-brand-cream p-4 lg:p-8">
             <ProductGallery images={product.images} productName={product.name} />
           </div>
 
@@ -137,13 +137,13 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             {/* Category */}
             <Link
               href={`/categories/${product.category.slug}`}
-              className="w-fit text-[11px] font-extrabold uppercase tracking-widest text-[#ec6e55] hover:underline"
+              className="w-fit text-[11px] font-extrabold uppercase tracking-widest text-brand-maroon hover:underline"
             >
               {product.category.name}
             </Link>
 
             {/* Title */}
-            <h1 className="font-heading text-2xl font-bold leading-tight text-[#23403d] sm:text-3xl md:text-4xl">
+            <h1 className="font-heading text-2xl font-bold leading-tight text-foreground sm:text-3xl md:text-4xl">
               {product.name}
             </h1>
 
@@ -151,17 +151,17 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             {storeConfig.reviewsEnabled && (
               <div className="flex flex-wrap items-center gap-2">
                 <Rating rating={product.rating} reviewCount={product.reviewCount} />
-                <span className="text-sm font-semibold text-[#999]">
+                <span className="text-sm font-semibold text-muted-foreground">
                   ({product.reviewCount} {product.reviewCount === 1 ? "review" : "reviews"})
                 </span>
               </div>
             )}
 
-            <hr className="border-[#f0f0f0]" />
+            <hr className="border-border" />
 
             {/* Short description — above the price */}
             {product.description ? (
-              <p className="line-clamp-3 text-sm leading-relaxed text-[#666]">
+              <p className="line-clamp-3 text-sm leading-relaxed text-muted-foreground">
                 {product.description}
               </p>
             ) : null}
@@ -171,13 +171,13 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               <div className="flex items-center gap-2 text-sm font-bold">
                 {product.inStock ? (
                   <>
-                    <span className="inline-block size-2 rounded-full bg-[#00aa63]" aria-hidden />
-                    <span className="text-[#00aa63]">In stock, ready to ship</span>
+                    <span className="inline-block size-2 rounded-full bg-brand-green" aria-hidden />
+                    <span className="text-brand-green">In stock, ready to ship</span>
                   </>
                 ) : (
                   <>
-                    <span className="inline-block size-2 rounded-full bg-[#ec6e55]" aria-hidden />
-                    <span className="text-[#ec6e55]">Out of stock</span>
+                    <span className="inline-block size-2 rounded-full bg-brand-maroon" aria-hidden />
+                    <span className="text-brand-maroon">Out of stock</span>
                   </>
                 )}
               </div>
@@ -188,7 +188,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             <ProductVariantSelector product={product} defaultVariant={activeVariant} />
 
             {/* Trust signals */}
-            <div className="mt-2 grid grid-cols-2 gap-3 rounded-[20px] bg-[#faf3ef] p-4 sm:gap-4 sm:p-5">
+            <div className="mt-2 grid grid-cols-2 gap-3 rounded-[20px] bg-brand-cream p-4 sm:gap-4 sm:p-5">
               {[
                 { icon: Leaf, text: "Naturally Grown" },
                 { icon: Truck, text: "Free Delivery" },
@@ -196,8 +196,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                 { icon: ShieldCheck, text: "Secure Pay" },
               ].map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-center gap-2 sm:gap-3">
-                  <Icon className="size-4 shrink-0 text-[#ec6e55] sm:size-5" aria-hidden />
-                  <span className="text-xs font-bold text-[#23403d] sm:text-sm">{text}</span>
+                  <Icon className="size-4 shrink-0 text-brand-maroon sm:size-5" aria-hidden />
+                  <span className="text-xs font-bold text-foreground sm:text-sm">{text}</span>
                 </div>
               ))}
             </div>

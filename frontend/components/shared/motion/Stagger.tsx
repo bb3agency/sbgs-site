@@ -43,9 +43,13 @@ export function StaggerItem({
   as = "div",
   index = 0,
 }: StaggerItemProps) {
-  const ref = useRef<any>(null);
+  // Polymorphic `motion[as]` demands a per-tag ref type; a div ref is
+  // structurally safe for every allowed tag here.
+  const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "0px 0px -40px 0px" });
-  const MotionTag = motion[as];
+  // Collapse the polymorphic tag union to one concrete signature — the
+  // rendered element is still the requested `as` tag at runtime.
+  const MotionTag = motion[as] as typeof motion.div;
 
   return (
     <MotionTag

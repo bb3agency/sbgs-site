@@ -35,29 +35,29 @@ export default async function AccountLayout({ children }: AccountLayoutProps) {
       />
       <main className="flex-1">
         <AccountGuard>
-          <div className="flex flex-col bg-[#eff5ee] min-h-screen pb-16">
+          <div className="flex flex-col bg-secondary min-h-screen pb-16">
             {/* ── Page Header Banner ──────────────────────────────────────── */}
-            <section className="relative overflow-hidden bg-[#dbe8d8] py-8 md:py-16">
+            <section className="relative overflow-hidden bg-secondary py-8 md:py-16">
               <div className="mx-auto flex w-full max-w-[1440px] flex-col items-center justify-center px-4 text-center lg:px-8">
-                <h1 className="mb-3 font-heading text-2xl font-bold text-[#23403d] sm:mb-4 sm:text-4xl md:text-5xl">
+                <h1 className="mb-3 font-heading text-2xl font-bold text-foreground sm:mb-4 sm:text-4xl md:text-5xl">
                   My Account
                 </h1>
-                <nav className="flex items-center gap-1.5 text-xs font-bold text-[#767676] sm:gap-2 sm:text-sm" aria-label="Breadcrumb">
-                  <Link href="/" className="hover:text-[#ec6e55] transition-colors">Home</Link>
+                <nav className="flex items-center gap-1.5 text-xs font-bold text-muted-foreground sm:gap-2 sm:text-sm" aria-label="Breadcrumb">
+                  <Link href="/" className="hover:text-brand-maroon transition-colors">Home</Link>
                   <ChevronRight className="size-3" />
-                  <span className="text-[#ec6e55]">My Account</span>
+                  <span className="text-brand-maroon">My Account</span>
                 </nav>
               </div>
               {/* Decorative elements */}
-              <div className="absolute -bottom-16 -right-16 size-64 rounded-full bg-[#c5dac2] opacity-40 blur-3xl" aria-hidden />
-              <div className="absolute -left-16 top-0 size-48 rounded-full bg-white opacity-40 blur-3xl" aria-hidden />
+              <div className="absolute -bottom-16 -right-16 size-64 rounded-full bg-secondary opacity-40 blur-3xl" aria-hidden />
+              <div className="absolute -left-16 top-0 size-48 rounded-full bg-card opacity-40 blur-3xl" aria-hidden />
             </section>
 
             {/* ── Main Content ────────────────────────────────────────────── */}
             <section className="mx-auto w-full max-w-[1440px] px-4 pt-6 sm:pt-12 lg:px-8">
               <div className="grid gap-4 sm:gap-8 lg:grid-cols-[260px_1fr] lg:items-start">
                 <AccountNav />
-                <div className="min-w-0 rounded-[20px] bg-white p-4 shadow-sm sm:p-6 lg:p-8">
+                <div className="min-w-0 rounded-[20px] bg-card p-4 shadow-sm sm:p-6 lg:p-8">
                   {children}
                 </div>
               </div>

@@ -1,13 +1,16 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import { Leaf, SlidersHorizontal, ChevronRight, Sparkles } from "lucide-react";
+import { SlidersHorizontal, ChevronRight, Sparkles, ChevronDown, ChevronUp, Search } from "lucide-react";
 import { ProductGrid } from "@/components/product/ProductGrid";
 import { PlpSortSelect } from "@/components/product/PlpSortSelect";
+import { PlpSearchInput } from "@/components/product/PlpSearchInput";
 import { StorefrontPagination } from "@/components/product/StorefrontPagination";
 import {
   fetchStorefrontProducts,
   type StorefrontProductSort,
 } from "@/lib/storefront-products";
+import { getStoreCategories } from "@/lib/categories";
+import { cn } from "@/lib/utils";
 
 interface ProductsPageProps {
   searchParams: Promise<{
@@ -20,9 +23,9 @@ interface ProductsPageProps {
 }
 
 export const metadata = {
-  title: "Shop Naturally Grown & Natural Products",
+  title: "Shop Pure Ghee Sweets & Savories",
   description:
-    "Browse our full range of naturally grown produce, staples, and everyday essentials.",
+    "Browse our full range of traditional pure-ghee sweets, savories and festive gift boxes — handcrafted fresh in small batches.",
 };
 
 const VALID_SORTS = new Set<StorefrontProductSort>([
@@ -42,176 +45,214 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
   const q = params.q ?? "";
   const category = params.category ?? "";
 
-  const { products, meta } = await fetchStorefrontProducts({
-    page,
-    limit,
-    sort,
-    search: q || undefined,
-    category: category || undefined,
-  });
+  const [productsData, categories] = await Promise.all([
+    fetchStorefrontProducts({
+      page,
+      limit,
+      sort,
+      search: q || undefined,
+      category: category || undefined,
+    }),
+    getStoreCategories(),
+  ]);
+
+  const { products, meta } = productsData;
 
   const title = q
     ? `Results for "${q}"`
     : category
       ? category.replace(/-/g, " ")
-      : "Shop All Products";
+      : "Sweets";
 
   const totalPages = meta?.totalPages ?? 1;
   const totalProducts = meta?.total ?? products.length;
 
+  const sortLabel = sort === "newest" ? "Newest" 
+                  : sort === "popularity" ? "Popularity" 
+                  : sort === "price_asc" ? "Price: Low to High" 
+                  : "Price: High to Low";
+
   return (
-    <div className="flex min-h-screen flex-col bg-[#f4f7f2] pb-16">
-
-      {/* ── Hero Banner ──────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#23403d] via-[#2d5450] to-[#1a2f2e] py-12 md:py-20">
-        {/* Decorative orbs */}
-        <div className="absolute -top-20 right-20 size-72 rounded-full bg-[#ec6e55] opacity-10 blur-3xl" aria-hidden />
-        <div className="absolute -bottom-16 -left-16 size-64 rounded-full bg-[#c5dac2] opacity-15 blur-3xl" aria-hidden />
-        <div className="absolute right-1/3 top-1/4 size-40 rounded-full bg-white opacity-5 blur-2xl" aria-hidden />
-
-        <div className="relative mx-auto flex w-full max-w-[1440px] flex-col items-center justify-center px-4 text-center lg:px-8">
-          {/* Label chip */}
-          <span className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-widest text-[#c5dac2] backdrop-blur-sm">
-            <Leaf className="size-3" aria-hidden />
-            100% Natural
-          </span>
-
-          <h1 className="mb-3 font-heading text-3xl font-bold capitalize text-white sm:mb-4 sm:text-5xl md:text-6xl">
-            {title}
-          </h1>
-
-          {/* Breadcrumb */}
+    <div className="flex min-h-screen flex-col bg-[#fdfbf7] pb-24">
+      {/* ── Page header — deep green banner ─────── */}
+      <section className="relative overflow-hidden bg-[#244f3d] py-14 text-left">
+        <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-10">
           <nav
-            className="mb-6 flex items-center gap-1.5 text-xs font-semibold text-white/60 sm:gap-2 sm:text-sm"
+            className="mb-6 flex items-center gap-2 text-sm font-medium text-text-cream/60"
             aria-label="Breadcrumb"
           >
-            <Link href="/" className="transition-colors hover:text-[#c5dac2]">
+            <Link href="/" className="transition-colors hover:text-brand-gold">
               Home
             </Link>
-            <ChevronRight className="size-3" />
-            <span className="capitalize text-[#c5dac2]">
-              {q ? "Search" : category ? category.replace(/-/g, " ") : "Shop"}
+            <ChevronRight className="size-3" aria-hidden />
+            <Link href="/products" className="transition-colors hover:text-brand-gold">
+              Shop
+            </Link>
+            <ChevronRight className="size-3" aria-hidden />
+            <span className="capitalize text-brand-gold">
+              {q ? "Search" : category ? category.replace(/-/g, " ") : "Sweets"}
             </span>
           </nav>
+          
+          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-gold">
+            Made with Pure Ghee
+          </p>
+          
+          <h1 className="mt-3 font-heading text-4xl font-semibold capitalize text-brand-gold sm:text-5xl lg:text-[56px] lg:leading-tight">
+            {title}
+          </h1>
+          
+          <p className="mt-4 max-w-xl text-[13px] font-medium text-text-cream/80">
+            Products in this category will appear when marked Active in admin
+          </p>
+        </div>
 
-          {/* Stats strip */}
-          {totalProducts > 0 && (
-            <div className="flex items-center gap-6 sm:gap-10">
-              {[
-                { value: `${totalProducts}+`, label: "Products" },
-                { value: "100%", label: "Naturally Grown" },
-                { value: "Farm", label: "Direct" },
-              ].map(({ value, label }) => (
-                <div key={label} className="text-center">
-                  <p className="text-xl font-extrabold text-white sm:text-2xl">{value}</p>
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-white/50">{label}</p>
-                </div>
-              ))}
-            </div>
-          )}
+        {/* Decorative illustration pattern on the right */}
+        <div className="pointer-events-none absolute bottom-0 right-0 top-0 hidden w-[600px] opacity-80 lg:block">
+          <div className="absolute inset-0 bg-[url('/images/hero-ornament.svg')] bg-cover bg-right bg-no-repeat mix-blend-overlay opacity-30" />
         </div>
       </section>
 
-      {/* ── Controls Bar ──────────────────────────────────────────────────── */}
-      <section className="mx-auto w-full max-w-[1440px] px-4 pt-6 sm:pt-10 lg:px-8">
-        <div className="mb-6 flex flex-col items-start justify-between gap-3 rounded-2xl border border-white/60 bg-white px-4 py-3 shadow-sm sm:mb-8 sm:flex-row sm:items-center sm:gap-4 sm:px-5 sm:py-4">
-          {/* Results count */}
-          <div className="flex items-center gap-2">
-            <span className="flex size-7 items-center justify-center rounded-lg bg-[#eff5ee]">
-              <Sparkles className="size-3.5 text-[#ec6e55]" aria-hidden />
-            </span>
-            <p className="text-sm font-semibold text-[#555]">
-              {products.length > 0 ? (
-                <>
-                  <span className="font-extrabold text-[#23403d]">{products.length}</span>
-                  {" "}product{products.length !== 1 ? "s" : ""} on this page
-                  {totalPages > 1 && (
-                    <span className="text-[#999]"> · page {page} of {totalPages}</span>
-                  )}
-                </>
-              ) : (
-                <span className="text-[#999]">No products found</span>
-              )}
-            </p>
-          </div>
-
-          {/* Sort */}
-          <div className="flex items-center gap-2.5">
-            <span className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-[#767676]">
-              <SlidersHorizontal className="size-3.5 text-[#ec6e55]" aria-hidden />
-              Sort
-            </span>
-            <Suspense
-              fallback={
-                <div className="h-9 w-40 animate-pulse rounded-full bg-[#f0f0f0]" />
-              }
-            >
-              <PlpSortSelect current={sort} />
-            </Suspense>
-          </div>
-        </div>
-
-        {/* Active filters */}
-        {(q || category) && (
-          <div className="mb-5 flex flex-wrap items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wide text-[#999]">Active filters:</span>
-            {q && (
-              <Link
-                href={`/products?${new URLSearchParams({ sort, category }).toString()}`}
-                className="flex items-center gap-1.5 rounded-full border border-[#e8ede7] bg-white px-3 py-1 text-xs font-semibold text-[#23403d] transition-colors hover:border-[#ec6e55] hover:text-[#ec6e55]"
-              >
-                Search: {q} ×
-              </Link>
-            )}
-            {category && (
-              <Link
-                href={`/products?${new URLSearchParams({ sort, q }).toString()}`}
-                className="flex items-center gap-1.5 rounded-full border border-[#e8ede7] bg-white px-3 py-1 text-xs font-semibold text-[#23403d] transition-colors hover:border-[#ec6e55] hover:text-[#ec6e55]"
-              >
-                {category.replace(/-/g, " ")} ×
-              </Link>
-            )}
-            <Link
-              href="/products"
-              className="text-xs font-bold text-[#ec6e55] transition-colors hover:underline"
-            >
-              Clear all
-            </Link>
-          </div>
-        )}
-
-        {/* Products grid or empty state */}
-        {products.length > 0 ? (
-          <>
-            <ProductGrid products={products} />
-            <StorefrontPagination
-              page={page}
-              totalPages={totalPages}
-              basePath="/products"
-              searchParams={{ sort, q, category, limit: String(limit) }}
-            />
-          </>
-        ) : (
-          <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-[#c5dac2] bg-white px-4 py-28 text-center shadow-sm">
-            <div className="mb-6 flex size-20 items-center justify-center rounded-full bg-gradient-to-br from-[#eff5ee] to-[#dbe8d8]">
-              <Leaf className="size-10 text-[#ec6e55]" aria-hidden />
+      {/* ── Main content layout with sidebar ─────────────────────────────────────────────────── */}
+      <section className="mx-auto flex w-full max-w-[1440px] flex-col items-start gap-8 px-4 pt-10 sm:px-6 lg:flex-row lg:px-10 lg:pt-12">
+        
+        {/* Sidebar */}
+        <aside className="w-full shrink-0 lg:w-[260px] xl:w-[280px]">
+          <div className="rounded-[24px] bg-[#fdfcf9] border border-border p-6 shadow-sm">
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-[15px] font-bold text-foreground">Filter by</h2>
+              <SlidersHorizontal className="size-[15px] text-foreground" strokeWidth={2.5} />
             </div>
-            <h2 className="mb-3 font-heading text-2xl font-bold text-[#23403d]">
-              {q ? "No products matched your search" : "No active products yet"}
-            </h2>
-            <p className="mb-8 max-w-md text-sm font-medium text-[#767676]">
-              {q
-                ? "Try checking your spelling or use more general terms."
-                : "Add products in the admin console and set their status to Active — they will show up here automatically."}
-            </p>
-            <Link
-              href="/products"
-              className="inline-flex h-12 items-center justify-center rounded-full bg-[#23403d] px-8 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-[#ec6e55] hover:shadow-lg"
-            >
-              Browse All Products
-            </Link>
+
+            {/* Categories list */}
+            <div className="mb-8">
+              <div className="mb-4 flex items-center justify-between cursor-pointer">
+                <h3 className="text-[13px] font-bold text-foreground">Categories</h3>
+                <ChevronUp className="size-[15px] text-muted-foreground" />
+              </div>
+              <div className="flex flex-col gap-3.5">
+                <Link
+                  href="/products"
+                  className="group flex items-center gap-3"
+                >
+                  <div className={cn(
+                    "flex size-4 items-center justify-center rounded-full border transition-colors",
+                    !category ? "border-brand-maroon" : "border-muted-foreground/30 group-hover:border-brand-maroon/50"
+                  )}>
+                    {!category ? <div className="size-2 rounded-full bg-brand-maroon" /> : null}
+                  </div>
+                  <span className={cn(
+                    "text-[13px] transition-colors",
+                    !category ? "font-semibold text-foreground" : "text-muted-foreground group-hover:text-foreground"
+                  )}>
+                    All Sweets
+                  </span>
+                </Link>
+                
+                {categories.map((cat) => (
+                  <Link
+                    key={cat.id}
+                    href={`/products?${new URLSearchParams({ ...params, category: cat.slug }).toString()}`}
+                    className="group flex items-center gap-3"
+                  >
+                    <div className={cn(
+                      "flex size-4 items-center justify-center rounded-full border transition-colors",
+                      category === cat.slug ? "border-brand-maroon" : "border-muted-foreground/30 group-hover:border-brand-maroon/50"
+                    )}>
+                      {category === cat.slug ? <div className="size-2 rounded-full bg-brand-maroon" /> : null}
+                    </div>
+                    <span className={cn(
+                      "text-[13px] transition-colors",
+                      category === cat.slug ? "font-semibold text-foreground" : "text-muted-foreground group-hover:text-foreground"
+                    )}>
+                      {cat.name}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* End of sidebar */}
           </div>
-        )}
+        </aside>
+
+        {/* Main Content Area */}
+        <div className="flex-1 w-full min-w-0">
+          
+          {/* Top search bar area */}
+          <div className="mb-8 flex items-center gap-4">
+            <PlpSearchInput placeholder="Search for sweets..." basePath="/products" />
+            
+            {/* Filter button for mobile/extra actions */}
+            <button className="flex size-[48px] shrink-0 items-center justify-center rounded-full bg-[#521b1b] text-white shadow-sm transition-transform hover:bg-brand-maroon-dark hover:scale-105">
+              <SlidersHorizontal className="size-[20px]" strokeWidth={2} />
+            </button>
+          </div>
+
+          {/* Results count & inline sort */}
+          <div className="mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+            <p className="text-[13px] font-semibold text-muted-foreground">
+              Showing {Math.min(totalProducts, limit)} of {totalProducts} products
+            </p>
+            
+            <div className="flex items-center gap-2 text-[13px] font-semibold text-muted-foreground">
+              Sort by:
+              <span className="flex items-center gap-1.5 font-bold text-foreground cursor-pointer">
+                {sortLabel} <ChevronDown className="size-3.5" />
+              </span>
+            </div>
+          </div>
+
+          {/* Active filters display (optional, can hide if sidebar handles it) */}
+          {(q) && (
+            <div className="mb-6 flex flex-wrap items-center gap-2">
+              <span className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
+                Search:
+              </span>
+              {q && (
+                <Link
+                  href={`/products?${new URLSearchParams({ sort, category }).toString()}`}
+                  className="flex items-center gap-1.5 rounded-full border border-border bg-white px-3 py-1 text-xs font-semibold text-foreground transition-colors hover:border-brand-maroon hover:text-brand-maroon"
+                >
+                  {q} ×
+                </Link>
+              )}
+            </div>
+          )}
+
+          {/* Products grid or empty state */}
+          {products.length > 0 ? (
+            <>
+              <ProductGrid products={products} />
+              <StorefrontPagination
+                page={page}
+                totalPages={totalPages}
+                basePath="/products"
+                searchParams={{ sort, q, category, limit: String(limit) }}
+              />
+            </>
+          ) : (
+            <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-border bg-white px-4 py-28 text-center">
+              <div className="mb-6 flex size-20 items-center justify-center rounded-full bg-brand-maroon/5">
+                <Sparkles className="size-10 text-brand-maroon" aria-hidden />
+              </div>
+              <h2 className="mb-3 font-heading text-3xl font-semibold text-foreground">
+                {q ? "No sweets matched your search" : "Fresh batches arriving soon"}
+              </h2>
+              <p className="mb-8 max-w-md text-sm text-muted-foreground">
+                {q
+                  ? "Try checking your spelling or use more general terms."
+                  : "Active products from our catalogue will appear here automatically."}
+              </p>
+              <Link
+                href="/products"
+                className="inline-flex h-12 items-center justify-center rounded-full bg-[#521b1b] px-8 text-sm font-semibold text-white transition-transform hover:scale-105"
+              >
+                Clear Filters
+              </Link>
+            </div>
+          )}
+        </div>
       </section>
     </div>
   );

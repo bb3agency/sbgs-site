@@ -17,7 +17,7 @@ export function MithaiStory() {
       </div>
 
       {/* Decorative dotted frame (Dadu's style) */}
-      <div className="absolute inset-8 z-[5] rounded-[3rem] border-2 border-dashed border-[#FAF5EC]/30 pointer-events-none" aria-hidden />
+      <div className="absolute inset-8 z-[5] rounded-[3rem] border-2 border-dashed border-border/30 pointer-events-none" aria-hidden />
 
       {/* Content overlay — centered text, Dadu's "A Sweetness Perfected Over Time" style */}
       <div className="relative z-10 flex min-h-[85vh] items-center justify-center px-4 sm:px-6 lg:px-8">
@@ -48,7 +48,7 @@ export function MithaiStory() {
 
           <Link
             href="/about"
-            className="inline-block border border-[#FAF5EC] bg-transparent px-8 py-3 text-sm font-bold uppercase tracking-[0.15em] text-[#FAF5EC] transition-all duration-300 hover:bg-[#FAF5EC] hover:text-[#7F1416] font-['Montserrat']"
+            className="inline-block border border-border bg-transparent px-8 py-3 text-sm font-bold uppercase tracking-[0.15em] text-brand-cream transition-all duration-300 hover:bg-brand-cream hover:text-brand-maroon font-['Montserrat']"
           >
             Read Our Story
           </Link>

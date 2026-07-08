@@ -17,7 +17,7 @@ export function NewsletterForm() {
 
   return (
     <form onSubmit={handleSubmit} className="mt-4">
-      <div className="flex items-center gap-2 rounded-lg bg-white/95 p-1.5 shadow-sm">
+      <div className="flex items-center gap-2 rounded-lg bg-card/95 p-1.5 shadow-sm">
         <input
           type="email"
           value={email}
@@ -27,18 +27,18 @@ export function NewsletterForm() {
           }}
           placeholder="Enter your email"
           aria-label="Email address for newsletter"
-          className="h-9 flex-1 bg-transparent px-3 text-sm text-[#3a2218] placeholder:text-[#a99] focus:outline-none"
+          className="h-9 flex-1 bg-transparent px-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
         />
         <button
           type="submit"
           aria-label="Subscribe to newsletter"
-          className="flex size-9 shrink-0 items-center justify-center rounded-md bg-[#7f1416] text-white transition-colors hover:bg-[#d4a537]"
+          className="flex size-9 shrink-0 items-center justify-center rounded-md bg-brand-maroon text-white transition-colors hover:bg-brand-gold"
         >
           <Send className="size-4" />
         </button>
       </div>
       {done ? (
-        <p className="mt-2 text-xs font-medium text-[#f5d88e]">
+        <p className="mt-2 text-xs font-medium text-brand-gold">
           Thanks! We&apos;ll keep you posted on offers and new arrivals.
         </p>
       ) : null}

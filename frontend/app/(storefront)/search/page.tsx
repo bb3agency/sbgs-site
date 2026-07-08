@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Search, Leaf, ChevronRight, FolderOpen } from "lucide-react";
+import { Search, Sparkles, ChevronRight, FolderOpen } from "lucide-react";
 import { ProductGrid } from "@/components/product/ProductGrid";
 import { StorefrontPagination } from "@/components/product/StorefrontPagination";
 import { SearchInput } from "@/components/shared/SearchInput";
@@ -47,66 +47,62 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const hasResults = products.length > 0 || categories.length > 0;
 
   return (
-    <div className="flex flex-col bg-[#eff5ee] min-h-screen pb-16">
-      <section className="relative overflow-hidden bg-[#dbe8d8] py-8 md:py-20">
-        <div className="mx-auto flex w-full max-w-[1440px] flex-col items-center justify-center px-4 text-center lg:px-8">
-          <h1 className="mb-4 font-heading text-2xl font-bold capitalize text-[#23403d] sm:text-4xl md:text-5xl">
+    <div className="flex flex-col min-h-screen pb-16">
+      <section className="relative overflow-hidden bg-brand-green py-12 md:py-20">
+        <div className="mx-auto flex w-full flex-col items-center justify-center px-4 text-center sm:px-6 lg:px-10">
+          <h1 className="mb-4 font-heading text-3xl font-semibold capitalize text-brand-gold sm:text-4xl md:text-5xl">
             {title}
           </h1>
           <nav
-            className="flex items-center gap-2 text-xs font-bold text-[#767676] sm:text-sm"
+            className="flex items-center gap-2 text-sm font-medium text-text-cream/60"
             aria-label="Breadcrumb"
           >
-            <Link href="/" className="hover:text-[#ec6e55] transition-colors">
+            <Link href="/" className="transition-colors hover:text-brand-gold">
               Home
             </Link>
             <ChevronRight className="size-3" />
-            <span className="text-[#ec6e55]">Search</span>
+            <span className="text-brand-gold">Search</span>
           </nav>
         </div>
         <div
-          className="absolute -bottom-16 -right-16 size-64 rounded-full bg-[#c5dac2] opacity-40 blur-3xl"
-          aria-hidden
-        />
-        <div
-          className="absolute -left-16 top-0 size-48 rounded-full bg-white opacity-40 blur-3xl"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.05)_0%,transparent_60%)]"
           aria-hidden
         />
       </section>
 
-      <section className="mx-auto w-full max-w-[1440px] px-4 pt-12 lg:px-8">
-        <div className="mb-8 sm:mb-10 mx-auto max-w-2xl bg-white p-3 sm:p-4 rounded-[20px] shadow-sm">
+      <section className="mx-auto w-full px-4 pt-12 sm:px-6 lg:px-10">
+        <div className="mb-8 sm:mb-10 mx-auto max-w-2xl rounded-3xl bg-card p-3 sm:p-4">
           <SearchInput defaultValue={q} />
         </div>
 
         {!q ? (
-          <div className="flex flex-col items-center justify-center rounded-[20px] bg-white px-4 py-24 text-center shadow-sm">
-            <div className="mb-6 flex size-20 items-center justify-center rounded-full bg-[#eff5ee]">
-              <Search className="size-10 text-[#ec6e55]" aria-hidden />
+          <div className="flex flex-col items-center justify-center rounded-3xl bg-card px-4 py-24 text-center">
+            <div className="mb-6 flex size-20 items-center justify-center rounded-full bg-brand-gold/15">
+              <Search className="size-10 text-brand-gold" aria-hidden />
             </div>
-            <h2 className="mb-2 font-heading text-2xl font-bold text-[#23403d]">
+            <h2 className="mb-2 font-heading text-3xl font-semibold text-foreground">
               Start Searching
             </h2>
-            <p className="mb-8 text-sm font-medium text-[#767676] max-w-md">
-              Search by product name, SKU, or category to find farm-fresh,
-              naturally grown and natural products.
+            <p className="mb-8 text-sm text-muted-foreground max-w-md">
+              Search by product name, SKU, or category to find your favourite
+              sweets, savories and gift boxes.
             </p>
           </div>
         ) : !hasResults ? (
-          <div className="flex flex-col items-center justify-center rounded-[20px] bg-white px-4 py-24 text-center shadow-sm">
-            <div className="mb-6 flex size-20 items-center justify-center rounded-full bg-[#eff5ee]">
-              <Leaf className="size-10 text-[#ec6e55]" aria-hidden />
+          <div className="flex flex-col items-center justify-center rounded-3xl bg-card px-4 py-24 text-center">
+            <div className="mb-6 flex size-20 items-center justify-center rounded-full bg-brand-gold/15">
+              <Sparkles className="size-10 text-brand-gold" aria-hidden />
             </div>
-            <h2 className="mb-2 font-heading text-2xl font-bold text-[#23403d]">
+            <h2 className="mb-2 font-heading text-3xl font-semibold text-foreground">
               No results for &ldquo;{q}&rdquo;
             </h2>
-            <p className="mb-8 text-sm font-medium text-[#767676] max-w-md">
+            <p className="mb-8 text-sm text-muted-foreground max-w-md">
               Try checking your spelling, use more general terms, or browse our
               categories.
             </p>
             <Link
               href="/products"
-              className="inline-flex h-12 items-center justify-center rounded-full bg-[#23403d] px-8 text-sm font-bold text-white transition-transform hover:-translate-y-1 hover:bg-[#ec6e55] hover:shadow-lg"
+              className="inline-flex h-12 items-center justify-center rounded-full bg-brand-maroon px-8 text-sm font-semibold text-text-cream transition-all hover:-translate-y-0.5 hover:bg-brand-maroon-dark"
             >
               Browse All Products
             </Link>
@@ -114,12 +110,12 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         ) : (
           <div className="flex flex-col gap-8">
             {categories.length > 0 ? (
-              <section className="rounded-[20px] bg-white p-4 shadow-sm lg:p-6">
+              <section className="rounded-3xl bg-card p-4 lg:p-6">
                 <div className="mb-4 flex items-center justify-between gap-3">
-                  <h2 className="font-heading text-lg font-bold text-[#23403d]">
+                  <h2 className="font-heading text-2xl font-semibold text-foreground">
                     Categories
                   </h2>
-                  <p className="text-sm font-bold text-[#767676]">
+                  <p className="text-sm font-medium text-muted-foreground">
                     {categories.length} match
                     {categories.length !== 1 ? "es" : ""}
                   </p>
@@ -131,7 +127,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                       <Link
                         key={category.id}
                         href={`/categories/${category.slug}`}
-                        className="flex items-center gap-3 rounded-2xl border border-[#efe8e4] p-3 transition-colors hover:border-[#23403d] hover:bg-[#faf3ef]"
+                        className="flex items-center gap-3 rounded-2xl border border-border p-3 transition-colors hover:border-brand-maroon hover:bg-brand-cream"
                       >
                         {image ? (
                           <Image
@@ -142,15 +138,15 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                             className="size-14 shrink-0 rounded-xl object-cover"
                           />
                         ) : (
-                          <div className="flex size-14 shrink-0 items-center justify-center rounded-xl bg-[#eff5ee]">
-                            <FolderOpen className="size-5 text-[#23403d]" />
+                          <div className="flex size-14 shrink-0 items-center justify-center rounded-xl bg-secondary">
+                            <FolderOpen className="size-5 text-brand-maroon" />
                           </div>
                         )}
                         <div className="min-w-0">
-                          <p className="truncate text-sm font-bold text-[#23403d]">
+                          <p className="truncate text-sm font-semibold text-foreground">
                             {category.name}
                           </p>
-                          <p className="text-xs font-medium text-[#767676]">
+                          <p className="text-xs text-muted-foreground">
                             Browse category
                           </p>
                         </div>
@@ -163,8 +159,8 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
             {products.length > 0 ? (
               <section className="flex flex-col gap-6">
-                <div className="flex justify-between items-center rounded-[20px] bg-white p-4 lg:p-6 shadow-sm">
-                  <p className="text-sm font-bold text-[#767676]">
+                <div className="flex justify-between items-center rounded-3xl bg-card p-4 lg:p-6">
+                  <p className="text-sm font-medium text-muted-foreground">
                     Found {total} product{total !== 1 ? "s" : ""}
                   </p>
                 </div>

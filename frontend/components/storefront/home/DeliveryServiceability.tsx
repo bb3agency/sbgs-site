@@ -37,23 +37,23 @@ export function DeliveryServiceability() {
   return (
     <section className="bg-white">
       <div className="mx-auto w-full max-w-[1440px] px-4 py-12 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
-        <div className="rounded-3xl border border-[#efe8e4] bg-[#faf7f2] p-6 shadow-sm sm:p-8 lg:p-10">
+        <div className="rounded-3xl border border-border bg-[#faf7f2] p-6 shadow-sm sm:p-8 lg:p-10">
           <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
             {/* Left: truck + checker */}
             <div className="lg:col-span-8">
               <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-center">
                 <div
                   aria-hidden
-                  className="flex size-24 shrink-0 items-center justify-center rounded-2xl bg-[#1f3d36] text-[#d4a537] shadow-inner sm:size-28"
+                  className="flex size-24 shrink-0 items-center justify-center rounded-2xl bg-[#1f3d36] text-brand-gold shadow-inner sm:size-28"
                 >
                   <Truck className="size-12 sm:size-14" strokeWidth={1.4} />
                 </div>
 
                 <div className="w-full text-center sm:text-left">
-                  <h2 className="font-heading text-2xl font-bold tracking-tight text-[#3a2218] sm:text-3xl">
+                  <h2 className="font-heading text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
                     Check Delivery &amp; Serviceability
                   </h2>
-                  <span className="mx-auto mt-2 block h-1 w-14 rounded-full bg-[#d4a537] sm:mx-0" aria-hidden />
+                  <span className="mx-auto mt-2 block h-1 w-14 rounded-full bg-brand-gold sm:mx-0" aria-hidden />
 
                   <form
                     onSubmit={handleCheck}
@@ -70,11 +70,11 @@ export function DeliveryServiceability() {
                       }}
                       placeholder="Enter Pincode"
                       aria-label="Delivery pincode"
-                      className="h-11 flex-1 rounded-lg border border-[#efe8e4] bg-white px-4 text-sm font-medium text-[#3a2218] placeholder:text-[#a99] focus:border-[#7f1416] focus:outline-none focus:ring-1 focus:ring-[#7f1416]"
+                      className="h-11 flex-1 rounded-lg border border-border bg-card px-4 text-sm font-medium text-foreground placeholder:text-muted-foreground focus:border-brand-maroon focus:outline-none focus:ring-1 focus:ring-brand-maroon"
                     />
                     <button
                       type="submit"
-                      className="h-11 shrink-0 rounded-lg bg-[#7f1416] px-6 text-sm font-bold text-white transition-colors hover:bg-[#651013]"
+                      className="h-11 shrink-0 rounded-lg bg-brand-maroon px-6 text-sm font-bold text-white transition-colors hover:bg-brand-maroon-dark"
                     >
                       Check Availability
                     </button>
@@ -84,7 +84,7 @@ export function DeliveryServiceability() {
                       Great news — we deliver to {pincode}. Final serviceability is confirmed at checkout.
                     </p>
                   ) : status === "invalid" ? (
-                    <p className="mt-2 text-xs font-semibold text-[#7f1416]">
+                    <p className="mt-2 text-xs font-semibold text-brand-maroon">
                       Please enter a valid 6-digit pincode.
                     </p>
                   ) : null}
@@ -95,10 +95,10 @@ export function DeliveryServiceability() {
               <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
                 {FEATURES.map(({ title, desc, icon: Icon }) => (
                   <div key={title} className="flex items-start gap-2.5">
-                    <Icon className="mt-0.5 size-5 shrink-0 text-[#7f1416]" aria-hidden />
+                    <Icon className="mt-0.5 size-5 shrink-0 text-brand-maroon" aria-hidden />
                     <div>
-                      <p className="text-xs font-bold text-[#3a2218]">{title}</p>
-                      <p className="text-[11px] text-[#767676]">{desc}</p>
+                      <p className="text-xs font-bold text-foreground">{title}</p>
+                      <p className="text-[11px] text-muted-foreground">{desc}</p>
                     </div>
                   </div>
                 ))}
@@ -108,12 +108,12 @@ export function DeliveryServiceability() {
             {/* Right: promises */}
             <div className="lg:col-span-4">
               <div className="rounded-2xl border border-[#f0d9a8] bg-[#fdf6e6] p-5 sm:p-6">
-                <p className="font-heading text-lg font-bold text-[#7f1416]">
+                <p className="font-heading text-lg font-bold text-brand-maroon">
                   We Deliver Across India
                 </p>
                 <ul className="mt-4 space-y-3">
                   {PROMISES.map((p) => (
-                    <li key={p} className="flex items-center gap-2.5 text-sm font-medium text-[#3a2218]">
+                    <li key={p} className="flex items-center gap-2.5 text-sm font-medium text-foreground">
                       <CheckCircle2 className="size-4 shrink-0 text-[#3f7d4f]" aria-hidden />
                       {p}
                     </li>

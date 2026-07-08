@@ -21,16 +21,16 @@ export function OccasionCollections() {
     <section className="bg-white">
       <div className="mx-auto w-full max-w-[1440px] px-4 py-12 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
         <div className="mb-8 flex flex-col items-center gap-2 text-center">
-          <h2 className="font-heading text-2xl font-bold tracking-tight text-[#7f1416] sm:text-3xl">
+          <h2 className="font-heading text-2xl font-bold tracking-tight text-brand-maroon sm:text-3xl">
             Collections for Every Occasion
           </h2>
-          <span className="h-1 w-16 rounded-full bg-[#d4a537]" aria-hidden />
+          <span className="h-1 w-16 rounded-full bg-brand-gold" aria-hidden />
         </div>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
           {OCCASIONS.map(({ label, image, href }) => (
             <Link key={label} href={href} className="group flex flex-col gap-2.5">
-              <div className="relative aspect-square overflow-hidden rounded-2xl border border-[#efe8e4] shadow-sm transition-all group-hover:-translate-y-1 group-hover:shadow-md">
+              <div className="relative aspect-square overflow-hidden rounded-2xl border border-border shadow-sm transition-all group-hover:-translate-y-1 group-hover:shadow-md">
                 <Image
                   src={image}
                   alt={`${label} sweet collection`}
@@ -40,10 +40,10 @@ export function OccasionCollections() {
                 />
                 <div
                   aria-hidden
-                  className="absolute inset-0 bg-gradient-to-t from-[#7f1416]/30 to-transparent"
+                  className="absolute inset-0 bg-gradient-to-t from-brand-maroon/30 to-transparent"
                 />
               </div>
-              <span className="text-center text-sm font-bold text-[#3a2218] transition-colors group-hover:text-[#7f1416]">
+              <span className="text-center text-sm font-bold text-foreground transition-colors group-hover:text-brand-maroon">
                 {label}
               </span>
             </Link>

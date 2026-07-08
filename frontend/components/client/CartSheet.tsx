@@ -50,7 +50,7 @@ export function CartSheet() {
 
       {/* Drawer — slides in from the RIGHT */}
       <div
-        className={`fixed inset-y-0 right-0 z-[101] flex w-full max-w-[400px] flex-col bg-white shadow-2xl transition-transform duration-300 ease-in-out ${
+        className={`fixed inset-y-0 right-0 z-[101] flex w-full max-w-[400px] flex-col bg-card shadow-2xl transition-transform duration-300 ease-in-out ${
           cartSheetOpen ? "translate-x-0" : "translate-x-full"
         }`}
         role="dialog"
@@ -97,8 +97,8 @@ export function CartSheet() {
             </div>
           ) : (
             <div className="flex w-full flex-col h-full text-left">
-               <div className="p-6 pb-4 border-b border-[#7F1416]/10 flex items-center justify-between">
-                 <h2 className="font-serif text-2xl font-normal text-[#7F1416] italic flex items-center gap-2">
+               <div className="p-6 pb-4 border-b border-brand-maroon/10 flex items-center justify-between">
+                 <h2 className="font-serif text-2xl font-normal text-brand-maroon italic flex items-center gap-2">
                    <ShoppingBag className="size-5" />
                    Your Cart ({items.length})
                  </h2>
@@ -111,7 +111,7 @@ export function CartSheet() {
                        <Link
                          href="#"
                          onClick={close}
-                         className="relative size-20 shrink-0 overflow-hidden border border-[#7F1416]/10 bg-[#FAF5EC]"
+                         className="relative size-20 shrink-0 overflow-hidden border border-brand-maroon/10 bg-brand-cream"
                        >
                          <Image
                            src={getCartLineImageUrl(item)}
@@ -126,14 +126,14 @@ export function CartSheet() {
                            <h3 className="font-serif text-base text-[#1a1a1a]">
                              {productName}
                            </h3>
-                           <p className="text-xs text-[#7F1416]/70 font-['Montserrat'] mt-1">
+                           <p className="text-xs text-brand-maroon/70 font-['Montserrat'] mt-1">
                              Variant: {item.variant.name}
                            </p>
-                           <p className="text-xs text-[#7F1416]/70 font-['Montserrat']">
+                           <p className="text-xs text-brand-maroon/70 font-['Montserrat']">
                              Qty: {item.quantity}
                            </p>
                          </div>
-                         <p className="font-bold text-[#D4A537] font-['Montserrat'] text-sm mt-2">
+                         <p className="font-bold text-brand-gold font-['Montserrat'] text-sm mt-2">
                            {formatPrice(item.lineTotal)}
                          </p>
                        </div>
@@ -141,15 +141,15 @@ export function CartSheet() {
                    );
                  })}
                </div>
-               <div className="border-t border-[#7F1416]/10 bg-[#FAF5EC]/30 p-6 w-full space-y-4">
+               <div className="border-t border-brand-maroon/10 bg-brand-cream/30 p-6 w-full space-y-4">
                   <div className="flex justify-between items-center text-lg font-serif">
                     <span className="text-[#1a1a1a]">Subtotal</span>
-                    <span className="font-bold text-[#D4A537] font-['Montserrat']">{formatPrice(cart?.subtotal ?? 0)}</span>
+                    <span className="font-bold text-brand-gold font-['Montserrat']">{formatPrice(cart?.subtotal ?? 0)}</span>
                   </div>
                   <Link 
                     href="/cart" 
                     onClick={close}
-                    className="flex w-full bg-[#7F1416] py-3.5 text-[13px] font-medium tracking-widest text-[#FAF5EC] uppercase transition-all hover:bg-[#D4A537] hover:shadow-lg font-['Montserrat'] justify-center items-center gap-2"
+                    className="flex w-full bg-brand-maroon py-3.5 text-[13px] font-medium tracking-widest text-brand-cream uppercase transition-all hover:bg-brand-gold hover:shadow-lg font-['Montserrat'] justify-center items-center gap-2"
                   >
                     View Cart & Checkout <Sparkles className="size-4" />
                   </Link>

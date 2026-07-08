@@ -48,7 +48,7 @@ function Stars({ count }: { count: number }) {
           key={i}
           className={
             i < count
-              ? "size-3.5 fill-[#d4a537] text-[#d4a537]"
+              ? "size-3.5 fill-brand-gold text-brand-gold"
               : "size-3.5 text-[#e3d5b8]"
           }
           aria-hidden
@@ -80,7 +80,7 @@ export function SocialProofSection({ reviews }: SocialProofSectionProps) {
   return (
     <section className="bg-white">
       <div className="mx-auto w-full max-w-[1440px] px-4 py-12 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
-        <h2 className="mb-10 text-center font-heading text-2xl font-bold tracking-tight text-[#7f1416] sm:text-3xl">
+        <h2 className="mb-10 text-center font-heading text-2xl font-bold tracking-tight text-brand-maroon sm:text-3xl">
           Loved by Thousands. Trusted by Millions.
         </h2>
 
@@ -89,11 +89,11 @@ export function SocialProofSection({ reviews }: SocialProofSectionProps) {
           <div className="grid grid-cols-2 gap-5 lg:col-span-2">
             {STATS.map(({ value, label, icon: Icon }) => (
               <div key={label} className="flex flex-col gap-1">
-                <Icon className="size-5 text-[#d4a537]" aria-hidden />
-                <span className="font-heading text-xl font-bold text-[#7f1416]">
+                <Icon className="size-5 text-brand-gold" aria-hidden />
+                <span className="font-heading text-xl font-bold text-brand-maroon">
                   {value}
                 </span>
-                <span className="text-[11px] font-medium text-[#767676]">{label}</span>
+                <span className="text-[11px] font-medium text-muted-foreground">{label}</span>
               </div>
             ))}
           </div>
@@ -103,19 +103,19 @@ export function SocialProofSection({ reviews }: SocialProofSectionProps) {
             {testimonials.map((t) => (
               <article
                 key={t.name + t.quote.slice(0, 12)}
-                className="flex flex-col gap-3 rounded-2xl border border-[#efe8e4] bg-[#faf7f2] p-5 shadow-sm"
+                className="flex flex-col gap-3 rounded-2xl border border-border bg-[#faf7f2] p-5 shadow-sm"
               >
                 <Stars count={t.rating} />
-                <p className="flex-1 text-sm leading-relaxed text-[#3a2218]">
+                <p className="flex-1 text-sm leading-relaxed text-foreground">
                   &ldquo;{t.quote}&rdquo;
                 </p>
-                <div className="flex items-center gap-3 border-t border-[#efe8e4] pt-3">
-                  <span className="flex size-9 items-center justify-center rounded-full bg-[#f5d88e] font-heading text-sm font-bold text-[#7f1416]">
+                <div className="flex items-center gap-3 border-t border-border pt-3">
+                  <span className="flex size-9 items-center justify-center rounded-full bg-brand-gold/20 font-heading text-sm font-bold text-brand-maroon">
                     {t.initials}
                   </span>
                   <div>
-                    <p className="text-sm font-bold text-[#3a2218]">{t.name}</p>
-                    <p className="text-[11px] text-[#767676]">Verified Buyer</p>
+                    <p className="text-sm font-bold text-foreground">{t.name}</p>
+                    <p className="text-[11px] text-muted-foreground">Verified Buyer</p>
                   </div>
                 </div>
               </article>
@@ -124,14 +124,14 @@ export function SocialProofSection({ reviews }: SocialProofSectionProps) {
 
           {/* As Featured In */}
           <div className="lg:col-span-3">
-            <p className="mb-4 text-center text-xs font-bold uppercase tracking-[0.18em] text-[#767676] lg:text-right">
+            <p className="mb-4 text-center text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground lg:text-right">
               As Featured In
             </p>
             <div className="grid grid-cols-2 gap-3">
               {MEDIA.map((name) => (
                 <div
                   key={name}
-                  className="flex h-14 items-center justify-center rounded-xl border border-[#efe8e4] bg-white px-3 text-center font-heading text-sm font-bold text-[#7f1416]"
+                  className="flex h-14 items-center justify-center rounded-xl border border-border bg-card px-3 text-center font-heading text-sm font-bold text-brand-maroon"
                 >
                   {name}
                 </div>

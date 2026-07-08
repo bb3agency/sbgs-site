@@ -27,7 +27,7 @@ export function ProductCarousel({ products }: ProductCarouselProps) {
       <button
         type="button"
         onClick={() => scroll("left")}
-        className="absolute -left-4 top-1/2 z-10 hidden -translate-y-1/2 size-9 items-center justify-center rounded-full border border-[#e8ede7] bg-white shadow-sm transition-colors hover:border-[#ec6e55] hover:text-[#ec6e55] md:flex"
+        className="absolute -left-4 top-1/2 z-10 hidden -translate-y-1/2 size-9 items-center justify-center rounded-full border border-border bg-card shadow-sm transition-colors hover:border-brand-gold hover:bg-brand-gold md:flex"
         aria-label="Scroll left"
       >
         <ChevronLeft className="size-4" />
@@ -35,7 +35,7 @@ export function ProductCarousel({ products }: ProductCarouselProps) {
       <button
         type="button"
         onClick={() => scroll("right")}
-        className="absolute -right-4 top-1/2 z-10 hidden -translate-y-1/2 size-9 items-center justify-center rounded-full border border-[#e8ede7] bg-white shadow-sm transition-colors hover:border-[#ec6e55] hover:text-[#ec6e55] md:flex"
+        className="absolute -right-4 top-1/2 z-10 hidden -translate-y-1/2 size-9 items-center justify-center rounded-full border border-border bg-card shadow-sm transition-colors hover:border-brand-gold hover:bg-brand-gold md:flex"
         aria-label="Scroll right"
       >
         <ChevronRight className="size-4" />

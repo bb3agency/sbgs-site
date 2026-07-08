@@ -45,7 +45,7 @@ export function ProductReviewsSection({ productSlug }: ProductReviewsSectionProp
 
   if (loading) {
     return (
-      <div className="py-8 text-center text-sm text-[#767676]" role="status">
+      <div className="py-8 text-center text-sm text-muted-foreground" role="status">
         Loading customer reviews…
       </div>
     );
@@ -53,7 +53,7 @@ export function ProductReviewsSection({ productSlug }: ProductReviewsSectionProp
 
   if (error) {
     return (
-      <div className="py-8 text-center text-sm text-[#ec6e55]" role="alert">
+      <div className="py-8 text-center text-sm text-brand-maroon" role="alert">
         {error}
       </div>
     );
@@ -61,11 +61,11 @@ export function ProductReviewsSection({ productSlug }: ProductReviewsSectionProp
 
   if (reviews.length === 0) {
     return (
-      <section className="mt-16 border-t border-[#efe8e4] pt-12">
-        <h2 className="mb-3 font-heading text-2xl font-bold text-[#23403d]">
+      <section className="mt-16 border-t border-border pt-12">
+        <h2 className="mb-3 font-heading text-2xl font-bold text-foreground">
           Customer Reviews
         </h2>
-        <p className="text-sm text-[#767676]">
+        <p className="text-sm text-muted-foreground">
           No approved reviews yet. Purchasers can leave feedback after delivery;
           approved reviews appear here automatically.
         </p>
@@ -74,33 +74,33 @@ export function ProductReviewsSection({ productSlug }: ProductReviewsSectionProp
   }
 
   return (
-    <section className="mt-16 border-t border-[#efe8e4] pt-12">
-      <h2 className="mb-8 font-heading text-2xl font-bold text-[#23403d]">
+    <section className="mt-16 border-t border-border pt-12">
+      <h2 className="mb-8 font-heading text-2xl font-bold text-foreground">
         Customer Reviews
       </h2>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {reviews.map((review) => (
           <article
             key={review.id}
-            className="rounded-2xl border border-[#efe8e4] bg-white p-6 shadow-sm"
+            className="rounded-2xl border border-border bg-card p-6 shadow-sm"
           >
             <div className="mb-4 flex items-center justify-between gap-3">
               <div className="min-w-0">
-                <p className="truncate font-bold text-[#23403d]">
+                <p className="truncate font-bold text-foreground">
                   {formatReviewerName(review.author)}
                 </p>
-                <p className="text-xs font-medium text-[#767676]">
+                <p className="text-xs font-medium text-muted-foreground">
                   {formatReviewDate(review.createdAt)}
                 </p>
               </div>
               <Rating rating={review.rating} />
             </div>
             {review.body?.trim() ? (
-              <p className="text-sm font-medium leading-relaxed text-[#4a4a4a]">
+              <p className="text-sm font-medium leading-relaxed text-foreground/80">
                 {review.body.trim()}
               </p>
             ) : (
-              <p className="text-sm italic text-[#767676]">Rated without a written review.</p>
+              <p className="text-sm italic text-muted-foreground">Rated without a written review.</p>
             )}
           </article>
         ))}

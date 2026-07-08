@@ -59,10 +59,10 @@ export default function AccountOrdersPage() {
   if (loading) {
     return (
       <div className="flex flex-col gap-4">
-        <h1 className="font-heading text-xl font-bold text-[#23403d] sm:text-2xl">Order History</h1>
+        <h1 className="font-heading text-xl font-bold text-foreground sm:text-2xl">Order History</h1>
         <div className="grid gap-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-24 animate-pulse rounded-2xl border border-[#efe8e4] bg-[#eff5ee]" />
+            <div key={i} className="h-24 animate-pulse rounded-2xl border border-border bg-secondary" />
           ))}
         </div>
       </div>
@@ -78,8 +78,8 @@ export default function AccountOrdersPage() {
   return (
     <section className="flex flex-col gap-4 sm:gap-5">
       <div>
-        <h1 className="font-heading text-xl font-bold text-[#23403d] sm:text-2xl">Order History</h1>
-        <p className="mt-1 text-sm text-[#767676]">
+        <h1 className="font-heading text-xl font-bold text-foreground sm:text-2xl">Order History</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
           {orders.length} order{orders.length === 1 ? "" : "s"} placed
         </p>
       </div>
@@ -94,23 +94,23 @@ export default function AccountOrdersPage() {
           return (
             <article
               key={order.id}
-              className="group rounded-2xl border border-[#efe8e4] bg-white p-4 transition-colors hover:border-[#23403d]/25 sm:p-5"
+              className="group rounded-2xl border border-border bg-card p-4 transition-colors hover:border-brand-maroon/25 sm:p-5"
             >
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-start gap-3">
-                  <div className="hidden size-10 shrink-0 items-center justify-center rounded-xl bg-[#eff5ee] text-[#23403d] sm:flex">
+                  <div className="hidden size-10 shrink-0 items-center justify-center rounded-xl bg-secondary text-foreground sm:flex">
                     <Package className="size-5" aria-hidden />
                   </div>
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
-                      <p className="font-bold text-[#23403d]">{order.orderNumber}</p>
+                      <p className="font-bold text-foreground">{order.orderNumber}</p>
                       <span
                         className={`inline-flex rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ring-1 ${chip}`}
                       >
                         {orderStatusLabel(order.status)}
                       </span>
                     </div>
-                    <p className="mt-0.5 text-xs text-[#767676] sm:text-sm">
+                    <p className="mt-0.5 text-xs text-muted-foreground sm:text-sm">
                       {formatOrderDate(order.createdAt)}
                       {order.paymentMode ? ` · ${formatPaymentModeLabel(order.paymentMode)}` : ""}
                     </p>
@@ -118,7 +118,7 @@ export default function AccountOrdersPage() {
                 </div>
 
                 <div className="flex items-center justify-between gap-3 sm:justify-end">
-                  <p className="font-heading text-base font-bold text-[#23403d]">
+                  <p className="font-heading text-base font-bold text-foreground">
                     {formatPrice(order.total)}
                   </p>
                   <div className="flex items-center gap-2">
@@ -126,7 +126,7 @@ export default function AccountOrdersPage() {
                       <button
                         type="button"
                         aria-label={`Download invoice for order ${order.orderNumber}`}
-                        className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-[#efe8e4] px-3 text-xs font-bold text-[#23403d] transition-colors hover:bg-[#faf3ef] disabled:opacity-50"
+                        className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-border px-3 text-xs font-bold text-foreground transition-colors hover:bg-brand-cream disabled:opacity-50"
                         disabled={invoiceBusyId === order.id}
                         onClick={() => void handleDownloadInvoice(order)}
                       >
@@ -141,7 +141,7 @@ export default function AccountOrdersPage() {
                     <Link
                       href={`/orders/${order.id}`}
                       aria-label={`View order ${order.orderNumber}`}
-                      className="inline-flex h-9 items-center gap-1 rounded-lg bg-[#23403d] px-3.5 text-xs font-bold text-white transition-colors hover:bg-[#1a302e]"
+                      className="inline-flex h-9 items-center gap-1 rounded-lg bg-brand-maroon px-3.5 text-xs font-bold text-white transition-colors hover:bg-brand-maroon-dark"
                     >
                       View
                       <ChevronRight className="size-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden />

@@ -57,12 +57,12 @@ export function SearchInput({ defaultValue = "", className }: SearchInputProps) 
       <form onSubmit={handleSubmit} role="search" className="relative flex items-center">
         {loading && panelOpen ? (
           <Loader2
-            className="pointer-events-none absolute left-4 size-4 animate-spin text-[#d4a537]"
+            className="pointer-events-none absolute left-4 size-4 animate-spin text-brand-gold"
             aria-hidden
           />
         ) : (
           <Search
-            className="pointer-events-none absolute left-4 size-4 text-[#767676]"
+            className="pointer-events-none absolute left-4 size-4 text-muted-foreground"
             aria-hidden
           />
         )}
@@ -80,7 +80,7 @@ export function SearchInput({ defaultValue = "", className }: SearchInputProps) 
             }
           }}
           placeholder="Search for sweets, boxes, gifts..."
-          className="h-11 w-full rounded-full border border-[#efe8e4] bg-[#faf5ec] pl-11 pr-24 text-sm font-medium text-[#7f1416] placeholder:text-[#767676] focus:border-[#7f1416] focus:outline-none focus:ring-1 focus:ring-[#7f1416]"
+          className="h-11 w-full rounded-full border border-border bg-card pl-11 pr-24 text-sm font-medium text-foreground placeholder:text-muted-foreground focus:border-brand-maroon focus:outline-none focus:ring-1 focus:ring-brand-maroon"
           aria-label="Search products and categories"
           aria-autocomplete="list"
           aria-controls={
@@ -95,7 +95,7 @@ export function SearchInput({ defaultValue = "", className }: SearchInputProps) 
               setValue("");
               setPanelOpen(false);
             }}
-            className="absolute right-[85px] inline-flex size-6 items-center justify-center rounded-full text-[#767676] hover:text-[#d4a537]"
+            className="absolute right-[85px] inline-flex size-6 items-center justify-center rounded-full text-muted-foreground hover:text-brand-maroon"
             aria-label="Clear search"
           >
             <X className="size-3.5" aria-hidden />
@@ -103,7 +103,7 @@ export function SearchInput({ defaultValue = "", className }: SearchInputProps) 
         )}
         <button
           type="submit"
-          className="absolute right-1.5 h-8 rounded-full bg-[#7f1416] px-5 text-xs font-bold text-white transition-colors hover:bg-[#d4a537]"
+          className="absolute right-1.5 h-8 rounded-full bg-brand-maroon px-5 text-xs font-bold text-text-cream transition-colors hover:bg-brand-maroon-dark"
         >
           Search
         </button>

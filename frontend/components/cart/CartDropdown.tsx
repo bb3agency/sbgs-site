@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { ShoppingCart, ArrowRight } from "lucide-react";
 import { useCartStore } from "@/stores/cart";
-import { PriceDisplay } from "@/components/shared/PriceDisplay";
 import { formatPrice } from "@/lib/format-price";
 
 const PLACEHOLDER_IMAGE = "/images/product-placeholder.svg";
@@ -57,19 +56,12 @@ export function CartDropdown() {
         aria-expanded={open}
         aria-haspopup="dialog"
         aria-label={`Cart, ${cartCount} item${cartCount === 1 ? "" : "s"}`}
-        className="group flex items-center gap-3"
+        className="group flex items-center"
       >
-        <div className="relative flex size-9 items-center justify-center rounded-full bg-[#eff5ee] text-[#23403d] transition-colors group-hover:bg-[#ec6e55] group-hover:text-white sm:size-11">
-          <ShoppingCart className="size-4 sm:size-5" aria-hidden />
-          <span className="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-[#ec6e55] text-[8px] font-bold leading-none text-white shadow-sm ring-2 ring-white transition-colors group-hover:bg-[#23403d] sm:size-[18px] sm:text-[10px]">
+        <div className="relative flex size-10 items-center justify-center rounded-full text-foreground transition-colors group-hover:bg-secondary">
+          <ShoppingCart className="size-5" aria-hidden />
+          <span className="absolute right-0.5 top-0.5 flex size-4 items-center justify-center rounded-full bg-brand-maroon text-[9px] font-bold leading-none text-text-cream shadow-sm ring-2 ring-brand-cream sm:size-[17px] sm:text-[10px]">
             {cartCount > 99 ? "99+" : cartCount}
-          </span>
-        </div>
-
-        <div className="hidden flex-col items-start lg:flex">
-          <span className="text-xs font-bold text-[#767676]">Your Cart</span>
-          <span className="text-sm font-bold text-[#ec6e55]">
-            <PriceDisplay pricePaise={cartTotal} />
           </span>
         </div>
       </button>
@@ -79,40 +71,40 @@ export function CartDropdown() {
         <div
           role="dialog"
           aria-label="Cart preview"
-          className="absolute right-0 top-full z-[60] mt-3 w-[min(20rem,calc(100vw-1.5rem))] overflow-hidden rounded-2xl border border-[#efe8e4] bg-white shadow-xl"
+          className="absolute right-0 top-full z-[60] mt-3 w-[min(20rem,calc(100vw-1.5rem))] overflow-hidden rounded-2xl border border-border bg-card shadow-xl"
         >
           {/* Little notch pointing at the icon */}
-          <div className="absolute -top-1.5 right-4 size-3 rotate-45 border-l border-t border-[#efe8e4] bg-white" aria-hidden />
+          <div className="absolute -top-1.5 right-4 size-3 rotate-45 border-l border-t border-border bg-card" aria-hidden />
 
-          <div className="flex items-center justify-between border-b border-[#efe8e4] px-4 py-3">
-            <p className="text-sm font-bold text-[#23403d]">
+          <div className="flex items-center justify-between border-b border-border px-4 py-3">
+            <p className="text-sm font-semibold text-foreground">
               Your Cart{cartCount > 0 ? ` (${cartCount})` : ""}
             </p>
             {cartCount > 0 && (
-              <p className="text-sm font-bold text-[#ec6e55]">{formatPrice(cartTotal)}</p>
+              <p className="text-sm font-semibold text-brand-maroon">{formatPrice(cartTotal)}</p>
             )}
           </div>
 
           {cartItems.length === 0 ? (
             <div className="flex flex-col items-center gap-2 px-4 py-8 text-center">
-              <div className="flex size-10 items-center justify-center rounded-full bg-[#eff5ee] text-[#23403d]">
+              <div className="flex size-10 items-center justify-center rounded-full bg-secondary text-brand-maroon">
                 <ShoppingCart className="size-5" aria-hidden />
               </div>
-              <p className="text-sm font-medium text-[#23403d]">Your cart is empty</p>
+              <p className="text-sm font-medium text-foreground">Your cart is empty</p>
               <Link
                 href="/products"
                 onClick={() => setOpen(false)}
-                className="text-xs font-bold text-[#ec6e55] hover:underline"
+                className="text-xs font-semibold text-brand-maroon hover:underline"
               >
                 Browse products
               </Link>
             </div>
           ) : (
             <>
-              <ul className="max-h-72 overflow-y-auto overscroll-contain divide-y divide-[#f5efe9]">
+              <ul className="max-h-72 overflow-y-auto overscroll-contain divide-y divide-border">
                 {cartItems.map((item) => (
                   <li key={item.id} className="flex items-center gap-3 px-4 py-2.5">
-                    <div className="relative size-11 shrink-0 overflow-hidden rounded-lg border border-[#efe8e4] bg-[#faf3ef]">
+                    <div className="relative size-11 shrink-0 overflow-hidden rounded-lg border border-border bg-secondary">
                       <Image
                         src={item.product?.imageUrl || PLACEHOLDER_IMAGE}
                         alt={item.product?.imageAlt || item.product?.name || "Cart item"}
@@ -122,26 +114,26 @@ export function CartDropdown() {
                       />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-xs font-bold text-[#23403d]">
+                      <p className="truncate text-xs font-semibold text-foreground">
                         {item.product?.name ?? item.variant?.name ?? "Item"}
                       </p>
-                      <p className="truncate text-[11px] text-[#767676]">
+                      <p className="truncate text-[11px] text-muted-foreground">
                         {item.variant?.name ? `${item.variant.name} · ` : ""}
                         {item.quantity} × {formatPrice(item.priceSnapshot)}
                       </p>
                     </div>
-                    <p className="shrink-0 text-xs font-bold text-[#23403d]">
+                    <p className="shrink-0 text-xs font-semibold text-foreground">
                       {formatPrice(item.lineTotal)}
                     </p>
                   </li>
                 ))}
               </ul>
 
-              <div className="border-t border-[#efe8e4] p-3">
+              <div className="border-t border-border p-3">
                 <Link
                   href="/cart"
                   onClick={() => setOpen(false)}
-                  className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#23403d] text-sm font-bold text-white transition-colors hover:bg-[#ec6e55]"
+                  className="flex h-11 w-full items-center justify-center gap-2 rounded-full bg-brand-maroon text-sm font-semibold text-text-cream transition-colors hover:bg-brand-maroon-dark"
                 >
                   Go to Cart
                   <ArrowRight className="size-4" aria-hidden />

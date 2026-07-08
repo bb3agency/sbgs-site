@@ -14,34 +14,34 @@ const PILLARS: Pillar[] = [
     title: "Native seeds, not hybrids",
     description:
       "We work with heirloom varieties our grandparents grew — richer flavour, denser nutrition, and built for our soil.",
-    accent: "bg-[#f5d88e] text-[#7f1416]",
+    accent: "bg-brand-gold/20 text-brand-maroon",
   },
   {
     icon: FlaskConical,
     title: "Tested in independent labs",
     description:
       "Every batch is screened for 300+ pesticide residues by NABL-accredited labs before it ships from our facility.",
-    accent: "bg-[#f5d88e] text-[#7f1416]",
+    accent: "bg-brand-gold/20 text-brand-maroon",
   },
   {
     icon: HeartHandshake,
     title: "Farmer-first sourcing",
     description:
       "We pay 30–40% above mandi rates and lock annual contracts so farmers can invest in chemical-free practices.",
-    accent: "bg-[#fff5db] text-[#7f1416]",
+    accent: "bg-[#fff5db] text-brand-maroon",
   },
   {
     icon: Users,
     title: "Built on customer trust",
     description:
       "Over 10,000 families across India have made Sri Sai Baba Ghee Sweets part of their weekly kitchen. Reviews speak for us.",
-    accent: "bg-[#e8f3ff] text-[#7f1416]",
+    accent: "bg-[#e8f3ff] text-brand-maroon",
   },
 ];
 
 export function ValuePillars() {
   return (
-    <section className="bg-[#faf5ec]">
+    <section className="bg-brand-cream">
       <div className="mx-auto w-full max-w-[1440px] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         <SectionHeading
           eyebrow="Why Sri Sai Baba Ghee Sweets"
@@ -55,7 +55,7 @@ export function ValuePillars() {
           {PILLARS.map(({ icon: Icon, title, description, accent }, idx) => (
             <article
               key={title}
-              className="group relative flex flex-col gap-4 rounded-3xl border border-[#7f1416]/8 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#7f1416]/20 hover:shadow-[0_24px_60px_-24px_rgba(35,64,61,0.25)] sm:p-7"
+              className="group relative flex flex-col gap-4 rounded-3xl border border-brand-maroon/8 bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-maroon/20 hover:shadow-[0_24px_60px_-24px_rgba(35,64,61,0.25)] sm:p-7"
             >
               <div
                 className={`flex size-14 items-center justify-center rounded-2xl ${accent} transition-transform group-hover:scale-110`}
@@ -64,13 +64,13 @@ export function ValuePillars() {
               </div>
 
               <div className="flex flex-1 flex-col gap-2">
-                <span className="font-mono text-[11px] font-bold tracking-wider text-[#d4a537]">
+                <span className="font-mono text-[11px] font-bold tracking-wider text-brand-gold">
                   0{idx + 1}
                 </span>
-                <h3 className="font-heading text-lg font-bold leading-tight text-[#7f1416] sm:text-xl">
+                <h3 className="font-heading text-lg font-bold leading-tight text-brand-maroon sm:text-xl">
                   {title}
                 </h3>
-                <p className="text-sm leading-relaxed text-[#8c7b6b]">
+                <p className="text-sm leading-relaxed text-muted-foreground">
                   {description}
                 </p>
               </div>

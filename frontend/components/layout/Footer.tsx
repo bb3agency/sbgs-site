@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
 // Brand glyphs: lucide-react ships no brand icons — react-icons is the one
 // sanctioned exception, used ONLY for social brand logos (tree-shaken imports).
 import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa6";
 import { useStoreConfig } from "@/components/providers/StoreConfigProvider";
 import { APP_NAME, BRAND_LOGO_SRC } from "@/lib/constants";
-import { NewsletterForm } from "@/components/client/NewsletterForm";
 import type { CategoryWithMeta } from "@/lib/categories";
 
 interface FooterProps {
@@ -21,60 +21,40 @@ interface FooterColumn {
 
 const COLUMNS: FooterColumn[] = [
   {
-    title: "Shop",
+    title: "Quick Links",
     links: [
+      { label: "Home", href: "/" },
       { label: "All Sweets", href: "/products" },
-      { label: "Festive Boxes", href: "/products" },
-      { label: "Ghee Specials", href: "/products" },
-      { label: "Dry Fruit Sweets", href: "/products" },
-      { label: "Party Packs", href: "/products" },
-      { label: "Gift Cards", href: "/products" },
-    ],
-  },
-  {
-    title: "Customer Service",
-    links: [
-      { label: "Track Order", href: "/orders" },
-      { label: "Returns & Refunds", href: "/returns" },
-      { label: "Shipping Policy", href: "/shipping" },
-      { label: "Cancellation Policy", href: "/returns" },
-      { label: "FAQs", href: "/about" },
-      { label: "Contact Us", href: "/about" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
+      { label: "Best Sellers", href: "/products?sort=popularity" },
+      { label: "Our Branches", href: "/locations" },
       { label: "About Us", href: "/about" },
-      { label: "Our Story", href: "/about" },
-      { label: "Careers", href: "/about" },
-      { label: "Store Locator", href: "/locations" },
-      { label: "Blog", href: "/about" },
-      { label: "Corporate Orders", href: "/products" },
     ],
   },
   {
-    title: "Policies",
+    title: "Customer Care",
     links: [
-      { label: "Terms & Conditions", href: "/terms" },
-      { label: "Privacy Policy", href: "/privacy" },
-      { label: "Refund Policy", href: "/returns" },
-      { label: "Shipping Policy", href: "/shipping" },
-      { label: "Cookie Policy", href: "/privacy" },
+      { label: "My Orders", href: "/orders" },
+      { label: "Shipping & Delivery", href: "/shipping" },
+      { label: "Returns & Refunds", href: "/returns" },
+      { label: "FAQs", href: "/faq" },
+      { label: "Track Order", href: "/orders" },
     ],
   },
 ];
 
-const PAYMENTS = ["Razorpay", "VISA", "Mastercard", "UPI"];
-
 export function Footer(_props: FooterProps) {
-  // Merchant-managed social links (Admin → Settings → Store, via GET /store/config).
-  // WhatsApp derives from the store contact phone — no separate setting. Icons
-  // render only when their target is configured, so there are no dead links.
+  // Merchant-managed identity/contact (Admin → Settings → Store, via GET /store/config).
+  // WhatsApp derives from the store contact phone — no separate setting. Items
+  // render only when their value is configured, so there is no dead content.
   const config = useStoreConfig();
   const facebookUrl = config.facebookUrl?.trim() || "";
   const instagramUrl = config.instagramUrl?.trim() || "";
-  const whatsappDigits = (config.contactPhone ?? "").replace(/\D/g, "");
+  const contactPhone = config.contactPhone?.trim() || "";
+  const contactEmail = config.contactEmail?.trim() || "";
+  const storeAddress = config.storeAddress?.trim() || "";
+  const storeState = config.storeState?.trim() || "";
+  const fullAddress = [storeAddress, storeState].filter(Boolean).join(", ");
+  const whatsappDigits = contactPhone.replace(/\D/g, "");
   // wa.me needs a country code; default bare 10-digit Indian numbers to +91.
   const whatsappHref = whatsappDigits
     ? `https://wa.me/${whatsappDigits.length === 10 ? `91${whatsappDigits}` : whatsappDigits}`
@@ -86,31 +66,38 @@ export function Footer(_props: FooterProps) {
   ].filter((s) => s.href);
 
   return (
-    <footer className="bg-[#5c0e16] text-[#f3e6da]">
-      <div className="mx-auto w-full max-w-[1440px] px-4 py-12 sm:py-14 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
+    <footer className="border-t border-border bg-brand-cream pt-16 sm:pt-20">
+      <div className="mx-auto w-full px-4 sm:px-6 lg:px-10">
+        <div className="grid gap-10 pb-12 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.5fr] lg:gap-12 sm:pb-16">
           {/* Brand */}
-          <div className="lg:col-span-3">
+          <div>
             <Link
               href="/"
-              className="flex items-center gap-2 font-heading text-xl font-bold tracking-tight text-white"
+              className="flex items-center gap-2.5"
               aria-label={`${APP_NAME} home`}
             >
               <Image
                 src={BRAND_LOGO_SRC}
                 alt={`${APP_NAME} logo`}
-                width={36}
-                height={36}
-                className="size-9 object-contain"
+                width={40}
+                height={40}
+                className="size-10 object-contain"
               />
-              <span>{APP_NAME}</span>
+              <span className="flex flex-col leading-none">
+                <span className="font-heading text-xl font-semibold text-brand-maroon">
+                  Sri Sai Baba
+                </span>
+                <span className="mt-0.5 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-brand-gold">
+                  Ghee Sweets
+                </span>
+              </span>
             </Link>
-            <p className="mt-4 text-sm leading-relaxed text-[#d4a537]">
-              Bringing sweetness to your celebrations since years. Made with pure
-              ghee. Made with love.
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">
+              Bringing tradition, taste and trust to every bite since
+              generations.
             </p>
             {socials.length > 0 ? (
-              <div className="mt-5 flex gap-3">
+              <div className="mt-6 flex gap-4">
                 {socials.map((social) => (
                   <a
                     key={social.label}
@@ -118,7 +105,7 @@ export function Footer(_props: FooterProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="flex size-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-[#d4a537] hover:text-[#5c0e16]"
+                    className="flex size-10 items-center justify-center rounded-full border border-brand-maroon text-brand-maroon transition-colors hover:bg-brand-maroon hover:text-text-cream"
                   >
                     {social.icon}
                   </a>
@@ -129,54 +116,74 @@ export function Footer(_props: FooterProps) {
 
           {/* Link columns */}
           {COLUMNS.map((col) => (
-            <div key={col.title} className="lg:col-span-2">
-              <h3 className="font-heading text-sm font-bold uppercase tracking-wide text-[#d4a537]">
+            <nav key={col.title} aria-label={col.title}>
+              <h3 className="font-heading text-lg font-semibold text-brand-maroon">
                 {col.title}
               </h3>
-              <ul className="mt-4 space-y-2.5 text-sm text-[#e7d2c4]">
+              <ul className="mt-5 space-y-3 text-sm text-foreground/80">
                 {col.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="transition-colors hover:text-white"
+                      className="transition-colors hover:text-brand-maroon"
                     >
                       {link.label}
                     </Link>
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
           ))}
 
-          {/* Newsletter */}
-          <div className="lg:col-span-3">
-            <h3 className="font-heading text-sm font-bold uppercase tracking-wide text-[#d4a537]">
-              Newsletter
+          {/* Contact */}
+          <div>
+            <h3 className="font-heading text-lg font-semibold text-brand-maroon">
+              Contact Us
             </h3>
-            <p className="mt-4 text-sm text-[#e7d2c4]">
-              Stay updated with offers and new arrivals
-            </p>
-            <NewsletterForm />
-            <div className="mt-5 flex flex-wrap gap-2">
-              {PAYMENTS.map((p) => (
-                <span
-                  key={p}
-                  className="rounded-md bg-white px-2.5 py-1 text-[11px] font-bold text-[#5c0e16]"
-                >
-                  {p}
-                </span>
-              ))}
-            </div>
+            <ul className="mt-5 space-y-4 text-sm text-foreground/80">
+              {fullAddress ? (
+                <li className="flex items-start gap-3">
+                  <MapPin className="mt-0.5 size-4 shrink-0 text-brand-maroon" aria-hidden />
+                  <span>{fullAddress}</span>
+                </li>
+              ) : null}
+              {contactPhone ? (
+                <li className="flex items-start gap-3">
+                  <Phone className="mt-0.5 size-4 shrink-0 text-brand-maroon" aria-hidden />
+                  <a href={`tel:${contactPhone.replace(/[^\d+]/g, "")}`} className="transition-colors hover:text-brand-maroon">
+                    {contactPhone}
+                  </a>
+                </li>
+              ) : null}
+              {contactEmail ? (
+                <li className="flex items-start gap-3">
+                  <Mail className="mt-0.5 size-4 shrink-0 text-brand-maroon" aria-hidden />
+                  <a href={`mailto:${contactEmail}`} className="break-all transition-colors hover:text-brand-maroon">
+                    {contactEmail}
+                  </a>
+                </li>
+              ) : null}
+              <li className="flex items-start gap-3">
+                <Clock className="mt-0.5 size-4 shrink-0 text-brand-maroon" aria-hidden />
+                <span>Mon – Sun: 9:00 AM – 9:00 PM</span>
+              </li>
+            </ul>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-[#e7d2c4] sm:flex-row">
+        <div className="flex flex-col items-center justify-between gap-3 border-t border-border py-6 text-sm text-muted-foreground sm:flex-row">
           <p>
             &copy; {new Date().getFullYear()} {APP_NAME}. All Rights Reserved.
           </p>
-          <p className="flex items-center gap-1">
-            Made with <span className="text-[#d4a537]">&hearts;</span> in India
+          <p className="flex items-center gap-4">
+            <Link href="/privacy" className="transition-colors hover:text-brand-maroon">
+              Privacy Policy
+            </Link>
+            <span aria-hidden>|</span>
+            <Link href="/terms" className="transition-colors hover:text-brand-maroon">
+              Terms &amp; Conditions
+            </Link>
           </p>
         </div>
       </div>

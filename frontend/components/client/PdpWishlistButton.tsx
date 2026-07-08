@@ -46,7 +46,7 @@ export function PdpWishlistButton({ productId }: PdpWishlistButtonProps) {
         "flex size-10 items-center justify-center rounded-full border-2 transition-all duration-200 sm:size-11",
         isWished
           ? "border-[#e74c6f] bg-[#fef2f5] text-[#e74c6f]"
-          : "border-[#e8e0d8] bg-white text-[#ccc] hover:border-[#e74c6f] hover:text-[#e74c6f]",
+          : "border-[#e8e0d8] bg-card text-[#ccc] hover:border-[#e74c6f] hover:text-[#e74c6f]",
         animating && "scale-125",
       )}
     >

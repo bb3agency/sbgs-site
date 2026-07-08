@@ -48,7 +48,7 @@ export function ProductVariantSelector({
           />
         </div>
         {hasDiscount && selectedVariant?.compareAtPrice && (
-          <span className="rounded-full bg-[#ec6e55] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
+          <span className="rounded-full bg-brand-maroon px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
             Save{" "}
             {Math.round(
               (1 - selectedVariant.price / selectedVariant.compareAtPrice) *
@@ -62,7 +62,7 @@ export function ProductVariantSelector({
       {/* Variants */}
       {product.variants.length > 1 && (
         <div className="flex flex-col gap-3 pt-2">
-          <p className="text-xs font-bold uppercase tracking-wider text-[#23403d]">
+          <p className="text-xs font-bold uppercase tracking-wider text-foreground">
             Select Size
           </p>
           <div className="flex flex-wrap gap-2 sm:gap-3">
@@ -73,8 +73,8 @@ export function ProductVariantSelector({
                 onClick={() => setSelectedVariant(v)}
                 className={`rounded-full border-2 px-4 py-1.5 text-xs font-bold transition-all sm:px-5 sm:py-2 sm:text-sm ${
                   v.id === selectedVariant?.id
-                    ? "border-[#23403d] bg-[#23403d] text-white"
-                    : "border-[#efe8e4] text-[#767676] hover:border-[#23403d] hover:text-[#23403d]"
+                    ? "border-brand-maroon bg-brand-maroon text-white"
+                    : "border-border text-muted-foreground hover:border-brand-maroon hover:text-foreground"
                 }`}
               >
                 {v.name}
@@ -89,20 +89,20 @@ export function ProductVariantSelector({
         <div id="pdp-atc-anchor" className="flex flex-col gap-3 pt-2 sm:flex-row sm:gap-4">
           <AddToCartButton
             variantId={selectedVariant.id}
-            className="flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-[#eff5ee] px-6 text-sm font-bold text-[#23403d] shadow-sm transition-colors hover:bg-[#c5dac2] disabled:opacity-60 sm:h-14"
+            className="flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-secondary px-6 text-sm font-bold text-foreground shadow-sm transition-colors hover:bg-secondary disabled:opacity-60 sm:h-14"
             label="Add to cart"
             icon={<ShoppingCart className="size-4 shrink-0" aria-hidden />}
           />
           <AddToCartButton
             variantId={selectedVariant.id}
-            className="flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-[#23403d] px-6 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#ec6e55] disabled:opacity-60 sm:h-14"
+            className="flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-brand-maroon px-6 text-sm font-bold text-white shadow-sm transition-colors hover:bg-brand-maroon disabled:opacity-60 sm:h-14"
             label="Buy now"
             icon={<Zap className="size-4 shrink-0" aria-hidden />}
             redirectTo="/checkout"
           />
         </div>
       ) : (
-        <p className="rounded-full bg-[#faf3ef] py-4 text-center text-sm font-bold text-[#767676]">
+        <p className="rounded-full bg-brand-cream py-4 text-center text-sm font-bold text-muted-foreground">
           Currently out of stock
         </p>
       )}
