@@ -1,9 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { HomeCarousel } from "./HomeCarousel";
 import type { CategoryWithMeta } from "@/lib/categories";
 
-/** Label-bar tints cycled across category cards (reference Home.tsx §4). */
 const LABEL_TINTS = [
   "bg-cat-olive",
   "bg-cat-amber",
@@ -12,7 +14,6 @@ const LABEL_TINTS = [
   "bg-cat-rust",
 ];
 
-/** Short descriptors cycled under category names (reference shows one per tile). */
 const LABEL_TAGLINES = [
   "Traditional & iconic",
   "Rich, creamy & delightful",
@@ -27,13 +28,18 @@ interface CategoryCarouselProps {
   categories: CategoryWithMeta[];
 }
 
-/** "Explore Our Sweet Categories" — image tiles with colored label bars. */
 export function CategoryCarousel({ categories }: CategoryCarouselProps) {
   if (categories.length === 0) return null;
 
   return (
-    <section className="mx-auto w-full px-4 py-16 sm:py-24 sm:px-6 lg:px-10">
-      <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <section className="mx-auto w-full px-3 sm:px-6 lg:px-10 py-12 sm:py-24">
+      <motion.div 
+        className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
+      >
         <h2 className="max-w-[480px] font-heading text-4xl font-semibold leading-[1.15] text-foreground sm:text-5xl">
           Explore Our
           <br />
@@ -43,17 +49,23 @@ export function CategoryCarousel({ categories }: CategoryCarouselProps) {
           From timeless classics to modern favourites, there&rsquo;s something
           sweet for every moment.
         </p>
-      </div>
+      </motion.div>
 
       <HomeCarousel label="sweet categories">
         {categories.map((cat, i) => (
-          <Link
+          <motion.div
             key={cat.id}
-            href={`/categories/${cat.slug}`}
             data-carousel-item
             className="group w-[70%] shrink-0 snap-start sm:w-[calc(33.333%-16px)] lg:w-[calc(20%-19.2px)]"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const, delay: i * 0.1 }}
           >
-            <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-card">
+            <Link
+              href={`/categories/${cat.slug}`}
+              className="flex h-full flex-col overflow-hidden rounded-2xl bg-card"
+            >
               <div className="relative aspect-square overflow-hidden">
                 <Image
                   src={cat.image || CATEGORY_PLACEHOLDER}
@@ -71,8 +83,8 @@ export function CategoryCarousel({ categories }: CategoryCarouselProps) {
                   {LABEL_TAGLINES[i % LABEL_TAGLINES.length]}
                 </p>
               </div>
-            </div>
-          </Link>
+            </Link>
+          </motion.div>
         ))}
       </HomeCarousel>
     </section>

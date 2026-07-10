@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Heart, ShoppingCart } from "lucide-react";
+import { motion } from "framer-motion";
 import type { Product } from "@/types/product";
 import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { useAuthStore } from "@/stores/auth";
@@ -73,7 +74,11 @@ export function ProductCard({
   const unitText = isKg ? "/kg" : activeVariant?.name ? `/ ${activeVariant.name}` : "";
 
   return (
-    <article
+    <motion.article
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
       className={cn(
         "group relative flex h-full flex-col overflow-hidden rounded-[20px] bg-white transition-shadow duration-300 hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)]",
         className,
@@ -162,6 +167,6 @@ export function ProductCard({
           )}
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }

@@ -4,6 +4,7 @@ import { APP_NAME, BRAND_LOGO_SRC } from "@/lib/constants";
 import { getSiteUrl } from "@/lib/seo";
 import { MaintenanceBanner } from "@/components/maintenance/MaintenanceBanner";
 import { Toaster } from "@/components/ui/Toaster";
+import { SmoothScrollProvider } from "@/components/shared/SmoothScrollProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -50,10 +51,12 @@ export default function RootLayout({
           modes. Polls every 60s in steady state, escalates to 5s when a
           maintenance window is pending so the countdown stays accurate.
         */}
-        <MaintenanceBanner />
-        {children}
-        {/* Global toast popups — small, left-anchored, viewport-aware, ~3s auto-dismiss. */}
-        <Toaster />
+        <SmoothScrollProvider>
+          <MaintenanceBanner />
+          {children}
+          {/* Global toast popups — small, left-anchored, viewport-aware, ~3s auto-dismiss. */}
+          <Toaster />
+        </SmoothScrollProvider>
       </body>
     </html>
   );
