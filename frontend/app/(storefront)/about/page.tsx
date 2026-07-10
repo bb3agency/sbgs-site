@@ -1,55 +1,44 @@
 import { getPublicStoreConfig } from "@/lib/storefront-settings";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronRight, Leaf, Heart, Shield, Users, Sprout, Truck, Star } from "lucide-react";
+import { ChevronRight, Heart, Shield, Truck, Utensils, Droplet, ChefHat } from "lucide-react";
 import { APP_NAME } from "@/lib/constants";
 
 export const metadata = {
   title: `About Us — ${APP_NAME}`,
   description:
-    "We work directly with 120+ certified farmers across Telangana to bring you chemical-free, traceable produce. Every batch is lab-tested for 300+ pesticide residues.",
+    "Discover the story behind Sri Sai Baba Ghee Sweets & Home Foods. We bring you authentic, handcrafted traditional sweets made with pure ghee and the finest ingredients.",
 };
 
 const VALUES = [
   {
-    icon: Leaf,
-    title: "100% Chemical Free",
+    icon: Droplet,
+    title: "100% Pure Ghee",
     description:
-      "Every product is grown without synthetic pesticides, herbicides, or chemical fertilisers. We test every batch in certified labs for 300+ pesticide residues before dispatch.",
+      "We never compromise on quality. Every sweet is prepared using 100% pure, premium ghee to ensure the authentic aroma and rich taste that traditional sweets deserve.",
   },
   {
-    icon: Heart,
-    title: "Farmer First",
+    icon: ChefHat,
+    title: "Authentic Recipes",
     description:
-      "We eliminate middlemen and pay farmers directly at fair prices — typically 30–40% above the market rate. Healthy farmers grow healthier food.",
+      "Our recipes have been passed down through generations. We stay true to traditional preparation methods, capturing the true essence of homemade goodness.",
   },
   {
     icon: Shield,
-    title: "Quality Promise",
+    title: "No Preservatives",
     description:
-      "Not satisfied with your order? We replace it or refund it, no questions asked. Your trust is more important than a single transaction.",
+      "Our sweets and home foods are made fresh without the use of artificial preservatives or chemicals. Just natural, wholesome ingredients in every bite.",
   },
   {
-    icon: Users,
-    title: "Community Rooted",
+    icon: Heart,
+    title: "Handcrafted with Love",
     description:
-      "We partner with small family farms, cooperatives, and tribal farming communities — people who have practised natural farming for generations.",
+      "Every delicacy is carefully handcrafted by our experienced artisans who take pride in delivering perfection, just like the sweets made in your own kitchen.",
   },
 ];
 
-const BASE_STATS = [
-  { value: "120+", label: "Partner Farmers" },
-  { value: "300+", label: "Pesticide Tests per Batch" },
-  { value: "48 hrs", label: "Farm to Door" },
-] as const;
-
-const REVIEWS_STAT = { value: "4.8 ★", label: "Average Rating" } as const;
-
 export default async function AboutPage() {
   const storeConfig = await getPublicStoreConfig();
-  const stats = storeConfig.reviewsEnabled
-    ? [...BASE_STATS, REVIEWS_STAT]
-    : [...BASE_STATS];
   return (
     <div className="flex flex-col bg-brand-cream min-h-screen pb-16">
       {/* ── Page Header Banner ──────────────────────────────────────────── */}
@@ -94,54 +83,33 @@ export default async function AboutPage() {
                   Who we are
                 </p>
                 <h2 className="mb-4 font-heading text-2xl font-bold text-brand-maroon sm:text-3xl">
-                  Farm-fresh chemical-free produce, direct to your doorstep
+                  Authentic taste, crafted with pure ghee and tradition
                 </h2>
                 <div className="space-y-4 text-sm font-medium leading-relaxed text-muted-foreground">
                   <p>
-                    Sri Sai Baba Ghee Sweets was founded on a single belief: every family deserves
-                    access to food grown the way nature intended — without chemicals, without
-                    shortcuts, and with full traceability from seed to table.
+                    Sri Sai Baba Ghee Sweets & Home Foods was founded on a simple philosophy: 
+                    to bring the warmth and joy of authentic, homemade delicacies to your family's celebrations and everyday moments.
                   </p>
                   <p>
-                    We work directly with <strong className="text-brand-maroon">120+ certified farmers</strong> across
-                    Telangana who have committed to chemical-free, native-seed farming. Their
-                    knowledge of the land, often passed down over generations, is irreplaceable.
-                    We give them a market; they give you real food.
+                    We believe that true flavor lies in purity. That's why we meticulously source the finest ingredients and use <strong className="text-brand-maroon">100% pure ghee</strong> for our traditional Indian sweets. 
+                    From our famous Badusha to our delicate Kaju Katli, every item is a testament to our rich culinary heritage.
                   </p>
                   <p>
-                    Every batch is lab-tested for <strong className="text-brand-maroon">300+ pesticide residues</strong> before
-                    it leaves the farm. If it does not pass, it does not ship — period. Orders
-                    are harvested and dispatched within 48 hours for peak freshness.
+                    Beyond sweets, our selection of savory home foods—including pickles, powders, and namkeens—are prepared with the same dedication to authenticity. 
+                    No shortcuts, no artificial preservatives. Just genuine taste crafted with love and delivered fresh to your door.
                   </p>
                 </div>
               </div>
               <div className="relative overflow-hidden rounded-[20px] bg-brand-cream">
                 <Image
-                  src="/images/product-placeholder.svg"
-                  alt="Sri Sai Baba Ghee Sweets — fresh chemical-free produce"
+                  src="/images/sweets/IMG_20260612_165401.jpg"
+                  alt="Sri Sai Baba Ghee Sweets — authentic pure ghee sweets"
                   width={600}
                   height={480}
-                  className="mx-auto h-64 w-full object-contain p-8 lg:h-80"
+                  className="mx-auto h-64 w-full object-cover p-0 lg:h-96"
                 />
               </div>
             </div>
-          </div>
-
-          {/* Impact stats */}
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6">
-            {stats.map(({ value, label }) => (
-              <div
-                key={label}
-                className="flex flex-col items-center justify-center rounded-[20px] bg-brand-maroon px-4 py-6 text-center sm:py-8"
-              >
-                <span className="font-heading text-2xl font-bold text-white sm:text-3xl">
-                  {value}
-                </span>
-                <span className="mt-1.5 text-xs font-bold uppercase tracking-wider text-white/70">
-                  {label}
-                </span>
-              </div>
-            ))}
           </div>
 
           {/* Values grid */}
@@ -178,14 +146,14 @@ export default async function AboutPage() {
               How it works
             </p>
             <h2 className="mb-8 font-heading text-2xl font-bold text-brand-maroon sm:text-3xl">
-              From seed to your table
+              From our kitchen to your home
             </h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {[
-                { icon: Sprout, step: "1", title: "Certified Farming", desc: "Partner farmers grow using native seeds and zero chemicals on certified plots." },
-                { icon: Star, step: "2", title: "Lab Testing", desc: "Every harvest is tested for 300+ pesticide residues before leaving the farm." },
-                { icon: Leaf, step: "3", title: "Fresh Harvest", desc: "We harvest within 48 hours of your order to ensure peak nutrition and freshness." },
-                { icon: Truck, step: "4", title: "Fast Delivery", desc: "Cold-chain delivery to your door — produce arrives as fresh as the morning harvest." },
+                { icon: Utensils, step: "1", title: "Finest Ingredients", desc: "We source premium quality nuts, pure ghee, and fresh ingredients." },
+                { icon: ChefHat, step: "2", title: "Traditional Cooking", desc: "Our artisans meticulously prepare each delicacy using time-honored recipes." },
+                { icon: Shield, step: "3", title: "Quality Check", desc: "Every batch is tested for perfect taste, texture, and hygiene." },
+                { icon: Truck, step: "4", title: "Secure Delivery", desc: "Carefully packed to preserve freshness and safely delivered to your doorstep." },
               ].map(({ icon: Icon, step, title, desc }) => (
                 <div key={step} className="relative flex flex-col items-center text-center">
                   <div className="mb-4 flex size-14 items-center justify-center rounded-full bg-brand-cream">
@@ -210,14 +178,14 @@ export default async function AboutPage() {
               Delivery areas
             </h2>
             <p className="mx-auto mb-6 max-w-lg text-sm leading-relaxed text-white/75">
-              We currently deliver across Hyderabad and the surrounding districts of Telangana.
-              Enter your pincode at checkout to check serviceability — we are expanding regularly.
+              We currently deliver fresh sweets and home foods across our standard delivery zones.
+              Enter your pincode at checkout to verify serviceability as we continue to expand.
             </p>
             <Link
               href="/products"
               className="inline-flex h-12 items-center justify-center rounded-full bg-brand-gold px-8 text-sm font-bold text-white transition-transform hover:-translate-y-1 hover:bg-white hover:text-brand-maroon hover:shadow-lg"
             >
-              Shop Now
+              Explore Our Menu
             </Link>
           </div>
 
