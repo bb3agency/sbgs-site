@@ -5,7 +5,7 @@ import { APP_NAME } from "@/lib/constants";
 export const metadata = {
   title: `Terms & Conditions — ${APP_NAME}`,
   description:
-    "Terms and conditions governing the use of the Sri Sai Baba Ghee Sweets storefront, placing orders, and purchasing chemical-free produce.",
+    "Terms and conditions governing the use of the Sri Sai Baba Ghee Sweets storefront, placing orders, and purchasing our sweets and savories.",
 };
 
 const SECTIONS = [
@@ -19,7 +19,7 @@ const SECTIONS = [
     icon: ShoppingBag,
     title: "2. Products & Availability",
     content:
-      "All products listed are subject to availability. We reserve the right to limit quantities, discontinue products, or refuse orders at any time. Product images and descriptions are for illustrative purposes — natural variations in shape, size, and colour are expected in chemical-free, farm-fresh produce and do not constitute defects.",
+      "All products listed are subject to availability. We reserve the right to limit quantities, discontinue products, or refuse orders at any time. Product images and descriptions are for illustrative purposes — natural variations in colour, texture, and shape are expected in freshly handmade sweets and do not constitute defects.",
   },
   {
     icon: CreditCard,
@@ -31,7 +31,7 @@ const SECTIONS = [
     icon: AlertCircle,
     title: "4. Order Cancellation",
     content:
-      "Orders may be cancelled before dispatch without charge. Once dispatched, cancellations are not accepted for perishable produce. If we are unable to fulfil your order due to stock unavailability or delivery constraints, we will notify you and issue a full refund within 5–7 business days.",
+      "Orders may be cancelled before dispatch without charge. Once dispatched, cancellations cannot be accepted for freshly made food items. If we are unable to fulfil your order due to stock unavailability or delivery constraints, we will notify you and issue a full refund within 5–7 business days.",
   },
   {
     icon: Scale,
@@ -49,7 +49,7 @@ const SECTIONS = [
     icon: Mail,
     title: "7. Governing Law",
     content:
-      "These Terms & Conditions are governed by the laws of Telangana, India. Any disputes shall be subject to the exclusive jurisdiction of the courts in Hyderabad, Telangana. If you have a question or complaint, please contact us first at hello@srisaibabasweets.com — we resolve most issues informally.",
+      "These Terms & Conditions are governed by the laws of Andhra Pradesh, India. Any disputes shall be subject to the exclusive jurisdiction of the courts in Vijayawada, Andhra Pradesh. If you have a question or complaint, please contact us first at hello@srisaibabasweets.com — we resolve most issues informally.",
   },
 ];
 

@@ -5,7 +5,7 @@ import { APP_NAME } from "@/lib/constants";
 export const metadata = {
   title: `Return Policy — ${APP_NAME}`,
   description:
-    "How to raise a return request, what qualifies for a return, and how we process refunds for chemical-free produce orders.",
+    "How to raise a return request, what qualifies for a return, and how we process refunds for your sweets and savories orders.",
 };
 
 const SECTIONS = [
@@ -13,7 +13,7 @@ const SECTIONS = [
     icon: Clock,
     title: "1. Return Window",
     content:
-      "Due to the perishable nature of fresh fruits, vegetables, dairy, and other chemical-free produce, return or damage claims must be raised within 24 hours of delivery. Please inspect your order on arrival. Claims raised after 24 hours will not be accepted for perishable items.",
+      "Because our sweets and savories are freshly made food items, return or damage claims must be raised within 24 hours of delivery. Please inspect your order on arrival. Claims raised after 24 hours cannot be accepted for freshness-related issues.",
   },
   {
     icon: Camera,
@@ -25,13 +25,13 @@ const SECTIONS = [
     icon: CheckCircle,
     title: "3. Eligible Returns",
     content:
-      "We accept returns or replacements for: damaged or bruised produce (beyond normal variation), incorrect items delivered, quality issues (evidence of non-organic contamination), or items that have visibly spoiled before their expected shelf life. We reserve the right to request photographic evidence.",
+      "We accept returns or replacements for: items damaged in transit, incorrect items delivered, quality issues, or items that have visibly spoiled before their expected shelf life. We reserve the right to request photographic evidence.",
   },
   {
     icon: XCircle,
     title: "4. Non-Eligible Returns",
     content:
-      "We cannot accept returns for: produce that has been stored incorrectly after delivery (non-refrigerated), natural variation in size, shape, or colour (this is expected in chemical-free farming), or items that were delivered in good condition and later damaged by the customer.",
+      "We cannot accept returns for: items that have been stored incorrectly after delivery, natural variation in colour, texture, or shape (expected in handmade sweets), partially consumed items, or items that were delivered in good condition and later damaged by the customer.",
   },
   {
     icon: CreditCard,

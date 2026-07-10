@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { ChevronRight, Truck, MapPin, Clock, PackageCheck, AlertCircle, Leaf } from "lucide-react";
+import { ChevronRight, Truck, MapPin, Clock, PackageCheck, AlertCircle, ShieldCheck } from "lucide-react";
 import { APP_NAME } from "@/lib/constants";
 
 export const metadata = {
   title: `Shipping Policy — ${APP_NAME}`,
   description:
-    "Delivery areas, charges, timelines, and how we handle cold-chain dispatch for your chemical-free produce orders.",
+    "Delivery areas, charges, timelines, and how we freshly pack and dispatch your pure-ghee sweets and savories.",
 };
 
 const SECTIONS = [
@@ -13,7 +13,7 @@ const SECTIONS = [
     icon: MapPin,
     title: "1. Delivery Areas",
     content:
-      "We deliver certified farm-fresh, chemical-free produce to serviceable pincodes within Hyderabad and surrounding districts of Telangana, India. Enter your delivery pincode at checkout — we will instantly confirm whether we can reach you. We are actively expanding to new areas.",
+      "We deliver our freshly made pure-ghee sweets and savories to serviceable pincodes across India. Enter your delivery pincode at checkout — we will instantly confirm whether we can reach you. We are actively expanding to new areas.",
   },
   {
     icon: Truck,
@@ -25,25 +25,25 @@ const SECTIONS = [
     icon: Clock,
     title: "3. Delivery Schedule & Lead Time",
     content:
-      "Orders are harvested and dispatched early morning to preserve cold-chain integrity. Once your order ships, you will receive a real-time tracking AWB via email or WhatsApp. Standard delivery takes 1–2 business days within Hyderabad. Delivery to surrounding areas may take up to 3 business days.",
+      "Orders are prepared in fresh small batches and dispatched promptly. Once your order ships, you will receive a real-time tracking AWB via email or WhatsApp. Standard delivery takes 2–4 business days depending on your location; nearby areas are usually faster.",
   },
   {
     icon: PackageCheck,
     title: "4. Order Processing",
     content:
-      "Orders placed before 6 PM are typically processed and dispatched the following morning. Orders placed on Sundays or public holidays are processed the next working day. You will receive an order confirmation email immediately after placing your order.",
+      "Orders placed before 6 PM are typically processed and dispatched the next working morning. Orders placed on Sundays or public holidays are processed the next working day. You will receive an order confirmation email immediately after placing your order.",
   },
   {
-    icon: Leaf,
-    title: "5. Cold-Chain Handling",
+    icon: ShieldCheck,
+    title: "5. Fresh Packing & Handling",
     content:
-      "All perishable produce is packed in insulated, eco-friendly packaging and dispatched using cold-chain couriers. We do not ship produce that has sat in a warehouse — your order is harvested within 48 hours of dispatch to ensure maximum freshness and nutritional value.",
+      "Every sweet is made in hygienic small batches and sealed in food-safe, tamper-evident packaging to protect freshness in transit. We prioritise items by shelf life so your order arrives in the best possible condition, ready to enjoy or gift.",
   },
   {
     icon: AlertCircle,
     title: "6. Failed Deliveries",
     content:
-      "If a delivery attempt is unsuccessful (no one available, locked premises), our courier will attempt re-delivery once. For perishable orders that cannot be delivered, we will contact you to arrange an alternative. We are not liable for spoilage caused by a missed delivery that was not reported to us within 24 hours.",
+      "If a delivery attempt is unsuccessful (no one available, locked premises), our courier will attempt re-delivery once. If an order cannot be delivered, we will contact you to arrange an alternative. Please report any delivery or packaging issue within 24 hours of the delivery attempt so we can help.",
   },
 ];
 
