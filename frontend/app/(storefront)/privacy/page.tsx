@@ -5,7 +5,7 @@ import { APP_NAME } from "@/lib/constants";
 export const metadata = {
   title: `Privacy Policy — ${APP_NAME}`,
   description:
-    "How Sri Sai Baba Ghee Sweets collects, uses, stores, and protects your personal information when you shop for chemical-free produce.",
+    "How Sri Sai Baba Ghee Sweets collects, uses, stores, and protects your personal information when you shop with us.",
 };
 
 const SECTIONS = [
