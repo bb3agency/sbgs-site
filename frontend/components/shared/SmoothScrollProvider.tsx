@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { ReactLenis, type LenisRef } from "lenis/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -9,6 +10,21 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+
+  // The admin and ops consoles use fixed-height shells that scroll internally
+  // inside their own <main> containers. Lenis binds to the window/root and
+  // captures wheel events globally (smoothWheel), which starves those inner
+  // scroll containers and makes the panels appear frozen. Smooth scrolling is a
+  // storefront-only enhancement — bypass it entirely on the console routes.
+  if (pathname?.startsWith("/admin") || pathname?.startsWith("/ops")) {
+    return <>{children}</>;
+  }
+
+  return <SmoothScrollRoot>{children}</SmoothScrollRoot>;
+}
+
+function SmoothScrollRoot({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<LenisRef | null>(null);
 
   useEffect(() => {
