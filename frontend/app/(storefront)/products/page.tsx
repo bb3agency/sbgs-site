@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Suspense } from "react";
 import { SlidersHorizontal, ChevronRight, Sparkles, ChevronDown, ChevronUp, Search } from "lucide-react";
 import { ProductGrid } from "@/components/product/ProductGrid";
@@ -72,12 +73,16 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                   : sort === "price_asc" ? "Price: Low to High" 
                   : "Price: High to Low";
 
+  const activeCategory = category ? categories.find((c) => c.slug === category) : undefined;
+  const hasCategoryImage = activeCategory?.image && activeCategory.image !== "/images/product-placeholder.svg";
+
   return (
     <div className="flex min-h-screen flex-col bg-[#fdfbf7] pb-24">
       {/* ── Page header — deep green banner ─────── */}
       <section className="relative overflow-hidden bg-[#244f3d] py-14 text-left">
-        <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-10">
-          <nav
+        <div className="mx-auto flex w-full max-w-[1440px] flex-col md:flex-row md:items-center justify-between gap-8 px-4 sm:px-6 lg:px-10">
+          <div className="flex-1 z-10">
+            <nav
             className="mb-6 flex items-center gap-2 text-sm font-medium text-text-cream/60"
             aria-label="Breadcrumb"
           >
@@ -105,6 +110,19 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
           <p className="mt-4 max-w-xl text-[13px] font-medium text-text-cream/80">
             Products in this category will appear when marked Active in admin
           </p>
+          </div>
+
+          {hasCategoryImage && (
+            <div className="relative z-10 size-24 md:size-32 lg:size-48 shrink-0 overflow-hidden rounded-full border-4 border-[#2c5f4a] shadow-xl md:ml-auto self-start md:self-center">
+              <Image
+                src={activeCategory.image}
+                alt={activeCategory.name}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 96px, (max-width: 1024px) 128px, 192px"
+              />
+            </div>
+          )}
         </div>
 
         {/* Decorative illustration pattern on the right */}

@@ -6,7 +6,7 @@ import { HomeProductCard } from "./HomeProductCard";
 import { BestsellersParallax } from "./BestsellersParallax";
 import { Reveal } from "@/components/shared/motion/Reveal";
 
-const SPICY_CATEGORIES = ["Kaaralu", "Kaaram", "Podulu"];
+const SPICY_CATEGORIES = ["Kaaralu", "Kaaram", "Podulu", "Pickles", "pickles", "Pickle", "pickle"];
 
 export async function SpicySnacksSection() {
   const { products } = await fetchStorefrontProducts({ limit: 100 });
