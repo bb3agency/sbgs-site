@@ -149,7 +149,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                   </span>
                 </Link>
                 
-                {categories.map((cat) => (
+                {categories.filter(cat => !cat.parentId).map((cat) => (
                   <Link
                     key={cat.id}
                     href={`/products?${new URLSearchParams({ ...params, category: cat.slug }).toString()}`}
@@ -181,12 +181,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
           
           {/* Top search bar area */}
           <div className="mb-8 flex items-center gap-4">
-            <PlpSearchInput placeholder="Search for sweets..." basePath="/products" />
-            
-            {/* Filter button for mobile/extra actions */}
-            <button className="flex size-[48px] shrink-0 items-center justify-center rounded-full bg-[#521b1b] text-white shadow-sm transition-transform hover:bg-brand-maroon-dark hover:scale-105">
-              <SlidersHorizontal className="size-[20px]" strokeWidth={2} />
-            </button>
+            <PlpSearchInput placeholder="Search for sweets, snacks, pickles..." basePath="/products" />
           </div>
 
           {/* Results count & inline sort */}

@@ -62,15 +62,15 @@ export default async function CategoryProductsPage({
   const total = meta?.total ?? products.length;
   const totalPages = meta?.totalPages ?? 1;
 
-  const sortLabel = sort === "newest" ? "Newest" 
-                  : sort === "popularity" ? "Popularity" 
-                  : sort === "price_asc" ? "Price: Low to High" 
-                  : "Price: High to Low";
+  const sortLabel = sort === "newest" ? "Newest"
+    : sort === "popularity" ? "Popularity"
+      : sort === "price_asc" ? "Price: Low to High"
+        : "Price: High to Low";
 
   return (
     <div className="flex min-h-screen flex-col bg-[#fdfbf7] pb-24">
       {/* ── Page header — dynamic background ─────── */}
-      <section 
+      <section
         className="relative overflow-hidden py-14 text-left"
         style={
           hasUploadedImage
@@ -79,7 +79,7 @@ export default async function CategoryProductsPage({
         }
       >
         {hasUploadedImage && (
-          <div className="absolute inset-0 bg-black/60 z-0" />
+          <div className="absolute inset-0 bg-black/20 z-0" />
         )}
         <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-10">
           <nav
@@ -98,15 +98,15 @@ export default async function CategoryProductsPage({
               {categoryName}
             </span>
           </nav>
-          
+
           <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-gold">
             Made with Pure Ghee
           </p>
-          
+
           <h1 className="mt-3 font-heading text-4xl font-semibold capitalize text-brand-gold sm:text-5xl lg:text-[56px] lg:leading-tight">
             {categoryName}
           </h1>
-          
+
           <p className="mt-4 max-w-xl text-[13px] font-medium text-text-cream/80">
             {total > 0
               ? `${total} active product${total !== 1 ? "s" : ""}`
@@ -122,7 +122,7 @@ export default async function CategoryProductsPage({
 
       {/* ── Main content layout with sidebar ─────────────────────────────────────────────────── */}
       <section className="mx-auto flex w-full max-w-[1440px] flex-col items-start gap-8 px-4 pt-10 sm:px-6 lg:flex-row lg:px-10 lg:pt-12">
-        
+
         {/* Sidebar */}
         <aside className="w-full shrink-0 lg:w-[260px] xl:w-[280px]">
           <div className="rounded-[24px] bg-[#fdfcf9] border border-border p-6 shadow-sm">
@@ -148,8 +148,8 @@ export default async function CategoryProductsPage({
                     All Sweets
                   </span>
                 </Link>
-                
-                {categories.map((cat) => (
+
+                {categories.filter(cat => !cat.parentId).map((cat) => (
                   <Link
                     key={cat.id}
                     href={`/categories/${cat.slug}`}
@@ -178,15 +178,10 @@ export default async function CategoryProductsPage({
 
         {/* Main Content Area */}
         <div className="flex-1 w-full min-w-0">
-          
+
           {/* Top search bar area */}
           <div className="mb-8 flex items-center gap-4">
             <PlpSearchInput placeholder={`Search in ${categoryName}...`} basePath={`/categories/${slug}`} />
-            
-            {/* Filter button for mobile/extra actions */}
-            <button className="flex size-[48px] shrink-0 items-center justify-center rounded-full bg-[#521b1b] text-white shadow-sm transition-transform hover:bg-brand-maroon-dark hover:scale-105">
-              <SlidersHorizontal className="size-[20px]" strokeWidth={2} />
-            </button>
           </div>
 
           {/* Results count & inline sort */}
@@ -194,7 +189,7 @@ export default async function CategoryProductsPage({
             <p className="text-[13px] font-semibold text-muted-foreground">
               Showing {Math.min(total, limit)} of {total} products
             </p>
-            
+
             <div className="flex items-center gap-2 text-[13px] font-semibold text-muted-foreground">
               Sort by:
               <span className="flex items-center gap-1.5 font-bold text-foreground cursor-pointer">

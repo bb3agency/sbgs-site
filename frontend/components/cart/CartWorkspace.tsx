@@ -341,9 +341,9 @@ export function CartWorkspace() {
         {/* Trust badges */}
         <div className="grid grid-cols-3 gap-2">
           {[
-            { emoji: "🌿", label: "Naturally Grown" },
-            { emoji: "🚚", label: "Fast Delivery" },
-            { emoji: "↩️", label: "Easy Returns" },
+            { emoji: "💧", label: "Pure Ghee" },
+            { emoji: "⏰", label: "Made Fresh" },
+            { emoji: "🚚", label: "Pan-India Delivery" },
           ].map(({ emoji, label }) => (
             <div key={label} className="flex flex-col items-center gap-1 rounded-xl bg-card px-2 py-3 text-center ring-1 ring-black/[0.04]">
               <span className="text-lg" aria-hidden>{emoji}</span>

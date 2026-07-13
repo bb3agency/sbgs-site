@@ -165,7 +165,7 @@ export function AnimatedVariantCartButton({ variants, className }: AnimatedVaria
               {isSubmittingId === variant.id ? (
                 <Loader2 className="size-4 animate-spin text-brand-maroon" />
               ) : (
-                variant.name.replace("Default", "Add")
+                variant.name === "Default Title" || variant.name === "Default" ? "Regular" : variant.name
               )}
             </button>
           ))}

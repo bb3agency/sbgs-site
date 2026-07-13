@@ -1,23 +1,14 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { Heart, ShoppingCart } from "lucide-react";
-import { motion } from "framer-motion";
+import { Star } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import type { Product } from "@/types/product";
-import { AddToCartButton } from "@/components/cart/AddToCartButton";
-import { useAuthStore } from "@/stores/auth";
-import { useWishlistStore } from "@/stores/wishlist";
-import { addToWishlist, removeFromWishlist } from "@/lib/wishlist-api";
-import { cn } from "@/lib/utils";
-import { useStoreConfig } from "@/components/providers/StoreConfigProvider";
+import { AnimatedVariantCartButton } from "@/components/client/AnimatedVariantCartButton";
 import { formatPrice } from "@/lib/format-price";
-import {
-  PRODUCT_CARD_MAX_VARIANT_CHIPS,
-  resolveCardVariant,
-  selectableCardVariants,
-} from "@/lib/product-card-variants";
+import { cn } from "@/lib/utils";
 
 const PLACEHOLDER_IMAGE = "/images/product-placeholder.svg";
 
@@ -27,142 +18,103 @@ interface ProductCardProps {
   className?: string;
 }
 
-export function ProductCard({
-  product,
-  priority = false,
-  className,
-}: ProductCardProps) {
-  const image = product.images[0];
-  const accessToken = useAuthStore((s) => s.accessToken);
-  const { wishlistEnabled } = useStoreConfig();
-  const items = useWishlistStore((s) => s.items);
-  const toggleItem = useWishlistStore((s) => s.toggleItem);
-  const [loading, setLoading] = useState(false);
+function formatReviewCount(count: number): string {
+  return count > 999 ? `${(count / 1000).toFixed(1)}k+` : String(count);
+}
 
-  const inWishlist = items.has(product.id);
+export function ProductCard({ product, priority = false, className }: ProductCardProps) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [imageIndex, setImageIndex] = useState(0);
 
-  const handleWishlistToggle = async (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (loading) return;
-    const next = !inWishlist;
-    toggleItem(product.id, next);
-    if (!accessToken) return;
-    setLoading(true);
-    try {
-      if (next) await addToWishlist(product.id, accessToken);
-      else await removeFromWishlist(product.id, accessToken);
-    } catch {
-      toggleItem(product.id, !next);
-    } finally {
-      setLoading(false);
+  const validImages = product.images.filter(img => img.url && img.url !== "/next.svg");
+  const hasMultipleImages = validImages.length > 1;
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isHovered && hasMultipleImages) {
+      interval = setInterval(() => {
+        setImageIndex((prev) => (prev + 1) % validImages.length);
+      }, 3000);
+    } else {
+      setImageIndex(0);
     }
-  };
+    return () => clearInterval(interval);
+  }, [isHovered, hasMultipleImages, validImages.length]);
 
-  const selectableVariants = selectableCardVariants(product.variants);
-  const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
-  const activeVariant = resolveCardVariant(product.variants, selectedVariantId);
-  const imageSrc = image?.url && image.url !== "/next.svg" ? image.url : PLACEHOLDER_IMAGE;
-  
-  // Extract a clean short description
-  const shortDescription = product.description.trim().slice(0, 70);
+  const imageSrc = validImages[imageIndex]?.url || PLACEHOLDER_IMAGE;
 
-  // Use the variant name as the unit if available (e.g. " / 1kg")
-  // For standard kg pricing, we might just use /kg. Let's use the variant name.
-  // The design shows "₹850 /kg", so we format it carefully.
-  const isKg = activeVariant?.name?.toLowerCase().includes("1kg") || activeVariant?.name?.toLowerCase() === "kg";
-  const unitText = isKg ? "/kg" : activeVariant?.name ? `/ ${activeVariant.name}` : "";
+  const activeVariants = product.variants.filter((v) => v.isActive);
+  const variants = activeVariants.length > 0 ? activeVariants : product.variants;
+  const displayPrice = variants[0]?.price ?? 0;
+
+  const stars = Math.round(Math.min(5, Math.max(0, product.rating)));
 
   return (
-    <motion.article
+    <motion.article 
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-[20px] bg-white transition-shadow duration-300 hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)]",
-        className,
+        "flex h-full flex-col rounded-2xl bg-card transition-shadow hover:shadow-[0_10px_30px_rgba(0,0,0,0.05)]",
+        className
       )}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Image Container with inner padding */}
-      <div className="relative p-2.5 sm:p-3 pb-0">
-        <Link
-          href={`/products/${product.slug}`}
-          className="relative block aspect-[4/3] overflow-hidden rounded-xl bg-[#faf8f5]"
-          aria-label={product.name}
-        >
-          <Image
-            src={imageSrc}
-            alt={image?.altText ?? product.name}
-            fill
-            priority={priority}
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 mix-blend-multiply"
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-          />
-        </Link>
+      <Link
+        href={`/products/${product.slug}`}
+        className="group relative block aspect-square w-full overflow-hidden rounded-t-2xl bg-secondary"
+        aria-label={product.name}
+      >
+        <Image
+          src={imageSrc}
+          alt={product.name}
+          fill
+          priority={priority}
+          sizes="(max-width: 640px) 80vw, (max-width: 1024px) 40vw, 20vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+      </Link>
 
-        {/* Wishlist button top-right */}
-        {wishlistEnabled ? (
-          <button
-            type="button"
-            className={cn(
-              "absolute right-5 top-5 z-10 flex size-8 items-center justify-center text-muted-foreground transition-all hover:text-brand-maroon hover:scale-110",
-              inWishlist && "text-brand-maroon",
-              loading && "opacity-60",
-            )}
-            aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
-            onClick={handleWishlistToggle}
-            disabled={loading}
-          >
-            <Heart className={cn("size-[18px]", inWishlist && "fill-current")} strokeWidth={1.5} />
-          </button>
-        ) : null}
-      </div>
-
-      {/* Content */}
-      <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
-        <Link href={`/products/${product.slug}`} className="mb-1.5">
-          <h3 className="line-clamp-1 font-heading text-[17px] font-semibold leading-snug text-foreground transition-colors group-hover:text-brand-maroon sm:text-[18px]">
-            {product.name}
-          </h3>
-        </Link>
-
-        {shortDescription ? (
-          <p className="mb-4 line-clamp-1 text-[11px] text-muted-foreground sm:text-xs">
-            {shortDescription}
-            {product.description.length > 70 ? "…" : ""}
+      <div className="flex flex-1 flex-col p-4 pt-3">
+        <div className="mb-2 flex items-center justify-between gap-2">
+          <Link href={`/products/${product.slug}`} className="min-w-0">
+            <h3 className="truncate text-lg font-semibold text-foreground transition-colors hover:text-brand-maroon">
+              {product.name}
+            </h3>
+          </Link>
+          <p className="shrink-0 font-heading text-lg font-semibold text-brand-maroon">
+            {formatPrice(displayPrice)}
           </p>
-        ) : (
-          <div className="mb-4 min-h-[1rem]" />
-        )}
+        </div>
 
-        {/* Bottom row: price + cart */}
-        <div className="mt-auto flex items-end justify-between pt-1">
-          <div className="flex items-baseline gap-1">
-            <span className="font-sans text-[16px] font-semibold text-foreground sm:text-[17px]">
-              {formatPrice(activeVariant?.price ?? 0)}
-            </span>
-            {unitText && (
-              <span className="text-[11px] font-medium text-muted-foreground/80 sm:text-[12px]">
-                {unitText}
-              </span>
-            )}
+      {product.reviewCount > 0 ? (
+        <div className="mb-3 flex items-center gap-2">
+          <div className="flex gap-0.5 text-brand-gold" aria-label={`${stars} out of 5 stars`}>
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star
+                key={i}
+                className={i < stars ? "size-3.5 fill-current" : "size-3.5 fill-muted text-muted"}
+                aria-hidden
+              />
+            ))}
           </div>
+          <span className="text-xs text-muted-foreground">
+            ({formatReviewCount(product.reviewCount)})
+          </span>
+        </div>
+      ) : null}
 
-          {product.inStock && activeVariant ? (
-            <AddToCartButton
-              variantId={activeVariant.id}
-              className="flex size-[34px] shrink-0 items-center justify-center rounded-full bg-[#521b1b] text-white shadow-sm transition-all hover:bg-brand-maroon-dark hover:scale-105"
-              label=""
-              icon={<ShoppingCart className="size-[15px]" strokeWidth={2.5} />}
-            />
+        <div className="mt-auto pt-4">
+          {product.inStock ? (
+            <AnimatedVariantCartButton variants={variants} />
           ) : (
             <Link
               href={`/products/${product.slug}`}
-              className="flex size-[34px] shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground transition-all hover:bg-border hover:scale-105"
-              aria-label={`View ${product.name}`}
+              className="inline-flex h-11 w-full items-center justify-center rounded-full border border-border bg-brand-cream text-sm font-semibold text-muted-foreground transition-colors hover:border-brand-maroon hover:text-brand-maroon"
             >
-              <ShoppingCart className="size-[15px]" strokeWidth={2.5} />
+              Out of Stock
             </Link>
           )}
         </div>

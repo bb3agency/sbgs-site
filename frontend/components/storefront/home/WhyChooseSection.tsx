@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Droplet,
   Clock,
@@ -8,6 +10,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { APP_NAME } from "@/lib/constants";
+import { motion, type Variants } from "framer-motion";
 
 interface Reason {
   title: string;
@@ -23,6 +26,20 @@ const REASONS: Reason[] = [
   { title: "Pan-India Delivery", desc: "Delivering happiness across India", icon: Truck },
   { title: "Customized Gifting", desc: "Personalized boxes for every occasion", icon: Sparkles },
 ];
+const containerVariant: Variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariant: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+};
 
 export function WhyChooseSection() {
   return (
@@ -35,10 +52,17 @@ export function WhyChooseSection() {
           <span className="h-1 w-16 rounded-full bg-brand-gold" aria-hidden />
         </div>
 
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
+        <motion.div 
+          className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6"
+          variants={containerVariant}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {REASONS.map(({ title, desc, icon: Icon }) => (
-            <div
+            <motion.div
               key={title}
+              variants={itemVariant}
               className="flex flex-col items-center gap-2 rounded-2xl bg-card p-3 text-center shadow-sm transition-all hover:-translate-y-1 hover:shadow-md sm:gap-3 sm:p-5"
             >
               <span className="flex size-9 items-center justify-center rounded-xl bg-brand-cream text-brand-gold sm:size-11">
@@ -48,9 +72,9 @@ export function WhyChooseSection() {
                 <p className="text-xs font-bold text-brand-maroon sm:text-sm">{title}</p>
                 <p className="mt-1 text-[10px] leading-snug text-muted-foreground sm:text-xs sm:leading-relaxed">{desc}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

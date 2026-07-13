@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Gift, ArrowRight } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa6";
+import { motion } from "framer-motion";
 import { useStoreConfig } from "@/components/providers/StoreConfigProvider";
 
 /**
@@ -28,7 +29,13 @@ export function BulkGiftingBand() {
     : "";
 
   return (
-    <section className="mx-auto w-full px-4 pt-4 pb-8 sm:px-6 sm:pt-6 sm:pb-12 lg:px-10">
+    <motion.section 
+      className="mx-auto w-full px-4 pt-4 pb-8 sm:px-6 sm:pt-6 sm:pb-12 lg:px-10"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+    >
       <div className="relative flex flex-col justify-between gap-8 overflow-hidden rounded-3xl bg-brand-maroon bg-[url('/images/corporate-mobile.png')] bg-cover bg-center p-8 text-foreground md:flex-row md:items-center md:bg-[url('/images/corporate-desktop.png')] sm:p-12 lg:p-16">
 
         <div className="relative z-10 flex max-w-2xl flex-col gap-4">
@@ -64,6 +71,6 @@ export function BulkGiftingBand() {
           )}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
