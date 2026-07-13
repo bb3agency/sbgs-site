@@ -78,13 +78,13 @@ export function ProductCard({ product, priority = false, className }: ProductCar
       </Link>
 
       <div className="flex flex-1 flex-col p-4 pt-3">
-        <div className="mb-2 flex items-center justify-between gap-2">
-          <Link href={`/products/${product.slug}`} className="min-w-0">
-            <h3 className="truncate text-lg font-semibold text-foreground transition-colors hover:text-brand-maroon">
+        <div className="mb-2 flex items-start justify-between gap-2">
+          <Link href={`/products/${product.slug}`} className="min-w-0 flex-1">
+            <h3 className="text-base sm:text-lg font-semibold leading-tight text-foreground transition-colors hover:text-brand-maroon line-clamp-2">
               {product.name}
             </h3>
           </Link>
-          <p className="shrink-0 font-heading text-lg font-semibold text-brand-maroon">
+          <p className="shrink-0 font-heading text-base sm:text-lg font-semibold text-brand-maroon mt-0.5">
             {formatPrice(displayPrice)}
           </p>
         </div>
