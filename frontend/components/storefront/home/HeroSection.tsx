@@ -13,7 +13,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const HERO_IMAGES = [
-  "/images/Hero-section_image.png",
+  "/images/hero-new-chatgpt.png",
   "/images/hero-2.png",
   "/images/hero-3-v2.png",
 ];
@@ -77,8 +77,7 @@ export function HeroSection() {
     <section ref={containerRef} className="w-full overflow-hidden">
       <div className="relative flex min-h-[480px] sm:min-h-[600px] lg:min-h-[calc(100vh-112px)] flex-col overflow-hidden lg:flex-row">
         
-        {/* Background Images with Cross-fade & GSAP Parallax */}
-        <div ref={bgWrapperRef} className="absolute inset-x-0 -top-[20%] -bottom-[20%] z-0 bg-black">
+        <div ref={bgWrapperRef} className="absolute inset-x-0 -top-[20%] -bottom-[20%] z-0">
           {HERO_IMAGES.map((src, index) => (
             <Image
               key={src}
@@ -93,7 +92,8 @@ export function HeroSection() {
               )}
             />
           ))}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/20 to-black/80 lg:bg-gradient-to-r lg:from-black/70 lg:via-black/30 lg:to-transparent backdrop-blur-[0px]" />
+          {/* Faint black shade to improve text readability */}
+          <div className="absolute inset-0 bg-black/20 sm:bg-gradient-to-r sm:from-black/40 sm:via-black/10 sm:to-transparent" />
         </div>
 
         {/* Left — content (Animated with Framer Motion) */}
@@ -125,16 +125,8 @@ export function HeroSection() {
               Order Now
               <ArrowRight className="size-4" aria-hidden />
             </Link>
-            <Link
-              href="/products"
-              className="group inline-flex items-center gap-2 text-sm font-medium text-text-cream transition-all hover:gap-3 drop-shadow-md"
-            >
-              Explore Sweets
-              <ArrowRight className="size-4" aria-hidden />
-            </Link>
           </motion.div>
         </motion.div>
-
 
       </div>
     </section>

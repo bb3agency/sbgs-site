@@ -53,7 +53,7 @@ export function StorySection() {
         <div ref={bgWrapperRef} className="absolute inset-x-0 -bottom-[30%] -top-[30%] z-0">
           {/* Mobile Background */}
           <Image
-            src="/images/story-bg-mobile.png"
+            src="/images/ourstory-mobile.png"
             alt="Our Story"
             fill
             sizes="100vw"
@@ -61,7 +61,7 @@ export function StorySection() {
           />
           {/* Desktop Background */}
           <Image
-            src="/images/story-bg.png"
+            src="/images/ourstory-desktop.png"
             alt="Our Story"
             fill
             sizes="(max-width: 1440px) 100vw, 1440px"

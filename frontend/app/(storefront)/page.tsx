@@ -9,7 +9,6 @@ import { StorySection } from "@/components/storefront/home/StorySection";
 import { WhyChooseBand } from "@/components/storefront/home/WhyChooseBand";
 import { SpicySnacksSection } from "@/components/storefront/home/SpicySnacksSection";
 import { BestsellersSection } from "@/components/storefront/home/BestsellersSection";
-import { GiftHampersBanner } from "@/components/storefront/home/GiftHampersBanner";
 import { BulkGiftingBand } from "@/components/storefront/home/BulkGiftingBand";
 import { PincodeServiceabilityBand } from "@/components/storefront/home/PincodeServiceabilityBand";
 import { TestimonialsSection } from "@/components/storefront/home/TestimonialsSection";
@@ -94,7 +93,6 @@ export default async function HomePage() {
         <SpicySnacksSection />
       </Suspense>
 
-      <GiftHampersBanner />
       <BulkGiftingBand />
       <PincodeServiceabilityBand />
 
