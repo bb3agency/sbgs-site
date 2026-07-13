@@ -75,7 +75,7 @@ export function HeroSection() {
 
   return (
     <section ref={containerRef} className="w-full overflow-hidden">
-      <div className="relative flex min-h-[480px] flex-col overflow-hidden sm:min-h-[600px] lg:min-h-[640px] lg:flex-row">
+      <div className="relative flex min-h-[480px] sm:min-h-[600px] lg:min-h-[calc(100vh-112px)] flex-col overflow-hidden lg:flex-row">
         
         {/* Background Images with Cross-fade & GSAP Parallax */}
         <div ref={bgWrapperRef} className="absolute inset-x-0 -top-[20%] -bottom-[20%] z-0 bg-black">

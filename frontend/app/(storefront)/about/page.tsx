@@ -88,10 +88,10 @@ export default async function AboutPage() {
                 <div className="space-y-4 text-sm font-medium leading-relaxed text-muted-foreground">
                   <p>
                     Sri Sai Baba Ghee Sweets & Home Foods was founded on a simple philosophy: 
-                    to bring the warmth and joy of authentic, homemade delicacies to your family's celebrations and everyday moments.
+                    to bring the warmth and joy of authentic, homemade delicacies to your family&apos;s celebrations and everyday moments.
                   </p>
                   <p>
-                    We believe that true flavor lies in purity. That's why we meticulously source the finest ingredients and use <strong className="text-brand-maroon">100% pure ghee</strong> for our traditional Indian sweets. 
+                    We believe that true flavor lies in purity. That&apos;s why we meticulously source the finest ingredients and use <strong className="text-brand-maroon">100% pure ghee</strong> for our traditional Indian sweets. 
                     From our famous Badusha to our delicate Kaju Katli, every item is a testament to our rich culinary heritage.
                   </p>
                   <p>

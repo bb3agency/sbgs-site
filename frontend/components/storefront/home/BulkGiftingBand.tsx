@@ -29,8 +29,12 @@ export function BulkGiftingBand() {
 
   return (
     <section className="mx-auto w-full px-4 py-8 sm:px-6 sm:py-12 lg:px-10">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 rounded-3xl bg-brand-maroon p-8 text-text-cream sm:p-12 lg:p-16">
-        <div className="flex flex-col gap-4 max-w-2xl">
+      <div className="relative flex flex-col justify-between gap-8 overflow-hidden rounded-3xl bg-brand-maroon bg-[url('/images/corporate-mobile-viewport.png')] bg-cover bg-center p-8 text-text-cream md:flex-row md:items-center md:bg-[url('/images/corporate-desktop-viewport.png')] sm:p-12 lg:p-16">
+        
+        {/* Dark Overlay for readability */}
+        <div className="absolute inset-0 bg-black/40 z-0" />
+
+        <div className="relative z-10 flex max-w-2xl flex-col gap-4">
           <div className="flex size-14 items-center justify-center rounded-full bg-brand-gold/20 text-brand-gold">
             <Gift className="size-7" aria-hidden />
           </div>
@@ -41,7 +45,7 @@ export function BulkGiftingBand() {
             Planning weddings, festivals, or looking to impress clients? Order in bulk with premium, hygienically packed hampers, custom packaging, and dedicated support.
           </p>
         </div>
-        <div className="flex flex-wrap gap-4 w-full md:w-auto shrink-0 mt-4 md:mt-0">
+        <div className="relative z-10 mt-4 flex w-full shrink-0 flex-wrap gap-4 md:mt-0 md:w-auto">
           {waHref ? (
             <a
               href={waHref}
