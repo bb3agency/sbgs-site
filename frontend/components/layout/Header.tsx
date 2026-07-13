@@ -66,7 +66,6 @@ export function Header({ categories, minOrderValuePaise = 0 }: HeaderProps) {
                 <span className="font-bold text-brand-gold">
                   {formatPrice(minOrderValuePaise)}
                 </span>
-                . {HEADER_PROMO}
               </>
             ) : (
               STORE_TAGLINE
