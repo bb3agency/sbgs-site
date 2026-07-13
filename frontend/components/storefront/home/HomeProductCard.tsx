@@ -38,10 +38,10 @@ export function HomeProductCard({ product, priority = false }: HomeProductCardPr
   const stars = Math.round(Math.min(5, Math.max(0, product.rating)));
 
   return (
-    <article className="flex h-full flex-col rounded-2xl bg-card p-4 transition-shadow hover:shadow-[0_10px_30px_rgba(0,0,0,0.05)]">
+    <article className="flex h-full flex-col rounded-2xl bg-card p-3 transition-shadow hover:shadow-[0_10px_30px_rgba(0,0,0,0.05)]">
       <Link
         href={`/products/${product.slug}`}
-        className="group relative mb-4 block aspect-square overflow-hidden rounded-xl bg-secondary"
+        className="group relative mb-2 block aspect-square overflow-hidden rounded-xl bg-secondary"
         aria-label={product.name}
       >
         <Image
@@ -65,8 +65,10 @@ export function HomeProductCard({ product, priority = false }: HomeProductCardPr
         </p>
       </div>
 
+      <div className="mb-2 text-xs text-muted-foreground">Freshly made to order</div>
+
       {product.reviewCount > 0 ? (
-        <div className="mb-4 flex items-center gap-2">
+        <div className="mb-3 flex items-center gap-2">
           <div className="flex gap-0.5 text-brand-gold" aria-label={`${stars} out of 5 stars`}>
             {Array.from({ length: 5 }).map((_, i) => (
               <Star
@@ -80,11 +82,9 @@ export function HomeProductCard({ product, priority = false }: HomeProductCardPr
             ({formatReviewCount(product.reviewCount)})
           </span>
         </div>
-      ) : (
-        <div className="mb-4 text-xs text-muted-foreground">Freshly made to order</div>
-      )}
+      ) : null}
 
-      <div className="mb-4 flex items-center justify-between gap-2">
+      <div className="mb-3 flex items-center justify-between gap-2">
         {variants.length > 1 ? (
           <select
             value={selectedId}

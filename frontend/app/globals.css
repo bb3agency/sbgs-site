@@ -68,21 +68,21 @@
 :root {
     /* Sri Sai Baba Ghee Sweets — 2026 redesign: deep maroon, emerald green,
        honey gold on warm cream (reference: refernce-site/src/index.css) */
-    --brand-maroon: #5a1e1e;
-    --brand-maroon-dark: #4a1818;
+    --brand-maroon: #b11f35;
+    --brand-maroon-dark: #8e192a;
     --brand-green: #1d5c3f;
     --brand-gold: #e9b84c;
     --brand-gold-light: #f0c060;
-    --brand-cream: #f7f0e4;
+    --brand-cream: #f9f3e7;
     --text-cream: #fdfbf7;
     /* Category label tints (homepage/category tiles) */
     --cat-olive: #64704b;
     --cat-amber: #b97c3a;
-    --cat-maroon: #6f2626;
+    --cat-maroon: #b11f35;
     --cat-brown: #854e26;
     --cat-rust: #a23d26;
 
-    /* Background: warm cream #f7f0e4 */
+    /* Background: warm cream #f9f3e7 */
     --background: var(--brand-cream);
     /* Foreground: dark cocoa #3e2723 */
     --foreground: #3e2723;
