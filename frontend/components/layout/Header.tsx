@@ -194,6 +194,9 @@ export function Header({ categories, minOrderValuePaise = 0 }: HeaderProps) {
             </div>
           </div>
         ) : null}
+
+        {/* Thin maroon strip */}
+        <div className="h-0.5 w-full bg-brand-maroon" aria-hidden="true" />
       </header>
     </>
   );
