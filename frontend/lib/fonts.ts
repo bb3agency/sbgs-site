@@ -1,4 +1,5 @@
-import { Manrope, Cormorant_Garamond } from "next/font/google";
+import { Manrope } from "next/font/google";
+import localFont from "next/font/local";
 
 /** Site-wide Manrope — body / UI sans-serif (storefront; admin/ops override to system sans). */
 export const bodyFont = Manrope({
@@ -8,10 +9,9 @@ export const bodyFont = Manrope({
   display: "swap",
 });
 
-/** Cormorant Garamond — elegant serif for storefront headings (heritage, premium feel). */
-export const headingFont = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
+/** Sherly Kitchen — custom local font for storefront headings. */
+export const headingFont = localFont({
+  src: "../public/fonts/SherlyKitchen.ttf",
   variable: "--font-display",
   display: "swap",
 });

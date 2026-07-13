@@ -46,9 +46,25 @@ export function CategoryCarousel({ categories }: CategoryCarouselProps) {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
         >
-          <h2 className="font-heading text-3xl font-semibold text-foreground sm:text-4xl lg:text-5xl">
-            Flavours for <em className="italic text-brand-maroon">Every Moment</em>
-          </h2>
+          <div className="flex items-center justify-center gap-2 sm:gap-3">
+            <Image 
+              src="/images/element-1.png" 
+              alt="" 
+              width={80} 
+              height={40} 
+              className="w-10 sm:w-16 object-contain" 
+            />
+            <h2 className="font-heading text-3xl font-semibold text-foreground sm:text-4xl lg:text-5xl">
+              Taste for <em className="italic text-brand-maroon">Every Occasion</em>
+            </h2>
+            <Image 
+              src="/images/element-1.png" 
+              alt="" 
+              width={80} 
+              height={40} 
+              className="w-10 sm:w-16 object-contain -scale-x-100 -scale-y-100" 
+            />
+          </div>
           <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground sm:text-base">
             From timeless classics to modern favourites, there&rsquo;s something sweet for every moment.
           </p>
@@ -56,14 +72,18 @@ export function CategoryCarousel({ categories }: CategoryCarouselProps) {
 
         {/* Category Grid */}
         <motion.div
-          className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4 lg:gap-6"
+          className="flex flex-wrap justify-center gap-4 sm:gap-6"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
         >
           {categories.map((cat) => (
-            <motion.div key={cat.id} variants={itemVariants}>
+            <motion.div 
+              key={cat.id} 
+              variants={itemVariants}
+              className="w-[calc(50%-8px)] sm:w-[calc(33.333%-16px)] max-w-[320px]"
+            >
               <Link
                 href={`/categories/${cat.slug}`}
                 className="group flex flex-col items-center"

@@ -55,6 +55,9 @@ export default async function CategoryProductsPage({
     getStoreCategories(),
   ]);
 
+  const currentCategory = categories.find((c) => c.slug === slug);
+  const hasUploadedImage = currentCategory?.image && currentCategory.image !== "/images/product-placeholder.svg";
+
   const { products, meta } = productsData;
   const total = meta?.total ?? products.length;
   const totalPages = meta?.totalPages ?? 1;
@@ -66,9 +69,19 @@ export default async function CategoryProductsPage({
 
   return (
     <div className="flex min-h-screen flex-col bg-[#fdfbf7] pb-24">
-      {/* ── Page header — deep green banner ─────── */}
-      <section className="relative overflow-hidden bg-[#244f3d] py-14 text-left">
-        <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-10">
+      {/* ── Page header — dynamic background ─────── */}
+      <section 
+        className="relative overflow-hidden py-14 text-left"
+        style={
+          hasUploadedImage
+            ? { backgroundImage: `url(${currentCategory.image})`, backgroundSize: "cover", backgroundPosition: "center" }
+            : { backgroundColor: "#244f3d" }
+        }
+      >
+        {hasUploadedImage && (
+          <div className="absolute inset-0 bg-black/60 z-0" />
+        )}
+        <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-10">
           <nav
             className="mb-6 flex items-center gap-2 text-sm font-medium text-text-cream/60"
             aria-label="Breadcrumb"

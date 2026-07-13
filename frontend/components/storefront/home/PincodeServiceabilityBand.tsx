@@ -55,9 +55,10 @@ export function PincodeServiceabilityBand() {
   };
 
   return (
-    <section className="mx-auto w-full px-0 sm:px-6 sm:py-12 lg:px-10 py-8">
-      <div className="overflow-hidden rounded-none sm:rounded-3xl bg-brand-green px-6 py-10 text-text-cream sm:px-10 sm:py-12 lg:px-16">
-        <div className="grid items-center gap-10 lg:grid-cols-2">
+    <section className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+      <div className="relative overflow-hidden bg-brand-green bg-[url('/images/pincodecheck-mobile.png')] bg-cover bg-center md:bg-[url('/images/pincodecheck-desktop.png')] px-6 py-12 text-foreground sm:px-10 sm:py-16 lg:px-16">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="relative z-10 grid items-center gap-10 lg:grid-cols-2">
           {/* Checker */}
           <div>
             <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-brand-gold">
@@ -66,7 +67,7 @@ export function PincodeServiceabilityBand() {
             <h2 className="font-heading text-3xl font-semibold sm:text-4xl">
               We Deliver Across India
             </h2>
-            <p className="mt-3 max-w-md text-sm text-text-cream/80">
+            <p className="mt-3 max-w-md text-sm text-foreground/80">
               Enter your pincode to check delivery availability for your area.
             </p>
 
@@ -109,14 +110,14 @@ export function PincodeServiceabilityBand() {
                   </>
                 ) : result.kind === "no" ? (
                   <>
-                    <XCircle className="size-4 text-text-cream/70" aria-hidden />
+                    <XCircle className="size-4 text-foreground/60" aria-hidden />
                     <span>
                       We don&rsquo;t deliver to <strong>{result.pincode}</strong> yet. Try another pincode.
                     </span>
                   </>
                 ) : (
                   <>
-                    <XCircle className="size-4 text-text-cream/70" aria-hidden />
+                    <XCircle className="size-4 text-foreground/60" aria-hidden />
                     <span>{result.message}</span>
                   </>
                 )}
@@ -127,14 +128,15 @@ export function PincodeServiceabilityBand() {
           {/* Promises */}
           <div className="grid gap-4 sm:grid-cols-3">
             {PROMISES.map((p) => (
-              <div key={p.title} className="rounded-2xl bg-text-cream/5 p-5 text-center">
+              <div key={p.title} className="rounded-2xl bg-brand-maroon/5 p-5 text-center">
                 <div className="mx-auto mb-3 flex size-11 items-center justify-center rounded-full bg-brand-gold/20 text-brand-gold">
                   <p.icon className="size-5" aria-hidden />
                 </div>
                 <h3 className="text-sm font-semibold">{p.title}</h3>
-                <p className="mt-1 text-xs text-text-cream/70">{p.desc}</p>
+                <p className="mt-1 text-xs text-foreground/70">{p.desc}</p>
               </div>
             ))}
+          </div>
           </div>
         </div>
       </div>
