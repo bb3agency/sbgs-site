@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { MapPin, Truck, ShieldCheck, PackageCheck, Loader2, CheckCircle2, XCircle } from "lucide-react";
+import { motion } from "framer-motion";
 import { checkPincodeServiceability } from "@/lib/cart-api";
 import { getApiErrorMessage } from "@/lib/error-messages";
 
@@ -56,7 +57,13 @@ export function PincodeServiceabilityBand() {
 
   return (
     <section className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
-      <div className="relative overflow-hidden bg-brand-green bg-[url('/images/pincodecheck-mobile.png')] bg-cover bg-center md:bg-[url('/images/pincodecheck-desktop.png')] px-6 py-12 text-foreground sm:px-10 sm:py-16 lg:px-16">
+      <motion.div 
+        className="relative overflow-hidden bg-brand-green bg-[url('/images/pincodecheck-mobile.png')] bg-cover bg-center md:bg-[url('/images/pincodecheck-desktop.png')] px-6 py-12 text-foreground sm:px-10 sm:py-16 lg:px-16"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      >
         <div className="mx-auto max-w-[1440px]">
           <div className="relative z-10 grid items-center gap-10 lg:grid-cols-2">
           {/* Checker */}
@@ -126,20 +133,36 @@ export function PincodeServiceabilityBand() {
           </div>
 
           {/* Promises */}
-          <div className="grid gap-4 sm:grid-cols-3">
+          <motion.div 
+            className="grid gap-4 sm:grid-cols-3"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={{
+              hidden: { opacity: 0 },
+              show: { opacity: 1, transition: { staggerChildren: 0.1 } }
+            }}
+          >
             {PROMISES.map((p) => (
-              <div key={p.title} className="rounded-2xl bg-brand-maroon/5 p-5 text-center">
+              <motion.div 
+                key={p.title} 
+                className="rounded-2xl bg-brand-maroon/5 p-5 text-center"
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }
+                }}
+              >
                 <div className="mx-auto mb-3 flex size-11 items-center justify-center rounded-full bg-brand-gold/20 text-brand-gold">
                   <p.icon className="size-5" aria-hidden />
                 </div>
                 <h3 className="text-sm font-semibold">{p.title}</h3>
                 <p className="mt-1 text-xs text-foreground/70">{p.desc}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

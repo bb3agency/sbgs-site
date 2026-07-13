@@ -185,7 +185,7 @@ export default async function AboutPage() {
               href="/products"
               className="inline-flex h-12 items-center justify-center rounded-full bg-brand-gold px-8 text-sm font-bold text-white transition-transform hover:-translate-y-1 hover:bg-white hover:text-brand-maroon hover:shadow-lg"
             >
-              Explore Our Menu
+              Explore Products
             </Link>
           </div>
 

@@ -79,9 +79,9 @@ export function Footer(_props: FooterProps) {
               <Image
                 src={BRAND_LOGO_SRC}
                 alt={`${APP_NAME} logo`}
-                width={80}
-                height={80}
-                className="size-20 object-contain"
+                width={128}
+                height={128}
+                className="size-32 object-contain"
               />
               <span className="flex flex-col leading-none">
                 <span className="font-heading text-2xl font-semibold text-text-cream">

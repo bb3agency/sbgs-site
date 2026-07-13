@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ZoomIn } from "lucide-react";
+import { ZoomIn, ChevronRight } from "lucide-react";
 import { resolveProductImageUrl } from "@/lib/media-url";
 import { cn } from "@/lib/utils";
 
@@ -27,12 +27,18 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
     setMousePos({ x, y });
   };
 
+  const scrollThumbnails = () => {
+    const el = document.getElementById("pdp-thumb-strip");
+    if (!el) return;
+    el.scrollBy({ left: 160, behavior: "smooth" });
+  };
+
   return (
     <div className="flex flex-col gap-3 sm:gap-4">
       {/* Main image */}
       <div
         className={cn(
-          "group relative aspect-square overflow-hidden rounded-2xl bg-brand-cream ring-1 ring-black/[0.06] cursor-zoom-in",
+          "group relative aspect-square overflow-hidden rounded-2xl bg-brand-cream cursor-zoom-in",
           zoomed && "cursor-zoom-out",
         )}
         onClick={() => setZoomed((z) => !z)}
@@ -47,7 +53,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
           fill
           priority
           className={cn(
-            "object-contain p-6 transition-all duration-500 ease-out select-none",
+            "object-contain p-4 transition-all duration-500 ease-out select-none",
             zoomed
               ? "scale-150"
               : "scale-100 group-hover:scale-105",
@@ -61,6 +67,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
           draggable={false}
         />
 
+
         {/* Zoom hint */}
         {!zoomed && (
           <div className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-black/40 px-2.5 py-1 text-[10px] font-bold text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
@@ -72,30 +79,47 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
 
       {/* Thumbnail strip */}
       {images.length > 1 && (
-        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
-          {images.slice(0, 6).map((img, idx) => (
+        <div className="relative">
+          <div
+            id="pdp-thumb-strip"
+            className="flex justify-center gap-2 overflow-x-auto pb-1 scrollbar-hide"
+          >
+            {images.slice(0, 6).map((img, idx) => (
+              <button
+                key={img.url}
+                type="button"
+                onClick={() => { setActive(idx); setZoomed(false); }}
+                className={cn(
+                  "relative size-16 shrink-0 overflow-hidden rounded-xl bg-brand-cream ring-2 transition-all duration-200 sm:size-[72px]",
+                  idx === active
+                    ? "ring-brand-maroon shadow-md"
+                    : "ring-transparent opacity-60 hover:opacity-100 hover:ring-secondary",
+                )}
+                aria-label={`View image ${idx + 1}`}
+                aria-pressed={idx === active}
+              >
+                <Image
+                  src={resolveProductImageUrl(img.url)}
+                  alt={img.altText}
+                  fill
+                  className="object-contain p-2"
+                  sizes="72px"
+                />
+              </button>
+            ))}
+          </div>
+
+          {/* Scroll arrow */}
+          {images.length > 4 && (
             <button
-              key={img.url}
               type="button"
-              onClick={() => { setActive(idx); setZoomed(false); }}
-              className={cn(
-                "relative size-16 shrink-0 overflow-hidden rounded-xl bg-brand-cream ring-2 transition-all duration-200 sm:size-[72px]",
-                idx === active
-                  ? "ring-brand-maroon shadow-md"
-                  : "ring-transparent opacity-60 hover:opacity-100 hover:ring-secondary",
-              )}
-              aria-label={`View image ${idx + 1}`}
-              aria-pressed={idx === active}
+              onClick={scrollThumbnails}
+              className="absolute -right-1 top-1/2 z-10 flex size-8 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-card shadow-sm transition-colors hover:border-brand-maroon hover:bg-brand-cream"
+              aria-label="Scroll thumbnails"
             >
-              <Image
-                src={resolveProductImageUrl(img.url)}
-                alt={img.altText}
-                fill
-                className="object-contain p-2"
-                sizes="72px"
-              />
+              <ChevronRight className="size-4 text-foreground" />
             </button>
-          ))}
+          )}
         </div>
       )}
     </div>

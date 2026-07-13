@@ -66,7 +66,6 @@ export function Header({ categories, minOrderValuePaise = 0 }: HeaderProps) {
                 <span className="font-bold text-brand-gold">
                   {formatPrice(minOrderValuePaise)}
                 </span>
-                . {HEADER_PROMO}
               </>
             ) : (
               STORE_TAGLINE
@@ -117,7 +116,7 @@ export function Header({ categories, minOrderValuePaise = 0 }: HeaderProps) {
               Home
             </Link>
 
-            {/* Parent categories with subcategory dropdowns */}
+            {/* Parent categories — plain links */}
             {parentCategories.map((parent) => {
               const isActive =
                 pathname === `/categories/${parent.slug}` ||
@@ -125,12 +124,17 @@ export function Header({ categories, minOrderValuePaise = 0 }: HeaderProps) {
                   (sub) => pathname === `/categories/${sub.slug}`,
                 );
               return (
-                <CategoryDropdown
+                <Link
                   key={parent.id}
-                  parent={parent}
-                  subcategories={childrenMap.get(parent.id) ?? []}
-                  active={isActive}
-                />
+                  href={`/categories/${parent.slug}`}
+                  className={cn(
+                    "relative pb-1 transition-colors hover:text-brand-maroon",
+                    isActive &&
+                      "text-brand-maroon after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-brand-maroon",
+                  )}
+                >
+                  {parent.name}
+                </Link>
               );
             })}
 

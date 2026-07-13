@@ -4,6 +4,7 @@ import { fetchStorefrontProducts } from "@/lib/storefront-products";
 import { HomeCarousel } from "./HomeCarousel";
 import { HomeProductCard } from "./HomeProductCard";
 import { BestsellersParallax } from "./BestsellersParallax";
+import { Reveal } from "@/components/shared/motion/Reveal";
 
 const SPICY_CATEGORIES = ["Kaaralu", "Kaaram", "Podulu"];
 
@@ -19,7 +20,9 @@ export async function SpicySnacksSection() {
   return (
     <BestsellersParallax>
       <section className="mx-auto w-full overflow-hidden px-4 pt-12 pb-8 sm:px-6 sm:pt-20 sm:pb-12 lg:px-10">
-        <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <Reveal 
+          className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+        >
           <h2 className="font-heading text-3xl font-semibold text-foreground sm:text-4xl lg:text-5xl">
             Authentic Spicy Savouries
           </h2>
@@ -30,7 +33,7 @@ export async function SpicySnacksSection() {
             View All Products
             <ArrowRight className="size-4" aria-hidden />
           </Link>
-        </div>
+        </Reveal>
 
         <HomeCarousel label="spicy snacks">
           {spicyProducts.map((product) => (

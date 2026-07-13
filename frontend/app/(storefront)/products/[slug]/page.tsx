@@ -1,17 +1,15 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
-import { Leaf, ShieldCheck, Truck, RotateCcw, ChevronRight } from "lucide-react";
+import { ShieldCheck, Truck, Sparkles, Package, ChevronRight } from "lucide-react";
 import { apiClient } from "@/lib/api";
 import { mapProduct } from "@/lib/product-adapters";
 import { ProductGallery } from "@/components/product/ProductGallery";
-import { Rating } from "@/components/shared/Rating";
 import { ProductVariantSelector } from "@/components/product/ProductVariantSelector";
 import { ProductReviewsSection } from "@/components/product/ProductReviewsSection";
 import { ProductViewTracker } from "@/components/shared/ProductViewTracker";
 import { ProductShareMenu } from "@/components/product/ProductShareMenu";
 import { StickyAddToCartBar } from "@/components/product/StickyAddToCartBar";
-import { ProductDetailTabs } from "@/components/product/ProductDetailTabs";
 import { RelatedProductsSection } from "@/components/product/RelatedProductsSection";
 import { ViewersAlsoLikedSection } from "@/components/product/ViewersAlsoLikedSection";
 import { ProductCardSkeleton } from "@/components/product/ProductCardSkeleton";
@@ -82,7 +80,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     activeVariant.compareAtPrice > activeVariant.price;
 
   return (
-    <div className="min-h-screen bg-secondary pb-24">
+    <div className="min-h-screen bg-[#fdfbf7] pb-24">
       <ProductViewTracker productId={product.id} productName={product.name} />
 
       {/* Sticky bar — appears when CTA scrolls out of view */}
@@ -101,7 +99,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
       <div className="mx-auto max-w-[1440px] px-4 py-4 sm:py-8 lg:px-8">
         {/* Breadcrumb */}
         <nav
-          className="mb-4 flex flex-wrap items-center gap-1.5 text-xs font-bold text-muted-foreground sm:mb-8 sm:gap-2 sm:text-sm"
+          className="mb-6 flex flex-wrap items-center gap-1.5 text-xs font-medium text-muted-foreground sm:mb-8 sm:gap-2 sm:text-sm"
           aria-label="Breadcrumb"
         >
           <Link href="/" className="transition-colors hover:text-brand-maroon">
@@ -109,7 +107,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           </Link>
           <ChevronRight className="size-3" />
           <Link href="/products" className="transition-colors hover:text-brand-maroon">
-            Shop
+            Sweets
           </Link>
           <ChevronRight className="size-3" />
           <Link
@@ -119,100 +117,98 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             {product.category.name}
           </Link>
           <ChevronRight className="size-3" />
-          <span className="truncate text-brand-maroon">{product.name}</span>
+          <span className="truncate font-semibold text-foreground">{product.name}</span>
         </nav>
 
-        {/* ── Main product grid ─────────────────────────────────────────────── */}
-        <div className="grid gap-6 rounded-[20px] bg-card p-4 shadow-sm sm:gap-10 sm:p-6 lg:grid-cols-[52%_48%] lg:p-12">
-          {/* Gallery — min-w-0 lets the thumbnail strip's overflow-x-auto actually shrink and
-              scroll: grid items default to min-width:auto, so without it the strip's intrinsic
-              width inflates the column past the viewport on mobile (the overflow is then
-              clipped by the body's overflow-x-hidden instead of scrolling). */}
-          <div className="min-w-0 rounded-[20px] bg-brand-cream p-4 lg:p-8">
-            <ProductGallery images={product.images} productName={product.name} />
+        {/* --- Main product grid --- */}
+        <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:gap-12 xl:gap-16">
+
+          {/* --- LEFT COLUMN: Gallery + About --- */}
+          <div className="flex flex-col gap-6">
+            {/* Gallery */}
+            <div className="min-w-0">
+              <ProductGallery images={product.images} productName={product.name} />
+            </div>
+
+            {/* About this product */}
+            <div className="rounded-[20px] bg-card p-5 shadow-sm sm:p-6">
+              <div className="mb-4 flex items-center gap-2">
+                <Sparkles className="size-5 text-brand-maroon" aria-hidden />
+                <h3 className="text-base font-bold text-foreground">About this product</h3>
+              </div>
+              {product.description ? (
+                <p className="mb-5 text-sm leading-relaxed text-muted-foreground">
+                  {product.description}
+                </p>
+              ) : null}
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-border pt-4">
+                {[
+                  { icon: "🚫", text: "No Preservatives" },
+                  { icon: "⭐", text: "Finest Ingredients" },
+                  { icon: "📦", text: "Hygienically Packed" },
+                ].map(({ icon, text }) => (
+                  <div key={text} className="flex items-center gap-2">
+                    <span className="text-sm" aria-hidden>{icon}</span>
+                    <span className="text-xs font-semibold text-foreground">{text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* Info panel */}
+          {/* --- RIGHT COLUMN: Info panel --- */}
           <section className="flex min-w-0 flex-col gap-5">
-            {/* Category */}
-            <Link
-              href={`/categories/${product.category.slug}`}
-              className="w-fit text-[11px] font-extrabold uppercase tracking-widest text-brand-maroon hover:underline"
-            >
-              {product.category.name}
-            </Link>
+            {/* Category badge + Share */}
+            <div className="flex items-start justify-between">
+              <Link
+                href={`/categories/${product.category.slug}`}
+                className="w-fit rounded-sm bg-brand-maroon/10 px-3 py-1 text-[11px] font-extrabold uppercase tracking-widest text-brand-maroon hover:bg-brand-maroon/15 transition-colors"
+              >
+                {product.category.name}
+              </Link>
+              <ProductShareMenu productName={product.name} productUrl={productUrl} />
+            </div>
 
             {/* Title */}
-            <h1 className="font-heading text-2xl font-bold leading-tight text-foreground sm:text-3xl md:text-4xl">
+            <h1 className="font-heading text-3xl font-bold leading-tight text-foreground sm:text-4xl md:text-[2.75rem]">
               {product.name}
             </h1>
 
-            {/* Rating */}
-            {storeConfig.reviewsEnabled && (
-              <div className="flex flex-wrap items-center gap-2">
-                <Rating rating={product.rating} reviewCount={product.reviewCount} />
-                <span className="text-sm font-semibold text-muted-foreground">
-                  ({product.reviewCount} {product.reviewCount === 1 ? "review" : "reviews"})
-                </span>
+            {/* Decorative divider */}
+            <div className="flex items-center gap-3">
+              <div className="h-px flex-1 bg-border" />
+              <div className="flex items-center gap-1">
+                <span className="size-1.5 rotate-45 bg-brand-gold" />
+                <span className="size-1.5 rotate-45 bg-brand-maroon" />
+                <span className="size-1.5 rotate-45 bg-brand-gold" />
               </div>
-            )}
-
-            <hr className="border-border" />
-
-            {/* Short description — above the price */}
-            {product.description ? (
-              <p className="line-clamp-3 text-sm leading-relaxed text-muted-foreground">
-                {product.description}
-              </p>
-            ) : null}
-
-            {/* Stock indicator + share */}
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex items-center gap-2 text-sm font-bold">
-                {product.inStock ? (
-                  <>
-                    <span className="inline-block size-2 rounded-full bg-brand-green" aria-hidden />
-                    <span className="text-brand-green">In stock, ready to ship</span>
-                  </>
-                ) : (
-                  <>
-                    <span className="inline-block size-2 rounded-full bg-brand-maroon" aria-hidden />
-                    <span className="text-brand-maroon">Out of stock</span>
-                  </>
-                )}
-              </div>
-              <ProductShareMenu productName={product.name} productUrl={productUrl} />
+              <div className="h-px flex-1 bg-border" />
             </div>
 
             {/* Price + variant selector + CTAs */}
             <ProductVariantSelector product={product} defaultVariant={activeVariant} />
 
             {/* Trust signals */}
-            <div className="mt-2 grid grid-cols-2 gap-3 rounded-[20px] bg-brand-cream p-4 sm:gap-4 sm:p-5">
+            <div className="grid grid-cols-2 gap-3 rounded-[16px] border border-border bg-card p-4 sm:grid-cols-4 sm:gap-4 sm:p-5">
               {[
-                { icon: Leaf, text: "Naturally Grown" },
-                { icon: Truck, text: "Free Delivery" },
-                { icon: RotateCcw, text: "Easy Returns" },
-                { icon: ShieldCheck, text: "Secure Pay" },
-              ].map(({ icon: Icon, text }) => (
-                <div key={text} className="flex items-center gap-2 sm:gap-3">
-                  <Icon className="size-4 shrink-0 text-brand-maroon sm:size-5" aria-hidden />
-                  <span className="text-xs font-bold text-foreground sm:text-sm">{text}</span>
+                { icon: Sparkles, title: "Made Fresh", subtitle: "On order" },
+                { icon: ShieldCheck, title: "Premium Quality", subtitle: "Finest ingredients" },
+                { icon: Package, title: "Secure Packaging", subtitle: "Hygienically packed" },
+                { icon: Truck, title: "Delivery Across India", subtitle: "Pan India delivery" },
+              ].map(({ icon: Icon, title, subtitle }) => (
+                <div key={title} className="flex items-start gap-2.5">
+                  <Icon className="mt-0.5 size-5 shrink-0 text-brand-maroon" aria-hidden />
+                  <div className="flex flex-col">
+                    <span className="text-xs font-bold text-foreground">{title}</span>
+                    <span className="text-[11px] text-muted-foreground">{subtitle}</span>
+                  </div>
                 </div>
               ))}
             </div>
           </section>
         </div>
 
-        {/* ── Description + Additional Information tabs ─────────────────────── */}
-        <ProductDetailTabs
-          description={product.description}
-          tags={product.tags}
-          categoryName={product.category.name}
-          categorySlug={product.category.slug}
-        />
-
-        {/* ── You may also like ─────────────────────────────────────────────── */}
+        {/* --- You may also like --- */}
         <Suspense fallback={<RelatedSkeleton />}>
           <RelatedProductsSection
             categorySlug={product.category.slug}
@@ -220,12 +216,12 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           />
         </Suspense>
 
-        {/* ── Viewers also liked ────────────────────────────────────────────── */}
+        {/* --- Viewers also liked --- */}
         <Suspense fallback={<RelatedSkeleton />}>
           <ViewersAlsoLikedSection currentProductId={product.id} />
         </Suspense>
 
-        {/* ── Reviews ──────────────────────────────────────────────────────── */}
+        {/* --- Reviews --- */}
         {storeConfig.reviewsEnabled ? (
           <div className="mt-6 sm:mt-8">
             <ProductReviewsSection productSlug={product.slug} />

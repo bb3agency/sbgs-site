@@ -27,9 +27,6 @@ export async function RelatedProductsSection({
   return (
     <section className="mt-6 rounded-[20px] bg-card px-5 py-7 shadow-sm sm:mt-8 sm:px-8 sm:py-9">
       <div className="mb-6">
-        <p className="mb-1 text-[11px] font-bold uppercase tracking-widest text-brand-maroon">
-          {subtitle}
-        </p>
         <h2 className="font-heading text-xl font-bold text-foreground sm:text-2xl">
           {title}
         </h2>

@@ -186,7 +186,7 @@ export function StorefrontSearchDropdown({
                       <p className="truncate text-sm font-bold text-brand-maroon">
                         {product.name}
                       </p>
-                      <p className="truncate text-xs font-medium text-muted-foreground">
+                      <div className="truncate text-xs font-medium text-muted-foreground">
                         {product.category.name}
                         {price > 0 ? (
                           <>
@@ -197,7 +197,7 @@ export function StorefrontSearchDropdown({
                             </span>
                           </>
                         ) : null}
-                      </p>
+                      </div>
                     </div>
                     <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
                   </Link>
