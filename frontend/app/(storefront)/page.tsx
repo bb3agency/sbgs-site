@@ -7,6 +7,7 @@ import { HeroSection } from "@/components/storefront/home/HeroSection";
 import { CategoryCarousel } from "@/components/storefront/home/CategoryCarousel";
 import { StorySection } from "@/components/storefront/home/StorySection";
 import { WhyChooseBand } from "@/components/storefront/home/WhyChooseBand";
+import { SpicySnacksSection } from "@/components/storefront/home/SpicySnacksSection";
 import { BestsellersSection } from "@/components/storefront/home/BestsellersSection";
 import { GiftHampersBanner } from "@/components/storefront/home/GiftHampersBanner";
 import { BulkGiftingBand } from "@/components/storefront/home/BulkGiftingBand";
@@ -88,6 +89,10 @@ export default async function HomePage() {
 
       <StorySection />
       <WhyChooseBand />
+
+      <Suspense fallback={<ProductSectionSkeleton />}>
+        <SpicySnacksSection />
+      </Suspense>
 
       <GiftHampersBanner />
       <BulkGiftingBand />

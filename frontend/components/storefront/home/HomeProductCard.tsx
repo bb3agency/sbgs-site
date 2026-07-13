@@ -65,8 +65,6 @@ export function HomeProductCard({ product, priority = false }: HomeProductCardPr
         </p>
       </div>
 
-      <div className="mb-2 text-xs text-muted-foreground">Freshly made to order</div>
-
       {product.reviewCount > 0 ? (
         <div className="mb-3 flex items-center gap-2">
           <div className="flex gap-0.5 text-brand-gold" aria-label={`${stars} out of 5 stars`}>
@@ -98,10 +96,12 @@ export function HomeProductCard({ product, priority = false }: HomeProductCardPr
               </option>
             ))}
           </select>
-        ) : (
+        ) : selected?.name && selected.name.toLowerCase() !== "default" ? (
           <span className="truncate text-xs font-medium text-muted-foreground">
-            {selected?.name ?? ""}
+            {selected.name}
           </span>
+        ) : (
+          <span className="flex-1" />
         )}
 
         <div className="flex shrink-0 items-center overflow-hidden rounded-lg border border-border">
