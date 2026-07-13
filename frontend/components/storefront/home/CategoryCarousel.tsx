@@ -36,7 +36,7 @@ export function CategoryCarousel({ categories }: CategoryCarouselProps) {
   if (categories.length === 0) return null;
 
   return (
-    <section className="w-full bg-[#b8c5b8] py-14 sm:py-20">
+    <section className="w-full bg-[#b8c5b8] py-10 sm:py-20">
       <div className="mx-auto w-full px-4 sm:px-6 lg:px-10">
         {/* Section Header */}
         <motion.div

@@ -75,7 +75,7 @@ export function HeroSection() {
 
   return (
     <section ref={containerRef} className="w-full overflow-hidden">
-      <div className="relative flex min-h-[600px] flex-col overflow-hidden lg:min-h-[640px] lg:flex-row">
+      <div className="relative flex min-h-[480px] flex-col overflow-hidden sm:min-h-[600px] lg:min-h-[640px] lg:flex-row">
         
         {/* Background Images with Cross-fade & GSAP Parallax */}
         <div ref={bgWrapperRef} className="absolute inset-x-0 -top-[20%] -bottom-[20%] z-0 bg-black">
@@ -98,14 +98,14 @@ export function HeroSection() {
 
         {/* Left — content (Animated with Framer Motion) */}
         <motion.div
-          className="relative z-10 flex flex-1 flex-col justify-center px-4 pt-10 pb-8 text-text-cream sm:px-12 sm:py-16 lg:py-20 lg:pl-16 lg:pr-0"
+          className="relative z-10 flex flex-1 flex-col justify-center px-4 pt-8 pb-6 text-text-cream sm:px-12 sm:py-16 lg:py-20 lg:pl-16 lg:pr-0"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
           <motion.h1
             variants={itemVariants}
-            className="relative font-heading text-5xl font-semibold leading-[1.08] sm:text-6xl lg:text-7xl"
+            className="relative font-heading text-4xl font-semibold leading-[1.08] sm:text-5xl lg:text-7xl"
           >
             Made for
             <br />

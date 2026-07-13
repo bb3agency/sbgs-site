@@ -16,9 +16,9 @@ export async function BestsellersSection() {
 
   return (
     <BestsellersParallax>
-      <section className="mx-auto w-full px-4 py-16 sm:py-24 sm:px-6 lg:px-10 overflow-hidden">
+      <section className="mx-auto w-full px-4 py-12 sm:py-24 sm:px-6 lg:px-10 overflow-hidden">
         <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <h2 className="font-heading text-4xl font-semibold text-foreground sm:text-5xl">
+          <h2 className="font-heading text-3xl font-semibold text-foreground sm:text-4xl lg:text-5xl">
             Our Bestsellers, Loved by All
           </h2>
           <Link
