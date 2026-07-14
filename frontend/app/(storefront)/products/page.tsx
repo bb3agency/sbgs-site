@@ -164,7 +164,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                     "text-[13px] transition-colors",
                     !category ? "font-semibold text-foreground" : "text-muted-foreground group-hover:text-foreground"
                   )}>
-                    All Sweets
+                    All Products
                   </span>
                 </Link>
                 

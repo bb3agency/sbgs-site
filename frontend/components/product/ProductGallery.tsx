@@ -38,7 +38,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
       {/* Main image */}
       <div
         className={cn(
-          "group relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-secondary cursor-zoom-in",
+          "group relative w-full overflow-hidden cursor-zoom-in",
           zoomed && "cursor-zoom-out",
         )}
         onClick={() => setZoomed((z) => !z)}
@@ -47,13 +47,11 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
         role="img"
         aria-label={current?.altText ?? productName}
       >
-        <Image
+        <img
           src={currentSrc}
           alt={current?.altText ?? productName}
-          fill
-          priority
           className={cn(
-            "object-contain transition-all duration-500 ease-out select-none",
+            "w-full h-auto transition-transform duration-500 ease-out select-none",
             zoomed
               ? "scale-150"
               : "scale-100 group-hover:scale-105",
@@ -63,7 +61,6 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
               ? { transformOrigin: `${mousePos.x}% ${mousePos.y}%` }
               : { transformOrigin: "center center" }
           }
-          sizes="(max-width: 768px) 100vw, 55vw"
           draggable={false}
         />
 
@@ -90,10 +87,10 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
                 type="button"
                 onClick={() => { setActive(idx); setZoomed(false); }}
                 className={cn(
-                  "relative w-20 sm:w-28 aspect-[4/3] shrink-0 overflow-hidden rounded-xl bg-secondary ring-2 transition-all duration-200",
+                  "relative w-20 sm:w-28 aspect-[4/3] shrink-0 overflow-hidden rounded-xl ring-2 transition-all duration-200",
                   idx === active
                     ? "ring-brand-maroon shadow-md"
-                    : "ring-transparent opacity-60 hover:opacity-100 hover:ring-secondary",
+                    : "ring-transparent opacity-60 hover:opacity-100 hover:ring-muted-foreground/30",
                 )}
                 aria-label={`View image ${idx + 1}`}
                 aria-pressed={idx === active}
@@ -102,7 +99,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
                   src={resolveProductImageUrl(img.url)}
                   alt={img.altText}
                   fill
-                  className="object-contain"
+                  className="object-cover"
                   sizes="(max-width: 640px) 80px, 112px"
                 />
               </button>

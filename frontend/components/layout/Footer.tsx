@@ -24,7 +24,7 @@ const COLUMNS: FooterColumn[] = [
     title: "Quick Links",
     links: [
       { label: "Home", href: "/" },
-      { label: "All Sweets", href: "/products" },
+      { label: "All Products", href: "/products" },
       { label: "Best Sellers", href: "/products?sort=popularity" },
       { label: "Our Branches", href: "/locations" },
       { label: "About Us", href: "/about" },
@@ -66,8 +66,20 @@ export function Footer(_props: FooterProps) {
   ].filter((s) => s.href);
 
   return (
-    <footer className="border-t border-border bg-brand-maroon pt-16 sm:pt-20">
-      <div className="mx-auto w-full px-4 sm:px-6 lg:px-10">
+    <footer className="relative border-t border-border bg-brand-maroon pt-16 sm:pt-20 overflow-hidden">
+      {/* Decorative peacock ornament — faint background, desktop only */}
+      <div className="pointer-events-none absolute inset-0 hidden lg:flex items-center justify-center">
+        <Image
+          src="/images/footer-element.png"
+          alt=""
+          width={800}
+          height={270}
+          className="h-auto w-[600px] xl:w-[700px] object-contain opacity-[0.3]"
+          aria-hidden="true"
+        />
+      </div>
+
+      <div className="relative mx-auto w-full px-4 sm:px-6 lg:px-10">
         <div className="grid gap-10 pb-12 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.5fr] lg:gap-12 sm:pb-16">
           {/* Brand */}
           <div>

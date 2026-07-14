@@ -26,10 +26,6 @@ function buildFaqs(isCodEnabled: boolean): Faq[] {
         ? "Yes — COD is available when enabled for your delivery pincode. You'll see the option at checkout if your address qualifies. Prepaid orders (UPI, cards, wallets) are accepted everywhere we ship."
         : "Cash on Delivery is currently unavailable. Prepaid orders (UPI, cards, wallets) are accepted everywhere we ship.",
     },
-    {
-      q: "What if I'm not satisfied with my order?",
-      a: "If something arrives damaged or below the quality you expected, message us with a photo within 24 hours of delivery and we'll refund or replace it — no long forms, no back-and-forth.",
-    },
   ];
 }
 

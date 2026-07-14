@@ -106,7 +106,7 @@ export function ProductVariantSelector({
       {product.inStock && selectedVariant ? (
         <div id="pdp-atc-anchor" className="flex flex-row items-stretch gap-3">
           {/* Quantity selector */}
-          <div className="flex h-[3.25rem] sm:h-14 items-center gap-0 rounded-xl border border-border bg-card">
+          <div className="flex h-[3.25rem] sm:h-14 items-center gap-0 rounded-full border border-border bg-brand-cream">
             <button
               type="button"
               onClick={() => setQuantity((q) => Math.max(1, q - 1))}
@@ -131,9 +131,13 @@ export function ProductVariantSelector({
           <AddToCartButton
             variantId={selectedVariant.id}
             quantity={quantity}
-            className="flex h-[3.25rem] sm:h-14 flex-1 items-center justify-center gap-2 rounded-xl border-2 border-brand-maroon bg-card px-4 sm:px-6 text-sm font-bold text-brand-maroon shadow-sm transition-colors hover:bg-brand-maroon/5 disabled:opacity-60"
+            className="flex h-[3.25rem] sm:h-14 flex-1 sm:flex-none sm:ml-auto items-center justify-center gap-2 rounded-full px-4 sm:px-10 text-sm font-semibold tracking-tight text-text-cream transition-all hover:scale-[1.02] active:scale-[0.97] disabled:opacity-60 disabled:pointer-events-none"
+            style={{
+              background: "linear-gradient(180deg, #b11f35 0%, #8e192a 100%)",
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15), 0 4px 12px rgba(0,0,0,0.15)",
+            }}
             label="Add to cart"
-            icon={<ShoppingCart className="size-4 shrink-0" aria-hidden />}
+            icon={<ShoppingCart className="size-5 shrink-0" aria-hidden />}
           />
         </div>
       ) : (
