@@ -59,10 +59,6 @@ function buildGroups(isCodEnabled: boolean): FaqGroup[] {
       title: "Returns & Support",
       items: [
         {
-          q: "What if I'm not satisfied with my order?",
-          a: "If something arrives damaged or below the quality you expected, contact us with a photo within 24 hours of delivery and we'll refund or replace it — no long forms, no back-and-forth.",
-        },
-        {
           q: "How do I track my order?",
           a: "Once signed in, head to My Orders in your account to see the latest status and tracking for every order.",
         },

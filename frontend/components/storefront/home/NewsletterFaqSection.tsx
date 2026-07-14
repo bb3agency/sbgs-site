@@ -29,10 +29,6 @@ function buildFaqs(isCodEnabled: boolean): Faq[] {
       q: "How long does delivery take?",
       a: "Standard delivery takes 3–5 business days depending on your location. Sweets are freshly packed and dispatched quickly so they reach you at their best.",
     },
-    {
-      q: "What if I'm not satisfied with my order?",
-      a: "If something arrives damaged or below the quality you expected, contact us with a photo within 24 hours of delivery and we'll make it right — no long forms, no back-and-forth.",
-    },
   ];
 }
 

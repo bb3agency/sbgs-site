@@ -145,7 +145,7 @@ export default async function CategoryProductsPage({
                   <div className="flex size-4 items-center justify-center rounded-full border border-muted-foreground/30 transition-colors group-hover:border-brand-maroon/50">
                   </div>
                   <span className="text-[13px] font-medium text-muted-foreground transition-colors group-hover:text-foreground">
-                    All Sweets
+                    All Products
                   </span>
                 </Link>
 

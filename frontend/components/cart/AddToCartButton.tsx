@@ -16,6 +16,7 @@ interface AddToCartButtonProps {
   quantity?: number;
   redirectTo?: string;
   className?: string;
+  style?: React.CSSProperties;
   icon?: React.ReactNode;
 }
 
@@ -25,6 +26,7 @@ export function AddToCartButton({
   quantity = 1,
   redirectTo,
   className,
+  style,
   icon,
 }: AddToCartButtonProps) {
   const router = useRouter();
@@ -67,6 +69,7 @@ export function AddToCartButton({
       type="button"
       disabled={isSubmitting}
       onClick={handleClick}
+      style={style}
       className={
         className ??
         "inline-flex h-10 items-center justify-center gap-2 rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground disabled:opacity-60"

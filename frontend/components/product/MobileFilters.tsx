@@ -76,7 +76,7 @@ export function MobileFilters({ categories }: MobileFiltersProps) {
                     "text-[13px] transition-colors",
                     !activeCategory ? "font-semibold text-foreground" : "text-muted-foreground group-hover:text-foreground"
                   )}>
-                    All Sweets
+                    All Products
                   </span>
                 </Link>
                 
