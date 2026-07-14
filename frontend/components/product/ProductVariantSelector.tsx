@@ -104,9 +104,9 @@ export function ProductVariantSelector({
 
       {/* Quantity + CTAs — id used by StickyAddToCartBar IntersectionObserver */}
       {product.inStock && selectedVariant ? (
-        <div id="pdp-atc-anchor" className="flex flex-col gap-3 sm:flex-row sm:items-stretch sm:gap-3">
+        <div id="pdp-atc-anchor" className="flex flex-row items-stretch gap-3">
           {/* Quantity selector */}
-          <div className="flex h-12 items-center gap-0 rounded-xl border border-border bg-card sm:h-14">
+          <div className="flex h-[3.25rem] sm:h-14 items-center gap-0 rounded-xl border border-border bg-card">
             <button
               type="button"
               onClick={() => setQuantity((q) => Math.max(1, q - 1))}
@@ -128,11 +128,10 @@ export function ProductVariantSelector({
             </button>
           </div>
 
-          {/* Add to cart */}
           <AddToCartButton
             variantId={selectedVariant.id}
             quantity={quantity}
-            className="flex h-12 flex-1 items-center justify-center gap-2 rounded-xl border-2 border-brand-maroon bg-card px-6 text-sm font-bold text-brand-maroon shadow-sm transition-colors hover:bg-brand-maroon/5 disabled:opacity-60 sm:h-14"
+            className="flex h-[3.25rem] sm:h-14 flex-1 items-center justify-center gap-2 rounded-xl border-2 border-brand-maroon bg-card px-4 sm:px-6 text-sm font-bold text-brand-maroon shadow-sm transition-colors hover:bg-brand-maroon/5 disabled:opacity-60"
             label="Add to cart"
             icon={<ShoppingCart className="size-4 shrink-0" aria-hidden />}
           />

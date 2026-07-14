@@ -38,7 +38,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
       {/* Main image */}
       <div
         className={cn(
-          "group relative aspect-square overflow-hidden rounded-2xl bg-brand-cream cursor-zoom-in",
+          "group relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-secondary cursor-zoom-in",
           zoomed && "cursor-zoom-out",
         )}
         onClick={() => setZoomed((z) => !z)}
@@ -53,7 +53,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
           fill
           priority
           className={cn(
-            "object-contain p-4 transition-all duration-500 ease-out select-none",
+            "object-contain transition-all duration-500 ease-out select-none",
             zoomed
               ? "scale-150"
               : "scale-100 group-hover:scale-105",
@@ -90,7 +90,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
                 type="button"
                 onClick={() => { setActive(idx); setZoomed(false); }}
                 className={cn(
-                  "relative size-16 shrink-0 overflow-hidden rounded-xl bg-brand-cream ring-2 transition-all duration-200 sm:size-[72px]",
+                  "relative w-20 sm:w-28 aspect-[4/3] shrink-0 overflow-hidden rounded-xl bg-secondary ring-2 transition-all duration-200",
                   idx === active
                     ? "ring-brand-maroon shadow-md"
                     : "ring-transparent opacity-60 hover:opacity-100 hover:ring-secondary",
@@ -102,8 +102,8 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
                   src={resolveProductImageUrl(img.url)}
                   alt={img.altText}
                   fill
-                  className="object-contain p-2"
-                  sizes="72px"
+                  className="object-contain"
+                  sizes="(max-width: 640px) 80px, 112px"
                 />
               </button>
             ))}

@@ -96,6 +96,7 @@ export function Header({ categories, minOrderValuePaise = 0 }: HeaderProps) {
               width={180}
               height={180}
               className="h-24 w-auto shrink-0 object-contain object-left sm:h-20 lg:h-32 lg:object-center"
+              priority
             />
           </Link>
 
