@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { SlidersHorizontal, ChevronRight, Sparkles, ChevronDown, ChevronUp, Search } from "lucide-react";
 import { ProductGrid } from "@/components/product/ProductGrid";
 import { PlpSortSelect } from "@/components/product/PlpSortSelect";
+import { MobileFilters } from "@/components/product/MobileFilters";
 import { PlpSearchInput } from "@/components/product/PlpSearchInput";
 import { StorefrontPagination } from "@/components/product/StorefrontPagination";
 import {
@@ -135,7 +136,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
       <section className="mx-auto flex w-full max-w-[1440px] flex-col items-start gap-8 px-4 pt-10 sm:px-6 lg:flex-row lg:px-10 lg:pt-12">
         
         {/* Sidebar */}
-        <aside className="w-full shrink-0 lg:w-[260px] xl:w-[280px]">
+        <aside className="hidden lg:block w-full shrink-0 lg:w-[260px] xl:w-[280px]">
           <div className="rounded-[24px] bg-[#fdfcf9] border border-border p-6 shadow-sm">
             <div className="mb-6 flex items-center justify-between">
               <h2 className="text-[15px] font-bold text-foreground">Filter by</h2>
@@ -199,7 +200,10 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
           
           {/* Top search bar area */}
           <div className="mb-8 flex items-center gap-4">
-            <PlpSearchInput placeholder="Search for sweets, snacks, pickles..." basePath="/products" />
+            <div className="flex-1 min-w-0">
+              <PlpSearchInput placeholder="Search for sweets, snacks, pickles..." basePath="/products" />
+            </div>
+            <MobileFilters categories={categories} />
           </div>
 
           {/* Results count & inline sort */}

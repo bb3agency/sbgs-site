@@ -1,5 +1,4 @@
-import { Manrope } from "next/font/google";
-import localFont from "next/font/local";
+import { Manrope, Baskervville } from "next/font/google";
 
 /** Site-wide Manrope — body / UI sans-serif (storefront; admin/ops override to system sans). */
 export const bodyFont = Manrope({
@@ -9,9 +8,11 @@ export const bodyFont = Manrope({
   display: "swap",
 });
 
-/** Sherly Kitchen — custom local font for storefront headings. */
-export const headingFont = localFont({
-  src: "../public/fonts/SherlyKitchen.ttf",
+/** Baskervville — Google Font for storefront headings. */
+export const headingFont = Baskervville({
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
 });

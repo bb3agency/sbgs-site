@@ -96,7 +96,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         />
       ) : null}
 
-      <div className="mx-auto max-w-[1440px] px-4 py-4 sm:py-8 lg:px-8">
+      <div className="mx-auto max-w-[1440px] px-5 py-5 sm:px-6 sm:py-8 lg:px-8">
         {/* Breadcrumb */}
         <nav
           className="mb-6 flex flex-wrap items-center gap-1.5 text-xs font-medium text-muted-foreground sm:mb-8 sm:gap-2 sm:text-sm"

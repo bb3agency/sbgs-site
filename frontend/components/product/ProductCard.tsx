@@ -64,7 +64,7 @@ export function ProductCard({ product, priority = false, className }: ProductCar
     >
       <Link
         href={`/products/${product.slug}`}
-        className="group relative block aspect-square w-full overflow-hidden rounded-t-2xl bg-secondary"
+        className="group relative block aspect-[4/3] w-full overflow-hidden rounded-t-2xl bg-secondary"
         aria-label={product.name}
       >
         <Image
