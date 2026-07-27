@@ -62,7 +62,7 @@ export function ProductVariantSelector({
                     </span>
                   )}
                   <span className="text-sm font-semibold text-foreground">{v.name}</span>
-                  <span className="text-base font-bold text-brand-maroon">
+                  <span className="text-base font-bold text-brand-maroon font-price">
                     {formatPrice(v.price)}
                   </span>
                 </button>
@@ -91,11 +91,11 @@ export function ProductVariantSelector({
           </span>
           <div className="flex items-baseline gap-2">
             {hasDiscount && selectedVariant?.compareAtPrice && (
-              <span className="text-sm text-muted-foreground line-through">
+              <span className="text-sm text-muted-foreground line-through font-price">
                 {formatPrice(selectedVariant.compareAtPrice)}
               </span>
             )}
-            <span className="text-2xl font-bold text-brand-maroon">
+            <span className="text-2xl font-bold text-brand-maroon font-price">
               {formatPrice(selectedVariant?.price ?? 0)}
             </span>
           </div>

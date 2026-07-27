@@ -189,13 +189,6 @@ export default async function CategoryProductsPage({
             <p className="text-[13px] font-semibold text-muted-foreground">
               Showing {Math.min(total, limit)} of {total} products
             </p>
-
-            <div className="flex items-center gap-2 text-[13px] font-semibold text-muted-foreground">
-              Sort by:
-              <span className="flex items-center gap-1.5 font-bold text-foreground cursor-pointer">
-                {sortLabel} <ChevronDown className="size-3.5" />
-              </span>
-            </div>
           </div>
 
           {/* Active filters display */}

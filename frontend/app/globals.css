@@ -9,6 +9,7 @@
     --color-foreground: var(--foreground);
     --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
     --font-heading: 'Baskervville', Georgia, "Times New Roman", serif;
+    --font-price: var(--font-price), 'DM Sans', ui-sans-serif, system-ui, sans-serif;
     --font-serif: 'Baskervville', Georgia, "Times New Roman", serif;
     /* Brand palette utilities (bg-brand-maroon, text-brand-gold, …) */
     --color-brand-maroon: var(--brand-maroon);

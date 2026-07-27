@@ -80,9 +80,9 @@ export function Footer(_props: FooterProps) {
       </div>
 
       <div className="relative mx-auto w-full px-4 sm:px-6 lg:px-10">
-        <div className="grid gap-10 pb-12 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.5fr] lg:gap-12 sm:pb-16">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-10 pb-12 sm:grid-cols-2 sm:gap-10 lg:grid-cols-[2fr_1fr_1fr_1.5fr] lg:gap-12 sm:pb-16">
           {/* Brand */}
-          <div>
+          <div className="col-span-2 sm:col-span-1">
             <Link
               href="/"
               className="flex items-center gap-2.5"
@@ -128,7 +128,7 @@ export function Footer(_props: FooterProps) {
 
           {/* Link columns */}
           {COLUMNS.map((col) => (
-            <nav key={col.title} aria-label={col.title}>
+            <nav key={col.title} aria-label={col.title} className="col-span-1">
               <h3 className="font-heading text-lg font-semibold text-text-cream">
                 {col.title}
               </h3>
@@ -148,7 +148,7 @@ export function Footer(_props: FooterProps) {
           ))}
 
           {/* Contact */}
-          <div>
+          <div className="col-span-2 sm:col-span-1">
             <h3 className="font-heading text-lg font-semibold text-text-cream">
               Contact Us
             </h3>

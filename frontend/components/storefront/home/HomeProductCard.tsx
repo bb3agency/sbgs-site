@@ -79,7 +79,7 @@ export function HomeProductCard({ product, priority = false }: HomeProductCardPr
               {product.name}
             </h3>
           </Link>
-          <p className="shrink-0 font-heading text-base sm:text-lg font-semibold text-brand-maroon mt-0.5">
+          <p className="shrink-0 font-price text-base sm:text-lg font-semibold text-brand-maroon mt-0.5">
             {formatPrice(displayPrice)}
           </p>
         </div>

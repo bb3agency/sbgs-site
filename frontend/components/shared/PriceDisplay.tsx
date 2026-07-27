@@ -10,7 +10,7 @@ export function PriceDisplay({
   originalPricePaise,
 }: PriceDisplayProps) {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 font-price">
       {typeof originalPricePaise === "number" &&
       originalPricePaise > pricePaise ? (
         <span className="text-sm text-muted-foreground line-through">

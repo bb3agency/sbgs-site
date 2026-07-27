@@ -124,7 +124,7 @@ export function BestsellerCard({ product, priority = false, badge }: BestsellerC
           ) : null}
         </div>
 
-        <p className="mt-1.5 text-sm font-extrabold text-brand-maroon">
+        <p className="mt-1.5 text-sm font-extrabold text-brand-maroon font-price">
           From {formatPrice(selected?.price ?? 0)}
         </p>
 

@@ -26,7 +26,7 @@ export function InstagramStrip() {
   const handle = instagramUrl.replace(/\/+$/, "").split("/").pop() || "instagram";
 
   return (
-    <section className="mx-auto w-full px-4 py-12 sm:px-6 sm:py-24 lg:px-10">
+    <section className="mx-auto w-full px-4 py-8 sm:px-6 sm:py-24 lg:px-10">
       <div className="mb-10 flex flex-col items-center gap-3 text-center">
         <div className="flex size-12 items-center justify-center rounded-full bg-brand-gold/15 text-brand-gold">
           <FaInstagram className="size-6" aria-hidden />
