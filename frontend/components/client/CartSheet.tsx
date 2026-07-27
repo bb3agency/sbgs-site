@@ -133,7 +133,7 @@ export function CartSheet() {
                              Qty: {item.quantity}
                            </p>
                          </div>
-                         <p className="font-bold text-brand-gold font-['Montserrat'] text-sm mt-2">
+                         <p className="font-bold text-brand-gold font-price text-sm mt-2">
                            {formatPrice(item.lineTotal)}
                          </p>
                        </div>
@@ -144,7 +144,7 @@ export function CartSheet() {
                <div className="border-t border-brand-maroon/10 bg-brand-cream/30 p-6 w-full space-y-4">
                   <div className="flex justify-between items-center text-lg font-serif">
                     <span className="text-[#1a1a1a]">Subtotal</span>
-                    <span className="font-bold text-brand-gold font-['Montserrat']">{formatPrice(cart?.subtotal ?? 0)}</span>
+                    <span className="font-bold text-brand-gold font-price">{formatPrice(cart?.subtotal ?? 0)}</span>
                   </div>
                   <Link 
                     href="/cart" 

@@ -38,7 +38,7 @@ export function NewsletterFaqSection({ isCodEnabled = false }: NewsletterFaqSect
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="mx-auto w-full px-4 py-16 sm:py-24 sm:px-6 lg:px-10">
+    <section className="mx-auto w-full px-4 py-10 sm:py-24 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-3xl">
         <h2 className="mb-8 text-center font-heading text-4xl font-semibold text-foreground sm:text-[2.75rem] sm:leading-tight">
           Frequently Asked Questions

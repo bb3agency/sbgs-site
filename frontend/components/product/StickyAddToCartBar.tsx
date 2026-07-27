@@ -81,11 +81,11 @@ export function StickyAddToCartBar({
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-bold text-foreground sm:text-base">{productName}</p>
           <div className="mt-0.5 flex items-baseline gap-2">
-            <span className="text-base font-extrabold text-brand-maroon sm:text-lg">
+            <span className="text-base font-extrabold text-brand-maroon sm:text-lg font-price">
               {formatPrice(price)}
             </span>
             {compareAtPrice && compareAtPrice > price ? (
-              <span className="text-xs text-muted-foreground/70 line-through">
+              <span className="text-xs text-muted-foreground/70 line-through font-price">
                 {formatPrice(compareAtPrice)}
               </span>
             ) : null}

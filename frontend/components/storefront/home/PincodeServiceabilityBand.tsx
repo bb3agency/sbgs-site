@@ -58,7 +58,7 @@ export function PincodeServiceabilityBand() {
   return (
     <section className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
       <motion.div 
-        className="relative overflow-hidden bg-brand-green bg-[url('/images/pincodecheck-mobile.png')] bg-cover bg-center md:bg-[url('/images/pincodecheck-desktop.png')] px-6 py-12 text-foreground sm:px-10 sm:py-16 lg:px-16"
+        className="relative overflow-hidden bg-brand-green bg-[url('/images/pincodecheck-mobile.png')] bg-cover bg-center md:bg-[url('/images/pincodecheck-desktop.png')] px-6 py-8 text-foreground sm:px-10 sm:py-16 lg:px-16"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}

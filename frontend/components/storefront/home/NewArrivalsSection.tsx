@@ -18,7 +18,7 @@ export async function NewArrivalsSection() {
   if (items.length === 0) return null;
 
   return (
-    <section className="mx-auto w-full px-4 py-16 sm:px-6 sm:py-24 lg:px-10">
+    <section className="mx-auto w-full px-4 py-10 sm:px-6 sm:py-24 lg:px-10">
       <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-brand-gold">

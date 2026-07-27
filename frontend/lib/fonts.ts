@@ -1,4 +1,4 @@
-import { Manrope, Baskervville } from "next/font/google";
+import { Manrope, Baskervville, DM_Sans } from "next/font/google";
 
 /** Site-wide Manrope — body / UI sans-serif (storefront; admin/ops override to system sans). */
 export const bodyFont = Manrope({
@@ -14,6 +14,14 @@ export const headingFont = Baskervville({
   weight: ["400"],
   style: ["normal", "italic"],
   variable: "--font-display",
+  display: "swap",
+});
+
+/** DM Sans — clean, readable font used exclusively for prices. */
+export const priceFont = DM_Sans({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-price",
   display: "swap",
 });
 

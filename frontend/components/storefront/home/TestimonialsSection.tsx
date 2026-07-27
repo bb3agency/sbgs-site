@@ -19,7 +19,7 @@ export async function TestimonialsSection() {
   }
 
   return (
-    <section className="mx-auto w-full px-4 py-16 sm:py-24 sm:px-6 lg:px-10">
+    <section className="mx-auto w-full px-4 py-10 sm:py-24 sm:px-6 lg:px-10">
       <h2 className="mb-12 text-center font-heading text-4xl font-semibold text-foreground sm:text-5xl">
         Loved by Thousands
       </h2>

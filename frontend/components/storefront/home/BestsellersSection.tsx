@@ -17,7 +17,7 @@ export async function BestsellersSection() {
 
   return (
     <BestsellersParallax>
-      <section className="mx-auto w-full px-4 py-12 sm:py-24 sm:px-6 lg:px-10 overflow-hidden">
+      <section className="mx-auto w-full px-4 py-8 sm:py-24 sm:px-6 lg:px-10 overflow-hidden">
         <Reveal 
           className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
         >

@@ -26,7 +26,7 @@ const PILLARS = [
 /** "Why Sri Sai Baba" USP band — premium positioning between product sections. */
 export function WhyChooseBand() {
   return (
-    <section className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-brand-maroon bg-[url('/images/whychooseus-mobile.png')] bg-cover bg-center md:bg-[url('/images/whychooseus-desktop.png')] px-4 py-16 sm:px-6 sm:py-24 lg:px-10">
+    <section className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-brand-maroon bg-[url('/images/whychooseus-mobile.png')] bg-cover bg-center md:bg-[url('/images/whychooseus-desktop.png')] px-4 py-10 sm:px-6 sm:py-24 lg:px-10">
       <div className="relative z-10 mx-auto max-w-[1440px]">
         <div className="mb-12 text-center">
           <h2 className="mx-auto max-w-2xl font-heading text-4xl font-semibold text-text-cream sm:text-5xl">

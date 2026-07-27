@@ -47,7 +47,7 @@ export function StorySection() {
       {/* Container with overflow-hidden for parallax bounds */}
       <div 
         ref={containerRef}
-        className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-brand-green px-6 py-20 text-center text-text-cream sm:px-12 lg:px-16 lg:py-32"
+        className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-brand-green px-6 py-12 text-center text-text-cream sm:px-12 lg:px-16 lg:py-32"
       >
         {/* Parallax Background */}
         <div ref={bgWrapperRef} className="absolute inset-x-0 -bottom-[30%] -top-[30%] z-0">
