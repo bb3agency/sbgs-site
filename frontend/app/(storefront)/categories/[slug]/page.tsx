@@ -234,7 +234,7 @@ export default async function CategoryProductsPage({
                 href="/products"
                 className="inline-flex h-12 items-center justify-center rounded-full bg-[#521b1b] px-8 text-sm font-semibold text-white transition-transform hover:scale-105"
               >
-                Browse all sweets
+                Browse all products
               </Link>
             </div>
           )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -30,6 +30,62 @@ export function Header({ categories, minOrderValuePaise = 0 }: HeaderProps) {
   const pathname = usePathname();
   const [searchOpen, setSearchOpen] = useState(false);
 
+  /* ── Scroll-direction header: hide on scroll-down, reveal on scroll-up ── */
+  const [isVisible, setIsVisible] = useState(true);
+  const [headerHeight, setHeaderHeight] = useState(0);
+  const headerRef = useRef<HTMLElement>(null);
+
+  // Measure header height whenever it might change (search panel open/close, resize)
+  const measureHeader = useCallback(() => {
+    if (headerRef.current) {
+      setHeaderHeight(headerRef.current.offsetHeight);
+    }
+  }, []);
+
+  useEffect(() => {
+    measureHeader();
+    window.addEventListener("resize", measureHeader);
+    return () => window.removeEventListener("resize", measureHeader);
+  }, [measureHeader]);
+
+  // Re-measure when the search panel toggles
+  useEffect(() => {
+    measureHeader();
+  }, [searchOpen, measureHeader]);
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    const updateHeaderVisibility = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY <= 0) {
+        // At the very top — always show
+        setIsVisible(true);
+      } else if (currentScrollY > lastScrollY) {
+        // Scrolling DOWN — hide
+        setIsVisible(false);
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling UP — show
+        setIsVisible(true);
+      }
+
+      lastScrollY = currentScrollY;
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateHeaderVisibility);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   // Derive parent categories (parentId is null) and build a map of parentId → children
   const { parentCategories, childrenMap } = useMemo(() => {
     const parents = categories.filter((c) => !c.parentId);
@@ -56,7 +112,19 @@ export function Header({ categories, minOrderValuePaise = 0 }: HeaderProps) {
   return (
     <>
       <MobileNav categories={categories} minOrderValuePaise={minOrderValuePaise} />
-      <header className="sticky top-0 z-50 w-full bg-brand-cream/95 backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-shadow">
+
+      {/* Spacer — occupies the same height as the fixed header so page
+          content doesn't jump behind it. */}
+      <div style={{ height: headerHeight }} aria-hidden="true" />
+
+      <header
+        ref={headerRef}
+        className={cn(
+          "fixed top-0 left-0 z-50 w-full bg-brand-cream/95 backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.05)]",
+          "transition-transform duration-300 ease-in-out",
+          isVisible ? "translate-y-0" : "-translate-y-full"
+        )}
+      >
         {/* Top strip — maroon announcement bar */}
         <div className="hidden bg-brand-maroon px-4 py-1.5 text-xs font-medium text-text-cream sm:flex sm:items-center sm:justify-center sm:gap-6">
           <span>

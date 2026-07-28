@@ -71,12 +71,12 @@ export function CartDropdown() {
         <div
           role="dialog"
           aria-label="Cart preview"
-          className="absolute right-0 top-full z-[60] mt-3 w-[min(20rem,calc(100vw-1.5rem))] overflow-hidden rounded-2xl border border-border bg-card shadow-xl"
+          className="absolute right-0 top-full z-[60] mt-3 flex w-[min(20rem,calc(100vw-1.5rem))] max-h-[70vh] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-xl"
         >
           {/* Little notch pointing at the icon */}
           <div className="absolute -top-1.5 right-4 size-3 rotate-45 border-l border-t border-border bg-card" aria-hidden />
 
-          <div className="flex items-center justify-between border-b border-border px-4 py-3">
+          <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3">
             <p className="text-sm font-semibold text-foreground">
               Your Cart{cartCount > 0 ? ` (${cartCount})` : ""}
             </p>
@@ -101,7 +101,7 @@ export function CartDropdown() {
             </div>
           ) : (
             <>
-              <ul className="max-h-72 overflow-y-auto overscroll-contain divide-y divide-border">
+              <ul className="min-h-0 flex-1 overflow-y-auto overscroll-contain divide-y divide-border">
                 {cartItems.map((item) => (
                   <li key={item.id} className="flex items-center gap-3 px-4 py-2.5">
                     <div className="relative size-11 shrink-0 overflow-hidden rounded-lg border border-border bg-secondary">
@@ -129,7 +129,7 @@ export function CartDropdown() {
                 ))}
               </ul>
 
-              <div className="border-t border-border p-3">
+              <div className="shrink-0 border-t border-border p-3">
                 <Link
                   href="/cart"
                   onClick={() => setOpen(false)}

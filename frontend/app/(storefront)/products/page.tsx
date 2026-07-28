@@ -64,7 +64,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
     ? `Results for "${q}"`
     : category
       ? category.replace(/-/g, " ")
-      : "Sweets";
+      : "All Products";
 
   const totalPages = meta?.totalPages ?? 1;
   const totalProducts = meta?.total ?? products.length;
@@ -96,20 +96,24 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
             </Link>
             <ChevronRight className="size-3" aria-hidden />
             <span className="capitalize text-brand-gold">
-              {q ? "Search" : category ? category.replace(/-/g, " ") : "Sweets"}
+              {q ? "Search" : category ? category.replace(/-/g, " ") : "All Products"}
             </span>
           </nav>
           
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-gold">
-            Made with Pure Ghee
-          </p>
+          {category ? (
+            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-gold">
+              Made with Pure Ghee
+            </p>
+          ) : null}
           
           <h1 className="mt-3 font-heading text-4xl font-semibold capitalize text-brand-gold sm:text-5xl lg:text-[56px] lg:leading-tight">
             {title}
           </h1>
           
           <p className="mt-4 max-w-xl text-[13px] font-medium text-text-cream/80">
-            Products in this category will appear when marked Active in admin
+            {category
+              ? "Products in this category will appear when marked Active in admin"
+              : "Browse our full range of traditional sweets, savories and festive gift boxes"}
           </p>
           </div>
 

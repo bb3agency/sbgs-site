@@ -69,7 +69,7 @@ export function CartSheet() {
         </div>
 
         {/* Content */}
-        <div className="flex flex-1 flex-col items-center justify-center p-6 text-center">
+        <div className={`flex flex-1 min-h-0 flex-col overflow-hidden ${items.length === 0 ? "items-center justify-center p-6 text-center" : ""}`}>
           {items.length === 0 ? (
             <div className="flex w-full flex-col items-center max-w-[320px] mx-auto">
               <h2 className="mb-8 font-serif text-3xl font-normal text-[#1a1a1a]">
@@ -96,14 +96,14 @@ export function CartSheet() {
               </div>
             </div>
           ) : (
-            <div className="flex w-full flex-col h-full text-left">
+            <div className="flex w-full flex-1 min-h-0 flex-col text-left">
                <div className="p-6 pb-4 border-b border-brand-maroon/10 flex items-center justify-between">
                  <h2 className="font-serif text-2xl font-normal text-brand-maroon italic flex items-center gap-2">
                    <ShoppingBag className="size-5" />
                    Your Cart ({items.length})
                  </h2>
                </div>
-               <div className="flex-1 overflow-y-auto w-full p-6 space-y-6">
+               <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain w-full p-6 space-y-6">
                  {items.map((item) => {
                    const productName = getCartLineProductName(item);
                    return (
