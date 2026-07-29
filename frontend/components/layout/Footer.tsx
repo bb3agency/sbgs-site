@@ -34,8 +34,7 @@ const COLUMNS: FooterColumn[] = [
     title: "Customer Care",
     links: [
       { label: "My Orders", href: "/orders" },
-      { label: "Shipping & Delivery", href: "/shipping" },
-      { label: "Returns & Refunds", href: "/returns" },
+      { label: "Shipping Policy", href: "/shipping" },
       { label: "FAQs", href: "/faq" },
       { label: "Track Order", href: "/orders" },
     ],
