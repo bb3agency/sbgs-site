@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { SlidersHorizontal, ChevronRight, Sparkles, ChevronDown, ChevronUp, Search } from "lucide-react";
@@ -69,17 +70,20 @@ export default async function CategoryProductsPage({
 
   return (
     <div className="flex min-h-screen flex-col bg-[#fdfbf7] pb-24">
-      {/* ── Page header — dynamic background ─────── */}
-      <section
-        className="relative overflow-hidden py-14 text-left"
-        style={
-          hasUploadedImage
-            ? { backgroundImage: `url(${currentCategory.image})`, backgroundSize: "cover", backgroundPosition: "center" }
-            : { backgroundColor: "#244f3d" }
-        }
-      >
+      {/* ── Page header — full-bleed image on desktop, solid + framed image on mobile ─────── */}
+      <section className="relative overflow-hidden bg-[#244f3d] py-14 text-left">
         {hasUploadedImage && (
-          <div className="absolute inset-0 bg-black/20 z-0" />
+          <div className="absolute inset-0 z-0 hidden md:block">
+            <Image
+              src={currentCategory.image}
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-black/20" />
+          </div>
         )}
         <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-10">
           <nav
@@ -99,19 +103,32 @@ export default async function CategoryProductsPage({
             </span>
           </nav>
 
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-gold">
-            Made with Pure Ghee
-          </p>
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-gold">
+                Made with Pure Ghee
+              </p>
 
-          <h1 className="mt-3 font-heading text-4xl font-semibold capitalize text-brand-gold sm:text-5xl lg:text-[56px] lg:leading-tight">
-            {categoryName}
-          </h1>
+              <h1 className="mt-3 font-heading text-4xl font-semibold capitalize text-brand-gold sm:text-5xl lg:text-[56px] lg:leading-tight">
+                {categoryName}
+              </h1>
 
-          <p className="mt-4 max-w-xl text-[13px] font-medium text-text-cream/80">
-            {total > 0
-              ? `${total} active product${total !== 1 ? "s" : ""}`
-              : "Products in this category will appear when marked Active in admin"}
-          </p>
+            </div>
+
+            {/* Mobile-only framed category image — desktop shows the full-bleed background instead */}
+            {hasUploadedImage && (
+              <div className="relative size-24 shrink-0 overflow-hidden rounded-full border-4 border-[#2c5f4a] shadow-xl sm:size-32 md:hidden">
+                <Image
+                  src={currentCategory.image}
+                  alt={categoryName}
+                  fill
+                  priority
+                  sizes="(max-width: 640px) 96px, 128px"
+                  className="object-cover"
+                />
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Decorative illustration pattern on the right */}
@@ -228,7 +245,7 @@ export default async function CategoryProductsPage({
                 No products in this category yet
               </h2>
               <p className="mb-8 max-w-md text-sm text-muted-foreground">
-                Active products assigned to this category in admin will show up here.
+                Fresh batches are on their way — check back soon or explore the rest of our range.
               </p>
               <Link
                 href="/products"
