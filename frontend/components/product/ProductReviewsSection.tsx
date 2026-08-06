@@ -43,34 +43,10 @@ export function ProductReviewsSection({ productSlug }: ProductReviewsSectionProp
     };
   }, [productSlug]);
 
-  if (loading) {
-    return (
-      <div className="py-8 text-center text-sm text-muted-foreground" role="status">
-        Loading customer reviews…
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="py-8 text-center text-sm text-brand-maroon" role="alert">
-        {error}
-      </div>
-    );
-  }
-
-  if (reviews.length === 0) {
-    return (
-      <section className="mt-16 border-t border-border pt-12">
-        <h2 className="mb-3 font-heading text-2xl font-bold text-foreground">
-          Customer Reviews
-        </h2>
-        <p className="text-sm text-muted-foreground">
-          No approved reviews yet. Purchasers can leave feedback after delivery;
-          approved reviews appear here automatically.
-        </p>
-      </section>
-    );
+  // Render nothing while loading, on failure, or when there are no approved
+  // reviews — the section only appears once real reviews exist.
+  if (loading || error || reviews.length === 0) {
+    return null;
   }
 
   return (

@@ -5,7 +5,7 @@ import { getStoreCategories } from "@/lib/categories";
 
 export const metadata = {
   title: "Shop by Category",
-  description: "Browse our handcrafted desi ghee sweets by category.",
+  description: "Browse our handcrafted ghee sweets by category.",
 };
 
 export default async function CategoriesPage() {

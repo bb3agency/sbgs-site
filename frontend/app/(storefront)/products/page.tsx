@@ -110,11 +110,11 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
             {title}
           </h1>
           
-          <p className="mt-4 max-w-xl text-[13px] font-medium text-text-cream/80">
-            {category
-              ? "Products in this category will appear when marked Active in admin"
-              : "Browse our full range of traditional sweets, savories and festive gift boxes"}
-          </p>
+          {!category && (
+            <p className="mt-4 max-w-xl text-[13px] font-medium text-text-cream/80">
+              Browse our full range of traditional sweets, savories and festive gift boxes
+            </p>
+          )}
           </div>
 
           {hasCategoryImage && (
