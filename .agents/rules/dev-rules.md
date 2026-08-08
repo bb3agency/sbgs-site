@@ -1,3 +1,7 @@
+---
+trigger: always_on
+---
+
 # E-Commerce Frontend — Antigravity Development Rules
 
 > **Activation:** Always On
@@ -32,9 +36,9 @@ If `diff` output is non-empty, re-sync and commit the updated `.agents/rules/dev
 3. **Confirm backend `.env` bootstrap keys are correctly configured** — BEFORE running any script, verify ALL of the following in the backend `.env`.
    > **Architecture note:** Provider API keys (Razorpay, Delhivery, Shiprocket, MSG91, Fast2SMS, Resend, Meta WhatsApp, etc.) are **NOT stored in `.env`** in production. They are stored encrypted in the `OpsConfigSecret` database table and loaded at runtime via the Ops config overlay. The `.env` file only contains **bootstrap keys** that must exist before the DB is reachable.
    - `CLIENT_ID` is set to a client-specific slug (e.g. `sbgs`) — **not** `ecom` or empty. Docker container names are derived from this value (`<CLIENT_ID>-postgres`, `<CLIENT_ID>-redis`).
-   - `POSTGRES_DB` uses **underscores only** (e.g. `sbgs`) — **hyphens are invalid in PostgreSQL DB names** and will cause container init or migration failures.
+   - `POSTGRES_DB` uses **underscores only** (e.g. `SBGS_organics`) — **hyphens are invalid in PostgreSQL DB names** and will cause container init or migration failures.
    - `POSTGRES_DB` and the DB name in `DATABASE_URL` **must match exactly** — mismatch means the bootstrap script creates the wrong DB.
-   - `DATABASE_URL` is **not** `sbgs` and matches the `POSTGRES_DB` value.
+   - `DATABASE_URL` is **not** `ecom_template` and matches the `POSTGRES_DB` value.
    - `REDIS_PASSWORD` is **non-empty** — blank value causes `ECONNABORTED`/`ECONNRESET` loops in ioredis on every reconnect attempt.
    - `REDIS_URL` **embeds the same password** as `REDIS_PASSWORD` (format: `redis://:yourpassword@localhost:6379`) — a URL without password while Redis requires auth will abort all connections.
    - `JWT_SECRET`, `JWT_REFRESH_SECRET`, `OPS_DB_ENCRYPTION_KEY` are set to unique non-placeholder values.
@@ -1046,7 +1050,7 @@ Required delivery sequence (6 tiers, strict order):
 3. **Admin read surfaces** — dashboard KPIs/charts, orders list/detail + return request queue + return request detail (`GET /admin/return-requests/:id`), global shipments (`GET /admin/shipments`, `shipments:read`) + global payments (`GET /admin/payments`, `payments:read`), inventory list + adjustment history per variant (`GET /admin/inventory/history/:variantId`), product list + categories, customer index + CRM view (customer detail includes ban fields `isBanned`/`bannedAt`/`bannedReason`; paginated order tab via `GET /admin/users/:id/orders`; admin notes list `GET /admin/users/:id/notes`), review moderation queue. Build before mutations so you have real data to validate against.
 4. **Admin mutation surfaces** — ship action (run shipping provider dry-run simultaneously), Razorpay PREPAID checkout (run Razorpay test payment dry-run simultaneously), COD checkout, cancel/refund (async — UI must show pending-refund state until worker finalises), COD collection, return request approve/reject (`PATCH /admin/return-requests/:id`), stock adjustment + bulk stock update (`POST /admin/inventory/bulk-update`, max 100 variants, full rollback on any failure), product deactivate (`DELETE /admin/products/:id` — UI label **Deactivate**) + permanent delete (`DELETE /admin/products/:id/permanent` via `AdminRowActionsMenu`; **409** if orders/reviews), product variant delete (`DELETE /admin/products/:id/variants/:variantId` — disabled in UI if last variant; backend returns 400), review hard-delete (`DELETE /admin/reviews/:id`, destructive confirmation required), customer ban (`PATCH /admin/users/:id/ban`, `users:write`, mandatory reason) + unban (`DELETE /admin/users/:id/ban`), admin notes create/delete (`POST`/`DELETE /admin/users/:id/notes`, `users:write`), settings (shipping/store/inventory/cod — notifications provider config is ops-only via `/ops/config`; admin notifications UI removed 2026-06-07), coupon lifecycle (create → edit → pause/resume → soft-delete → restore; clone via `POST .../coupons/:id/clone`; audit log per coupon via `GET .../coupons/:id/audit`; handle `RATE_LIMIT_EXCEEDED` 429 gracefully on write actions; `BUY_X_GET_Y` type hidden in forms until v2.2; deleted coupons remain visible in list with restore action — hard delete does not exist).
 5. **Reliability surfaces** — reconciliation issues, outbox dead-letter list + replay-preview + replay, inbox failures + replay-preview + replay, analytics (revenue, funnel, category breakdown, inventory alerts, notification delivery), Bull Board queue visibility.
-6. **Storefront customer journey surfaces** — catalogue (product list/detail/categories/search), cart (guest session + merge-on-login + coupon + pincode check + **`paymentMode` on delivery rates**), PREPAID checkout (full Razorpay sequence), COD checkout (gate on **`GET /store/config`.isCodEnabled**), order history/detail/tracking (cancel only **CONFIRMED/PROCESSING**; invoice CTA on **`invoice.hasPdf`**; retry payment single-call on payment page), customer auth (OTP + email + forgot-password + refresh loop + logout), user profile + addresses. Module flags via **`useStoreConfig()`** — not `NEXT_PUBLIC_FEATURE_*`. Run Resend email dry-run during checkout slice.
+6. **Storefront customer journey surfaces** — catalogue (product list/detail/categories/search), cart (guest session + merge-on-login + coupon + pincode check + **`paymentMode` on delivery rates**), PREPAID checkout (full Razorpay sequence), COD checkout (gate on **`GET /store/config`.isCodEnabled**), order history/detail/tracking (cancel only **CONFIRMED/PROCESSING**; invoice CTA on **invoice-eligible status or `invoice.hasPdf`** — download endpoints generate the PDF on demand; retry payment single-call on payment page), customer auth (OTP + email + forgot-password + refresh loop + logout), user profile + addresses. Module flags via **`useStoreConfig()`** — not `NEXT_PUBLIC_FEATURE_*`. Run Resend email dry-run during checkout slice.
 
 Non-negotiable boundaries:
 - Merchant operations stay on `/api/v1/admin/*`. Platform controls stay on `/api/v1/ops/*`.
@@ -1055,7 +1059,7 @@ Non-negotiable boundaries:
 - Ops load-shed change is a single-step action: `POST /ops/load-shed` applies immediately after OTP confirmation. There is no approval queue or separate confirm/reject step. The mode enum is `normal | reduced | emergency | maintenance`. The response carries `{ mode, updated, phase, pendingUntil }` — `phase` is non-null only when `mode === 'maintenance'` (`pending` during the 2-minute warning, `active` after the cutover).
 - **Global storefront maintenance banner:** A `MaintenanceBanner` client component must be mounted in the root layout (`app/layout.tsx`). It polls `GET /api/v1/maintenance/status` (public, rate-limit-exempt) every 10 s normally and every 5 s during `maintenance/pending`, renders a countdown to `pendingUntil` aligned with the server clock (use `status.serverTime`, never `Date.now()` alone), **does not poll on `/admin/*` or `/ops/*`**, and renders nothing while mode is `normal | reduced | emergency`. The banner is mandatory on all customer-facing surfaces — without it, the only warning shoppers get during the 2-minute window is a sudden 503 from Nginx.
 - Authoritative reference for what each admin/ops route does, what permission it requires, and what each layer cannot do: `docs/ROUTE_SURFACE_COMPLETE_REFERENCE.md`.
-- Invoice CTA state must use `invoice.hasPdf` only; never derive from guessed URL fields.
+- Invoice CTA: show when GST invoicing is enabled and the order is invoice-eligible (`invoice.hasPdf` **or** status `CONFIRMED`/`PROCESSING`/`SHIPPED`/`OUT_FOR_DELIVERY`/`DELIVERED` — the authenticated download endpoints generate the PDF on demand when missing). Never derive invoice URLs from guessed fields.
 - Invoice downloads are authenticated backend routes only:
   - Customer: `GET /api/v1/orders/:id/invoice.pdf`
   - Admin: `GET /api/v1/admin/orders/:id/invoice.pdf`
@@ -1326,7 +1330,7 @@ describe('API Client Integration', () => {
 **Database Reset Between Test Suites:**
 ```bash
 # In CI or local test run
-docker exec sbgs-postgres psql -U postgres -d sbgs -c "
+docker exec ecom-postgres psql -U postgres -d ecom_template -c "
   TRUNCATE TABLE orders, order_items, cart_items, payments CASCADE;
 "
 # Or use Prisma: npx prisma migrate reset --force
@@ -1455,6 +1459,8 @@ npx lighthouse-ci       # Core Web Vitals pass (if configured)
 ### Co-Development with Backend Template (mandatory)
 
 Canonical source: `CO_DEVELOPMENT_SYNC_GUIDE.md` (git mechanics) + `backend/docs/PLATFORM_VERSIONING_AND_SYNC_GUIDE.md` (the versioning + changelog + design-isolation + drift-enforcement layer: semver'd `backend-core`/`frontend-core`, `CHANGELOG.md` propagation blocks, `FEATURE_*`-flag feature differences, the `merge=ours` design layer, and the `check-core-drift` / `check-token-contract` gates).
+
+**Canonical change flow (automated — guide §12):** develop in any client (feature behind a `FEATURE_*` flag OFF) → cherry-pick the commits into the template → CHANGELOG + version bump + `git tag <core>-vX.Y.Z` + push. The tag fires `release-train.yml` (template) → each client's `core-sync.yml` runs `sync-core.mjs` (`npm run sync:core`), pulling only core files (design/client excluded) and opening a review PR you merge. The tag is the "ship to every client" trigger; nothing propagates before it. Existing clients (raghava, sbgs) sync via this automation, not `git merge`. Keys/secrets + new-client onboarding: guide §13/§13.1.
 
 When frontend implementation reveals a backend bug/improvement:
 - Classify change as **template-worthy** or **client-specific**.
