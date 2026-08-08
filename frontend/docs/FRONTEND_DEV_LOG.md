@@ -1450,3 +1450,40 @@ In a new tab, Zustand starts empty (`accessToken = null`). `useSessionBootstrap`
 
 **Fleet state:** all three repos (template + raghava + sbgs) at backend-core 0.1.21 / frontend-core 0.1.12.
 
+
+---
+
+## 2026-08-08 — Invoice download everywhere + on-demand generation (full stack)
+
+**Scope:** "Download invoice" button available on every invoice-eligible order — customer order history + order detail, admin orders list rows + order detail + fulfillment panel — with the backend generating the PDF on the spot when the async job hasn't produced it yet.
+
+### Backend (core)
+
+- Extracted `generateInvoiceForOrder` + helpers (seller profile, logo fetch, amount-in-words, `INVOICE_ELIGIBLE_ORDER_STATUSES`) from `queues/workers/order-processing.worker.ts` into shared `src/modules/invoices/generate-invoice.ts`; worker imports from there (no behavior change).
+- `getMyInvoicePdf` + `adminGetInvoicePdf` (`orders.service.ts`): new `resolveOrGenerateInvoice` — when the invoice row/PDF is missing and the order status is invoice-eligible (`CONFIRMED`→`DELIVERED`), generate synchronously then stream. Concurrent-click safe: generation transaction re-checks existing invoice; on a lost `Invoice.orderId` unique race the winner's invoice is served. Primary path remains async pre-generation at order confirmation; admin detail self-heal enqueue unchanged (now uses the shared status list).
+- Semantics: `404` for pre-payment/failed/cancelled orders; `400 VALIDATION_ERROR` when GST invoicing is disabled (unchanged).
+- Tests: `orders.service.admin-invoice.test.ts` rewritten (on-demand success, race-lost serve, rethrow, ineligible skip); `orders.service.invoice-flag.test.ts` extended (customer on-demand + pre-payment skip). Full unit suite 1383/1383.
+
+### Frontend
+
+- `lib/order-status-ui.ts` (core): `INVOICE_ELIGIBLE_ORDER_STATUSES` + `isInvoiceEligibleOrderStatus()` mirroring backend.
+- Customer (theme): `/orders` list + `/orders/[id]` — button now shows for `gstInvoicingEnabled && (invoice.hasPdf || eligible status)` instead of hiding until `hasPdf`; filename falls back to `<orderNumber>-invoice.pdf`; detail page refetches after a first on-demand download so invoice number/issue date render.
+- Admin (core): `AdminOrderDetailPanel` + `AdminOrderFulfillmentPanel` — download/print enabled for eligible statuses regardless of `hasPdf` (backend generates on click; GST-disabled surfaces the backend error); panel refreshes after on-demand download. `AdminOrdersList` — new per-row Download-invoice icon action for eligible orders. hasPdf polling in fulfillment panel retained (surfaces invoice number).
+
+### Gates (2026-08-08)
+
+| Gate | Result |
+|---|---|
+| Backend `typecheck` | ✅ |
+| Backend `test:unit` | ✅ 1383/1383 (stale-`dist` policy-registry failure pre-existed; cleared by `npm run build`) |
+| Backend `check:core-drift` | ✅ |
+| Backend `check:core-purity` | ❌ pre-existing only (raghavaorganics comments in `nginx/client.conf.template` — template-worthy fix, unrelated) |
+| Backend `lint` | 7 pre-existing errors in untouched files (not in CI gates) |
+| Frontend `typecheck` / `test` / `build` | ✅ / ✅ 175/175 / ✅ |
+| Frontend `lint` | 43 pre-existing warnings, 0 errors (identical with changes stashed) |
+
+**Also fixed:** duplicate `FEATURE_*` block in local `backend/.env` (last-entry-wins silently forced GST invoicing off in dev); consolidated to one block with GST ON.
+
+**Docs updated:** `API_ENDPOINT_INDEX.md`, `ROUTE_SURFACE_COMPLETE_REFERENCE.md`, this log.
+
+**Sync note:** backend + frontend lib/admin changes are CORE (cherry-pick to platform template → version bump → tag → release train); `(account)` order pages are THEME (hand-carry to raghava separately).
