@@ -134,7 +134,7 @@ export default function AccountOrdersPage() {
                       <button
                         type="button"
                         aria-label={`Download invoice for order ${order.orderNumber}`}
-                        className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-border px-3 text-xs font-bold text-foreground transition-colors hover:bg-brand-cream disabled:opacity-50"
+                        className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-border px-3 text-xs font-bold text-foreground transition-colors hover:bg-brand-cream disabled:opacity-50 sm:h-9"
                         disabled={invoiceBusyId === order.id}
                         onClick={() => void handleDownloadInvoice(order)}
                       >
@@ -149,7 +149,7 @@ export default function AccountOrdersPage() {
                     <Link
                       href={`/orders/${order.id}`}
                       aria-label={`View order ${order.orderNumber}`}
-                      className="inline-flex h-9 items-center gap-1 rounded-lg bg-brand-maroon px-3.5 text-xs font-bold text-white transition-colors hover:bg-brand-maroon-dark"
+                      className="inline-flex h-10 items-center gap-1 rounded-lg bg-brand-maroon px-3.5 text-xs font-bold text-white transition-colors hover:bg-brand-maroon-dark sm:h-9"
                     >
                       View
                       <ChevronRight className="size-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden />

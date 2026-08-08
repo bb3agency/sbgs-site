@@ -187,8 +187,9 @@ export function AdminOrderFulfillmentPanel({
   useEffect(() => {
     if (!detail || detail.id !== selectedOrderId) return;
     if (detail.invoice?.hasPdf) return;
-    // Only orders past payment can have an invoice; skip pre-payment states.
-    if (["PENDING_PAYMENT", "PAYMENT_FAILED", "CANCELLED"].includes(detail.status)) return;
+    // Only invoice-eligible orders can gain an invoice (matches the backend's
+    // generation + self-heal gate) — polling any other status never resolves.
+    if (!isInvoiceEligibleOrderStatus(detail.status)) return;
     let cancelled = false;
     let attempts = 0;
     const timer = setInterval(() => {

@@ -563,7 +563,7 @@ export function AdminOrdersList({ from, to }: AdminOrdersListProps = {}) {
                         {isInvoiceEligibleOrderStatus(order.status) ? (
                           <button
                             type="button"
-                            className="inline-flex items-center justify-center rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground disabled:opacity-50"
+                            className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground disabled:opacity-50 sm:p-1.5"
                             title="Download invoice"
                             aria-label={`Download invoice for order ${order.orderNumber}`}
                             disabled={invoiceBusyId !== null}
@@ -578,7 +578,7 @@ export function AdminOrdersList({ from, to }: AdminOrdersListProps = {}) {
                         ) : null}
                         <Link
                           href={`/admin/orders/${order.id}`}
-                          className="inline-flex items-center justify-center rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+                          className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground sm:p-1.5"
                           title="View order"
                           aria-label={`View order ${order.orderNumber}`}
                         >

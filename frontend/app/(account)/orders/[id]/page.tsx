@@ -384,7 +384,7 @@ export default function AccountOrderDetailPage() {
           (order.invoice?.hasPdf || isInvoiceEligibleOrderStatus(order.status)) ? (
             <button
               type="button"
-              className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-border px-3 text-xs font-bold text-foreground transition-colors hover:bg-brand-cream disabled:opacity-50"
+              className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-border px-3 text-xs font-bold text-foreground transition-colors hover:bg-brand-cream disabled:opacity-50 sm:h-8"
               disabled={downloadingInvoice}
               onClick={() => void handleDownloadInvoice()}
             >
