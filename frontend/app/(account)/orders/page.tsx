@@ -11,18 +11,25 @@ import { formatPrice } from "@/lib/format-price";
 import { formatPaymentModeLabel } from "@/lib/format-payment-mode";
 import { toast } from "@/lib/toast";
 import { EmptyState } from "@/components/shared/EmptyState";
-import { formatOrderDate, orderStatusChipClass, orderStatusLabel } from "@/lib/order-status-ui";
+import {
+  formatOrderDate,
+  isInvoiceEligibleOrderStatus,
+  orderStatusChipClass,
+  orderStatusLabel,
+} from "@/lib/order-status-ui";
+import { useStoreConfig } from "@/components/providers/StoreConfigProvider";
 
 
 export default function AccountOrdersPage() {
   const accessToken = useAuthStore((s) => s.accessToken);
+  const { gstInvoicingEnabled } = useStoreConfig();
   const [orders, setOrders] = useState<UserOrder[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [invoiceBusyId, setInvoiceBusyId] = useState<string | null>(null);
 
   async function handleDownloadInvoice(order: UserOrder) {
-    if (!accessToken || !order.invoice?.hasPdf) return;
+    if (!accessToken) return;
     setInvoiceBusyId(order.id);
     try {
       await downloadCustomerInvoicePdf(order.id, accessToken, `${order.orderNumber}-invoice.pdf`);
@@ -122,7 +129,8 @@ export default function AccountOrdersPage() {
                     {formatPrice(order.total)}
                   </p>
                   <div className="flex items-center gap-2">
-                    {order.invoice?.hasPdf ? (
+                    {gstInvoicingEnabled &&
+                    (order.invoice?.hasPdf || isInvoiceEligibleOrderStatus(order.status)) ? (
                       <button
                         type="button"
                         aria-label={`Download invoice for order ${order.orderNumber}`}
