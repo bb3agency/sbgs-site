@@ -1487,3 +1487,15 @@ In a new tab, Zustand starts empty (`accessToken = null`). `useSessionBootstrap`
 **Docs updated:** `API_ENDPOINT_INDEX.md`, `ROUTE_SURFACE_COMPLETE_REFERENCE.md`, this log.
 
 **Sync note:** backend + frontend lib/admin changes are CORE (cherry-pick to platform template → version bump → tag → release train); `(account)` order pages are THEME (hand-carry to raghava separately).
+
+---
+
+## 2026-08-10 — GST platform overhaul (backend-core 0.1.92–0.1.95 / frontend-core 0.1.65–0.1.67) + PDP gallery theme fix
+
+**Core-synced (via core-sync PRs #172–#178):** invoicing survives the GST toggle (plain INVOICE when off); pincode-based intra/inter-state classification; checkout "Tax breakup (included in total)" card driven by `taxBreakup` on delivery-rates; invoice v3 layout (ex-GST unit prices, taxable column, state-appropriate tax columns; shipping never taxed / never an item row); order-derived invoice numbers with legacy rows kept.
+
+**Theme (this repo only, commit 3131609):** `ProductGallery` rendered only the first 6 of 8 product images and its `justify-center` strip made overflowing thumbnails unreachable at the start edge. Now renders all images (keys by url+index) and centres only when ≤4 thumbnails fit.
+
+**Ops/CD (hand-carried commit 6bc7a00):** `NGINX_AUTO_RELOAD=1` default in `.github/workflows/deploy.yml` — workflows are NOT core-synced. This box's live vhost verified in sync 2026-08-10 ("no reload required").
+
+**Fleet state:** template + raghava + sbgs all at backend-core 0.1.95 / frontend-core 0.1.67.
