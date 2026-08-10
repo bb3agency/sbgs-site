@@ -79,11 +79,16 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
         <div className="relative">
           <div
             id="pdp-thumb-strip"
-            className="flex justify-center gap-2 overflow-x-auto pb-1 scrollbar-hide"
+            className={cn(
+              "flex gap-2 overflow-x-auto pb-1 scrollbar-hide",
+              // `justify-center` makes overflowing content unreachable at the start edge,
+              // so only centre the strip when every thumbnail fits without scrolling.
+              images.length <= 4 ? "justify-center" : "justify-start",
+            )}
           >
-            {images.slice(0, 6).map((img, idx) => (
+            {images.map((img, idx) => (
               <button
-                key={img.url}
+                key={`${img.url}-${idx}`}
                 type="button"
                 onClick={() => { setActive(idx); setZoomed(false); }}
                 className={cn(
