@@ -21,10 +21,16 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     return <>{children}</>;
   }
 
-  return <SmoothScrollRoot>{children}</SmoothScrollRoot>;
+  return <SmoothScrollRoot pathname={pathname}>{children}</SmoothScrollRoot>;
 }
 
-function SmoothScrollRoot({ children }: { children: React.ReactNode }) {
+function SmoothScrollRoot({
+  children,
+  pathname,
+}: {
+  children: React.ReactNode;
+  pathname: string | null;
+}) {
   const lenisRef = useRef<LenisRef | null>(null);
 
   useEffect(() => {
@@ -40,6 +46,20 @@ function SmoothScrollRoot({ children }: { children: React.ReactNode }) {
       gsap.ticker.remove(update);
     };
   }, []);
+
+  // On client-side navigation Next resets window scroll, but Lenis keeps its own
+  // internal offset. The two then disagree and the new page cannot be scrolled
+  // until something forces a resync — the "stuck after navigating" symptom.
+  // Reset Lenis to the top and re-measure on every route change.
+  useEffect(() => {
+    const lenis = lenisRef.current?.lenis;
+    if (!lenis) return;
+    // start() clears any lock an overlay left behind if it unmounted mid-navigation.
+    lenis.start();
+    lenis.scrollTo(0, { immediate: true, force: true });
+    lenis.resize();
+    ScrollTrigger.refresh();
+  }, [pathname]);
 
   return (
     <ReactLenis
