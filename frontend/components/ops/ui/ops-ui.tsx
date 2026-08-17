@@ -1,4 +1,4 @@
-import type { InputHTMLAttributes, ReactNode, SelectHTMLAttributes, TextareaHTMLAttributes } from "react";
+import type { InputHTMLAttributes, ReactNode, Ref, SelectHTMLAttributes, TextareaHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
 /* ——— Page chrome ——— */
@@ -57,13 +57,16 @@ export interface OpsCardProps {
   children: ReactNode;
   className?: string;
   padding?: "none" | "md" | "lg";
+  /** Optional ref to the card element — used to scroll a card into view. */
+  ref?: Ref<HTMLDivElement>;
 }
 
-export function OpsCard({ children, className, padding = "lg" }: OpsCardProps) {
+export function OpsCard({ children, className, padding = "lg", ref }: OpsCardProps) {
   const pad =
     padding === "none" ? "" : padding === "md" ? "p-4 sm:p-5" : "p-5 sm:p-6";
   return (
     <div
+      ref={ref}
       className={cn(
         "rounded-xl border border-border/80 bg-card/80 shadow-sm backdrop-blur-sm",
         pad,
