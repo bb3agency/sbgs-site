@@ -8,6 +8,7 @@ import { useUiStore } from "@/stores/ui";
 import { useCartStore } from "@/stores/cart";
 import { formatPrice } from "@/lib/format-price";
 import { getCartLineImageUrl, getCartLineImageAlt, getCartLineProductName } from "@/lib/cart-line-display";
+import { useOverlayScrollLock } from "@/components/shared/use-overlay-scroll-lock";
 
 export function CartSheet() {
   const { cartSheetOpen, setCartSheetOpen } = useUiStore();
@@ -15,17 +16,10 @@ export function CartSheet() {
 
   const close = () => setCartSheetOpen(false);
 
-  // Trap body scroll while open
-  useEffect(() => {
-    if (cartSheetOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [cartSheetOpen]);
+  // Lock page scroll while open. Uses Lenis's stop()/start() — a plain
+  // body overflow:hidden does not stop the root smooth scroller and left the
+  // page stuck after close. See use-overlay-scroll-lock.ts.
+  useOverlayScrollLock(cartSheetOpen);
 
   // Close on Escape key
   useEffect(() => {
@@ -103,7 +97,10 @@ export function CartSheet() {
                    Your Cart ({items.length})
                  </h2>
                </div>
-               <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain w-full p-6 space-y-6">
+               <div
+                 data-lenis-prevent
+                 className="flex-1 min-h-0 overflow-y-auto overscroll-contain w-full p-6 space-y-6"
+               >
                  {items.map((item) => {
                    const productName = getCartLineProductName(item);
                    return (

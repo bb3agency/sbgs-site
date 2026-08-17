@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSafeRouter } from "@/lib/use-safe-router";
+import { useOverlayScrollLock } from "@/components/shared/use-overlay-scroll-lock";
 import { STORE_TAGLINE_SHORT } from "@/lib/content";
 import Image from "next/image";
 import {
@@ -112,17 +113,17 @@ export function MobileNav({ categories = [], minOrderValuePaise = 0 }: MobileNav
     return { parentCategories: parents, childrenMap: map };
   }, [categories]);
 
-  // Trap body scroll while open
+  // Lock page scroll while open via Lenis stop()/start() — see
+  // use-overlay-scroll-lock.ts for why body overflow:hidden alone left the page
+  // stuck. The counter in that hook also stops this overlay from unlocking the
+  // page while the cart sheet is still open.
+  useOverlayScrollLock(mobileMenuOpen);
+
+  // Reset the search box whenever the menu closes.
   useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+    if (!mobileMenuOpen) {
       setSearchQuery("");
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
   }, [mobileMenuOpen]);
 
   // Close on Escape key
@@ -231,7 +232,7 @@ export function MobileNav({ categories = [], minOrderValuePaise = 0 }: MobileNav
         </div>
 
         {/* Navigation */}
-        <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-4 py-4">
+        <nav data-lenis-prevent className="flex flex-1 flex-col gap-1 overflow-y-auto overscroll-contain px-4 py-4">
           <p className="mb-2 px-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
             Navigation
           </p>
