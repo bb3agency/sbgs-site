@@ -106,7 +106,9 @@ export function Header({ categories, minOrderValuePaise = 0 }: HeaderProps) {
   }, [pathname]);
   // Merchant-managed support phone from the public store config (Admin → Settings → Store Profile),
   // same source the Footer uses. Falls back to hidden when the merchant hasn't set one.
-  const contactPhone = useStoreConfig().contactPhone?.trim() || "";
+  const storeConfig = useStoreConfig();
+  const contactPhone = storeConfig.contactPhone?.trim() || "";
+  const galleryEnabled = storeConfig.galleryEnabled;
   const telHref = `tel:${contactPhone.replace(/[^\d+]/g, "")}`;
 
   return (
@@ -218,6 +220,20 @@ export function Header({ categories, minOrderValuePaise = 0 }: HeaderProps) {
             >
               Our Branches
             </Link>
+            {/* Gallery is merchant-toggleable (StoreSettings.galleryEnabled) — hide
+                the link when it is off so it never points at an empty page. */}
+            {galleryEnabled ? (
+              <Link
+                href="/gallery"
+                className={cn(
+                  "relative pb-1 transition-colors hover:text-brand-maroon",
+                  pathname.startsWith("/gallery") &&
+                  "text-brand-maroon after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-brand-maroon",
+                )}
+              >
+                Gallery
+              </Link>
+            ) : null}
             <Link
               href="/about"
               className={cn(

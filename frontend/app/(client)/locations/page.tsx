@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, MapPin, Clock, Store } from "lucide-react";
+import {
+  ArrowRight,
+  MapPin,
+  Clock,
+  Navigation,
+  Phone,
+  ShoppingBag,
+  Truck,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Our Branches",
   description:
-    "Find Sri Sai Baba Ghee Sweets branches near you across Vijayawada — each maintaining our 40-year legacy of purity and taste.",
+    "Find Sri Sai Baba Ghee Sweets branches near you across Vijayawada — each maintaining our 40-year legacy of purity and taste. Or order online for doorstep delivery.",
 };
 
 interface Branch {
@@ -55,149 +63,189 @@ const BRANCHES: Branch[] = [
 
 export default function LocationsPage() {
   return (
-    <div className="flex flex-col bg-brand-cream min-h-screen pb-16">
-      {/* ── Page Header Banner ──────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-brand-gold/20 py-12 md:py-20">
-        <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col items-center justify-center px-4 text-center lg:px-8">
-          <p className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-brand-gold">
+    <div className="flex min-h-screen flex-col bg-brand-cream pb-16">
+      {/* ── Order Online — deliberately ABOVE the branches banner ─────────────
+          Most visitors reach this page from a shared maps/social link, so the
+          conversion path has to be the first thing on screen rather than sitting
+          below four branch cards. ------------------------------------------- */}
+      <section className="mx-auto w-full max-w-[1440px] px-4 pt-6 sm:pt-8 lg:px-8">
+        <div className="relative overflow-hidden rounded-[28px] bg-brand-maroon shadow-lg">
+          {/* Ghost pins + soft glow for depth, purely decorative */}
+          <MapPin
+            className="pointer-events-none absolute -left-10 -top-12 size-48 text-brand-cream/[0.06]"
+            aria-hidden
+          />
+          <MapPin
+            className="pointer-events-none absolute -bottom-16 right-4 size-52 text-brand-cream/[0.06]"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute -right-16 -top-20 size-72 rounded-full bg-brand-gold/20 blur-3xl"
+            aria-hidden
+          />
+
+          <div className="relative z-10 flex flex-col gap-6 p-6 sm:p-9 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:p-12">
+            <div className="max-w-2xl">
+              <span className="inline-flex items-center gap-2 rounded-full bg-brand-gold/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-brand-gold">
+                <Truck className="size-3.5" aria-hidden />
+                Delivered across India
+              </span>
+
+              <h1 className="mt-4 font-heading text-3xl font-bold leading-tight text-brand-cream sm:text-4xl lg:text-[44px]">
+                Order our sweets online
+              </h1>
+
+              <p className="mt-3 text-sm leading-relaxed text-brand-cream/85 sm:text-base">
+                Can&apos;t make it to a branch? Shop the same ghee sweets, savouries and
+                festive gift boxes — packed fresh from our kitchens and delivered to
+                your door.
+              </p>
+
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <Link
+                  href="/products"
+                  className="inline-flex min-h-12 items-center gap-2 rounded-full bg-brand-gold px-7 text-sm font-bold text-brand-maroon transition-colors hover:bg-brand-gold-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-cream focus-visible:ring-offset-2 focus-visible:ring-offset-brand-maroon"
+                >
+                  <ShoppingBag className="size-4" aria-hidden />
+                  Order Online
+                  <ArrowRight className="size-4" aria-hidden />
+                </Link>
+                <a
+                  href="#branches"
+                  className="inline-flex min-h-12 items-center gap-2 rounded-full border border-brand-cream/30 px-6 text-sm font-semibold text-brand-cream transition-colors hover:bg-brand-cream/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-cream"
+                >
+                  <MapPin className="size-4" aria-hidden />
+                  Or visit a branch
+                </a>
+              </div>
+            </div>
+
+            {/* Trust strip — reads as a column on desktop, wraps inline on mobile */}
+            <ul className="flex shrink-0 flex-wrap gap-x-6 gap-y-3 border-t border-brand-cream/15 pt-5 text-xs font-medium text-brand-cream/80 lg:flex-col lg:gap-3 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0 lg:text-sm">
+              <li className="flex items-center gap-2">
+                <span className="flex size-8 items-center justify-center rounded-full bg-brand-cream/10">
+                  <ShoppingBag className="size-4 text-brand-gold" aria-hidden />
+                </span>
+                Packed fresh to order
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="flex size-8 items-center justify-center rounded-full bg-brand-cream/10">
+                  <Truck className="size-4 text-brand-gold" aria-hidden />
+                </span>
+                Pan-India shipping
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="flex size-8 items-center justify-center rounded-full bg-brand-cream/10">
+                  <Clock className="size-4 text-brand-gold" aria-hidden />
+                </span>
+                40 years of pure ghee
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Branches banner ──────────────────────────────────────────────── */}
+      <section
+        id="branches"
+        className="relative mt-10 scroll-mt-24 overflow-hidden bg-brand-gold/20 py-10 md:mt-14 md:py-14"
+      >
+        <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col items-center px-4 text-center lg:px-8">
+          <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-brand-gold">
             Reach Us At
           </p>
-          <h1 className="mb-4 font-heading text-4xl font-bold text-brand-maroon sm:text-5xl md:text-6xl">
+          <h2 className="mt-3 font-heading text-3xl font-bold text-brand-maroon sm:text-4xl md:text-5xl">
             Our Branches
-          </h1>
+          </h2>
 
-          {/* Decorative divider — gold rules flanking a diamond */}
-          <div className="mb-5 flex items-center gap-3" aria-hidden>
+          <div className="mt-4 flex items-center gap-3" aria-hidden>
             <span className="h-px w-10 bg-brand-gold/60 sm:w-16" />
             <span className="size-2 rotate-45 bg-brand-gold" />
             <span className="h-px w-10 bg-brand-gold/60 sm:w-16" />
           </div>
 
-          <p className="max-w-2xl text-sm leading-relaxed text-brand-maroon/70 sm:text-base">
-            Visit us across Vijayawada. Every branch carries the same 40-year legacy of
-            purity, freshness, and taste.
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-brand-maroon/70 sm:text-base">
+            {BRANCHES.length} stores across Vijayawada. Every branch carries the same
+            40-year legacy of purity, freshness, and taste.
           </p>
-
-          <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-brand-gold/40 bg-brand-cream/70 px-4 py-2 text-xs font-bold uppercase tracking-wide text-brand-maroon">
-            <Store className="size-4 text-brand-gold" aria-hidden />
-            {BRANCHES.length} branches across Vijayawada
-          </span>
         </div>
 
-        {/* Soft ambient glows */}
         <div
           className="absolute -bottom-16 -right-16 size-64 rounded-full bg-brand-gold/20 opacity-40 blur-3xl"
           aria-hidden
         />
-        <div
-          className="absolute -left-16 top-0 size-48 rounded-full bg-card opacity-40 blur-3xl"
-          aria-hidden
-        />
-        {/* Oversized ghost pin anchoring the banner corner */}
-        <MapPin
-          className="pointer-events-none absolute -bottom-10 left-1/2 hidden size-56 -translate-x-[560px] text-brand-gold/10 lg:block"
-          aria-hidden
-        />
       </section>
 
-      {/* ── Uniform Branch Grid ─────────────────────────────────────────── */}
-      <section className="mx-auto w-full max-w-[1440px] px-4 pt-8 sm:pt-12 lg:px-8">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
+      {/* ── Branch grid ──────────────────────────────────────────────────── */}
+      <section className="mx-auto w-full max-w-[1440px] px-4 pt-8 sm:pt-10 lg:px-8">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
           {BRANCHES.map((branch) => (
             <div
               key={branch.name}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-[24px] border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:shadow-lg motion-safe:hover:-translate-y-1 sm:p-8"
+              className="group relative flex flex-col overflow-hidden rounded-[22px] border border-border bg-card p-5 shadow-sm transition-all duration-300 hover:shadow-lg motion-safe:hover:-translate-y-1 sm:p-6"
             >
-              {/* Gold hairline accent along the top edge */}
               <span
                 className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-gold/0 via-brand-gold/70 to-brand-gold/0"
                 aria-hidden
               />
-
-              {/* Ghost map-pin watermark — identical on every card for a uniform look */}
               <MapPin
-                className="pointer-events-none absolute -right-6 -top-6 size-32 text-brand-gold/10 transition-transform duration-300 motion-safe:group-hover:scale-110"
+                className="pointer-events-none absolute -right-5 -top-5 size-24 text-brand-gold/10 transition-transform duration-300 motion-safe:group-hover:scale-110"
                 aria-hidden
               />
 
-              <div className="relative z-10">
-                {branch.tag ? (
-                  <span className="mb-4 inline-flex w-fit rounded-full bg-brand-gold/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-brand-gold">
-                    {branch.tag}
-                  </span>
-                ) : (
-                  <span className="mb-4 inline-flex w-fit rounded-full bg-brand-cream px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-brand-maroon/60">
-                    Branch
-                  </span>
-                )}
-                <h2 className="font-heading text-2xl font-bold text-brand-maroon sm:text-[28px] sm:leading-snug">
-                  {branch.name}
-                </h2>
+              <div className="relative z-10 flex-1">
+                <span
+                  className={
+                    branch.tag
+                      ? "inline-flex w-fit rounded-full bg-brand-gold/15 px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-brand-gold"
+                      : "inline-flex w-fit rounded-full bg-brand-cream px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-brand-maroon/60"
+                  }
+                >
+                  {branch.tag ?? "Branch"}
+                </span>
 
-                <div className="mt-4 space-y-2.5">
-                  <p className="flex items-center gap-3 text-sm text-muted-foreground">
-                    <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-gold/10">
-                      <MapPin className="size-4 text-brand-gold" aria-hidden />
-                    </span>
+                <h3 className="mt-3 font-heading text-lg font-bold leading-snug text-brand-maroon sm:text-xl">
+                  {branch.name}
+                </h3>
+
+                <div className="mt-3 space-y-2">
+                  <p className="flex items-start gap-2.5 text-[13px] text-muted-foreground">
+                    <MapPin className="mt-0.5 size-4 shrink-0 text-brand-gold" aria-hidden />
                     {branch.area}
                   </p>
-                  <p className="flex items-center gap-3 text-sm text-muted-foreground">
-                    <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-gold/10">
-                      <Clock className="size-4 text-brand-gold" aria-hidden />
-                    </span>
+                  <p className="flex items-center gap-2.5 text-[13px] text-muted-foreground">
+                    <Clock className="size-4 shrink-0 text-brand-gold" aria-hidden />
                     {branch.timings}
                   </p>
                 </div>
               </div>
 
-              <div className="relative z-10 mt-6 border-t border-dashed border-brand-gold/25 pt-5">
-                <a
-                  href={branch.mapUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Locate ${branch.name} on Google Maps`}
-                  className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-brand-maroon px-5 py-2.5 text-sm font-bold text-brand-cream transition-colors hover:bg-brand-maroon-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2"
-                >
-                  Locate on Maps
-                  <ArrowRight
-                    className="size-4 transition-transform motion-safe:group-hover:translate-x-0.5"
-                    aria-hidden
-                  />
-                </a>
-              </div>
+              <a
+                href={branch.mapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Get directions to ${branch.name} on Google Maps`}
+                className="relative z-10 mt-5 inline-flex min-h-11 items-center justify-center gap-1.5 rounded-full bg-brand-maroon px-4 text-[13px] font-bold text-brand-cream transition-colors hover:bg-brand-maroon-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2"
+              >
+                <Navigation className="size-4" aria-hidden />
+                Get directions
+              </a>
             </div>
           ))}
         </div>
-      </section>
 
-      {/* ── Delivery CTA band ───────────────────────────────────────────── */}
-      <section className="mx-auto mt-10 w-full max-w-[1440px] px-4 sm:mt-14 lg:px-8">
-        <div className="relative overflow-hidden rounded-[24px] bg-brand-maroon px-6 py-10 text-center sm:px-10 sm:py-12">
-          <MapPin
-            className="pointer-events-none absolute -left-8 -top-8 size-40 text-brand-cream/5"
-            aria-hidden
-          />
-          <MapPin
-            className="pointer-events-none absolute -bottom-10 -right-8 size-40 text-brand-cream/5"
-            aria-hidden
-          />
-          <p className="relative z-10 text-xs font-bold uppercase tracking-[0.25em] text-brand-gold">
-            Too far from a branch?
-          </p>
-          <h2 className="relative z-10 mt-3 font-heading text-2xl font-bold text-brand-cream sm:text-3xl">
-            Get the same fresh sweets delivered home
-          </h2>
-          <p className="relative z-10 mx-auto mt-3 max-w-xl text-sm leading-relaxed text-brand-cream/80">
-            Order online and we will pack your favourites fresh from our kitchens.
-          </p>
+        {/* Closing helper line — keeps the page from ending on a hard grid edge */}
+        <p className="mt-8 flex flex-wrap items-center justify-center gap-2 text-center text-[13px] text-muted-foreground">
+          <Phone className="size-4 text-brand-gold" aria-hidden />
+          Planning a bulk or festive order? Call the branch nearest to you, or
           <Link
             href="/products"
-            className="relative z-10 mt-6 inline-flex min-h-11 items-center gap-1.5 rounded-full bg-brand-gold px-6 py-2.5 text-sm font-bold text-brand-maroon transition-colors hover:bg-brand-gold-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-cream focus-visible:ring-offset-2 focus-visible:ring-offset-brand-maroon"
+            className="font-semibold text-brand-maroon underline decoration-brand-gold decoration-2 underline-offset-4 hover:text-brand-maroon-dark"
           >
-            Order Online
-            <ArrowRight className="size-4" aria-hidden />
+            order online
           </Link>
-        </div>
+          .
+        </p>
       </section>
     </div>
   );
