@@ -18,6 +18,7 @@ import {
   MapPin,
   Info,
   Heart,
+  Images,
 } from "lucide-react";
 import { APP_NAME, BRAND_LOGO_SRC } from "@/lib/constants";
 import { useUiStore } from "@/stores/ui";
@@ -53,7 +54,7 @@ export function MobileNav({ categories = [], minOrderValuePaise = 0 }: MobileNav
 
   const mobileMenuOpen = useUiStore((s) => s.mobileMenuOpen);
   const setMobileMenuOpen = useUiStore((s) => s.setMobileMenuOpen);
-  const { wishlistEnabled } = useStoreConfig();
+  const { wishlistEnabled, galleryEnabled } = useStoreConfig();
 
   const user = useAuthStore((s) => s.user);
   const accessToken = useAuthStore((s) => s.accessToken);
@@ -315,6 +316,17 @@ export function MobileNav({ categories = [], minOrderValuePaise = 0 }: MobileNav
           >
             <MapPin className="size-4 text-muted-foreground" /> Our Branches
           </Link>
+          {/* Gallery is merchant-toggleable (StoreSettings.galleryEnabled) — hide
+              the link when it is off so it never points at an empty page. */}
+          {galleryEnabled ? (
+            <Link
+              href="/gallery"
+              onClick={close}
+              className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-secondary hover:text-brand-maroon"
+            >
+              <Images className="size-4 text-muted-foreground" /> Gallery
+            </Link>
+          ) : null}
           <Link
             href="/about"
             onClick={close}
