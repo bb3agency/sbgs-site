@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { KeyRound } from "lucide-react";
 import {
   OpsAlert,
@@ -49,6 +49,28 @@ export function OpsCriticalOtpForm({
   const [errorDetail, setErrorDetail] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const requestOtpRef = useRef<HTMLButtonElement | null>(null);
+
+  // These forms are mounted conditionally at the BOTTOM of their parent panel
+  // (below the invites/users tables), and the ops console scrolls inside its own
+  // fixed-height <main> rather than the window. Without this, clicking an action
+  // like "Revoke…" mounted the form off-screen with no visible change at all —
+  // it read as a dead button. Pull the form into view and focus its first
+  // control so the OTP step is obvious and keyboard-reachable.
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) {
+      return;
+    }
+    card.scrollIntoView({ behavior: "smooth", block: "center" });
+    // Focus after the scroll starts; focusing first would fight the smooth
+    // scroll in browsers that jump to the focused node.
+    const focusTimer = window.setTimeout(() => {
+      requestOtpRef.current?.focus();
+    }, 250);
+    return () => window.clearTimeout(focusTimer);
+  }, []);
 
   useEffect(() => {
     if (!expiresAt) {
@@ -156,6 +178,7 @@ export function OpsCriticalOtpForm({
 
   return (
     <OpsCard
+      ref={cardRef}
       className={
         variant === "danger" ? "border-destructive/30 bg-destructive/5" : undefined
       }
@@ -172,7 +195,13 @@ export function OpsCriticalOtpForm({
       <form onSubmit={handleSubmit} className="grid gap-5">
         {children}
         <div className="flex flex-wrap gap-2">
-          <Button type="button" variant="outline" onClick={() => void handleRequestOtp()} disabled={isLoading}>
+          <Button
+            ref={requestOtpRef}
+            type="button"
+            variant="outline"
+            onClick={() => void handleRequestOtp()}
+            disabled={isLoading}
+          >
             {isLoading ? "Sending…" : "Send OTP to email"}
           </Button>
           {challengeId && secondsLeft > 0 ? (
