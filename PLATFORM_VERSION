@@ -11,5 +11,4 @@ requires-backend-core: 0.1.1
 # Sanctioned, temporary divergences from core (see guide �7). Each entry:
 #   path � justification � owner � expires (YYYY-MM-DD)
 # Empty = no approved divergence (clean).
-approved-divergence:
-  - frontend/components/checkout/CheckoutForm.tsx — order-summary lines show variant size + "Qty N · <unit price> each" (the thumbnail quantity badge alone was being missed by customers); client-requested SBGS-only for now, generic enough to upstream to core — do that and drop this entry — bb3agency — 2026-09-30
+approved-divergence: []
