@@ -169,11 +169,20 @@
     * {
         @apply border-border outline-ring/50;
     }
+    /* `overflow-x: clip`, never `hidden`. `hidden` on the root makes <html> a
+       scroll container (per spec a non-visible value on one axis forces the
+       other to compute to `auto`), and on <body> it creates a second, nested
+       one. The Lenis root scroller then measures and drives the wrong element,
+       which is what made desktop scrolling intermittently stick. `clip`
+       suppresses the same horizontal overflow WITHOUT establishing a scroll
+       container, leaving overflow-y genuinely `visible`. */
     html {
-        @apply font-sans overflow-x-hidden;
+        @apply font-sans;
+        overflow-x: clip;
     }
     body {
-        @apply bg-background text-foreground font-sans overflow-x-hidden;
+        @apply bg-background text-foreground font-sans;
+        overflow-x: clip;
     }
     h1,
     h2,

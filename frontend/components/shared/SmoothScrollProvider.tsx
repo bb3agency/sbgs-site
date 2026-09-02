@@ -3,8 +3,22 @@
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { ReactLenis, type LenisRef } from "lenis/react";
+// Lenis's own stylesheet. This is REQUIRED, not optional, and its absence was
+// the root cause of the intermittent "page won't scroll" reports. It supplies:
+//   html.lenis, html.lenis body { height: auto }  — without it the document
+//     height can be clamped and Lenis measures a scroll limit that is too short,
+//     so scrolling dies partway down the page;
+//   .lenis-stopped { overflow: clip }             — without it lenis.stop() only
+//     halts the RAF loop, so native scrolling continues behind open overlays and
+//     Lenis's internal offset drifts out of sync with the real one;
+//   [data-lenis-prevent] { overscroll-behavior: contain } — without it scrolling
+//     an overlay's inner list chains out to the page at its ends;
+//   .lenis-smooth iframe { pointer-events: none }  — without it a wheel over an
+//     embedded iframe is swallowed and the page appears frozen.
+import "lenis/dist/lenis.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { isOverlayScrollLocked } from "@/components/shared/use-overlay-scroll-lock";
 
 // Register ScrollTrigger globally for the app
 gsap.registerPlugin(ScrollTrigger);
@@ -41,9 +55,17 @@ function SmoothScrollRoot({
 
     gsap.ticker.add(update);
 
-    // Sync ScrollTrigger when GSAP updates
+    // ScrollTrigger caches the scroll position and only recomputes it on native
+    // scroll events. Lenis moves the page from its own RAF loop, so without this
+    // subscription ScrollTrigger works from a stale offset — scrub animations
+    // lag behind the page and triggers fire at the wrong point. This is the
+    // documented Lenis + GSAP wiring.
+    const lenis = lenisRef.current?.lenis;
+    lenis?.on("scroll", ScrollTrigger.update);
+
     return () => {
       gsap.ticker.remove(update);
+      lenis?.off("scroll", ScrollTrigger.update);
     };
   }, []);
 
@@ -54,7 +76,16 @@ function SmoothScrollRoot({
   useEffect(() => {
     const lenis = lenisRef.current?.lenis;
     if (!lenis) return;
-    // start() clears any lock an overlay left behind if it unmounted mid-navigation.
+
+    // An overlay can still be open across a navigation — the mobile nav and the
+    // cart sheet both contain links, and they close in an effect that may run
+    // after this one. Restarting Lenis and force-scrolling underneath an open
+    // overlay is how the page ended up stuck: `force: true` bypasses the stopped
+    // check and drives Lenis to 0 while the document is locked and cannot
+    // follow, so the two disagree the moment the overlay closes. Leave a locked
+    // scroller alone; the overlay's own cleanup restarts it.
+    if (isOverlayScrollLocked()) return;
+
     lenis.start();
     lenis.scrollTo(0, { immediate: true, force: true });
     lenis.resize();
