@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useOverlayScrollLock } from "@/components/shared/use-overlay-scroll-lock";
 import Link from "next/link";
 import { useSearchParams, usePathname } from "next/navigation";
 import { SlidersHorizontal, X } from "lucide-react";
@@ -16,6 +17,9 @@ export function MobileFilters({ categories }: MobileFiltersProps) {
   const pathname = usePathname();
   
   const activeCategory = searchParams.get("category") || "";
+
+  // Stop the page scrolling behind the open filter panel.
+  useOverlayScrollLock(open);
 
   useEffect(() => {
     setOpen(false);
