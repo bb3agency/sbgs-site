@@ -1528,5 +1528,5 @@ In a new tab, Zustand starts empty (`accessToken = null`). `useSessionBootstrap`
   - History panel labels refund rows via `lib/order-history-event.ts`.
   - `order-journey` ignores event rows.
 - **Contract:** `refundOwed` on the admin order detail, `refundsOwed` on the action queue, `POST /admin/orders/:id/refund/retry`.
-- **Ops action:** the Razorpay webhook must include `refund.failed`. Confirm it is subscribed in this store's Razorpay Dashboard (required since 0.4.0).
+- **Ops action:** the Razorpay webhook must include `refund.failed`. The owner subscribed it in this store's Razorpay Dashboard (confirmed 2026-10-21).
 - **Canonical doc:** `backend/docs/REFUND_LIFECYCLE.md`.
