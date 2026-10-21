@@ -6,6 +6,7 @@ import { MaintenanceBanner } from "@/components/maintenance/MaintenanceBanner";
 import { Toaster } from "@/components/ui/Toaster";
 import { SmoothScrollProvider } from "@/components/shared/SmoothScrollProvider";
 import "./globals.css";
+import "@/components/ui/console-theme.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
