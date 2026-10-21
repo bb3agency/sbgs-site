@@ -1499,3 +1499,34 @@ In a new tab, Zustand starts empty (`accessToken = null`). `useSessionBootstrap`
 **Ops/CD (hand-carried commit 6bc7a00):** `NGINX_AUTO_RELOAD=1` default in `.github/workflows/deploy.yml` — workflows are NOT core-synced. This box's live vhost verified in sync 2026-08-10 ("no reload required").
 
 **Fleet state:** template + raghava + sbgs all at backend-core 0.1.95 / frontend-core 0.1.67.
+
+## 2026-10-21 — Admin, ops & checkout redesign (frontend-core 0.3.0 / backend-core 0.3.0, 0.3.1)
+
+- **Console design system in core:** `components/ui/console-theme.css` + `components/ui/console.tsx`; spec in `docs/CONSOLE_DESIGN_SYSTEM.md`. 723 raw palette/hex classes were tokenised. The client `globals.css` console blocks are legacy.
+- **Admin:**
+  - Shell: grouped nav, collapsible rail, top-bar search, phone bottom tab bar.
+  - Dashboard: *Needs attention*, from `GET /admin/dashboard/action-queue`; every count links to exactly that filtered list.
+  - Orders: status tabs with counts (`GET /admin/dashboard/order-status-counts`); URL filters `?status= ?payment= ?sort= ?range=all`.
+  - Order detail: single fetch, plus the **Order progress** tracker (see DECISIONS 2026-10-21).
+  - Products: tabs and a row menu.
+- **Checkout:** compact header, sticky summary on desktop, sticky total + Place order bar on phones (`form="checkout-form"`), 16px inputs on phones.
+- **Ops:**
+  - Rebuilt on the same system, with one-call `GET /ops/overview` and the shared OTP dialog.
+  - Secrets are not loaded into the page (see `OPS_CONTROL_PLANE_GUIDE.md` §6).
+  - Ops/auth/maintenance/providers/contexts became core in 0.3.1. 0.3.0 had to hand-carry ops/auth.
+- **Backend bug found:** `PATCH /admin/orders/:id/status` hung (sync preHandler). Fixed in 0.3.0.
+- **Verified:** 29 admin routes at 375px with zero horizontal overflow; ops at 1280/768/375; checkout end to end on phone and desktop.
+- **Local UI dev on Windows:** run `next dev` with `WATCHPACK_POLLING=true`; on `.next` errno -4094 run `npm run dev:clean`. Refresh tokens are User-Agent bound, so switching mobile/desktop emulation signs you out.
+
+## 2026-10-21 — Refunds never abandoned silently (frontend-core / backend-core 0.4.0)
+
+- **Trigger:** a courier-cancelled order showed "Shipped" after "Cancelled" plus three "Refund initiated" rows. Those were three failed attempts (Razorpay balance too low after settlement), and nothing retried them.
+- **Admin UI:**
+  - `AdminOrderRefundOwedNotice` (amber while retrying, red once stopped, **Retry refund**).
+  - Dashboard: *refunds still owed*.
+  - Orders list: *Refund* filter (`?refund=owed`), and "Not refunded yet" for cancelled-but-paid orders.
+  - History panel labels refund rows via `lib/order-history-event.ts`.
+  - `order-journey` ignores event rows.
+- **Contract:** `refundOwed` on the admin order detail, `refundsOwed` on the action queue, `POST /admin/orders/:id/refund/retry`.
+- **Ops action:** the Razorpay webhook must include `refund.failed`. Confirm it is subscribed in this store's Razorpay Dashboard (required since 0.4.0).
+- **Canonical doc:** `backend/docs/REFUND_LIFECYCLE.md`.
