@@ -7,7 +7,8 @@ import {
   type SchedulePickupResult,
   type ServiceabilityResult,
   type ShippingProviderAdapter,
-  type TrackShipmentResult
+  type TrackShipmentResult,
+  ShipmentBookingIncompleteError
 } from '@common/interfaces/shipping-provider.interface';
 import { AppError } from '@common/errors/app-error';
 import { ERROR_CODES } from '@common/errors/error-codes';
@@ -416,23 +417,34 @@ export default class ShiprocketAdapter implements ShippingProviderAdapter {
       createPayload.cod_amount = input.amountRupees.toFixed(2);
     }
 
-    const createData = await this.request<ShiprocketCreateOrderResponse>(
-      '/orders/create/adhoc',
-      {
-        method: 'POST',
-        body: JSON.stringify(createPayload)
-      }
-    );
+    // Resume path: a previous attempt already created the Shiprocket order/shipment and
+    // only the AWB assignment failed. Re-creating the order would bill another shipment
+    // and orphan the first, so skip straight to assignment.
+    let shiprocketOrderId: string | null = null;
+    let shiprocketShipmentId: string | null = null;
+    let createData: ShiprocketCreateOrderResponse | null = null;
 
-    const shiprocketOrderId = createData.order_id != null ? String(createData.order_id) : null;
-    const shiprocketShipmentId = createData.shipment_id != null ? String(createData.shipment_id) : null;
-
-    if (!shiprocketShipmentId) {
-      throw new AppError(
-        ERROR_CODES.INTERNAL_ERROR,
-        'Shiprocket order created but no shipment_id returned',
-        422
+    if (input.existingProviderShipmentId) {
+      shiprocketShipmentId = input.existingProviderShipmentId;
+    } else {
+      createData = await this.request<ShiprocketCreateOrderResponse>(
+        '/orders/create/adhoc',
+        {
+          method: 'POST',
+          body: JSON.stringify(createPayload)
+        }
       );
+
+      shiprocketOrderId = createData.order_id != null ? String(createData.order_id) : null;
+      shiprocketShipmentId = createData.shipment_id != null ? String(createData.shipment_id) : null;
+
+      if (!shiprocketShipmentId) {
+        throw new AppError(
+          ERROR_CODES.INTERNAL_ERROR,
+          'Shiprocket order created but no shipment_id returned',
+          422
+        );
+      }
     }
 
     const awbData = await this.request<ShiprocketAssignAwbResponse>(
@@ -467,16 +479,26 @@ export default class ShiprocketAdapter implements ShippingProviderAdapter {
         awbNumber = extractedAwb;
       } else {
         const reason = assignError || awbData.message || JSON.stringify(awbData);
-        throw new AppError(
-          ERROR_CODES.INTERNAL_ERROR,
+        // The order/shipment exists on Shiprocket's side; only the AWB is missing. Report
+        // the ids so the booking can be resumed instead of duplicated on the next attempt.
+        throw new ShipmentBookingIncompleteError(
           `Shiprocket AWB assignment failed: ${reason}`,
-          422
+          {
+            ...(shiprocketOrderId != null ? { shiprocketOrderId } : {}),
+            shiprocketShipmentId
+          }
         );
       }
     }
 
     if (!awbNumber) {
-      throw new AppError(ERROR_CODES.INTERNAL_ERROR, 'Shiprocket AWB code missing from assign response', 422);
+      throw new ShipmentBookingIncompleteError(
+        'Shiprocket AWB code missing from assign response',
+        {
+          ...(shiprocketOrderId != null ? { shiprocketOrderId } : {}),
+          shiprocketShipmentId
+        }
+      );
     }
 
     // Fetch estimated delivery days by checking serviceability for the assigned route.
@@ -503,7 +525,8 @@ export default class ShiprocketAdapter implements ShippingProviderAdapter {
       ...(awbData.response?.data?.courier_name != null ? { courierName: awbData.response.data.courier_name } : {}),
       ...(awbData.response?.data?.label_url != null ? { labelUrl: awbData.response.data.label_url } : {}),
       providerPayload: {
-        createOrder: createData as Record<string, unknown>,
+        // null on a resumed booking — the order was created in an earlier attempt.
+        createOrder: (createData ?? { resumedFromShipmentId: shiprocketShipmentId }) as Record<string, unknown>,
         assignAwb: awbData as Record<string, unknown>
       }
     };

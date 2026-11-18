@@ -290,6 +290,14 @@ export interface AdminOrderDetailFull {
   shipBlockReason: string | null;
   /** Merchant-fulfilled local delivery order (selectedShippingProvider = LOCAL). */
   isLocalDelivery?: boolean;
+  /** Provider locked at checkout — "LOCAL" means merchant-fulfilled, no courier. */
+  selectedShippingProvider?: string | null;
+  /**
+   * Why the last "Ship order" produced no AWB. Booking is asynchronous, so this is the
+   * merchant's only visibility into a courier rejection. Admin-only.
+   */
+  shipmentBookingError?: string | null;
+  shipmentBookingFailedAt?: string | null;
   shippingMode: string;
   customer: { name: string; email: string | null; phone: string | null };
   coupon: {

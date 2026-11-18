@@ -212,7 +212,19 @@ export class OrdersService {
         shipBlockReason: 'Local delivery order — fulfil directly and update the status manually.'
       };
     }
-    if (input.status !== OrderStatus.CONFIRMED && input.status !== OrderStatus.PROCESSING) {
+    // Recovery path: a courier order that was advanced to SHIPPED by a manual status
+    // update never had an AWB booked. The worker refuses to book for a SHIPPED order and
+    // this helper used to report "already shipped", so the order was permanently stuck —
+    // no AWB, no label, no way to book one. Allow booking to proceed in exactly that case.
+    const isCourierOrder = input.selectedShippingProvider !== 'LOCAL';
+    const isShippedWithoutAwb =
+      input.status === OrderStatus.SHIPPED && !input.awbNumber && isCourierOrder;
+
+    if (
+      !isShippedWithoutAwb &&
+      input.status !== OrderStatus.CONFIRMED &&
+      input.status !== OrderStatus.PROCESSING
+    ) {
       // Give a status-specific reason so the admin sees an accurate state instead of a
       // generic "not shippable" message once the order has progressed past booking.
       const reasonByStatus: Partial<Record<OrderStatus, string>> = {
@@ -229,7 +241,11 @@ export class OrdersService {
         shipBlockReason: reasonByStatus[input.status] ?? 'Order is not in a shippable state.'
       };
     }
-    if (input.awbNumber || input.shipmentStatus) {
+    // Only a shipment that actually carries an AWB, or has moved past PENDING, counts as
+    // booked. A PENDING row with no AWB means booking never completed, and treating that
+    // as "already booked" left the merchant permanently unable to retry an order that was
+    // never handed to the courier.
+    if (input.awbNumber || (input.shipmentStatus && input.shipmentStatus !== 'PENDING')) {
       return { canShipNow: false, shipBlockReason: 'Shipment is already booked for this order.' };
     }
     if (
@@ -3032,6 +3048,32 @@ export class OrdersService {
         );
       }
 
+      // A courier-fulfilled order must get its SHIPPED status from the Ship action, which
+      // books the AWB. Letting the manual dropdown jump straight to SHIPPED produced an
+      // order the courier had never heard of: the shipping worker skips anything already
+      // SHIPPED, so no AWB could ever be booked, the label could not be printed, and the
+      // customer got a "shipped" notification with no tracking. Local delivery is exempt —
+      // manual updates are its only status driver.
+      const orderShippingProvider =
+        ((existing as Record<string, unknown>)['selectedShippingProvider'] as string | null) ?? null;
+      const manualFulfilmentStatuses: ReadonlyArray<OrderStatus> = [
+        OrderStatus.SHIPPED,
+        OrderStatus.OUT_FOR_DELIVERY,
+        OrderStatus.DELIVERED
+      ];
+      if (
+        orderShippingProvider !== 'LOCAL' &&
+        manualFulfilmentStatuses.includes(input.status) &&
+        !existing.shipment?.awbNumber
+      ) {
+        throw new AppError(
+          ERROR_CODES.INVALID_STATUS_TRANSITION,
+          'Book the courier first — use "Ship order" in Fulfilment to get an AWB. ' +
+            'Marking a courier order shipped by hand leaves it with no AWB and no label.',
+          409
+        );
+      }
+
       if (input.status === OrderStatus.REFUNDED) {
         if (
           (existing.payment?.status !== PaymentStatus.CAPTURED &&
@@ -3352,7 +3394,13 @@ export class OrdersService {
       );
     }
 
-    if (!canTransitionOrder(existing.status, OrderStatus.SHIPPED)) {
+    // SHIPPED -> SHIPPED is not a transition the state machine allows, but an order that
+    // was manually marked SHIPPED without an AWB still needs to be booked. Skip the
+    // transition check for exactly that recovery case; resolveShipActionState below is
+    // what authorises it.
+    const needsAwbRecovery =
+      existing.status === OrderStatus.SHIPPED && !existing.shipment?.awbNumber;
+    if (!needsAwbRecovery && !canTransitionOrder(existing.status, OrderStatus.SHIPPED)) {
       throw new AppError(
         ERROR_CODES.INVALID_STATUS_TRANSITION,
         'Order cannot be shipped at current status',
@@ -3368,7 +3416,9 @@ export class OrdersService {
       awbNumber: existing.shipment?.awbNumber ?? null,
       hasCompleteShippingAddress: this.hasCompleteShippingAddress(existing.shippingAddress),
       hasItems: existing.items.length > 0,
-      pickupPincodeConfigured: Boolean(pickupPincode)
+      pickupPincodeConfigured: Boolean(pickupPincode),
+      selectedShippingProvider:
+        ((existing as Record<string, unknown>)['selectedShippingProvider'] as string | null) ?? null
     });
     if (!shipState.canShipNow) {
       throw new AppError(
@@ -4833,6 +4883,18 @@ export class OrdersService {
         : {}),
       ...((order as Record<string, unknown>)['selectedShippingProvider'] != null
         ? { selectedShippingProvider: (order as Record<string, unknown>)['selectedShippingProvider'] as string }
+        : {}),
+      // Why the last "Ship order" produced no AWB. Booking is asynchronous, so without
+      // this the merchant has no way to see that the courier rejected the shipment —
+      // the reason otherwise only reaches the worker log and an ops email. Admin-only.
+      ...(exposeInternalReferences
+        ? {
+            shipmentBookingError:
+              ((order as Record<string, unknown>)['shipmentBookingError'] as string | null) ?? null,
+            shipmentBookingFailedAt:
+              ((order as Record<string, unknown>)['shipmentBookingFailedAt'] as Date | null)?.toISOString() ??
+              null
+          }
         : {}),
       discountAmount: order.discountAmount,
       ...(order.couponUsages && order.couponUsages.length > 0 && order.couponUsages[0]?.coupon

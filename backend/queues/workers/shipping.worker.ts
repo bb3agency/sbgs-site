@@ -6,6 +6,7 @@ import {
   createShippingProvider,
   createShippingAdapterForProvider
 } from '@modules/shipping/shipping-provider';
+import { ShipmentBookingIncompleteError } from '@common/interfaces/shipping-provider.interface';
 import { resolveGstInvoicingEnabled } from '@common/invoicing/gst-invoicing-flag';
 import { restoreOrderInventoryOnCancel } from '@common/orders/restore-inventory-on-cancel';
 import { releaseCouponUsageForOrder } from '@common/coupons/coupon-usage';
@@ -448,13 +449,26 @@ export function createShippingWorker(
           return;
         }
 
-        if (order.status === OrderStatus.SHIPPED || order.status === OrderStatus.OUT_FOR_DELIVERY || order.status === OrderStatus.DELIVERED) {
+        // An order can reach SHIPPED without an AWB when an admin advanced the status by
+        // hand instead of using the Ship action. Booking still has to happen for it, so
+        // only treat SHIPPED as "already done" when a real AWB exists. Past SHIPPED
+        // (out for delivery / delivered) there is nothing left to book.
+        const needsAwbRecovery =
+          order.status === OrderStatus.SHIPPED && !order.shipment?.awbNumber;
+        if (order.status === OrderStatus.OUT_FOR_DELIVERY || order.status === OrderStatus.DELIVERED) {
           return;
         }
-        if (order.status !== OrderStatus.PROCESSING && order.status !== OrderStatus.CONFIRMED) {
+        if (order.status === OrderStatus.SHIPPED && !needsAwbRecovery) {
           return;
         }
-        if (!canTransitionOrder(order.status, OrderStatus.SHIPPED)) {
+        if (
+          !needsAwbRecovery &&
+          order.status !== OrderStatus.PROCESSING &&
+          order.status !== OrderStatus.CONFIRMED
+        ) {
+          return;
+        }
+        if (!needsAwbRecovery && !canTransitionOrder(order.status, OrderStatus.SHIPPED)) {
           return;
         }
 
@@ -665,7 +679,45 @@ export function createShippingWorker(
         };
 
         // --- Phase 2: external provider call (no DB connection held) ---
-        const shipment = await effectiveShippingProvider.createShipment(shipmentInput);
+        // Resume an incomplete booking rather than creating a duplicate: if a previous
+        // attempt created the provider-side shipment but failed to get an AWB, we stored
+        // its id and the adapter picks up at AWB assignment.
+        const resumeShipmentId =
+          (order as Record<string, unknown>)['shiprocketShipmentId'] as string | null | undefined;
+        let shipment;
+        try {
+          shipment = await effectiveShippingProvider.createShipment({
+            ...shipmentInput,
+            ...(resumeShipmentId ? { existingProviderShipmentId: resumeShipmentId } : {})
+          });
+        } catch (error) {
+          // Booking failed. Record the reason on the order so the admin UI can show the
+          // merchant why no AWB arrived — otherwise it only reaches the worker log and an
+          // ops email, and the order sits silently without an AWB.
+          const reason = error instanceof Error ? error.message : String(error);
+          const incompleteIds =
+            error instanceof ShipmentBookingIncompleteError ? error.providerIds : null;
+          try {
+            await prisma.order.update({
+              where: { id: order.id },
+              data: {
+                shipmentBookingError: reason.slice(0, 1000),
+                shipmentBookingFailedAt: new Date(),
+                // Persist provider ids from a part-completed booking so the retry resumes
+                // instead of creating (and billing) another shipment.
+                ...(incompleteIds?.shiprocketShipmentId
+                  ? { shiprocketShipmentId: incompleteIds.shiprocketShipmentId }
+                  : {}),
+                ...(incompleteIds?.shiprocketOrderId
+                  ? { shiprocketOrderId: incompleteIds.shiprocketOrderId }
+                  : {})
+              } as Record<string, unknown>
+            });
+          } catch {
+            // Never let failure bookkeeping mask the original provider error.
+          }
+          throw error;
+        }
 
         // Determine which provider handled this shipment.
         // Prefer the order-level selection; fall back to shipment response signature
@@ -702,11 +754,16 @@ export function createShippingWorker(
               }
             }
           });
+          // Recovery case: the order is already SHIPPED but carries no AWB, so this
+          // booking is attaching the missing one rather than performing a transition.
+          const freshNeedsAwbRecovery =
+            freshOrder?.status === OrderStatus.SHIPPED && !freshOrder.shipment?.awbNumber;
           if (
             !freshOrder ||
             freshOrder.status === OrderStatus.CANCELLED ||
-            (freshOrder.status !== OrderStatus.CONFIRMED && freshOrder.status !== OrderStatus.PROCESSING) ||
-            !canTransitionOrder(freshOrder.status, OrderStatus.SHIPPED)
+            (!freshNeedsAwbRecovery &&
+              ((freshOrder.status !== OrderStatus.CONFIRMED && freshOrder.status !== OrderStatus.PROCESSING) ||
+                !canTransitionOrder(freshOrder.status, OrderStatus.SHIPPED)))
           ) {
             awbToCancel = shipment.awbNumber;
             return;
@@ -736,7 +793,11 @@ export function createShippingWorker(
             fromStatus: freshOrder.status,
             toStatus: OrderStatus.SHIPPED,
             extraData: {
-              ...(shipment.shiprocketOrderId != null ? { shiprocketOrderId: shipment.shiprocketOrderId } : {})
+              ...(shipment.shiprocketOrderId != null ? { shiprocketOrderId: shipment.shiprocketOrderId } : {}),
+              // Booking succeeded — clear any failure recorded by an earlier attempt so
+              // the admin UI stops showing a stale error next to a booked shipment.
+              shipmentBookingError: null,
+              shipmentBookingFailedAt: null
             }
           });
 

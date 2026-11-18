@@ -1,3 +1,6 @@
+import { AppError } from '@common/errors/app-error';
+import { ERROR_CODES } from '@common/errors/error-codes';
+
 export type CreateShipmentInput = {
   orderNumber: string;
   amountRupees: number;
@@ -36,7 +39,38 @@ export type CreateShipmentInput = {
     breadthCm: number;
     heightCm: number;
   };
+  /**
+   * Resume token for providers that book in more than one call.
+   *
+   * Shiprocket creates the order/shipment in `/orders/create/adhoc` and only then
+   * assigns an AWB in `/courier/assign/awb`. When the second call fails (empty wallet,
+   * pickup address not activated, route unserviceable) the first has already created a
+   * real, billable shipment. Passing that shipment id back on a retry skips order
+   * creation and resumes at AWB assignment, instead of creating a duplicate order on
+   * every attempt and orphaning the previous one. Ignored by single-call providers.
+   */
+  existingProviderShipmentId?: string;
 };
+
+/**
+ * Thrown when a provider created a shipment but could not complete booking (no AWB).
+ *
+ * It carries the provider-side ids so the caller can persist them and resume the
+ * booking later rather than starting over. Extends AppError so existing
+ * error-code/status handling is unchanged.
+ */
+export class ShipmentBookingIncompleteError extends AppError {
+  constructor(
+    message: string,
+    readonly providerIds: {
+      shiprocketOrderId?: string | undefined;
+      shiprocketShipmentId?: string | undefined;
+    }
+  ) {
+    super(ERROR_CODES.INTERNAL_ERROR, message, 422);
+    this.name = 'ShipmentBookingIncompleteError';
+  }
+}
 
 export type CreateShipmentResult = {
   awbNumber: string;

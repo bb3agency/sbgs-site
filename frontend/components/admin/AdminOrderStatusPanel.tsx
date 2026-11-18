@@ -90,6 +90,18 @@ export function AdminOrderStatusPanel({ orderId, onUpdated }: AdminOrderStatusPa
 
   if (!canWrite) return null;
 
+  // A courier order takes SHIPPED and everything after it from the shipment booking, not
+  // from this dropdown. Setting them by hand produced orders the courier had never heard
+  // of: the shipping worker skips anything already SHIPPED, so no AWB could ever be
+  // booked and "Print label" stayed broken. Local delivery is exempt — manual updates are
+  // its only status driver. The backend enforces this too; this just stops the mistake.
+  const isLocalDelivery = order?.selectedShippingProvider === "LOCAL";
+  const hasAwb = Boolean(order?.shipment?.awb);
+  const blockedStatuses: string[] =
+    order && !isLocalDelivery && !hasAwb
+      ? ["SHIPPED", "OUT_FOR_DELIVERY", "DELIVERED"]
+      : [];
+
   return (
     <AdminSection
       title="Update order status"
@@ -113,12 +125,21 @@ export function AdminOrderStatusPanel({ orderId, onUpdated }: AdminOrderStatusPa
               {ORDER_FILTER_STATUSES.filter(
                 (value) => value !== "REFUNDED" || canRefund,
               ).map((value) => (
-                <option key={value} value={value}>
+                <option key={value} value={value} disabled={blockedStatuses.includes(value)}>
                   {value}
+                  {blockedStatuses.includes(value) ? " — book the courier first" : ""}
                 </option>
               ))}
             </select>
           </label>
+          {blockedStatuses.length > 0 ? (
+            <p className="text-xs text-muted-foreground">
+              Fulfilment statuses are set by booking the courier. Use{" "}
+              <span className="font-medium text-foreground">Ship order</span> in Fulfilment
+              to get an AWB — marking this order shipped by hand would leave it with no AWB
+              and no printable label, and the customer would be notified with no tracking.
+            </p>
+          ) : null}
           <label className="grid min-w-0 grid-cols-1 gap-1 text-sm text-foreground">
             Note (optional)
             <textarea

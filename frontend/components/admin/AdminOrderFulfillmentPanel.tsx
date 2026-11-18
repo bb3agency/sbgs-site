@@ -245,7 +245,22 @@ export function AdminOrderFulfillmentPanel({
           } catch { /* ignore transient */ }
         }
         if (!cancelled) {
-          setSuccess("Shipment queued but AWB not yet assigned. Check worker logs or refresh in a minute.");
+          // This is a failure, not a success. The worker records the courier's reason on
+          // the order, so re-read it and show that rather than a green banner telling a
+          // merchant to go and read worker logs they have no access to.
+          let reason: string | null = null;
+          try {
+            const latest = await api<AdminOrderDetail>(`/admin/orders/${orderId}`);
+            if (!cancelled) setDetail(latest);
+            reason = latest.shipmentBookingError ?? null;
+          } catch { /* fall through to the generic message */ }
+          if (cancelled) return;
+          setSuccess(null);
+          setError(
+            reason
+              ? `Courier did not return an AWB: ${reason}`
+              : "The courier has not returned an AWB yet. Refresh in a minute — if it stays empty, the booking failed and the reason will appear here.",
+          );
         }
       })();
     },
@@ -496,6 +511,14 @@ export function AdminOrderFulfillmentPanel({
     detail?.status !== "DELIVERED";
   const canPrintLabel = fulfilmentActive && hasShipment;
   const canShip = fulfilmentActive && detail?.canShipNow === true;
+  // The courier rejected the last booking. Booking is asynchronous, so this is the only
+  // place the merchant can learn why no AWB arrived.
+  const bookingFailed = Boolean(detail?.shipmentBookingError) && !shipment?.awb;
+  // An order that reached SHIPPED without an AWB was advanced by hand instead of through
+  // the Ship action, so the courier never received it. Booking is still possible (and
+  // necessary) — say so plainly rather than leaving a shipped-looking order with no label.
+  const shippedWithoutAwb =
+    detail?.status === "SHIPPED" && !shipment?.awb && detail?.isLocalDelivery !== true;
   // Sync stays available on a DELIVERED shipment while the ORDER still lags behind —
   // it is the manual repair path that promotes the order to DELIVERED.
   const canSync =
@@ -676,6 +699,45 @@ export function AdminOrderFulfillmentPanel({
           </div>
         ) : null}
 
+        {/* The courier's own reason for refusing the booking. Without this the merchant
+            only sees an order with no AWB and no explanation — the reason lives in the
+            worker log and an ops email, neither of which they can reach. */}
+        {bookingFailed ? (
+          <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-3">
+            <p className="flex items-center gap-1.5 text-sm font-semibold text-destructive">
+              <XCircle className="h-4 w-4 shrink-0" aria-hidden />
+              Courier did not return an AWB
+            </p>
+            <p className="mt-1 break-words text-sm text-foreground">
+              {detail?.shipmentBookingError}
+            </p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Fix the cause with{" "}
+              {shippingProviderLabel(detail?.selectedShippingProvider ?? null)} (wallet
+              balance, pickup address activated, destination serviceable), then press
+              “Ship order” again.
+              {detail?.shipmentBookingFailedAt
+                ? ` Last attempt ${new Date(detail.shipmentBookingFailedAt).toLocaleString()}.`
+                : ""}
+            </p>
+          </div>
+        ) : null}
+
+        {/* An order marked shipped by hand never reached the courier. Say so, because
+            everything else on the page looks like a normally shipped order. */}
+        {shippedWithoutAwb ? (
+          <div className="rounded-lg border border-amber-300 bg-amber-50 p-3 dark:border-amber-900/50 dark:bg-amber-950/20">
+            <p className="text-sm font-semibold text-amber-900 dark:text-amber-200">
+              Marked shipped, but no courier booking exists
+            </p>
+            <p className="mt-1 text-sm text-amber-900/90 dark:text-amber-200/90">
+              This order’s status was advanced manually, so no AWB was ever booked and the
+              label cannot be printed. Press “Ship order” to book the courier now — the
+              status stays SHIPPED and the customer gets the tracking details.
+            </p>
+          </div>
+        ) : null}
+
         {/* Order info grid */}
         {detail && detail.id === selectedOrderId ? (
           <div className="grid min-w-0 grid-cols-1 gap-3 rounded-xl border border-border bg-muted/20 p-4 sm:grid-cols-2">
@@ -754,11 +816,20 @@ export function AdminOrderFulfillmentPanel({
                     valueNode={
                       <span className="flex items-center gap-1.5">
                         <span className="font-medium">{shippingProviderLabel(detail.selectedShippingProvider)}</span>
-                        {!shipment?.awb && (
+                        {/* Only claim a booking is in flight when one was actually attempted.
+                            The badge used to show on any order with a provider locked at
+                            checkout, so an order nobody had tried to ship still read
+                            "Awaiting AWB" — which is what made a failed booking look like a
+                            pending one. */}
+                        {!shipment?.awb && bookingFailed ? (
+                          <span className="rounded-sm bg-destructive/10 px-1.5 py-0.5 text-xs font-medium text-destructive">
+                            Booking failed
+                          </span>
+                        ) : !shipment?.awb && busyAction === "ship" ? (
                           <span className="rounded-sm bg-amber-100 px-1.5 py-0.5 text-xs font-medium text-amber-800">
                             Awaiting AWB
                           </span>
-                        )}
+                        ) : null}
                       </span>
                     }
                   />
